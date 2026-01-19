@@ -1,34 +1,24 @@
-import { Container } from "@/components/ui/container";
-import { personalInfo } from "@/lib/data";
+import Link from "next/link";
+import { Container } from "@/components/ui/Container";
+import { DATA } from "@/lib/data";
 
 export function Footer() {
     return (
-        <footer id="contact" className="py-12 border-t border-border mt-20">
-            <Container>
-                <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6">
-                    <div>
-                        <h3 className="text-xl font-serif font-medium mb-2">Get in touch</h3>
-                        <div className="space-y-1 text-sm text-ink-muted">
-                            <p>
-                                <a href={`mailto:${personalInfo.email}`} className="hover:text-ink transition-colors">
-                                    {personalInfo.email}
-                                </a>
-                            </p>
-                            <p>{personalInfo.phone}</p>
-                        </div>
-                    </div>
-                    <div className="flex gap-6 text-sm">
-                        <a
-                            href={personalInfo.linkedin}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-ink-muted hover:text-ink transition-colors"
-                        >
-                            LinkedIn
-                        </a>
-                        <span className="text-gray-300">|</span>
-                        <span className="text-ink-muted">© {new Date().getFullYear()} Maahir Garg</span>
-                    </div>
+        <footer className="py-8 mt-20 border-t border-border">
+            <Container className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-ink-muted">
+                <div>
+                    &copy; {new Date().getFullYear()} {DATA.name}. All rights reserved.
+                </div>
+                <div className="flex gap-4">
+                    <Link href={DATA.contact.social.GitHub.url} target="_blank" className="hover:text-accent transition-colors">
+                        GitHub
+                    </Link>
+                    <Link href={DATA.contact.social.LinkedIn.url} target="_blank" className="hover:text-accent transition-colors">
+                        LinkedIn
+                    </Link>
+                    <Link href="/contact" className="hover:text-accent transition-colors">
+                        Contact
+                    </Link>
                 </div>
             </Container>
         </footer>

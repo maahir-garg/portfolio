@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import { JsonLd } from "@/components/seo/JsonLd";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -31,9 +34,14 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} antialiased font-sans bg-canvas text-ink`}
+        className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} antialiased font-sans bg-canvas text-ink flex flex-col min-h-screen`}
       >
-        {children}
+        <Header />
+        <main className="flex-1 pt-24">
+          {children}
+        </main>
+        <Footer />
+        <JsonLd />
       </body>
     </html>
   );

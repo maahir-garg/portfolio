@@ -1,20 +1,52 @@
 @import "tailwindcss";
 
 @theme {
-  /* Colors */
-  --color-canvas: #fdfbf9;
-  --color-ink: #1a1a1a;
+  /* Colors - Warm "Calm & Competent" Palette */
+  --color-canvas: #FAFAF8;
+  /* Warm off-white/cream */
+  --color-ink: #333333;
+  /* Soft charcoal */
   --color-ink-muted: #666666;
-  --color-accent: #5a6e4d;
-  /* Deep Moss Green */
-  --color-accent-light: #8fa382;
-  --color-border: #e5e5e5;
-  --color-card: #ffffff;
+  /* Medium gray */
+  --color-accent: #6B8E78;
+  /* Soft Sage Green */
+  --color-accent-light: #9CAF9E;
+  /* Muted Green/Teal Light */
+  --color-border: #E5E5E5;
+  --color-card: #FFFFFF;
+  --color-card-hover: #F2F5F3;
+  /* Very pale green tint on hover */
 
   /* Typography */
   --font-serif: var(--font-newsreader), ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
   --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.5s ease-out forwards;
+  --animate-slide-up: slide-up 0.5s ease-out forwards;
+
+  @keyframes fade-in {
+    from {
+      opacity: 0;
+    }
+
+    to {
+      opacity: 1;
+    }
+  }
+
+  @keyframes slide-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 }
 
 /* Base Styles */
@@ -35,15 +67,16 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: var(--font-serif);
-  font-weight: 500;
+  font-family: var(--font-sans);
+  font-weight: 600;
   letter-spacing: -0.02em;
+  color: var(--color-ink);
 }
 
-/* Utility Utilities */
+/* Utilities */
 @utility container-custom {
-  max-width: 48rem;
-  /* max-w-3xl */
+  max-width: 64rem;
+  /* max-w-4xl */
   margin-left: auto;
   margin-right: auto;
   padding-left: 1.5rem;
