@@ -2,117 +2,80 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { ArrowRight, ChevronRight, MapPin } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { DATA } from "@/lib/data";
-import { ProjectCard } from "@/components/feature/ProjectCard";
+import { Hero } from "@/components/home/Hero";
+import { ExperienceTimeline } from "@/components/home/ExperienceTimeline";
 
 export default function Home() {
   const featuredProjects = DATA.projects.slice(0, 4);
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* HERO SECTION */}
-      <section className="py-20 md:py-32">
+    <div className="flex flex-col min-h-screen bg-background text-primary selection:bg-accent/30">
+      {/* High-End Hero Section */}
+      <Hero />
+
+      {/* EXPERIENCE TIMELINE - The "Goated" Version */}
+      <ExperienceTimeline />
+
+      {/* FEATURED PROJECTS - Large & Scattered */}
+      <section className="py-24 pb-48">
         <Container>
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col gap-6 max-w-2xl"
-          >
-            <div className="flex items-center gap-3">
-              <Badge variant="outline" className="py-1 px-3 text-sm border-accent/30 text-accent bg-accent/5">
-                Available for collaborations
-              </Badge>
-            </div>
-
-            <h1 className="text-4xl md:text-6xl font-bold tracking-tighter text-ink">
-              Building intelligent systems and immersive experiences.
-            </h1>
-
-            <p className="text-lg md:text-xl text-ink-muted leading-relaxed">
-              I'm <span className="text-ink font-medium">{DATA.name}</span>, an AI Engineer and Computer Science Student at NUS.
-              I specialize in <span className="text-ink decoration-accent/30 underline decoration-2 underline-offset-4">Large Language Models</span> and <span className="text-ink decoration-accent/30 underline decoration-2 underline-offset-4">Spatial Computing</span>.
-            </p>
-
-            <div className="flex flex-wrap gap-4 mt-4">
-              <Link href="/projects">
-                <Button size="lg" className="group">
-                  View Projects
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
-                </Button>
-              </Link>
-              <Link href={DATA.contact.social.GitHub.url} target="_blank">
-                <Button variant="outline" size="lg">
-                  GitHub Profile
-                </Button>
-              </Link>
-            </div>
-          </motion.div>
-        </Container>
-      </section>
-
-      {/* RECENT WORK SECTION */}
-      <section className="py-16 bg-card/30 border-y border-border/50">
-        <Container>
-          <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
-            <h2 className="text-2xl font-bold tracking-tight">Recent Experience</h2>
-            <Link href="/experience" className="text-sm font-medium text-accent hover:text-accent-light flex items-center">
-              View Full Timeline <ChevronRight size={16} />
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            {DATA.work.slice(0, 4).map((role, index) => (
-              <div key={index} className="flex gap-4 p-4 border border-border/50 rounded-lg hover:bg-card/50 transition-colors">
-                {/* We could use Next.js Image here if we had logos, using initials for now or skeleton */}
-                <div className="h-12 w-12 rounded-full bg-ink/5 flex items-center justify-center text-xs font-bold shrink-0 border border-border">
-                  {role.company.substring(0, 2).toUpperCase()}
-                </div>
-                <div className="flex flex-col">
-                  <h3 className="font-semibold text-sm">{role.company}</h3>
-                  <p className="text-xs text-ink-muted">{role.title}</p>
-                  <p className="text-xs text-ink-muted mt-1">{role.start} - {role.end}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </Container>
-      </section>
-
-      {/* FEATURED PROJECTS */}
-      <section className="py-24">
-        <Container>
-          <div className="flex flex-col gap-12">
-            <div className="space-y-4 max-w-2xl">
-              <h2 className="text-3xl font-bold tracking-tight">Featured Projects</h2>
-              <p className="text-ink-muted">
-                A selection of my recent work in AI, Swift development, and data engineering.
+          <div className="flex flex-col gap-24">
+            <div className="flex flex-col gap-6 max-w-2xl">
+              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter">Selected Works</h2>
+              <p className="text-xl text-primary/60 font-light leading-relaxed">
+                Highlights from my journey in Spatial Computing and AI.
               </p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {featuredProjects.map((project) => (
-                <ProjectCard
+            <div className="flex flex-col gap-32">
+              {featuredProjects.map((project, index) => (
+                <motion.div
                   key={project.title}
-                  title={project.title}
-                  description={project.description}
-                  tags={project.technologies}
-                  links={project.links}
-                  href={`/projects/${project.slug}`}
-                  dates={project.dates}
-                  active={project.active}
-                />
+                  initial={{ opacity: 0, y: 60 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
+                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+                  className={`flex flex-col md:flex-row gap-12 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
+                >
+                  {/* Image Area (Placeholder for now until photos provided) */}
+                  <div className="w-full md:w-3/5 aspect-video bg-secondary/30 rounded-lg overflow-hidden relative group">
+                    {/* Overlay */}
+                    <Link href={`/projects/${project.slug}`} className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10" data-hover />
+                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 pointer-events-none">
+                      <span className="bg-white/90 text-black px-6 py-3 rounded-full text-sm font-medium tracking-wide">View Project</span>
+                    </div>
+                    {/* Placeholder graphic if no image */}
+                    <div className="w-full h-full bg-gradient-to-br from-secondary/10 to-accent/5" />
+                  </div>
+
+                  {/* Text Area */}
+                  <div className="w-full md:w-2/5 flex flex-col items-start justify-center gap-6">
+                    <span className="font-mono text-accent text-sm tracking-widest uppercase">0{index + 1}</span>
+                    <h3 className="text-4xl font-bold tracking-tighter leading-tight">{project.title}</h3>
+                    <div className="flex flex-wrap gap-2">
+                      {project.technologies.slice(0, 3).map(tech => (
+                        <span key={tech} className="text-sm border border-primary/10 px-3 py-1 rounded-full text-primary/60">{tech}</span>
+                      ))}
+                    </div>
+                    <p className="text-lg text-primary/60 font-light">{project.description}</p>
+                    <Link href={`/projects/${project.slug}`}>
+                      <Button variant="outline" className="rounded-full px-8 mt-4 border-primary/20 hover:bg-primary hover:text-white transition-colors duration-500" data-hover>
+                        Explore Case Study
+                      </Button>
+                    </Link>
+                  </div>
+                </motion.div>
               ))}
             </div>
 
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-24">
               <Link href="/projects">
-                <Button variant="outline" className="w-full md:w-auto">
-                  View All Projects
+                <Button size="lg" className="rounded-full px-12 h-16 text-lg bg-surface text-primary border border-primary/10 hover:bg-primary hover:text-white transition-all duration-500" data-hover>
+                  View Archive
                 </Button>
               </Link>
             </div>

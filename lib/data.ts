@@ -186,7 +186,7 @@ export const DATA = {
   ],
   projects: [
     {
-      title: "3D-iPhone",
+      title: "3D iPhone hand tracking",
       slug: "3d-iphone",
       href: "https://github.com/maahir-garg/3D-iPhone",
       dates: "Dec 2025",
@@ -300,27 +300,6 @@ export const DATA = {
       image: "",
       video: "",
     },
-    {
-      title: "Stroke",
-      slug: "stroke",
-      href: "https://github.com/maahir-garg/Stroke",
-      dates: "Oct 2025",
-      active: true,
-      description:
-        "Swift application related to stroke rehabilitation/analysis.",
-      technologies: [
-        "Swift",
-        "iOS"
-      ],
-      links: [
-        {
-          type: "Source",
-          href: "https://github.com/maahir-garg/Stroke",
-          icon: "github",
-        },
-      ],
-      image: "",
-      video: "",
-    },
+
   ],
 } as const;
