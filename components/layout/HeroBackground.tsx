@@ -1,32 +1,28 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
 import { Text } from "@react-three/drei";
 import * as THREE from "three";
 
+// Generate particles at module scope (runs once on import, not during render)
+const count = 80;
+const PARTICLES = Array.from({ length: count }).map((_, i) => ({
+    id: i,
+    char: i % 2 === 0 ? "1" : "0", // Deterministic instead of random
+    position: [
+        ((i * 7) % 25) - 12.5,          // Pseudo-random spread
+        ((i * 13) % 20) - 10,
+        ((i * 3) % 10) - 5
+    ] as [number, number, number],
+    opacity: 0.1 + (i % 4) * 0.1,
+}));
+
 function BinaryParticles() {
     const groupRef = useRef<THREE.Group>(null!);
-    const particlesRef = useRef<{ mesh: THREE.Mesh; velocity: THREE.Vector3; char: string }[]>([]);
-    const count = 80;
-
-    useEffect(() => {
-        if (!groupRef.current) return;
-
-        // Clear existing particles
-        while (groupRef.current.children.length > 0) {
-            groupRef.current.remove(groupRef.current.children[0]);
-        }
-        particlesRef.current = [];
-    }, []);
 
     useFrame((state) => {
         if (!groupRef.current) return;
-
-        // Initialize particles if needed
-        if (particlesRef.current.length === 0 && groupRef.current.children.length === 0) {
-            // We'll handle this through the JSX instead
-        }
 
         // Animate existing text meshes
         groupRef.current.children.forEach((child, i) => {
@@ -37,7 +33,7 @@ function BinaryParticles() {
                 // Reset position when out of view
                 if (child.position.y > 10) {
                     child.position.y = -10;
-                    child.position.x = (Math.random() - 0.5) * 20;
+                    child.position.x = ((i * 7) % 25) - 12.5;
                 }
             }
         });
@@ -46,21 +42,9 @@ function BinaryParticles() {
         groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
     });
 
-    // Generate static binary characters
-    const particles = Array.from({ length: count }).map((_, i) => ({
-        id: i,
-        char: Math.random() > 0.5 ? "1" : "0",
-        position: [
-            (Math.random() - 0.5) * 25,
-            (Math.random() - 0.5) * 20,
-            (Math.random() - 0.5) * 10
-        ] as [number, number, number],
-        opacity: Math.random() * 0.3 + 0.1,
-    }));
-
     return (
         <group ref={groupRef}>
-            {particles.map((p) => (
+            {PARTICLES.map((p) => (
                 <Text
                     key={p.id}
                     position={p.position}
