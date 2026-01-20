@@ -1,148 +1,93 @@
 "use client";
 
-import { useRef, useMemo } from "react";
+import { useRef, useEffect } from "react";
 import { Canvas, useFrame } from "@react-three/fiber";
+import { Text } from "@react-three/drei";
 import * as THREE from "three";
 
-// Custom Shader Material for Organic Movement
-const ParticleShaderMaterial = {
-    uniforms: {
-        uTime: { value: 0 },
-        uColor: { value: new THREE.Color("#6B8E78") },
-        uMouse: { value: new THREE.Vector2(0, 0) },
-        uPixelRatio: { value: 1 },
-    },
-    vertexShader: `
-    uniform float uTime;
-    uniform float uPixelRatio;
-    uniform vec2 uMouse;
-    attribute float aScale;
-    
-    varying float vAlpha;
+function BinaryParticles() {
+    const groupRef = useRef<THREE.Group>(null!);
+    const particlesRef = useRef<{ mesh: THREE.Mesh; velocity: THREE.Vector3; char: string }[]>([]);
+    const count = 80;
 
-    void main() {
-      vec4 modelPosition = modelMatrix * vec4(position, 1.0);
-      
-      // Organic "Floating" Movement (Sine waves based on position + time)
-      modelPosition.x += sin(modelPosition.y * 0.5 + uTime * 0.3) * 0.2;
-      modelPosition.y += cos(modelPosition.x * 0.3 + uTime * 0.2) * 0.2;
-      modelPosition.z += sin(modelPosition.x * 0.5 + uTime * 0.4) * 0.2;
+    useEffect(() => {
+        if (!groupRef.current) return;
 
-      // Mouse Interaction (Push effect)
-      float dist = distance(modelPosition.xy, uMouse * 10.0); // Simple mapping
-      float influence = 1.0 - smoothstep(0.0, 3.0, dist);
-      vec2 direction = normalize(modelPosition.xy - uMouse * 10.0);
-      modelPosition.xy += direction * influence * 1.5;
-
-      vec4 viewPosition = viewMatrix * modelPosition;
-      vec4 projectedPosition = projectionMatrix * viewPosition;
-
-      gl_Position = projectedPosition;
-      
-      // Size attenuation
-      gl_PointSize = aScale * uPixelRatio * 30.0;
-      gl_PointSize *= (1.0 / -viewPosition.z);
-
-      // Fade out based on depth/influence
-      vAlpha = 0.6 + influence * 0.4; 
-    }
-  `,
-    fragmentShader: `
-    uniform vec3 uColor;
-    varying float vAlpha;
-
-    void main() {
-      // Circular particle
-      vec2 uv = gl_PointCoord - 0.5;
-      float d = length(uv);
-      if(d > 0.5) discard;
-
-      // Soft edge
-      float alpha = (0.5 - d) * 2.0 * vAlpha;
-      
-      gl_FragColor = vec4(uColor, alpha);
-    }
-  `
-};
-
-function OrganicParticles() {
-    const shaderRef = useRef<THREE.ShaderMaterial>(null!);
-    const count = 4000;
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const [positions, scales] = useMemo(() => {
-        const positions = new Float32Array(count * 3);
-        const scales = new Float32Array(count);
-
-        for (let i = 0; i < count; i++) {
-            // Spread particles in a wide volume
-            // eslint-disable-next-line react-hooks/purity
-            positions[i * 3] = (Math.random() - 0.5) * 25;
-            // eslint-disable-next-line react-hooks/purity
-            positions[i * 3 + 1] = (Math.random() - 0.5) * 15;
-            // eslint-disable-next-line react-hooks/purity
-            positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
-
-            // eslint-disable-next-line react-hooks/purity
-            scales[i] = Math.random();
+        // Clear existing particles
+        while (groupRef.current.children.length > 0) {
+            groupRef.current.remove(groupRef.current.children[0]);
         }
-        return [positions, scales];
+        particlesRef.current = [];
     }, []);
 
     useFrame((state) => {
-        if (shaderRef.current) {
-            shaderRef.current.uniforms.uTime.value = state.clock.getElapsedTime();
-            shaderRef.current.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 2);
+        if (!groupRef.current) return;
 
-            // Map mouse -1 to 1 to world space approx
-            const x = state.mouse.x * 12; // Aspect ratio compensation rough
-            const y = state.mouse.y * 7;
-
-            // Smooth lerp for mouse uniform
-            shaderRef.current.uniforms.uMouse.value.lerp(new THREE.Vector2(x, y), 0.1);
+        // Initialize particles if needed
+        if (particlesRef.current.length === 0 && groupRef.current.children.length === 0) {
+            // We'll handle this through the JSX instead
         }
+
+        // Animate existing text meshes
+        groupRef.current.children.forEach((child, i) => {
+            if (child instanceof THREE.Mesh) {
+                child.position.y += 0.003;
+                child.position.x += Math.sin(state.clock.elapsedTime * 0.5 + i) * 0.001;
+
+                // Reset position when out of view
+                if (child.position.y > 10) {
+                    child.position.y = -10;
+                    child.position.x = (Math.random() - 0.5) * 20;
+                }
+            }
+        });
+
+        // Gentle rotation
+        groupRef.current.rotation.y = Math.sin(state.clock.elapsedTime * 0.1) * 0.1;
     });
 
+    // Generate static binary characters
+    const particles = Array.from({ length: count }).map((_, i) => ({
+        id: i,
+        char: Math.random() > 0.5 ? "1" : "0",
+        position: [
+            (Math.random() - 0.5) * 25,
+            (Math.random() - 0.5) * 20,
+            (Math.random() - 0.5) * 10
+        ] as [number, number, number],
+        opacity: Math.random() * 0.3 + 0.1,
+    }));
+
     return (
-        <points>
-            <bufferGeometry>
-                <bufferAttribute
-                    attach="attributes-position"
-                    count={positions.length / 3}
-                    array={positions}
-                    itemSize={3}
-                    args={[positions, 3]}
-                />
-                <bufferAttribute
-                    attach="attributes-aScale"
-                    count={scales.length}
-                    array={scales}
-                    itemSize={1}
-                    args={[scales, 1]}
-                />
-            </bufferGeometry>
-            <shaderMaterial
-                ref={shaderRef}
-                args={[ParticleShaderMaterial]}
-                transparent={true}
-                depthWrite={false}
-                blending={THREE.AdditiveBlending}
-            />
-        </points>
+        <group ref={groupRef}>
+            {particles.map((p) => (
+                <Text
+                    key={p.id}
+                    position={p.position}
+                    fontSize={0.5}
+                    color="#6B8E78"
+                    anchorX="center"
+                    anchorY="middle"
+                    fillOpacity={p.opacity}
+                >
+                    {p.char}
+                </Text>
+            ))}
+        </group>
     );
 }
 
 export function HeroBackground() {
     return (
-        <div className="absolute inset-0 -z-10 opacity-70">
+        <div className="absolute inset-0 -z-10 opacity-60">
             <Canvas
-                camera={{ position: [0, 0, 8], fov: 45 }}
+                camera={{ position: [0, 0, 12], fov: 45 }}
                 gl={{ antialias: true, alpha: true }}
-                dpr={[1, 2]} // Handle high DPI screens
+                dpr={[1, 2]}
             >
-                <OrganicParticles />
+                <BinaryParticles />
             </Canvas>
-            {/* Vignette/Gradient overlay for depth */}
+            {/* Vignette overlay */}
             <div className="absolute inset-0 bg-gradient-radial from-transparent via-transparent to-background/80 pointer-events-none" />
         </div>
     );

@@ -6,20 +6,16 @@ import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
 import { DATA } from "@/lib/data";
 import { Hero } from "@/components/home/Hero";
-import { ExperienceTimeline } from "@/components/home/ExperienceTimeline";
 
 export default function Home() {
   const featuredProjects = DATA.projects.slice(0, 4);
 
   return (
     <div className="flex flex-col min-h-screen bg-background text-primary selection:bg-accent/30">
-      {/* High-End Hero Section */}
+      {/* Hero Section */}
       <Hero />
 
-      {/* EXPERIENCE TIMELINE - The "Goated" Version */}
-      <ExperienceTimeline />
-
-      {/* FEATURED PROJECTS - Large & Scattered */}
+      {/* FEATURED PROJECTS */}
       <section className="py-24 pb-48">
         <Container>
           <div className="flex flex-col gap-24">
@@ -40,14 +36,12 @@ export default function Home() {
                   transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
                   className={`flex flex-col md:flex-row gap-12 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
                 >
-                  {/* Image Area (Placeholder for now until photos provided) */}
+                  {/* Image Area */}
                   <div className="w-full md:w-3/5 aspect-video bg-secondary/30 rounded-lg overflow-hidden relative group">
-                    {/* Overlay */}
                     <Link href={`/projects/${project.slug}`} className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10" data-hover />
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 pointer-events-none">
                       <span className="bg-white/90 text-black px-6 py-3 rounded-full text-sm font-medium tracking-wide">View Project</span>
                     </div>
-                    {/* Placeholder graphic if no image */}
                     <div className="w-full h-full bg-gradient-to-br from-secondary/10 to-accent/5" />
                   </div>
 

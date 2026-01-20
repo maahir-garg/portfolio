@@ -11,6 +11,7 @@ import { DATA } from "@/lib/data";
 
 const navItems = [
     { name: "Projects", href: "/projects" },
+    { name: "Photography", href: "/photography" },
     { name: "Experience", href: "/experience" },
     { name: "About", href: "/about" },
     { name: "Contact", href: "/contact" },

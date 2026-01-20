@@ -1,4 +1,5 @@
-import { PhotoScatteredView } from "@/components/photography/PhotoScatteredView";
+import { PhotoGallery } from "@/components/photography/PhotoGallery";
+import { Container } from "@/components/ui/Container";
 
 export const metadata = {
     title: "Photography | Maahir Garg",
@@ -7,16 +8,19 @@ export const metadata = {
 
 export default function PhotographyPage() {
     return (
-        <div className="bg-[#1a1a1a] min-h-screen text-white">
-            <div className="pt-24 pb-8 px-6 md:px-12">
-                <h1 className="text-4xl md:text-5xl font-bold tracking-tighter mb-4">Photography</h1>
-                <p className="text-white/60 max-w-xl text-lg font-light leading-relaxed">
-                    A visual diary of landscapes, streets, and people. <br />
-                    Scatter the memories to explore.
-                </p>
-            </div>
+        <div className="min-h-screen py-20 md:py-32">
+            <Container>
+                <div className="flex flex-col gap-12">
+                    <div className="space-y-4 max-w-2xl">
+                        <h1 className="text-4xl md:text-5xl font-bold tracking-tighter">Photography</h1>
+                        <p className="text-primary/60 text-lg font-light leading-relaxed">
+                            A visual diary of landscapes, streets, and people.
+                        </p>
+                    </div>
 
-            <PhotoScatteredView />
+                    <PhotoGallery />
+                </div>
+            </Container>
         </div>
     );
 }
