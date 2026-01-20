@@ -19,7 +19,6 @@ export function ExperienceTimeline() {
         if (!container || !progressBar) return;
 
         const ctx = gsap.context(() => {
-            // Animate progress bar fill
             gsap.fromTo(
                 progressBar,
                 { scaleY: 0, transformOrigin: "top" },
@@ -34,14 +33,13 @@ export function ExperienceTimeline() {
                     },
                 }
             );
-            // Pulse nodes when they hit center
             const cards = gsap.utils.toArray(".timeline-card");
             cards.forEach((card) => {
                 const cardEl = card as HTMLElement;
                 const dot = cardEl.querySelector(".timeline-dot");
 
                 gsap.to(dot, {
-                    backgroundColor: "#6B8E78", // Active color
+                    backgroundColor: "#6B8E78",
                     scale: 1.5,
                     boxShadow: "0 0 20px rgba(107, 142, 120, 0.6)",
                     duration: 0.3,
@@ -53,7 +51,6 @@ export function ExperienceTimeline() {
                     },
                 });
 
-                // Fade in card content
                 gsap.from(cardEl.querySelector(".timeline-content"), {
                     y: 50,
                     opacity: 0,
@@ -80,19 +77,15 @@ export function ExperienceTimeline() {
                                 key={index}
                                 className="timeline-card group grid grid-cols-1 md:grid-cols-[12rem_2.5rem_1fr] gap-6 md:gap-10"
                             >
-                                {/* 1. Date (Left Side) */}
                                 <div className="hidden md:flex justify-end items-start pt-2 text-right">
                                     <span className="text-lg text-primary/40 font-mono tracking-tight group-hover:text-accent transition-colors whitespace-nowrap">
                                         {role.start} — {role.end}
                                     </span>
                                 </div>
 
-                                {/* 2. Rail + Dot (Center Column) */}
                                 <div className="hidden md:flex relative justify-center">
-                                    {/* Background rail */}
                                     <div className="absolute inset-y-0 w-px bg-gradient-to-b from-primary/10 via-primary/20 to-primary/5" />
                                     
-                                    {/* Animated progress bar */}
                                     {index === 0 && (
                                         <div
                                             ref={progressBarRef}
@@ -104,9 +97,7 @@ export function ExperienceTimeline() {
                                     <div className="timeline-dot mt-[14px] w-3 h-3 rounded-full bg-primary/20 border border-background z-10 transition-colors" />
                                 </div>
 
-                                {/* 3. Content (Right Side) */}
                                 <div className="timeline-content px-4 md:px-0">
-                                    {/* Mobile Date */}
                                     <span className="md:hidden block mb-2 text-sm text-primary/40 font-mono">
                                         {role.start} — {role.end}
                                     </span>

@@ -16,10 +16,8 @@ export function Hero() {
         const ctx = gsap.context(() => {
             const tl = gsap.timeline({ defaults: { ease: "power3.out" } });
 
-            // Initial delay for loading feel
             tl.delay(0.2);
 
-            // Masked reveal for Title Line 1
             tl.from(".title-line-1 .char", {
                 y: 100,
                 opacity: 0,
@@ -28,7 +26,6 @@ export function Hero() {
                 ease: "power4.out",
             });
 
-            // Masked reveal for Title Line 2
             tl.from(
                 ".title-line-2 .char",
                 {
@@ -41,7 +38,6 @@ export function Hero() {
                 "-=0.8"
             );
 
-            // Subtext reveal
             tl.from(
                 subRef.current,
                 {
@@ -52,7 +48,6 @@ export function Hero() {
                 "-=0.5"
             );
 
-            // Buttons reveal
             tl.from(
                 btnRef.current,
                 {
@@ -63,7 +58,6 @@ export function Hero() {
                 "-=0.8"
             );
 
-            // Animate status dot
             tl.from(
                 ".status-dot",
                 {
@@ -78,8 +72,6 @@ export function Hero() {
         return () => ctx.revert();
     }, []);
 
-    // Helper to split text for animation (simple version, or use SplitText component if robust)
-    // For "wodniack" feel, manual character wrapping in spans gives best control without library bloat if text is static.
     const splitText = (text: string, className: string) => (
         <span className={`inline-block overflow-hidden ${className}`}>
             {text.split("").map((char, i) => (

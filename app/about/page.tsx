@@ -35,7 +35,7 @@ export default function AboutPage() {
                             {DATA.education.map((edu, index) => (
                                 <div key={index} className="flex flex-col sm:flex-row gap-4 p-6 bg-card rounded-xl border border-border">
                                     <div className="h-12 w-12 rounded bg-ink/5 flex items-center justify-center text-xs font-bold shrink-0 border border-border">
-                                        MUS
+                                        NUS
                                     </div>
                                     <div className="flex-1">
                                         <div className="flex justify-between items-start">

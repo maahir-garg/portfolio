@@ -5,7 +5,7 @@ export function JsonLd() {
         "@context": "https://schema.org",
         "@type": "Person",
         name: DATA.name,
-        url: "https://maahir-garg.vercel.app", // Assuming Vercel deployment URL or similar
+        url: "https://maahir-garg.vercel.app",
         sameAs: [
             DATA.contact.social.GitHub.url,
             DATA.contact.social.LinkedIn.url,
