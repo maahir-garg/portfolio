@@ -1,5 +1,4 @@
 import { PhotoScatteredView } from "@/components/photography/PhotoScatteredView";
-import { Container } from "@/components/ui/Container";
 
 export const metadata = {
     title: "Photography | Maahir Garg",

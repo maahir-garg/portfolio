@@ -19,9 +19,9 @@ export default function AboutPage() {
                                 {DATA.summary}
                             </p>
                             <p>
-                                I am driven by a curiosity for solving complex problems and a passion for technological innovation.
-                                Whether it is fine-tuning LLMs, building immersive AR/VR experiences, or optimizing data pipelines,
-                                I strive for excellence in every project I undertake.
+                                Looking ahead, I&apos;m excited to apply my skills to solve real-world problems
+                                and contribute to the future of technology. I&apos;m always open to connecting
+                                and collaborating on new projects!
                             </p>
                         </div>
 
@@ -57,9 +57,9 @@ export default function AboutPage() {
 
                     {/* Connect CTA */}
                     <div className="p-8 bg-accent/5 rounded-2xl border border-accent/10 text-center space-y-4">
-                        <h2 className="text-2xl font-bold text-ink">Let's Connect</h2>
+                        <h2 className="text-2xl font-bold text-ink">Let&apos;s Connect</h2>
                         <p className="text-ink-muted">
-                            I'm always open to discussing new projects, creative ideas or opportunities to be part of your visions.
+                            I&apos;m always open to discussing new projects, creative ideas or opportunities to be part of your visions.
                         </p>
                         <Link href="/contact">
                             <Button size="lg">Get in Touch</Button>

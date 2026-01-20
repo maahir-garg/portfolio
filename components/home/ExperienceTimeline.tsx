@@ -24,7 +24,7 @@ export function ExperienceTimeline() {
 
         const ctx = gsap.context(() => {
             // 1. Draw the line as we scroll
-            const totalHeight = container.scrollHeight;
+            // const totalHeight = container.scrollHeight;
 
             // Set initial path length
             const length = line.getTotalLength();
@@ -44,8 +44,9 @@ export function ExperienceTimeline() {
 
             // 2. Pulse nodes when they hit center
             const cards = gsap.utils.toArray(".timeline-card");
-            cards.forEach((card: any) => {
-                const dot = card.querySelector(".timeline-dot");
+            cards.forEach((card) => {
+                const cardEl = card as HTMLElement;
+                const dot = cardEl.querySelector(".timeline-dot");
 
                 gsap.to(dot, {
                     backgroundColor: "#6B8E78", // Active color
@@ -53,7 +54,7 @@ export function ExperienceTimeline() {
                     boxShadow: "0 0 20px rgba(107, 142, 120, 0.6)",
                     duration: 0.3,
                     scrollTrigger: {
-                        trigger: card,
+                        trigger: cardEl,
                         start: "top center",
                         end: "bottom center",
                         toggleActions: "play reverse play reverse",
@@ -61,13 +62,13 @@ export function ExperienceTimeline() {
                 });
 
                 // Fade in card content
-                gsap.from(card.querySelector(".timeline-content"), {
+                gsap.from(cardEl.querySelector(".timeline-content"), {
                     y: 50,
                     opacity: 0,
                     duration: 0.8,
                     ease: "power3.out",
                     scrollTrigger: {
-                        trigger: card,
+                        trigger: cardEl,
                         start: "top 80%",
                     },
                 });

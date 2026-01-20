@@ -17,7 +17,6 @@ interface ProjectCardProps {
     tags: readonly string[];
     links: readonly ProjectLink[];
     href: string;
-    dates?: string;
     active?: boolean;
 }
 
@@ -27,7 +26,6 @@ export function ProjectCard({
     tags,
     links,
     href,
-    dates,
     active,
 }: ProjectCardProps) {
     return (

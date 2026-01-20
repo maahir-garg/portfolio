@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import Image from "next/image";
 
@@ -9,6 +9,9 @@ type Photo = {
     src: string;
     category: string;
     id: string;
+    x?: number; // Added for positioned photos
+    y?: number; // Added for positioned photos
+    rotate?: number; // Added for positioned photos
 };
 
 // Placeholder data since we might not have the manifest populated yet
@@ -20,22 +23,32 @@ const PLACEHOLDER_PHOTOS: Photo[] = Array.from({ length: 12 }).map((_, i) => ({
 
 export function PhotoScatteredView() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [photos, setPhotos] = useState<Photo[]>(PLACEHOLDER_PHOTOS);
+    const [photos, setPhotos] = useState<Photo[]>([]); // Initialize empty for hydration stability
     const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
-    const [constraints, setConstraints] = useState({ width: 0, height: 0 });
 
     useEffect(() => {
-        // In a real implementation, fetch from /api/photos or import JSON
-        // For now using placeholders as requested
-    }, []);
+        // In a real implementation, you would fetch from API here.
+        // We calculate random positions on client-side only to avoid hydration mismatch.
+        const container = containerRef.current;
+        if (!container) return; // Should verify if we need to wait for layout
 
-    useEffect(() => {
-        if (containerRef.current) {
-            setConstraints({
-                width: containerRef.current.offsetWidth,
-                height: containerRef.current.offsetHeight
-            });
-        }
+        const width = container.offsetWidth;
+        const height = container.offsetHeight;
+
+        const positionedPhotos = PLACEHOLDER_PHOTOS.map((photo) => {
+            const randomX = Math.random() * (width || 1000) * 0.6 + (width * 0.1);
+            const randomY = Math.random() * (height || 800) * 0.6 + (height * 0.1);
+            const randomRotate = (Math.random() - 0.5) * 30;
+
+            return {
+                ...photo,
+                x: randomX,
+                y: randomY,
+                rotate: randomRotate
+            };
+        });
+
+        setPhotos(positionedPhotos);
     }, []);
 
     return (
@@ -50,51 +63,44 @@ export function PhotoScatteredView() {
                 DRAG TO EXPLORE • CLICK TO EXPAND
             </div>
 
-            {photos.map((photo, index) => {
-                // Random scattering positions
-                const randomX = Math.random() * (constraints.width || 1000) * 0.6 + (constraints.width * 0.1);
-                const randomY = Math.random() * (constraints.height || 800) * 0.6 + (constraints.height * 0.1);
-                const randomRotate = (Math.random() - 0.5) * 30;
-
-                return (
-                    <motion.div
-                        key={photo.id}
-                        drag
-                        dragConstraints={containerRef}
-                        dragElastic={0.1}
-                        whileHover={{ scale: 1.1, zIndex: 50, rotate: 0, cursor: "pointer" }}
-                        whileTap={{ scale: 0.95 }}
-                        initial={{
-                            x: randomX,
-                            y: randomY,
-                            rotate: randomRotate,
-                            opacity: 0,
-                            scale: 0.5
-                        }}
-                        animate={{
-                            opacity: 1,
-                            scale: 1,
-                            transition: { delay: index * 0.05, duration: 0.5 }
-                        }}
-                        onClick={() => setSelectedPhoto(photo)}
-                        className="absolute shadow-2xl origin-center"
-                        style={{
-                            width: '240px',
-                            aspectRatio: '4/3',
-                            zIndex: index
-                        }}
-                    >
-                        <div className="w-full h-full bg-white p-2 pb-8 shadow-sm rotate-1">
-                            <div className="w-full h-full relative overflow-hidden bg-gray-200">
-                                <Image src={photo.src} alt={photo.category} fill className="object-cover" />
-                            </div>
-                            <div className="absolute bottom-2 left-3 text-black font-handwriting opacity-60 text-xs">
-                                {photo.category} • {index + 1}
-                            </div>
+            {photos.map((photo, index) => (
+                <motion.div
+                    key={photo.id}
+                    drag
+                    dragConstraints={containerRef}
+                    dragElastic={0.1}
+                    whileHover={{ scale: 1.1, zIndex: 50, rotate: 0, cursor: "pointer" }}
+                    whileTap={{ scale: 0.95 }}
+                    initial={{
+                        x: photo.x,
+                        y: photo.y,
+                        rotate: photo.rotate,
+                        opacity: 0,
+                        scale: 0.5
+                    }}
+                    animate={{
+                        opacity: 1,
+                        scale: 1,
+                        transition: { delay: index * 0.05, duration: 0.5 }
+                    }}
+                    onClick={() => setSelectedPhoto(photo)}
+                    className="absolute shadow-2xl origin-center"
+                    style={{
+                        width: '240px',
+                        aspectRatio: '4/3',
+                        zIndex: index
+                    }}
+                >
+                    <div className="w-full h-full bg-white p-2 pb-8 shadow-sm rotate-1">
+                        <div className="w-full h-full relative overflow-hidden bg-gray-200">
+                            <Image src={photo.src} alt={photo.category} fill className="object-cover" />
                         </div>
-                    </motion.div>
-                );
-            })}
+                        <div className="absolute bottom-2 left-3 text-black font-handwriting opacity-60 text-xs">
+                            {photo.category} • {index + 1}
+                        </div>
+                    </div>
+                </motion.div>
+            ))}
 
             {/* Lightbox / Fullscreen View */}
             {selectedPhoto && (

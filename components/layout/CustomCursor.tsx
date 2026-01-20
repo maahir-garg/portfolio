@@ -20,9 +20,6 @@ export function CustomCursor() {
         const followerXTo = gsap.quickTo(follower, "x", { duration: 0.6, ease: "power3" });
         const followerYTo = gsap.quickTo(follower, "y", { duration: 0.6, ease: "power3" });
 
-        // Store current scale for returning to normal
-        let isHovering = false;
-
         const onMouseMove = (e: MouseEvent) => {
             xTo(e.clientX);
             yTo(e.clientY);
@@ -30,10 +27,7 @@ export function CustomCursor() {
             followerYTo(e.clientY);
         };
 
-        const onMouseEnterLink = (e: MouseEvent) => {
-            isHovering = true;
-            const target = e.target as HTMLElement;
-
+        const onMouseEnterLink = () => {
             // Scale up cursor
             gsap.to(cursor, { scale: 0, duration: 0.2 });
 
@@ -47,7 +41,7 @@ export function CustomCursor() {
         };
 
         const onMouseLeaveLink = () => {
-            isHovering = false;
+            // isHovering = false;
             gsap.to(cursor, { scale: 1, duration: 0.2 });
             gsap.to(follower, {
                 scale: 1,

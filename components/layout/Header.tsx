@@ -29,8 +29,10 @@ export function Header() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
+    // Close menu on route change
     useEffect(() => {
-        setIsOpen(false);
+        if (isOpen) setIsOpen(false);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pathname]);
 
     return (

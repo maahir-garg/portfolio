@@ -2,7 +2,6 @@
 
 import { Container } from "@/components/ui/Container";
 import { DATA } from "@/lib/data";
-import { Badge } from "@/components/ui/Badge";
 
 export default function ExperiencePage() {
     return (

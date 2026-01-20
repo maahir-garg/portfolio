@@ -8,8 +8,6 @@ import { ArrowDownRight } from "lucide-react";
 
 export function Hero() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const title1Ref = useRef<HTMLHeadingElement>(null);
-    const title2Ref = useRef<HTMLHeadingElement>(null);
     const subRef = useRef<HTMLDivElement>(null);
     const btnRef = useRef<HTMLDivElement>(null);
 

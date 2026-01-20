@@ -69,16 +69,21 @@ function OrganicParticles() {
     const shaderRef = useRef<THREE.ShaderMaterial>(null!);
     const count = 4000;
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const [positions, scales] = useMemo(() => {
         const positions = new Float32Array(count * 3);
         const scales = new Float32Array(count);
 
         for (let i = 0; i < count; i++) {
             // Spread particles in a wide volume
+            // eslint-disable-next-line react-hooks/purity
             positions[i * 3] = (Math.random() - 0.5) * 25;
+            // eslint-disable-next-line react-hooks/purity
             positions[i * 3 + 1] = (Math.random() - 0.5) * 15;
+            // eslint-disable-next-line react-hooks/purity
             positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
 
+            // eslint-disable-next-line react-hooks/purity
             scales[i] = Math.random();
         }
         return [positions, scales];

@@ -13,8 +13,8 @@ export default function ContactPage() {
                     <div className="space-y-8">
                         <div className="space-y-4">
                             <h1 className="text-4xl font-bold tracking-tight text-ink">Get in Touch</h1>
-                            <p className="text-ink-muted text-lg">
-                                I'm currently looking for new opportunities. Whether you have a question or just want to say hi, I'll try my best to get back to you!
+                            <p className="mx-auto mt-4 max-w-[600px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                                I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of your visions.
                             </p>
                         </div>
 
