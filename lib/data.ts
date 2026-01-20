@@ -4,25 +4,19 @@ export const DATA = {
   location: "Singapore",
   locationLink: "https://www.google.com/maps/place/singapore",
   description:
-    "AI Engineer and Computer Science Student at NUS. Building intelligent systems and solving complex problems.",
+    "AI engineer and Computer Science student at NUS. I like working on systems that have real users and real constraints.",
   summary:
-    "I am a Computer Science and Quantitative Finance student at the National University of Singapore (NUS), currently working as an AI Engineer at GIC. My work spans from fine-tuning Large Language Models (LLMs) to building immersive spatial computing applications for Apple Vision Pro. I have a strong foundation in data engineering, algorithmic problem solving, and teaching.",
+    "I study Computer Science and Quantitative Finance at NUS and work as an AI Engineer at GIC. Most of my time goes into fine‑tuning language models, building data pipelines, and prototyping spatial computing experiences for Apple Vision Pro. Before that I did a mix of research, teaching, and hands‑on engineering work.",
   avatarUrl: "/me.png",
-  skills: [
-    "Artificial Intelligence",
-    "Large Language Models (LLM)",
-    "Python",
-    "Swift",
-    "Next.js",
-    "TypeScript",
-    "Unity",
-    "RealityKit",
-    "Data Engineering",
-    "Postman",
-    "SQLite",
-    "JWT",
-    "Cybersecurity",
-  ],
+  skills: {
+    Programming: ["Python", "Java", "JavaScript", "C/C++", "Swift", "R", "LaTeX"],
+    "ML & AI": ["PyTorch", "TensorFlow", "Hugging Face", "LLM Fine-tuning", "RAG Pipelines", "Agentic Workflows"],
+    "Data & Distributed": ["Kafka", "Spark", "Airflow", "ETL Pipelines"],
+    "Cloud & DevOps": ["AWS (EC2, S3, Lambda)", "Docker", "Git", "Bash"],
+    "Web & DB": ["React", "HTML/CSS", "PHP", "SQL (MySQL, PostgreSQL, Snowflake)"],
+    Analysis: ["Pandas", "NumPy", "Matplotlib", "MATLAB", "Looker Studio"],
+    Tools: ["RealityKit", "Figma", "Adobe Suite"],
+  },
   contact: {
     email: "maahirrgarg@gmail.com",
     tel: "+65 86219217",
@@ -175,16 +169,46 @@ export const DATA = {
       start: "2023",
       end: "2027",
     },
-    {
-      school: "NUS Overseas Colleges",
-      href: "https://noc.nus.edu.sg",
-      degree: "Entrepreneurship (NOC Indonesia)",
-      logoUrl: "/noc.png",
-      start: "2024",
-      end: "2024",
-    },
   ],
   projects: [
+    {
+      title: "Optimizing BERT for Question Answering",
+      slug: "bert-qa-quant-prune",
+      href: "",
+      dates: "Nov 2025",
+      active: true,
+      description:
+        "Achieved a 69% reduction in model size (440MB to 128MB) with <0.5% F1 loss via post-training quantization. Implemented custom mask-enforced pruning to reach 54.7% sparsity and analyzed efficiency vs generalization trade-offs.",
+      technologies: ["BERT", "Quantization", "Pruning", "NLP", "Python"],
+      links: [
+        {
+          type: "Private Repo",
+          href: "",
+          icon: "lock",
+        },
+      ],
+      image: "",
+      video: "",
+    },
+    {
+      title: "Domain-Specific LLM Reasoning with PEFT",
+      slug: "llm-reasoning-peft-bitfit",
+      href: "",
+      dates: "Oct 2025",
+      active: true,
+      description:
+        "Built a PEFT pipeline (BitFit + few-shot) for health insurance claim reasoning, fine-tuning <0.1% of parameters (bias terms only). Improved reasoning accuracy from 47% to 73% on clause-extracted scenarios.",
+      technologies: ["LLM", "PEFT", "BitFit", "Few-Shot Learning", "AI"],
+      links: [
+        {
+          type: "Private Repo",
+          href: "",
+          icon: "lock",
+        },
+      ],
+      image: "",
+      video: "",
+    },
     {
       title: "3D iPhone hand tracking",
       slug: "3d-iphone",

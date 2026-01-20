@@ -2,53 +2,51 @@
   {
     "category": "landscape",
     "images": [
-      "/photography/landscape/IMG_1464.jpeg"
+      "/photography/landscape/IMG_0062.jpeg",
+      "/photography/landscape/IMG_0193.JPG",
+      "/photography/landscape/IMG_0460.jpeg",
+      "/photography/landscape/IMG_1239.jpeg",
+      "/photography/landscape/IMG_1464.jpeg",
+      "/photography/landscape/IMG_1673.jpeg",
+      "/photography/landscape/IMG_20210326_233048.jpg",
+      "/photography/landscape/IMG_2115.jpeg",
+      "/photography/landscape/IMG_2801.jpeg",
+      "/photography/landscape/IMG_3192.JPG",
+      "/photography/landscape/IMG_3346.JPG",
+      "/photography/landscape/IMG_4424.jpeg",
+      "/photography/landscape/IMG_4435.jpeg"
     ]
   },
   {
     "category": "street",
     "images": [
       "/photography/street/3F1523A1-3F89-4A8B-B3F1-5B319FC83934.jpg",
-      "/photography/street/Bird.jpeg",
-      "/photography/street/IMG_0062.jpeg",
-      "/photography/street/IMG_0193.JPG",
-      "/photography/street/IMG_0460.jpeg",
       "/photography/street/IMG_1011.jpeg",
-      "/photography/street/IMG_1239.jpeg",
       "/photography/street/IMG_1370.jpeg",
       "/photography/street/IMG_1446.jpeg",
-      "/photography/street/IMG_1464.jpeg",
       "/photography/street/IMG_1517.jpeg",
       "/photography/street/IMG_1541.jpeg",
-      "/photography/street/IMG_1673.jpeg",
-      "/photography/street/IMG_20210326_233048.jpg",
-      "/photography/street/IMG_20210327_233044.jpg",
       "/photography/street/IMG_20210327_233118.jpg",
-      "/photography/street/IMG_2115.jpeg",
-      "/photography/street/IMG_2344.jpeg",
       "/photography/street/IMG_2510.jpeg",
-      "/photography/street/IMG_2801.jpeg",
-      "/photography/street/IMG_3192.JPG",
-      "/photography/street/IMG_3194.JPG",
-      "/photography/street/IMG_3346.JPG",
-      "/photography/street/IMG_4424.jpeg",
-      "/photography/street/IMG_4435.jpeg",
       "/photography/street/IMG_4558.jpeg",
       "/photography/street/IMG_4876.jpeg",
-      "/photography/street/IMG_5494.jpeg",
       "/photography/street/IMG_7391.jpeg",
-      "/photography/street/IMG_9532.jpeg",
-      "/photography/street/Photo_1.jpg",
-      "/photography/street/Photo_2.jpg",
-      "/photography/street/Photo_3.jpg",
-      "/photography/street/Photo_4.jpg",
-      "/photography/street/post.jpg"
+      "/photography/street/Photo_4.jpg"
     ]
   },
   {
     "category": "portraits",
     "images": [
-      "/photography/portraits/IMG_1464.jpeg"
+      "/photography/portraits/Bird.jpeg",
+      "/photography/portraits/IMG_20210327_233044.jpg",
+      "/photography/portraits/IMG_2344.jpeg",
+      "/photography/portraits/IMG_3194.JPG",
+      "/photography/portraits/IMG_5494.jpeg",
+      "/photography/portraits/IMG_9532.jpeg",
+      "/photography/portraits/Photo_1.jpg",
+      "/photography/portraits/Photo_2.jpg",
+      "/photography/portraits/Photo_3.jpg",
+      "/photography/portraits/post.jpg"
     ]
   }
 ]

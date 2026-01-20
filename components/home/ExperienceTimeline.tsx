@@ -11,38 +11,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function ExperienceTimeline() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const svgRef = useRef<SVGSVGElement>(null);
-    const lineRef = useRef<SVGPathElement>(null);
 
     useEffect(() => {
         const container = containerRef.current;
-        const line = lineRef.current;
-        if (!container || !line) return;
-
-        // Calculate total height dynamically or use resize observer if needed
-        // For now assuming the content dictates height.
+        if (!container) return;
 
         const ctx = gsap.context(() => {
-            // 1. Draw the line as we scroll
-            // const totalHeight = container.scrollHeight;
-
-            // Set initial path length
-            const length = line.getTotalLength();
-            gsap.set(line, { strokeDasharray: length, strokeDashoffset: length });
-
-            gsap.to(line, {
-                strokeDashoffset: 0,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: container,
-                    start: "top center",
-                    end: "bottom center",
-                    scrub: 1,
-                    markers: false, // set to true for debugging
-                },
-            });
-
-            // 2. Pulse nodes when they hit center
+            // Pulse nodes when they hit center
             const cards = gsap.utils.toArray(".timeline-card");
             cards.forEach((card) => {
                 const cardEl = card as HTMLElement;
@@ -84,43 +59,27 @@ export function ExperienceTimeline() {
                 <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-24">Experience</h2>
 
                 <div className="relative">
-                    {/* The Vertical Line (SVG) */}
-                    <div className="absolute left-4 md:left-[14rem] top-0 bottom-0 w-px h-full pointer-events-none hidden md:block">
-                        <svg
-                            ref={svgRef}
-                            className="absolute top-0 left-[-2px] overflow-visible w-[5px] h-full"
-                            preserveAspectRatio="none"
-                        // We'll set height dynamically or just let it overflow
-                        >
-                            <path
-                                ref={lineRef}
-                                d="M 2 0 V 3000" // A long vertical line, strictly vertical for now
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                                className="text-primary/20"
-                                vectorEffect="non-scaling-stroke"
-                            />
-                        </svg>
-                    </div>
-
                     <div className="flex flex-col gap-24">
                         {DATA.work.map((role, index) => (
-                            <div key={index} className="timeline-card relative grid grid-cols-1 md:grid-cols-12 gap-8 group">
+                            <div
+                                key={index}
+                                className="timeline-card group grid grid-cols-1 md:grid-cols-[12rem_2.5rem_1fr] gap-6 md:gap-10"
+                            >
                                 {/* 1. Date (Left Side) */}
-                                <div className="hidden md:flex col-span-3 justify-end items-start pt-2 pr-12 text-right">
-                                    <span className="text-lg text-primary/40 font-mono tracking-tight group-hover:text-accent transition-colors">
+                                <div className="hidden md:flex justify-end items-start pt-2 text-right">
+                                    <span className="text-lg text-primary/40 font-mono tracking-tight group-hover:text-accent transition-colors whitespace-nowrap">
                                         {role.start} — {role.end}
                                     </span>
                                 </div>
 
-                                {/* 2. The Dot (Center) */}
-                                <div className="hidden md:flex absolute top-[14px] left-[14rem] -translate-x-1/2 items-start justify-center">
-                                    <div className="timeline-dot w-3 h-3 rounded-full bg-primary/20 border border-background z-10 transition-colors" />
+                                {/* 2. Rail + Dot (Center Column) */}
+                                <div className="hidden md:flex relative justify-center">
+                                    <div className="absolute inset-y-0 w-px bg-gradient-to-b from-primary/10 via-primary/20 to-primary/5" />
+                                    <div className="timeline-dot mt-[14px] w-3 h-3 rounded-full bg-primary/20 border border-background z-10 transition-colors" />
                                 </div>
 
                                 {/* 3. Content (Right Side) */}
-                                <div className="col-span-1 md:col-start-4 md:col-span-8 px-4 md:px-0 timeline-content">
+                                <div className="timeline-content px-4 md:px-0">
                                     {/* Mobile Date */}
                                     <span className="md:hidden block mb-2 text-sm text-primary/40 font-mono">
                                         {role.start} — {role.end}

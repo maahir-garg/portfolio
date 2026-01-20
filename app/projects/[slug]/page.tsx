@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Container } from "@/components/ui/Container";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
-import { Github, ExternalLink, ArrowLeft } from "lucide-react";
+import { Github, ExternalLink, ArrowLeft, Lock } from "lucide-react";
 import { DATA } from "@/lib/data";
 
 // Correct type for params in Next.js 15
@@ -47,30 +47,40 @@ export default async function ProjectPage({
                         </p>
 
                         <div className="flex gap-4 pt-4">
-                            {project.links.map((link) => (
-                                <Link key={link.href} href={link.href} target="_blank">
-                                    <Button variant="outline" className="gap-2">
-                                        {link.icon === "github" ? <Github size={16} /> : <ExternalLink size={16} />}
-                                        {link.type}
-                                    </Button>
-                                </Link>
-                            ))}
+                            {project.links.map((link, idx) => {
+                                const icon =
+                                    link.icon === "github"
+                                        ? <Github size={16} />
+                                        : link.icon === "lock"
+                                            ? <Lock size={16} />
+                                            : <ExternalLink size={16} />;
+
+                                if (!link.href) {
+                                    return (
+                                        <Button
+                                            key={`${link.type}-${idx}`}
+                                            variant="outline"
+                                            className="gap-2"
+                                            disabled
+                                        >
+                                            {icon}
+                                            {link.type}
+                                        </Button>
+                                    );
+                                }
+
+                                return (
+                                    <Link key={link.href} href={link.href} target="_blank">
+                                        <Button variant="outline" className="gap-2">
+                                            {icon}
+                                            {link.type}
+                                        </Button>
+                                    </Link>
+                                );
+                            })}
                         </div>
                     </div>
 
-                    {/* Content Placeholder */}
-                    <div className="prose prose-invert max-w-none border-t border-border pt-12">
-                        <div className="bg-card/50 border border-border rounded-lg p-8 text-center text-ink-muted">
-                            <p className="mb-4">Detailed case study content coming soon.</p>
-                            <p className="text-sm">
-                                This section will include:
-                                <br />• Problem Statement
-                                <br />• Technical Approach
-                                <br />• Challenges & Solutions
-                                <br />• Key Outcomes
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </Container>
         </article>

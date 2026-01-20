@@ -51,7 +51,6 @@ export function Header() {
                     className="text-xl font-bold tracking-tight text-ink hover:text-accent transition-colors"
                 >
                     {DATA.name.split(" ")[0]}
-                    <span className="text-accent">.</span>
                 </Link>
 
                 {/* Desktop Nav */}

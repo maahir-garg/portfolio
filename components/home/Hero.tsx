@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useLayoutEffect } from "react";
+import Link from "next/link";
 import gsap from "gsap";
 import { HeroBackground } from "@/components/layout/HeroBackground";
 import { Button } from "@/components/ui/Button";
@@ -85,36 +86,44 @@ export function Hero() {
         >
             <HeroBackground />
 
-            <div className="z-10 flex flex-col items-start select-none mix-blend-difference text-primary">
-                <h1 className="text-[12vw] md:text-[11vw] font-bold leading-[0.85] tracking-tighter text-primary/90 flex flex-col">
+            <div className="z-10 flex flex-col items-start select-none text-primary">
+                <h1 className="text-[10vw] md:text-[7vw] lg:text-[5.5vw] font-bold leading-[0.9] tracking-tighter text-primary flex flex-col">
                     {splitText("MAAHIR", "title-line-1")}
                     {splitText("GARG", "title-line-2")}
                 </h1>
 
                 <div
                     ref={subRef}
-                    className="mt-8 md:mt-12 text-xl md:text-2xl font-light text-primary/70 max-w-xl leading-relaxed"
+                    className="mt-6 md:mt-10 text-lg md:text-xl font-light text-primary/90 max-w-xl leading-relaxed"
                 >
                     <p>
-                        AI Engineer & Creative Developer.
+                        AI & ML engineer focused on LLMs, optimization, and vision.
                         <br />
-                        Crafting intelligent systems with{" "}
-                        <span className="text-accent italic font-medium">soul</span>.
+                        I like building systems that are fast, reliable, and actually shippable.
                     </p>
                 </div>
 
                 <div ref={btnRef} className="mt-12 flex items-center gap-6">
-                    <Button size="lg" className="rounded-full px-8 text-lg h-14" data-hover>
-                        View Work
-                    </Button>
+                    <Link href="/projects" data-hover>
+                        <Button size="lg" className="rounded-full px-8 text-lg h-14">
+                            View Work
+                        </Button>
+                    </Link>
                     <a
-                        href="#about"
+                        href="/#about"
                         className="group flex items-center gap-2 text-lg font-medium text-primary/80 hover:text-accent transition-colors"
                         data-hover
                     >
                         <span>About me</span>
                         <ArrowDownRight className="w-5 h-5 group-hover:rotate-[-45deg] transition-transform duration-300" />
                     </a>
+                    <Link
+                        href="/photography"
+                        className="text-lg font-medium text-primary/80 hover:text-accent transition-colors"
+                        data-hover
+                    >
+                        Photography
+                    </Link>
                 </div>
             </div>
 

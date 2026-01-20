@@ -1,76 +1,60 @@
 "use client";
 
-import Link from "next/link";
-import { motion } from "framer-motion";
 import { Container } from "@/components/ui/Container";
 import { Button } from "@/components/ui/Button";
-import { DATA } from "@/lib/data";
 import { Hero } from "@/components/home/Hero";
+import Link from "next/link";
+import { DATA } from "@/lib/data";
 
 export default function Home() {
-  const featuredProjects = DATA.projects.slice(0, 4);
-
   return (
     <div className="flex flex-col min-h-screen bg-background text-primary selection:bg-accent/30">
       {/* Hero Section */}
       <Hero />
 
-      {/* FEATURED PROJECTS */}
-      <section className="py-24 pb-48">
+      {/* About Snapshot */}
+      <section id="about" className="py-24 md:py-32">
         <Container>
-          <div className="flex flex-col gap-24">
-            <div className="flex flex-col gap-6 max-w-2xl">
-              <h2 className="text-4xl md:text-5xl font-bold tracking-tighter">Selected Works</h2>
-              <p className="text-xl text-primary/60 font-light leading-relaxed">
-                Highlights from my journey in Spatial Computing and AI.
-              </p>
-            </div>
-
-            <div className="flex flex-col gap-32">
-              {featuredProjects.map((project, index) => (
-                <motion.div
-                  key={project.title}
-                  initial={{ opacity: 0, y: 60 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true, margin: "-10% 0px -10% 0px" }}
-                  transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                  className={`flex flex-col md:flex-row gap-12 items-center ${index % 2 === 1 ? 'md:flex-row-reverse' : ''}`}
-                >
-                  {/* Image Area */}
-                  <div className="w-full md:w-3/5 aspect-video bg-secondary/30 rounded-lg overflow-hidden relative group">
-                    <Link href={`/projects/${project.slug}`} className="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors z-10" data-hover />
-                    <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 pointer-events-none">
-                      <span className="bg-white/90 text-black px-6 py-3 rounded-full text-sm font-medium tracking-wide">View Project</span>
-                    </div>
-                    <div className="w-full h-full bg-gradient-to-br from-secondary/10 to-accent/5" />
-                  </div>
-
-                  {/* Text Area */}
-                  <div className="w-full md:w-2/5 flex flex-col items-start justify-center gap-6">
-                    <span className="font-mono text-accent text-sm tracking-widest uppercase">0{index + 1}</span>
-                    <h3 className="text-4xl font-bold tracking-tighter leading-tight">{project.title}</h3>
-                    <div className="flex flex-wrap gap-2">
-                      {project.technologies.slice(0, 3).map(tech => (
-                        <span key={tech} className="text-sm border border-primary/10 px-3 py-1 rounded-full text-primary/60">{tech}</span>
-                      ))}
-                    </div>
-                    <p className="text-lg text-primary/60 font-light">{project.description}</p>
-                    <Link href={`/projects/${project.slug}`}>
-                      <Button variant="outline" className="rounded-full px-8 mt-4 border-primary/20 hover:bg-primary hover:text-white transition-colors duration-500" data-hover>
-                        Explore Case Study
-                      </Button>
-                    </Link>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
-
-            <div className="flex justify-center mt-24">
-              <Link href="/projects">
-                <Button size="lg" className="rounded-full px-12 h-16 text-lg bg-surface text-primary border border-primary/10 hover:bg-primary hover:text-white transition-all duration-500" data-hover>
-                  View Archive
+          <div className="max-w-3xl">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter">About</h2>
+            <p className="mt-6 text-xl text-primary/60 font-light leading-relaxed">
+              {DATA.summary}
+            </p>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link href="/about">
+                <Button variant="outline" className="rounded-full px-8" data-hover>
+                  Read the full story
                 </Button>
               </Link>
+              <Link href="/projects">
+                <Button className="rounded-full px-8" data-hover>
+                  Browse projects
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </Container>
+      </section>
+
+      {/* Contact CTA */}
+      <section id="contact" className="py-24 md:py-32">
+        <Container>
+          <div className="max-w-3xl rounded-2xl border border-primary/10 bg-surface/40 p-10 md:p-14">
+            <h2 className="text-4xl md:text-5xl font-bold tracking-tighter">Let&apos;s build something</h2>
+            <p className="mt-6 text-xl text-primary/60 font-light leading-relaxed">
+              If you&apos;re hiring, collaborating, or want to talk ML, LLMs, or vision, drop me a note.
+            </p>
+            <div className="mt-10 flex flex-wrap gap-3">
+              <Link href="/contact">
+                <Button size="lg" className="rounded-full px-10" data-hover>
+                  Contact
+                </Button>
+              </Link>
+              <a href={`mailto:${DATA.contact.email}`} data-hover>
+                <Button size="lg" variant="outline" className="rounded-full px-10">
+                  Email me
+                </Button>
+              </a>
             </div>
           </div>
         </Container>
