@@ -120,7 +120,7 @@ export function Hero() {
                         <br />
                         I like building systems that are fast, reliable, and actually shippable.
                         <br />
-                        <span className="text-accent/90">Capturing moments through the lens when I'm not coding.</span>
+                        <span className="text-accent/90">Capturing moments through the lens when I&apos;m not coding.</span>
                     </p>
                 </div>
 
@@ -137,14 +137,14 @@ export function Hero() {
                     >
                         Photography
                     </Link>
-                    <a
+                    <Link
                         href="/#about"
                         className="group flex items-center gap-2 text-base md:text-lg font-medium text-primary/80 hover:text-accent transition-colors"
                         data-hover
                     >
                         <span>About me</span>
                         <ArrowDownRight className="w-5 h-5 group-hover:rotate-[-45deg] transition-transform duration-300" />
-                    </a>
+                    </Link>
                 </div>
             </div>
 

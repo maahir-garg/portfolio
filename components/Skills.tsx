@@ -8,16 +8,6 @@ import { Card } from "@/components/ui/Card";
 
 type SkillsByCategory = typeof DATA.skills;
 
-const CATEGORY_ICONS: Record<string, string> = {
-  Programming: "💻",
-  "ML & AI": "🤖",
-  "Data & Distributed": "📊",
-  "Cloud & DevOps": "☁️",
-  "Web & DB": "🌐",
-  Analysis: "📈",
-  Tools: "🛠️",
-};
-
 export function Skills({
   skills = DATA.skills,
 }: {
