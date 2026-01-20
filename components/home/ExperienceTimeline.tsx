@@ -11,12 +11,29 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function ExperienceTimeline() {
     const containerRef = useRef<HTMLDivElement>(null);
+    const progressBarRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         const container = containerRef.current;
-        if (!container) return;
+        const progressBar = progressBarRef.current;
+        if (!container || !progressBar) return;
 
         const ctx = gsap.context(() => {
+            // Animate progress bar fill
+            gsap.fromTo(
+                progressBar,
+                { scaleY: 0, transformOrigin: "top" },
+                {
+                    scaleY: 1,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: container,
+                        start: "top center",
+                        end: "bottom center",
+                        scrub: 1,
+                    },
+                }
+            );
             // Pulse nodes when they hit center
             const cards = gsap.utils.toArray(".timeline-card");
             cards.forEach((card) => {
@@ -56,8 +73,6 @@ export function ExperienceTimeline() {
     return (
         <section ref={containerRef} className="relative py-24 md:py-32 overflow-hidden">
             <div className="container mx-auto px-6 md:px-12 lg:px-24">
-                <h2 className="text-4xl md:text-5xl font-bold tracking-tighter mb-24">Experience</h2>
-
                 <div className="relative">
                     <div className="flex flex-col gap-24">
                         {DATA.work.map((role, index) => (
@@ -74,7 +89,18 @@ export function ExperienceTimeline() {
 
                                 {/* 2. Rail + Dot (Center Column) */}
                                 <div className="hidden md:flex relative justify-center">
+                                    {/* Background rail */}
                                     <div className="absolute inset-y-0 w-px bg-gradient-to-b from-primary/10 via-primary/20 to-primary/5" />
+                                    
+                                    {/* Animated progress bar */}
+                                    {index === 0 && (
+                                        <div
+                                            ref={progressBarRef}
+                                            className="absolute inset-y-0 w-px bg-gradient-to-b from-accent/60 via-accent/40 to-accent/20"
+                                            style={{ transformOrigin: "top" }}
+                                        />
+                                    )}
+                                    
                                     <div className="timeline-dot mt-[14px] w-3 h-3 rounded-full bg-primary/20 border border-background z-10 transition-colors" />
                                 </div>
 

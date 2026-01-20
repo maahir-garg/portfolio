@@ -62,6 +62,17 @@ export function Hero() {
                 },
                 "-=0.8"
             );
+
+            // Animate status dot
+            tl.from(
+                ".status-dot",
+                {
+                    scale: 0,
+                    opacity: 0,
+                    duration: 0.5,
+                },
+                "-=0.5"
+            );
         }, containerRef);
 
         return () => ctx.revert();
@@ -87,10 +98,18 @@ export function Hero() {
             <HeroBackground />
 
             <div className="z-10 flex flex-col items-start select-none text-primary">
-                <h1 className="text-[10vw] md:text-[7vw] lg:text-[5.5vw] font-bold leading-[0.9] tracking-tighter text-primary flex flex-col">
-                    {splitText("MAAHIR", "title-line-1")}
-                    {splitText("GARG", "title-line-2")}
-                </h1>
+                <div className="relative">
+                    <h1 className="text-[10vw] md:text-[7vw] lg:text-[5.5vw] font-bold leading-[0.9] tracking-tighter text-primary flex flex-col">
+                        {splitText("MAAHIR", "title-line-1")}
+                        {splitText("GARG", "title-line-2")}
+                    </h1>
+                    
+                    {/* Green Status Dot */}
+                    <span className="status-dot absolute -right-8 top-4 md:-right-12 md:top-6 flex h-3 w-3 md:h-4 md:w-4">
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 md:h-4 md:w-4 bg-accent shadow-lg"></span>
+                    </span>
+                </div>
 
                 <div
                     ref={subRef}
@@ -100,30 +119,32 @@ export function Hero() {
                         AI & ML engineer focused on LLMs, optimization, and vision.
                         <br />
                         I like building systems that are fast, reliable, and actually shippable.
+                        <br />
+                        <span className="text-accent/90">Capturing moments through the lens when I'm not coding.</span>
                     </p>
                 </div>
 
-                <div ref={btnRef} className="mt-12 flex items-center gap-6">
+                <div ref={btnRef} className="mt-12 flex flex-wrap items-center gap-4 md:gap-6">
                     <Link href="/projects" data-hover>
-                        <Button size="lg" className="rounded-full px-8 text-lg h-14">
+                        <Button size="lg" className="rounded-full px-8 text-base md:text-lg h-12 md:h-14">
                             View Work
                         </Button>
                     </Link>
+                    <Link
+                        href="/photography"
+                        className="text-base md:text-lg font-medium text-primary/80 hover:text-accent transition-colors"
+                        data-hover
+                    >
+                        Photography
+                    </Link>
                     <a
                         href="/#about"
-                        className="group flex items-center gap-2 text-lg font-medium text-primary/80 hover:text-accent transition-colors"
+                        className="group flex items-center gap-2 text-base md:text-lg font-medium text-primary/80 hover:text-accent transition-colors"
                         data-hover
                     >
                         <span>About me</span>
                         <ArrowDownRight className="w-5 h-5 group-hover:rotate-[-45deg] transition-transform duration-300" />
                     </a>
-                    <Link
-                        href="/photography"
-                        className="text-lg font-medium text-primary/80 hover:text-accent transition-colors"
-                        data-hover
-                    >
-                        Photography
-                    </Link>
                 </div>
             </div>
 
