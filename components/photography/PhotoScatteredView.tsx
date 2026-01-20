@@ -4,38 +4,39 @@ import { useRef, useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { X } from "lucide-react";
 import Image from "next/image";
+import photosManifest from "@/lib/photos-manifest.json";
 
 type Photo = {
     src: string;
     category: string;
     id: string;
-    x?: number; // Added for positioned photos
-    y?: number; // Added for positioned photos
-    rotate?: number; // Added for positioned photos
+    x?: number;
+    y?: number;
+    rotate?: number;
 };
 
-// Placeholder data since we might not have the manifest populated yet
-const PLACEHOLDER_PHOTOS: Photo[] = Array.from({ length: 12 }).map((_, i) => ({
-    id: `p-${i}`,
-    src: `https://picsum.photos/seed/${i + 130}/800/600`, // High quality random seed
-    category: i % 3 === 0 ? "Landscape" : i % 3 === 1 ? "Street" : "Portrait",
-}));
+// Build photos array from manifest
+const MANIFEST_PHOTOS: Photo[] = photosManifest.flatMap((cat) =>
+    cat.images.map((src, i) => ({
+        id: `${cat.category}-${i}`,
+        src,
+        category: cat.category,
+    }))
+);
 
 export function PhotoScatteredView() {
     const containerRef = useRef<HTMLDivElement>(null);
-    const [photos, setPhotos] = useState<Photo[]>([]); // Initialize empty for hydration stability
+    const [photos, setPhotos] = useState<Photo[]>([]);
     const [selectedPhoto, setSelectedPhoto] = useState<Photo | null>(null);
 
     useEffect(() => {
-        // In a real implementation, you would fetch from API here.
-        // We calculate random positions on client-side only to avoid hydration mismatch.
         const container = containerRef.current;
-        if (!container) return; // Should verify if we need to wait for layout
+        if (!container) return;
 
         const width = container.offsetWidth;
         const height = container.offsetHeight;
 
-        const positionedPhotos = PLACEHOLDER_PHOTOS.map((photo) => {
+        const positionedPhotos = MANIFEST_PHOTOS.map((photo) => {
             const randomX = Math.random() * (width || 1000) * 0.6 + (width * 0.1);
             const randomY = Math.random() * (height || 800) * 0.6 + (height * 0.1);
             const randomRotate = (Math.random() - 0.5) * 30;

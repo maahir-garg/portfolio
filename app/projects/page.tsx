@@ -73,7 +73,6 @@ export default function ProjectsPage() {
                                         tags={project.technologies}
                                         links={project.links}
                                         href={`/projects/${project.slug}`}
-                                        dates={project.dates}
                                         active={project.active}
                                     />
                                 </motion.div>
