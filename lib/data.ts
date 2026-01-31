@@ -10,8 +10,8 @@ export const DATA = {
   avatarUrl: "/me.png",
   skills: {
     Programming: ["Python", "Java", "JavaScript", "C/C++", "Swift", "R", "LaTeX"],
-    "ML & AI": ["PyTorch", "TensorFlow", "Hugging Face", "LLM Fine-tuning", "RAG Pipelines", "Agentic Workflows"],
-    "Data & Distributed": ["Kafka", "Spark", "Airflow", "ETL Pipelines"],
+    "ML & AI": ["PyTorch", "hugging Face", "LLM Fine-tuning", "Agentic LLMs", "GraphRAG", "Vector Databases", "Databricks Mosaic AI"],
+    "Data & Distributed": ["Snowflake", "Databricks", "Kafka", "Spark", "Airflow", "ETL Pipelines"],
     "Cloud & DevOps": ["AWS (EC2, S3, Lambda)", "Docker", "Git", "Bash"],
     "Web & DB": ["React", "HTML/CSS", "PHP", "SQL (MySQL, PostgreSQL, Snowflake)"],
     Analysis: ["Pandas", "NumPy", "Matplotlib", "MATLAB", "Looker Studio"],
@@ -171,6 +171,31 @@ export const DATA = {
     },
   ],
   projects: [
+    {
+      title: "Portfolio Website",
+      slug: "portfolio",
+      href: "https://github.com/maahir-garg/portfolio",
+      dates: "Jan 2026",
+      active: true,
+      description:
+        "My personal portfolio website built with Next.js, Tailwind CSS, and Framer Motion. Features a custom design system, GSAP animations, and fully responsive layout.",
+      technologies: [
+        "Next.js",
+        "React",
+        "Tailwind CSS",
+        "GSAP",
+        "Framer Motion"
+      ],
+      links: [
+        {
+          type: "Source",
+          href: "https://github.com/maahir-garg/portfolio",
+          icon: "github",
+        },
+      ],
+      image: "",
+      video: "",
+    },
     {
       title: "Optimizing BERT for Question Answering",
       slug: "bert-qa-quant-prune",

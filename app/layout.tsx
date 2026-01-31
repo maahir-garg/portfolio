@@ -7,6 +7,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import SmoothScroll from "@/components/layout/SmoothScroll";
 import { CustomCursor } from "@/components/layout/CustomCursor";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -48,6 +49,7 @@ export default function RootLayout({
         <Footer />
         <JsonLd />
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );

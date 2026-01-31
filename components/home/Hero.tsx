@@ -89,13 +89,13 @@ export function Hero() {
         >
             <HeroBackground />
 
-            <div className="z-10 flex flex-col items-start select-none text-primary">
+            <div className="z-10 flex flex-col items-center text-center select-none text-primary">
                 <div className="relative">
-                    <h1 className="text-[10vw] md:text-[7vw] lg:text-[5.5vw] font-bold leading-[0.9] tracking-tighter text-primary flex flex-col">
+                    <h1 className="text-[10vw] md:text-[7vw] lg:text-[5.5vw] font-bold leading-[0.9] tracking-tighter text-primary flex flex-col items-center">
                         {splitText("MAAHIR", "title-line-1")}
                         {splitText("GARG", "title-line-2")}
                     </h1>
-                    
+
                     {/* Green Status Dot */}
                     <span className="status-dot absolute -right-8 top-4 md:-right-12 md:top-6 flex h-3 w-3 md:h-4 md:w-4">
                         <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
@@ -105,7 +105,7 @@ export function Hero() {
 
                 <div
                     ref={subRef}
-                    className="mt-6 md:mt-10 text-lg md:text-xl font-light text-primary/90 max-w-xl leading-relaxed"
+                    className="mt-6 md:mt-10 text-lg md:text-xl font-light text-primary/90 max-w-xl leading-relaxed text-center"
                 >
                     <p>
                         AI & ML engineer focused on LLMs, optimization, and vision.
@@ -116,7 +116,7 @@ export function Hero() {
                     </p>
                 </div>
 
-                <div ref={btnRef} className="mt-12 flex flex-wrap items-center gap-4 md:gap-6">
+                <div ref={btnRef} className="mt-12 flex flex-wrap items-center justify-center gap-4 md:gap-6">
                     <Link href="/projects" data-hover>
                         <Button size="lg" className="rounded-full px-8 text-base md:text-lg h-12 md:h-14">
                             View Work

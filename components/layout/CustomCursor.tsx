@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 export function CustomCursor() {
     const cursorRef = useRef<HTMLDivElement>(null);
     const followerRef = useRef<HTMLDivElement>(null);
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
     const pathname = usePathname(); // Reset on route change if needed
 
     useEffect(() => {
@@ -26,7 +27,13 @@ export function CustomCursor() {
             followerYTo(e.clientY);
         };
 
+
         const onMouseEnterLink = () => {
+            if (timerRef.current) {
+                clearTimeout(timerRef.current);
+                timerRef.current = null;
+            }
+
             gsap.to(cursor, { scale: 0, duration: 0.2 });
 
             gsap.to(follower, {
@@ -38,13 +45,17 @@ export function CustomCursor() {
         };
 
         const onMouseLeaveLink = () => {
-            gsap.to(cursor, { scale: 1, duration: 0.2 });
-            gsap.to(follower, {
-                scale: 1,
-                backgroundColor: "transparent",
-                mixBlendMode: "difference",
-                duration: 0.3
-            });
+            if (timerRef.current) clearTimeout(timerRef.current);
+
+            timerRef.current = setTimeout(() => {
+                gsap.to(cursor, { scale: 1, duration: 0.2 });
+                gsap.to(follower, {
+                    scale: 1,
+                    backgroundColor: "transparent",
+                    mixBlendMode: "difference",
+                    duration: 0.3
+                });
+            }, 500);
         };
 
         const attachListeners = () => {

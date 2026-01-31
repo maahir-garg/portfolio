@@ -1,4 +1,5 @@
 "use client";
+import React from 'react';
 
 import { Container } from "@/components/ui/Container";
 import { DATA } from "@/lib/data";
@@ -6,6 +7,19 @@ import { Button } from "@/components/ui/Button";
 import { Mail, Phone, Github, Linkedin, MapPin } from "lucide-react";
 
 export default function ContactPage() {
+    const [formData, setFormData] = React.useState({
+        name: "",
+        email: "",
+        message: ""
+    });
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        const subject = `Portfolio Contact from ${formData.name}`;
+        const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
+        window.location.href = `mailto:${DATA.contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    };
+
     return (
         <div className="py-20 md:py-32">
             <Container>
@@ -59,18 +73,42 @@ export default function ContactPage() {
 
                     <div className="bg-card border border-border rounded-2xl p-8 h-fit">
                         <h2 className="text-xl font-bold mb-6">Send a Message</h2>
-                        <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
+                        <form className="space-y-4" onSubmit={handleSubmit}>
                             <div className="space-y-2">
                                 <label htmlFor="name" className="text-sm font-medium">Name</label>
-                                <input id="name" type="text" className="w-full bg-canvas border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent" placeholder="John Doe" />
+                                <input
+                                    id="name"
+                                    type="text"
+                                    className="w-full bg-canvas border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent"
+                                    placeholder="John Doe"
+                                    value={formData.name}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                    required
+                                />
                             </div>
                             <div className="space-y-2">
                                 <label htmlFor="email" className="text-sm font-medium">Email</label>
-                                <input id="email" type="email" className="w-full bg-canvas border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent" placeholder="john@example.com" />
+                                <input
+                                    id="email"
+                                    type="email"
+                                    className="w-full bg-canvas border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent"
+                                    placeholder="john@example.com"
+                                    value={formData.email}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                    required
+                                />
                             </div>
                             <div className="space-y-2">
                                 <label htmlFor="message" className="text-sm font-medium">Message</label>
-                                <textarea id="message" rows={4} className="w-full bg-canvas border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent" placeholder="Hello..." />
+                                <textarea
+                                    id="message"
+                                    rows={4}
+                                    className="w-full bg-canvas border border-border rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-accent"
+                                    placeholder="Hello..."
+                                    value={formData.message}
+                                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                                    required
+                                />
                             </div>
                             <Button className="w-full">
                                 Send Message

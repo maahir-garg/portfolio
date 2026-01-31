@@ -15,12 +15,12 @@ export default function Home() {
       {/* About Snapshot */}
       <section id="about" className="py-24 md:py-32">
         <Container>
-          <div className="max-w-3xl">
+          <div className="max-w-3xl mx-auto text-center flex flex-col items-center">
             <h2 className="text-4xl md:text-5xl font-bold tracking-tighter">About</h2>
             <p className="mt-6 text-xl text-primary/60 font-light leading-relaxed">
               {DATA.summary}
             </p>
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Link href="/about">
                 <Button variant="outline" className="rounded-full px-8" data-hover>
                   Read the full story
@@ -39,12 +39,12 @@ export default function Home() {
       {/* Contact CTA */}
       <section id="contact" className="py-24 md:py-32">
         <Container>
-          <div className="max-w-3xl rounded-2xl border border-primary/10 bg-surface/40 p-10 md:p-14">
+          <div className="max-w-3xl mx-auto rounded-2xl border border-primary/10 bg-surface/40 p-10 md:p-14 text-center flex flex-col items-center">
             <h2 className="text-4xl md:text-5xl font-bold tracking-tighter">Let&apos;s build something</h2>
             <p className="mt-6 text-xl text-primary/60 font-light leading-relaxed">
               If you&apos;re hiring, collaborating, or want to talk ML, LLMs, or vision, drop me a note.
             </p>
-            <div className="mt-10 flex flex-wrap gap-3">
+            <div className="mt-10 flex flex-wrap justify-center gap-3">
               <Link href="/contact">
                 <Button size="lg" className="rounded-full px-10" data-hover>
                   Contact
