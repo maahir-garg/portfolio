@@ -258,6 +258,30 @@ export const DATA = {
       video: "",
     },
     {
+      title: "LeetCoding",
+      slug: "leetcoding",
+      href: "https://leetcode.com/u/maahir_garg/",
+      dates: "Ongoing",
+      active: true,
+      description:
+        "An ongoing LeetCode practice track focused on deepening algorithmic thinking and problem‑solving speed, backed by live stats.",
+      technologies: [
+        "Algorithms",
+        "Data Structures",
+        "Problem Solving",
+        "Python"
+      ],
+      links: [
+        {
+          type: "Profile",
+          href: "https://leetcode.com/u/maahir_garg/",
+          icon: "external",
+        },
+      ],
+      image: "",
+      video: "",
+    },
+    {
       title: "StackExchange Scraping",
       slug: "stackexchange-scraping",
       href: "https://github.com/maahir-garg/StackExchange-Scraping",

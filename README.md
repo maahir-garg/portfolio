@@ -113,7 +113,3 @@ Desktop-only custom cursor with hover state transformations.
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
-
-## Acknowledgments
-
-Built with modern web technologies and inspired by contemporary portfolio designs.

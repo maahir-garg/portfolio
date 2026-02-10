@@ -6,6 +6,10 @@ import { Button } from "@/components/ui/Button";
 import { Github, ExternalLink, ArrowLeft, Lock } from "lucide-react";
 import { DATA } from "@/lib/data";
 
+import { Suspense } from "react";
+import { LeetCodeStats } from "@/components/feature/LeetCodeStats";
+import { LeetCodeStatsSkeleton } from "@/components/feature/LeetCodeStatsSkeleton";
+
 // Correct type for params in Next.js 15
 export default async function ProjectPage({
     params,
@@ -46,7 +50,16 @@ export default async function ProjectPage({
                             {project.description}
                         </p>
 
-                        <div className="flex gap-4 pt-4">
+                        {/* Live Stats for LeetCoding Project */}
+                        {slug === "leetcoding" && (
+                            <div className="pt-4 pb-8">
+                                <Suspense fallback={<LeetCodeStatsSkeleton />}>
+                                    <LeetCodeStats username="maahir_garg" />
+                                </Suspense>
+                            </div>
+                        )}
+
+                        <div className="flex gap-4 pt-4 border-t border-border/50">
                             {project.links.map((link, idx) => {
                                 const icon =
                                     link.icon === "github"
