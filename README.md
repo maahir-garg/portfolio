@@ -1,7 +1,7 @@
 # Portfolio
 
 Modern, high-performance portfolio built with Next.js, TypeScript, and GSAP. Features smooth animations, custom cursor interactions, and a clean, minimalist design aesthetic.
-🌐 **Live Site**: [https://website-delta-liard-64.vercel.app/](https://website-delta-liard-64.vercel.app/)
+🌐 **Live Site**: [https://website-delta-liard-64.vercel.app/](https://maahir-garg.vercel.app/)
 ## Features
 
 - **Smooth Animations**: GSAP-powered transitions and scroll-triggered animations
