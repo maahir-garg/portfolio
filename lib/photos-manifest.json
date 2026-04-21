@@ -113,28 +113,6 @@
         }
       },
       {
-        "src": "/photography/landscape/IMG_1673.jpeg",
-        "filename": "IMG_1673.jpeg",
-        "exif": {
-          "aperture": 1.7799999713880652,
-          "focalLength": 6.764999865652793,
-          "focalLength35": 48,
-          "shutter": 0.017543859649122806,
-          "iso": 250,
-          "takenAt": "2025-12-23T04:23:26.000Z",
-          "camera": "Apple iPhone 17 Pro",
-          "lens": "iPhone 17 Pro back triple camera 6.765mm f/1.78",
-          "width": 3024,
-          "height": 4032,
-          "display": {
-            "aperture": "f/1.8",
-            "focalLength": "48mm",
-            "shutter": "1/57s",
-            "iso": "ISO 250"
-          }
-        }
-      },
-      {
         "src": "/photography/landscape/IMG_20210326_233048.jpg",
         "filename": "IMG_20210326_233048.jpg",
         "exif": {
@@ -287,6 +265,116 @@
             "iso": "ISO 32"
           }
         }
+      },
+      {
+        "src": "/photography/landscape/IMG_5607.jpeg",
+        "filename": "IMG_5607.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.002070393374741201,
+          "iso": 50,
+          "takenAt": "2026-04-02T09:53:08.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/483s",
+            "iso": "ISO 50"
+          }
+        }
+      },
+      {
+        "src": "/photography/landscape/IMG_5860.jpeg",
+        "filename": "IMG_5860.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.00028401022436807724,
+          "iso": 50,
+          "takenAt": "2026-04-03T05:13:15.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/3521s",
+            "iso": "ISO 50"
+          }
+        }
+      },
+      {
+        "src": "/photography/landscape/IMG_5867.jpeg",
+        "filename": "IMG_5867.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 53,
+          "shutter": 0.00020601565718994644,
+          "iso": 50,
+          "takenAt": "2026-04-03T05:28:29.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "53mm",
+            "shutter": "1/4854s",
+            "iso": "ISO 50"
+          }
+        }
+      },
+      {
+        "src": "/photography/landscape/IMG_6555.jpeg",
+        "filename": "IMG_6555.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.016666666666666666,
+          "iso": 160,
+          "takenAt": "2026-04-05T09:41:23.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/60s",
+            "iso": "ISO 160"
+          }
+        }
+      },
+      {
+        "src": "/photography/landscape/IMG_6654.jpeg",
+        "filename": "IMG_6654.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.00035398230088495576,
+          "iso": 50,
+          "takenAt": "2026-04-06T02:37:03.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 3024,
+          "height": 4032,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/2825s",
+            "iso": "ISO 50"
+          }
+        }
       }
     ]
   },
@@ -404,28 +492,6 @@
         }
       },
       {
-        "src": "/photography/portraits/IMG_9532.jpeg",
-        "filename": "IMG_9532.jpeg",
-        "exif": {
-          "aperture": 1.6,
-          "focalLength": 5.1,
-          "focalLength35": 26,
-          "shutter": 0.04,
-          "iso": 640,
-          "takenAt": "2024-09-06T12:06:04.000Z",
-          "camera": "Apple iPhone 13",
-          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
-          "width": 2696,
-          "height": 3982,
-          "display": {
-            "aperture": "f/1.6",
-            "focalLength": "26mm",
-            "shutter": "1/25s",
-            "iso": "ISO 640"
-          }
-        }
-      },
-      {
         "src": "/photography/portraits/Photo_1.jpg",
         "filename": "Photo_1.jpg",
         "exif": {
@@ -519,46 +585,24 @@
     "category": "street",
     "images": [
       {
-        "src": "/photography/street/3F1523A1-3F89-4A8B-B3F1-5B319FC83934.jpg",
-        "filename": "3F1523A1-3F89-4A8B-B3F1-5B319FC83934.jpg",
+        "src": "/photography/street/2-IMG_6971-preview.JPEG",
+        "filename": "2-IMG_6971-preview.JPEG",
         "exif": {
-          "aperture": null,
-          "focalLength": null,
-          "focalLength35": null,
-          "shutter": null,
-          "iso": null,
-          "takenAt": null,
-          "camera": null,
-          "lens": null,
-          "width": 1170,
-          "height": 1560,
-          "display": {
-            "aperture": null,
-            "focalLength": null,
-            "shutter": null,
-            "iso": null
-          }
-        }
-      },
-      {
-        "src": "/photography/street/IMG_1011.jpeg",
-        "filename": "IMG_1011.jpeg",
-        "exif": {
-          "aperture": 2.4,
-          "focalLength": 1.55,
-          "focalLength35": 14,
-          "shutter": 0.0196078431372549,
-          "iso": 160,
-          "takenAt": "2022-05-16T14:44:36.000Z",
-          "camera": "Apple iPhone 12 mini",
-          "lens": "iPhone 12 mini back dual wide camera 1.55mm f/2.4",
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.0004761904761904762,
+          "iso": 50,
+          "takenAt": "2026-04-08T00:07:59.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
           "width": 3024,
           "height": 4032,
           "display": {
-            "aperture": "f/2.4",
-            "focalLength": "14mm",
-            "shutter": "1/51s",
-            "iso": "ISO 160"
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/2100s",
+            "iso": "ISO 50"
           }
         }
       },
@@ -651,6 +695,28 @@
         }
       },
       {
+        "src": "/photography/street/IMG_1673.jpeg",
+        "filename": "IMG_1673.jpeg",
+        "exif": {
+          "aperture": 1.7799999713880652,
+          "focalLength": 6.764999865652793,
+          "focalLength35": 48,
+          "shutter": 0.017543859649122806,
+          "iso": 250,
+          "takenAt": "2025-12-23T04:23:26.000Z",
+          "camera": "Apple iPhone 17 Pro",
+          "lens": "iPhone 17 Pro back triple camera 6.765mm f/1.78",
+          "width": 3024,
+          "height": 4032,
+          "display": {
+            "aperture": "f/1.8",
+            "focalLength": "48mm",
+            "shutter": "1/57s",
+            "iso": "ISO 250"
+          }
+        }
+      },
+      {
         "src": "/photography/street/IMG_20210327_233118.jpg",
         "filename": "IMG_20210327_233118.jpg",
         "exif": {
@@ -695,28 +761,6 @@
         }
       },
       {
-        "src": "/photography/street/IMG_4558.jpeg",
-        "filename": "IMG_4558.jpeg",
-        "exif": {
-          "aperture": 2.4,
-          "focalLength": 1.54,
-          "focalLength35": 14,
-          "shutter": 0.0031446540880503146,
-          "iso": 32,
-          "takenAt": "2023-08-09T10:50:32.000Z",
-          "camera": "Apple iPhone 13",
-          "lens": "iPhone 13 back dual wide camera 1.54mm f/2.4",
-          "width": 4032,
-          "height": 3024,
-          "display": {
-            "aperture": "f/2.4",
-            "focalLength": "14mm",
-            "shutter": "1/318s",
-            "iso": "ISO 32"
-          }
-        }
-      },
-      {
         "src": "/photography/street/IMG_4876.jpeg",
         "filename": "IMG_4876.jpeg",
         "exif": {
@@ -735,6 +779,160 @@
             "focalLength": "14mm",
             "shutter": "1/50s",
             "iso": "ISO 400"
+          }
+        }
+      },
+      {
+        "src": "/photography/street/IMG_5629.jpeg",
+        "filename": "IMG_5629.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 53,
+          "shutter": 0.016666666666666666,
+          "iso": 80,
+          "takenAt": "2026-04-02T10:26:23.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 3024,
+          "height": 4032,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "53mm",
+            "shutter": "1/60s",
+            "iso": "ISO 80"
+          }
+        }
+      },
+      {
+        "src": "/photography/street/IMG_5683.jpeg",
+        "filename": "IMG_5683.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.008333333333333333,
+          "iso": 64,
+          "takenAt": "2026-04-02T13:46:53.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/120s",
+            "iso": "ISO 64"
+          }
+        }
+      },
+      {
+        "src": "/photography/street/IMG_5753.jpeg",
+        "filename": "IMG_5753.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.00819672131147541,
+          "iso": 64,
+          "takenAt": "2026-04-03T01:00:21.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 3024,
+          "height": 4032,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/122s",
+            "iso": "ISO 64"
+          }
+        }
+      },
+      {
+        "src": "/photography/street/IMG_6151.jpeg",
+        "filename": "IMG_6151.jpeg",
+        "exif": {
+          "aperture": 2.4,
+          "focalLength": 1.54,
+          "focalLength35": 13,
+          "shutter": 0.009900990099009901,
+          "iso": 200,
+          "takenAt": "2026-04-04T09:55:45.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 1.54mm f/2.4",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/2.4",
+            "focalLength": "13mm",
+            "shutter": "1/101s",
+            "iso": "ISO 200"
+          }
+        }
+      },
+      {
+        "src": "/photography/street/IMG_6523.jpeg",
+        "filename": "IMG_6523.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.0003370407819346141,
+          "iso": 50,
+          "takenAt": "2026-04-05T07:34:10.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 3024,
+          "height": 4032,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/2967s",
+            "iso": "ISO 50"
+          }
+        }
+      },
+      {
+        "src": "/photography/street/IMG_6539.jpeg",
+        "filename": "IMG_6539.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.001375515818431912,
+          "iso": 50,
+          "takenAt": "2026-04-05T09:30:00.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/727s",
+            "iso": "ISO 50"
+          }
+        }
+      },
+      {
+        "src": "/photography/street/IMG_6696.jpeg",
+        "filename": "IMG_6696.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.001375515818431912,
+          "iso": 50,
+          "takenAt": "2026-04-06T09:25:18.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/727s",
+            "iso": "ISO 50"
           }
         }
       },
@@ -779,6 +977,231 @@
             "focalLength": null,
             "shutter": null,
             "iso": null
+          }
+        }
+      }
+    ]
+  },
+  {
+    "category": "urban",
+    "images": [
+      {
+        "src": "/photography/urban/1-IMG_5875.JPEG",
+        "filename": "1-IMG_5875.JPEG",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.00014492753623188405,
+          "iso": 50,
+          "takenAt": "2026-04-03T05:37:58.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 3024,
+          "height": 4032,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/6900s",
+            "iso": "ISO 50"
+          }
+        }
+      },
+      {
+        "src": "/photography/urban/3F1523A1-3F89-4A8B-B3F1-5B319FC83934.jpg",
+        "filename": "3F1523A1-3F89-4A8B-B3F1-5B319FC83934.jpg",
+        "exif": {
+          "aperture": null,
+          "focalLength": null,
+          "focalLength35": null,
+          "shutter": null,
+          "iso": null,
+          "takenAt": null,
+          "camera": null,
+          "lens": null,
+          "width": 1170,
+          "height": 1560,
+          "display": {
+            "aperture": null,
+            "focalLength": null,
+            "shutter": null,
+            "iso": null
+          }
+        }
+      },
+      {
+        "src": "/photography/urban/IMG_1011.jpeg",
+        "filename": "IMG_1011.jpeg",
+        "exif": {
+          "aperture": 2.4,
+          "focalLength": 1.55,
+          "focalLength35": 14,
+          "shutter": 0.0196078431372549,
+          "iso": 160,
+          "takenAt": "2022-05-16T14:44:36.000Z",
+          "camera": "Apple iPhone 12 mini",
+          "lens": "iPhone 12 mini back dual wide camera 1.55mm f/2.4",
+          "width": 3024,
+          "height": 4032,
+          "display": {
+            "aperture": "f/2.4",
+            "focalLength": "14mm",
+            "shutter": "1/51s",
+            "iso": "ISO 160"
+          }
+        }
+      },
+      {
+        "src": "/photography/urban/IMG_4558.jpeg",
+        "filename": "IMG_4558.jpeg",
+        "exif": {
+          "aperture": 2.4,
+          "focalLength": 1.54,
+          "focalLength35": 14,
+          "shutter": 0.0031446540880503146,
+          "iso": 32,
+          "takenAt": "2023-08-09T10:50:32.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 1.54mm f/2.4",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/2.4",
+            "focalLength": "14mm",
+            "shutter": "1/318s",
+            "iso": "ISO 32"
+          }
+        }
+      },
+      {
+        "src": "/photography/urban/IMG_5421.jpeg",
+        "filename": "IMG_5421.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.016666666666666666,
+          "iso": 250,
+          "takenAt": "2026-03-31T23:02:18.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/60s",
+            "iso": "ISO 250"
+          }
+        }
+      },
+      {
+        "src": "/photography/urban/IMG_5493.jpeg",
+        "filename": "IMG_5493.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.016666666666666666,
+          "iso": 250,
+          "takenAt": "2026-04-01T11:17:42.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/60s",
+            "iso": "ISO 250"
+          }
+        }
+      },
+      {
+        "src": "/photography/urban/IMG_6015.jpeg",
+        "filename": "IMG_6015.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.0625,
+          "iso": 1000,
+          "takenAt": "2026-04-03T10:33:22.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/16s",
+            "iso": "ISO 1000"
+          }
+        }
+      },
+      {
+        "src": "/photography/urban/IMG_6704.jpeg",
+        "filename": "IMG_6704.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.0007380073800738007,
+          "iso": 50,
+          "takenAt": "2026-04-06T09:29:35.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/1355s",
+            "iso": "ISO 50"
+          }
+        }
+      },
+      {
+        "src": "/photography/urban/IMG_6776.jpeg",
+        "filename": "IMG_6776.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.02,
+          "iso": 100,
+          "takenAt": "2026-04-06T14:05:51.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 4032,
+          "height": 3024,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/50s",
+            "iso": "ISO 100"
+          }
+        }
+      },
+      {
+        "src": "/photography/urban/IMG_9532.jpeg",
+        "filename": "IMG_9532.jpeg",
+        "exif": {
+          "aperture": 1.6,
+          "focalLength": 5.1,
+          "focalLength35": 26,
+          "shutter": 0.04,
+          "iso": 640,
+          "takenAt": "2024-09-06T12:06:04.000Z",
+          "camera": "Apple iPhone 13",
+          "lens": "iPhone 13 back dual wide camera 5.1mm f/1.6",
+          "width": 2696,
+          "height": 3982,
+          "display": {
+            "aperture": "f/1.6",
+            "focalLength": "26mm",
+            "shutter": "1/25s",
+            "iso": "ISO 640"
           }
         }
       }
