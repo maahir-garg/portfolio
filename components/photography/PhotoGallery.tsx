@@ -4,24 +4,78 @@ import { useMemo, useState, useEffect, useCallback } from "react";
 import Image from "next/image";
 import manifest from "@/lib/photos-manifest.json";
 
-type Photo = { src: string; category: string; id: string; index: number; total: number };
+type ExifDisplay = {
+  aperture: string | null;
+  focalLength: string | null;
+  shutter: string | null;
+  iso: string | null;
+};
 
-const BUILT: Photo[] = manifest.flatMap((cat) =>
-  cat.images.map((src, i, arr) => ({
+type Exif = {
+  takenAt: string | null;
+  camera: string | null;
+  lens: string | null;
+  display: ExifDisplay;
+};
+
+type ManifestImage = {
+  src: string;
+  filename: string;
+  exif: Exif | null;
+};
+
+type ManifestCategory = {
+  category: string;
+  images: ManifestImage[];
+};
+
+type Photo = {
+  id: string;
+  src: string;
+  category: string;
+  index: number;
+  total: number;
+  exif: Exif | null;
+};
+
+const CATEGORIES: ManifestCategory[] = manifest as ManifestCategory[];
+
+const BUILT: Photo[] = CATEGORIES.flatMap((cat) =>
+  cat.images.map((img, i, arr) => ({
     id: `${cat.category}-${i}`,
-    src,
+    src: img.src,
     category: cat.category,
     index: i + 1,
     total: arr.length,
+    exif: img.exif,
   })),
 );
+
+/** "f/2.8 · 35mm · 1/250s · ISO 400" — only joins the parts that exist. */
+function captionFromExif(exif: Exif | null): string | null {
+  if (!exif) return null;
+  const { aperture, focalLength, shutter, iso } = exif.display;
+  const parts = [aperture, focalLength, shutter, iso].filter(
+    (x): x is string => Boolean(x),
+  );
+  return parts.length ? parts.join(" · ") : null;
+}
+
+function yearFromIso(iso: string | null): string | null {
+  if (!iso) return null;
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return null;
+  return String(d.getFullYear());
+}
 
 export function PhotoGallery() {
   const [active, setActive] = useState<string>("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
 
   const categories = useMemo(() => {
-    const ids = manifest.map((c) => c.category).filter((c) => manifest.find((m) => m.category === c)?.images.length);
+    const ids = CATEGORIES.map((c) => c.category).filter(
+      (c) => (CATEGORIES.find((m) => m.category === c)?.images.length ?? 0) > 0,
+    );
     return ["all", ...ids];
   }, []);
 
@@ -31,8 +85,17 @@ export function PhotoGallery() {
   );
 
   const close = useCallback(() => setLightbox(null), []);
-  const next = useCallback(() => setLightbox((i) => (i === null ? null : (i + 1) % filtered.length)), [filtered.length]);
-  const prev = useCallback(() => setLightbox((i) => (i === null ? null : (i - 1 + filtered.length) % filtered.length)), [filtered.length]);
+  const next = useCallback(
+    () => setLightbox((i) => (i === null ? null : (i + 1) % filtered.length)),
+    [filtered.length],
+  );
+  const prev = useCallback(
+    () =>
+      setLightbox((i) =>
+        i === null ? null : (i - 1 + filtered.length) % filtered.length,
+      ),
+    [filtered.length],
+  );
 
   useEffect(() => {
     if (lightbox === null) return;
@@ -51,6 +114,8 @@ export function PhotoGallery() {
   }, [lightbox, close, next, prev]);
 
   const current = lightbox !== null ? filtered[lightbox] : null;
+  const currentCaption = captionFromExif(current?.exif ?? null);
+  const currentYear = yearFromIso(current?.exif?.takenAt ?? null);
 
   return (
     <div className="mt-10">
@@ -61,7 +126,8 @@ export function PhotoGallery() {
         </span>
         {categories.map((c) => {
           const isActive = active === c;
-          const count = c === "all" ? BUILT.length : BUILT.filter((p) => p.category === c).length;
+          const count =
+            c === "all" ? BUILT.length : BUILT.filter((p) => p.category === c).length;
           return (
             <button
               key={c}
@@ -76,7 +142,8 @@ export function PhotoGallery() {
                 style={
                   isActive
                     ? {
-                        backgroundImage: "linear-gradient(var(--color-mark), var(--color-mark))",
+                        backgroundImage:
+                          "linear-gradient(var(--color-mark), var(--color-mark))",
                         backgroundSize: "100% 2px",
                       }
                     : undefined
@@ -97,47 +164,59 @@ export function PhotoGallery() {
         role="list"
         className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-3 md:gap-x-5 lg:grid-cols-4"
       >
-        {filtered.map((photo, i) => (
-          <li key={photo.id} className="group">
-            <button
-              type="button"
-              onClick={() => setLightbox(i)}
-              aria-label={`Open photo ${photo.index} of ${photo.category}`}
-              className="block w-full text-left"
-            >
-              <div className="relative aspect-[4/5] overflow-hidden bg-[color:var(--color-paper)]">
-                <Image
-                  src={photo.src}
-                  alt={`${photo.category} ${photo.index}/${photo.total}`}
-                  fill
-                  sizes="(min-width: 1024px) 22vw, 45vw"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] saturate-[0.92]"
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute left-0 top-0 h-full w-[6px]"
-                  style={{
-                    backgroundImage:
-                      "repeating-linear-gradient(to bottom, rgba(0,0,0,0.4) 0 6px, transparent 6px 14px)",
-                    mixBlendMode: "multiply",
-                  }}
-                />
-              </div>
-              <div className="mt-2 flex items-center justify-between">
-                <span className="mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--color-ink-faint)]">
-                  {photo.category}
-                </span>
-                <span className="mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--color-ink-faint)]">
-                  {String(photo.index).padStart(2, "0")} / {String(photo.total).padStart(2, "0")}
-                </span>
-              </div>
-            </button>
-          </li>
-        ))}
+        {filtered.map((photo, i) => {
+          const caption = captionFromExif(photo.exif);
+          return (
+            <li key={photo.id} className="group">
+              <button
+                type="button"
+                onClick={() => setLightbox(i)}
+                aria-label={`Open photo ${photo.index} of ${photo.category}`}
+                className="block w-full text-left"
+              >
+                <div className="relative aspect-[4/5] overflow-hidden bg-[color:var(--color-paper)]">
+                  <Image
+                    src={photo.src}
+                    alt={`${photo.category} ${photo.index}/${photo.total}`}
+                    fill
+                    sizes="(min-width: 1024px) 22vw, 45vw"
+                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] saturate-[0.92]"
+                  />
+                  <div
+                    aria-hidden
+                    className="pointer-events-none absolute left-0 top-0 h-full w-[6px]"
+                    style={{
+                      backgroundImage:
+                        "repeating-linear-gradient(to bottom, rgba(0,0,0,0.4) 0 6px, transparent 6px 14px)",
+                      mixBlendMode: "multiply",
+                    }}
+                  />
+                </div>
+                <div className="mt-2 flex items-center justify-between gap-2">
+                  <span className="mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--color-ink-faint)]">
+                    {photo.category}
+                  </span>
+                  <span className="mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--color-ink-faint)]">
+                    {String(photo.index).padStart(2, "0")} /{" "}
+                    {String(photo.total).padStart(2, "0")}
+                  </span>
+                </div>
+                {caption && (
+                  <p className="mt-1 mono text-[10px] tracking-[0.14em] text-[color:var(--color-ink-dim)] line-clamp-1">
+                    {caption}
+                  </p>
+                )}
+              </button>
+            </li>
+          );
+        })}
       </ul>
 
       {filtered.length === 0 && (
-        <p className="mt-16 italic-serif text-center text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)" }}>
+        <p
+          className="mt-16 italic-serif text-center text-[color:var(--color-ink-dim)]"
+          style={{ fontSize: "var(--step-1)" }}
+        >
           Nothing on this roll yet.
         </p>
       )}
@@ -162,7 +241,10 @@ export function PhotoGallery() {
 
           <button
             type="button"
-            onClick={(e) => { e.stopPropagation(); prev(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              prev();
+            }}
             aria-label="Previous photo"
             className="absolute left-4 top-1/2 -translate-y-1/2 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
           >
@@ -170,7 +252,10 @@ export function PhotoGallery() {
           </button>
           <button
             type="button"
-            onClick={(e) => { e.stopPropagation(); next(); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              next();
+            }}
             aria-label="Next photo"
             className="absolute right-4 top-1/2 -translate-y-1/2 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
           >
@@ -191,9 +276,23 @@ export function PhotoGallery() {
                 className="object-contain"
               />
             </div>
-            <p className="mt-3 mono text-center text-[11px] uppercase tracking-[0.18em] text-[color:var(--color-ink-faint)]">
-              {current.category} · {String(current.index).padStart(2, "0")} / {String(current.total).padStart(2, "0")}
-            </p>
+            <div className="mt-4 flex flex-col items-center gap-1">
+              <p className="mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--color-ink-dim)]">
+                {current.category} · {String(current.index).padStart(2, "0")} /{" "}
+                {String(current.total).padStart(2, "0")}
+                {currentYear ? ` · ${currentYear}` : ""}
+              </p>
+              {currentCaption && (
+                <p className="mono text-[10px] tracking-[0.18em] text-[color:var(--color-ink-faint)]">
+                  {currentCaption}
+                </p>
+              )}
+              {current.exif?.camera && (
+                <p className="mono text-[10px] tracking-[0.18em] text-[color:var(--color-ink-faint)]">
+                  {current.exif.camera}
+                </p>
+              )}
+            </div>
           </div>
         </div>
       )}

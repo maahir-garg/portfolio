@@ -6,28 +6,80 @@ import { Reveal } from "@/components/ui/Reveal";
 import manifest from "@/lib/photos-manifest.json";
 
 /**
- * A contact-sheet strip: four photos, each with an EXIF-style caption.
- * No masonry, no scatter — a curated reel like a photographer would lay
- * out on a light table.
+ * A contact-sheet strip: a few hand-picked frames with real EXIF captions
+ * pulled from the photo manifest. No masonry, no scatter. A curated reel
+ * like a photographer would lay out on a light table.
  */
 
-type Pick = { src: string; category: string; caption: string };
+type ExifDisplay = {
+  aperture: string | null;
+  focalLength: string | null;
+  shutter: string | null;
+  iso: string | null;
+};
 
-function pickOne(category: string, fallbackCategory: string): Pick | null {
-  const cat = manifest.find((c) => c.category === category);
-  const pool = cat?.images?.length ? cat.images : manifest.find((c) => c.category === fallbackCategory)?.images ?? [];
-  const src = pool[0];
-  if (!src) return null;
-  return { src, category, caption: `${category} · film no. ${Math.floor(Math.random() * 36) + 1}/36` };
+type ManifestImage = {
+  src: string;
+  filename: string;
+  exif: {
+    display: ExifDisplay;
+  } | null;
+};
+
+type ManifestCategory = {
+  category: string;
+  images: ManifestImage[];
+};
+
+type Pick = {
+  src: string;
+  category: string;
+  caption: string;
+};
+
+const CATEGORIES: ManifestCategory[] = manifest as ManifestCategory[];
+
+function exifCaption(img: ManifestImage | undefined, category: string): string {
+  const display = img?.exif?.display;
+  const parts = [
+    display?.aperture,
+    display?.focalLength,
+    display?.shutter,
+    display?.iso,
+  ].filter((x): x is string => Boolean(x));
+  if (parts.length === 0) return category.toUpperCase();
+  return `${category.toUpperCase()} · ${parts.slice(0, 2).join(" · ")}`;
 }
 
+/**
+ * Pick up to four frames across categories so the strip stays visually
+ * mixed. Deterministic: takes the first image from each available
+ * category, then rotates to the next frame of the first category to
+ * fill to four.
+ */
+function buildPicks(): Pick[] {
+  const out: Pick[] = [];
+  for (const cat of CATEGORIES) {
+    const first = cat.images[0];
+    if (!first) continue;
+    out.push({ src: first.src, category: cat.category, caption: exifCaption(first, cat.category) });
+    if (out.length === 4) return out;
+  }
+  // top up from the earliest-populated category
+  const firstCat = CATEGORIES.find((c) => c.images.length > 1);
+  let idx = 1;
+  while (out.length < 4 && firstCat && firstCat.images[idx]) {
+    const img = firstCat.images[idx];
+    out.push({ src: img.src, category: firstCat.category, caption: exifCaption(img, firstCat.category) });
+    idx++;
+  }
+  return out;
+}
+
+const PICKS: Pick[] = buildPicks();
+
 export function PhotographyStrip() {
-  const picks: Pick[] = [
-    { src: manifest[0]?.images[2] ?? "", category: "landscape", caption: "LANDSCAPE · 35mm · f/5.6" },
-    { src: manifest[1]?.images[1] ?? "", category: "street",    caption: "STREET · 50mm · f/2" },
-    { src: manifest[2]?.images[0] ?? "", category: "portrait",  caption: "PORTRAIT · 85mm · f/1.8" },
-    { src: manifest[0]?.images[5] ?? "", category: "landscape", caption: "LANDSCAPE · 24mm · f/8" },
-  ].filter((p) => p.src);
+  if (PICKS.length === 0) return null;
 
   return (
     <section className="container-page mt-32 md:mt-40">
@@ -52,7 +104,7 @@ export function PhotographyStrip() {
 
       <Reveal delay={120}>
         <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-x-6">
-          {picks.map((p, i) => (
+          {PICKS.map((p, i) => (
             <figure
               key={`${p.src}-${i}`}
               className="group flex flex-col gap-2"
@@ -81,7 +133,7 @@ export function PhotographyStrip() {
                 {p.caption}
                 <span className="mx-2">·</span>
                 <span className="text-[color:var(--color-ink-dim)]">
-                  {String(i + 1).padStart(2, "0")} / {String(picks.length).padStart(2, "0")}
+                  {String(i + 1).padStart(2, "0")} / {String(PICKS.length).padStart(2, "0")}
                 </span>
               </figcaption>
             </figure>
