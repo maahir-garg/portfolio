@@ -21,21 +21,21 @@ export function Colophon() {
       <div className="mt-10 grid grid-cols-1 gap-10 md:grid-cols-12 md:gap-8">
         <Reveal as="div" className="md:col-span-6" delay={60}>
           <p className="meta mb-3">On the desk</p>
-          <ul className="space-y-2 text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-1)" }}>
-            <li>— fine-tuning a reasoning model on clause-extracted data</li>
-            <li>— reading <em className="italic-serif">Designing Data-Intensive Applications</em></li>
-            <li>— building this site, out loud</li>
-            <li>— logging one LeetCode problem a day, give or take</li>
+          <ul className="colophon-list space-y-2 text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-1)" }}>
+            <li>fine-tuning a reasoning model on clause-extracted data</li>
+            <li>reading <em className="italic-serif">Designing Data-Intensive Applications</em></li>
+            <li>building this site, out loud</li>
+            <li>logging one LeetCode problem a day, give or take</li>
           </ul>
         </Reveal>
 
         <Reveal as="div" className="md:col-span-6" delay={120}>
           <p className="meta mb-3">Off the desk</p>
-          <ul className="space-y-2 text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-1)" }}>
-            <li>— badminton on wednesdays</li>
-            <li>— three F1 tabs open somewhere</li>
-            <li>— chess, mostly blitz, losing honestly</li>
-            <li>— photographing whatever the light does</li>
+          <ul className="colophon-list space-y-2 text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-1)" }}>
+            <li>badminton on wednesdays</li>
+            <li>three F1 tabs open somewhere</li>
+            <li>chess, mostly blitz, losing honestly</li>
+            <li>photographing whatever the light does</li>
           </ul>
         </Reveal>
       </div>
@@ -45,8 +45,8 @@ export function Colophon() {
           <div className="md:col-span-2"><p className="meta">Letters</p></div>
           <div className="md:col-span-10">
             <p className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-2)", lineHeight: 1.35 }}>
-              If any of this reads like something you&apos;d want to talk about —
-              models, optimization, pipelines, or a quiet photograph —{" "}
+              If any of this reads like something you&apos;d want to talk about,
+              models, optimization, pipelines, or a quiet photograph,{" "}
               <a href={`mailto:${DATA.contact.email}`} className="link-underline text-[color:var(--color-ink)]">
                 write to me
               </a>

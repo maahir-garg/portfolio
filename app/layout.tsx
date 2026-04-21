@@ -29,14 +29,14 @@ const newsreader = Newsreader({
 });
 
 export const metadata: Metadata = {
-  title: "Maahir Garg — Field Notebook",
+  title: "Maahir Garg · Field Notebook",
   description:
-    "Maahir Garg — AI engineer at GIC, Computer Science & Quantitative Finance at NUS. Working on LLMs, optimization, data pipelines, and the occasional Vision Pro experiment. Also a photographer.",
+    "Maahir Garg. AI Engineer at GIC, building agentic LLM tooling for classified-data environments. Computer Science & Quantitative Finance at NUS. Patent-pending multimodal hand-tracking on Vision Pro. Also a photographer.",
   authors: [{ name: "Maahir Garg" }],
   openGraph: {
-    title: "Maahir Garg — Field Notebook",
+    title: "Maahir Garg · Field Notebook",
     description:
-      "AI engineer at GIC, CS student at NUS. LLMs, optimization, and spatial computing. Occasionally behind a camera.",
+      "AI Engineer at GIC. Agentic LLMs, model optimization, spatial computing. CS + Quant Finance at NUS.",
     type: "website",
   },
 };

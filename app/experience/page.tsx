@@ -2,7 +2,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
 
 export const metadata = {
-  title: "Work — Maahir Garg",
+  title: "Work · Maahir Garg",
   description: "A chronological list of roles across AI engineering, research, data, and teaching.",
 };
 
@@ -57,7 +57,7 @@ export default function ExperiencePage() {
                     {role.company}
                   </h2>
                   <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)" }}>
-                    — {role.title}
+                    / {role.title}
                   </p>
                 </div>
 
@@ -97,7 +97,7 @@ export default function ExperiencePage() {
                   {e.school}
                 </h3>
                 <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>
-                  — {e.degree}
+                  / {e.degree}
                 </p>
                 <span className="mono ml-auto text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
                   {e.start} → {e.end}
