@@ -3,7 +3,7 @@ import { DATA } from "@/lib/data";
 import { SingaporeClock } from "@/components/home/SingaporeClock";
 
 export const metadata = {
-  title: "Contact — Maahir Garg",
+  title: "Contact · Maahir Garg",
   description: "The shortest path to Maahir's inbox.",
 };
 
@@ -25,7 +25,7 @@ export default function ContactPage() {
               style={{ fontSize: "var(--step-1)", lineHeight: 1.6 }}
             >
               I tried having a contact form here. It made the page heavier and
-              the replies worse. Email is better — it carries whatever context
+              the replies worse. Email is better. It carries whatever context
               you want to send with it.
             </p>
           </div>

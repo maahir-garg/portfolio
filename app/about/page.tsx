@@ -4,8 +4,8 @@ import { Skills } from "@/components/Skills";
 import { DATA } from "@/lib/data";
 
 export const metadata = {
-  title: "About — Maahir Garg",
-  description: "A letter from Maahir — what I do, how I think, what I'm learning.",
+  title: "About · Maahir Garg",
+  description: "A letter from Maahir. What I do, how I think, what I'm learning.",
 };
 
 export default function AboutPage() {
@@ -34,19 +34,26 @@ export default function AboutPage() {
               Hello. I&apos;m Maahir. I study Computer Science and
               Quantitative Finance at NUS, and I work as an AI engineer at{" "}
               <a className="link-underline" href="https://www.gic.com.sg" target="_blank" rel="noreferrer">GIC</a>.
-              Most of my time goes into fine-tuning language models,
-              building data pipelines, and occasionally prototyping spatial
-              computing experiences for Apple Vision Pro.
+              Right now I&apos;m building an internal{" "}
+              <em className="italic-serif">Claude Code-style</em> CLI agent
+              for classified-data environments. It&apos;s now the primary AI
+              interface across my team, alongside agentic LLM pipelines that
+              automate internal audit workflows end-to-end.
             </p>
             <p>
-              Before this I taught{" "}
+              Before GIC I was at Interactive 3D Lab, where I co-invented a{" "}
+              <em className="italic-serif">patent-pending</em> multimodal
+              tracking framework that stitches iPhone and Apple Vision Pro
+              into a single tracking surface for stroke rehabilitation, at
+              89% cross-device accuracy, with a research paper in preparation. I also
+              taught{" "}
               <em className="italic-serif">Algorithms</em>,{" "}
               <em className="italic-serif">Data Structures</em>, and{" "}
-              <em className="italic-serif">Discrete Structures</em> at NUS,
-              scraped a lot of the open web for one research lab or another,
-              and worked on an AR/VR motion-sickness study at Augmented Human
-              Lab with 500-odd participants. Threads that keep recurring:
-              measurement, constraint, trade-off.
+              <em className="italic-serif">Discrete Structures</em> at NUS
+              across three semesters (4.8/5.0 rating), and shipped data
+              infrastructure across a handful of earlier research and
+              industry roles. Threads that keep recurring: measurement,
+              constraint, trade-off.
             </p>
             <p>
               Outside work I carry a camera, play a lot of badminton, and keep
@@ -84,7 +91,7 @@ export default function AboutPage() {
             {DATA.education.map((e, i) => (
               <div key={i} className="flex flex-wrap items-baseline gap-x-4 border-t border-[color:var(--color-rule)] pt-6">
                 <h3 className="italic-serif" style={{ fontSize: "var(--step-2)" }}>{e.school}</h3>
-                <p className="text-[color:var(--color-ink-dim)]">— {e.degree}</p>
+                <p className="text-[color:var(--color-ink-dim)]">/ {e.degree}</p>
                 <span className="mono ml-auto text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
                   {e.start} → {e.end}
                 </span>
@@ -100,7 +107,7 @@ export default function AboutPage() {
           <div className="md:col-span-2"><p className="meta">§ Reach</p></div>
           <div className="md:col-span-10">
             <p className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-2)", lineHeight: 1.35 }}>
-              If this reads like someone you&apos;d want on a problem —{" "}
+              If this reads like someone you&apos;d want on a problem,{" "}
               <Link href="/contact" className="link-underline text-[color:var(--color-ink)]">
                 let&apos;s talk
               </Link>

@@ -4,9 +4,9 @@ export const DATA = {
   location: "Singapore",
   locationLink: "https://www.google.com/maps/place/singapore",
   description:
-    "AI engineer and Computer Science student at NUS. I like working on systems that have real users and real constraints.",
+    "AI Engineer at GIC. I build agentic LLM tooling for classified-data environments and optimize models that have to run in production.",
   summary:
-    "I study Computer Science and Quantitative Finance at NUS and work as an AI Engineer at GIC. Most of my time goes into fine‑tuning language models, building data pipelines, and prototyping spatial computing experiences for Apple Vision Pro. Before that I did a mix of research, teaching, and hands‑on engineering work.",
+    "I study Computer Science and Quantitative Finance at NUS and work as an AI Engineer at GIC, where I built an internal Claude Code–style CLI agent adopted across my team and agentic pipelines that automate audit workflows end-to-end. Before GIC I prototyped a patent-pending multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation, taught algorithms at NUS, and shipped data infrastructure across a handful of research and industry roles.",
   avatarUrl: "/me.png",
   skills: {
     Programming: ["Python", "Java", "JavaScript", "C/C++", "Swift", "R", "LaTeX"],
@@ -49,19 +49,19 @@ export const DATA = {
       start: "Jan 2026",
       end: "Present",
       description:
-        "Working on advanced AI initiatives.",
+        "Built an internal Claude Code-style CLI agent from scratch on Chainlit with modular tool-calling and a skill-routing system over proprietary models. Adopted by 100% of my team as the primary AI interface where classified-data constraints rule out Copilot. Also deploying agentic LLM pipelines that automate internal audit workflows end-to-end; two previously manual data sources now run effectively instantly.",
     },
     {
-      company: "Interactive 3D Labs",
+      company: "Interactive 3D Lab",
       href: "",
       badges: [],
       location: "Singapore",
-      title: "Swift Developer",
+      title: "Swift Developer, Apple Vision Pro",
       logoUrl: "/i3d.png",
-      start: "Mar 2025",
+      start: "May 2025",
       end: "Dec 2025",
       description:
-        "Designed and developed immersive 3D applications for Apple Vision Pro using Swift, Unity, and RealityKit. Collaborated with researchers to prototype AR/VR applications focused on accessibility and interaction fidelity.",
+        "Co-inventor of a patent-pending multimodal tracking framework for hand–eye coordination assessment in stroke rehabilitation, unifying Apple Vision Pro and iPhone into one tracking surface at 89% cross-device accuracy (Swift, RealityKit). Ran controlled user studies with healthcare practitioners and iterated system design from empirical findings. Paper in preparation.",
     },
     {
       company: "NUS Computing",
@@ -73,7 +73,7 @@ export const DATA = {
       start: "Aug 2024",
       end: "Dec 2025",
       description:
-        "Taught CS3230 (Algorithms), CS2040S (Data Structures), and CS1231S (Discrete Structures). Guided students on dynamic programming, graph algorithms, and complexity analysis.",
+        "Three semesters across CS3230 (Design & Analysis of Algorithms), CS2040S (Data Structures & Algorithms), and CS1231S (Discrete Structures). Coached students through dynamic programming, graph algorithms, and complexity analysis. 4.8/5.0 teaching effectiveness rating vs 4.2 faculty average.",
     },
     {
       company: "National University of Singapore",
@@ -85,7 +85,7 @@ export const DATA = {
       start: "May 2025",
       end: "Aug 2025",
       description:
-        "Mentored project teams, providing technical guidance on software architecture and project management. Assessed deliverables and coached students on best practices.",
+        "Mentored 12 student engineering teams on software architecture, implementation planning, and release management. All 12 projects passed at or above their targeted grade level.",
     },
     {
       company: "National University of Singapore",
@@ -97,19 +97,19 @@ export const DATA = {
       start: "Aug 2024",
       end: "Apr 2025",
       description:
-        "Developed and optimized data pipelines from Stack Overflow to analyze the impact of feedback mechanisms on content quality.",
+        "Built and optimized data pipelines against Stack Overflow to analyze how feedback mechanisms shape content quality over time.",
     },
     {
-      company: "Accelerice Indonesia",
+      company: "Accelerice",
       href: "https://accelerice.com",
       badges: [],
       location: "Jakarta, Indonesia",
-      title: "Data Scientist",
+      title: "Data Engineer (NUS Overseas College)",
       logoUrl: "/accelerice.png",
       start: "May 2024",
       end: "Aug 2024",
       description:
-        "Developed scalable databases and dashboards, integrating APIs and web-scraped data. Spearheaded SEO strategies improving search rankings.",
+        "Shipped data-driven dashboards and backend databases with Python and API integrations, lifting data accessibility across the ops team by 40%. Led SEO and performance work: 30% lift in search ranking, 25% cut in page load time, 20% growth in organic traffic.",
     },
     {
       company: "NUS Information Technology",
@@ -175,16 +175,15 @@ export const DATA = {
       title: "Portfolio Website",
       slug: "portfolio",
       href: "https://github.com/maahir-garg/portfolio",
-      dates: "Jan 2026",
+      dates: "Apr 2026",
       active: true,
       description:
-        "My personal portfolio website built with Next.js, Tailwind CSS, and Framer Motion. Features a custom design system, GSAP animations, and fully responsive layout.",
+        "This site. Editorial field-notebook redesign: warm paper canvas and oxidized-red pencil mark, indexed sections, live Singapore clock, both light and dark tuned independently. Built with Next.js 16 + Tailwind v4; motion respects prefers-reduced-motion; a11y basics from skip-link to keyboard lightbox.",
       technologies: [
         "Next.js",
         "React",
-        "Tailwind CSS",
-        "GSAP",
-        "Framer Motion"
+        "TypeScript",
+        "Tailwind CSS v4"
       ],
       links: [
         {
@@ -235,17 +234,18 @@ export const DATA = {
       video: "",
     },
     {
-      title: "3D iPhone hand tracking",
+      title: "Multimodal Hand Tracking for Stroke Rehab",
       slug: "3d-iphone",
       href: "https://github.com/maahir-garg/3D-iPhone",
       dates: "Dec 2025",
       active: true,
       description:
-        "Immersive 3D application for Apple Vision Pro using Swift and RealityKit. (Inferred from role)",
+        "Patent-pending framework that unifies iPhone and Apple Vision Pro into a single tracking surface for hand-eye coordination assessment in stroke rehabilitation. Co-invented at Interactive 3D Lab; built in Swift and RealityKit; validated in controlled studies with healthcare practitioners at 89% cross-device accuracy. Research paper in preparation.",
       technologies: [
         "Swift",
         "RealityKit",
-        "VisionPro",
+        "Vision Pro",
+        "iPhone",
       ],
       links: [
         {
