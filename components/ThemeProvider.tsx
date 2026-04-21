@@ -14,16 +14,24 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 const STORAGE_KEY = "mg-theme";
 
+function resolveInitialTheme(): Theme {
+  if (typeof window === "undefined") return "light";
+  const stored = window.localStorage.getItem(STORAGE_KEY);
+  if (stored === "dark" || stored === "light") return stored;
+  return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const [theme, setTheme] = useState<Theme>("light");
+  // Lazy initializer — picks up whatever the inline `themeInitScript` already
+  // applied to <html> before hydration, so React's state matches the DOM on
+  // first paint. No cascading setState-in-effect.
+  const [theme, setTheme] = useState<Theme>(resolveInitialTheme);
 
   useEffect(() => {
-    const stored = typeof window !== "undefined" ? window.localStorage.getItem(STORAGE_KEY) : null;
-    const prefersDark = typeof window !== "undefined" &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const initial: Theme = stored === "dark" || stored === "light" ? stored : prefersDark ? "dark" : "light";
-    setTheme(initial);
-    applyTheme(initial);
+    // Keep the DOM in sync with React's notion of the theme on mount. (The
+    // inline script already did this pre-hydration; this is belt-and-braces
+    // for the SSR path where `resolveInitialTheme` returned the default.)
+    applyTheme(theme);
 
     const mq = window.matchMedia("(prefers-color-scheme: dark)");
     const onChange = (e: MediaQueryListEvent) => {
@@ -35,6 +43,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     };
     mq.addEventListener("change", onChange);
     return () => mq.removeEventListener("change", onChange);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const set = (t: Theme) => {
@@ -65,7 +74,7 @@ export function useTheme() {
   return ctx;
 }
 
-/* inline script — runs before paint, avoids FOUC */
+/* inline script. Runs before paint, avoids FOUC. */
 export const themeInitScript = `
 (function(){try{
   var k='${STORAGE_KEY}';

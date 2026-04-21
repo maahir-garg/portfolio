@@ -53,7 +53,7 @@ export default function ProjectsPage() {
         </header>
       </Reveal>
 
-      {/* filter row — editorial tabs */}
+      {/* filter row. Editorial tabs. */}
       <Reveal delay={100}>
         <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2">
           <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
