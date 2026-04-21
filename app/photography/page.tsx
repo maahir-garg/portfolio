@@ -2,7 +2,7 @@ import { PhotoGallery } from "@/components/photography/PhotoGallery";
 import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata = {
-  title: "Photography — Maahir Garg",
+  title: "Photography · Maahir Garg",
   description: "A working contact sheet of landscapes, streets, and portraits.",
 };
 
@@ -21,7 +21,7 @@ export default function PhotographyPage() {
               style={{ fontSize: "var(--step-1)", lineHeight: 1.6 }}
             >
               I carry a camera the way most of my friends carry a notebook.
-              The frames below are out of order and out of context — that&apos;s
+              The frames below are out of order and out of context. That&apos;s
               the point. Click any one to read it larger.
             </p>
           </div>

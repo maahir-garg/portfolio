@@ -62,10 +62,12 @@ export function Hero() {
               >
                 NUS
               </a>
-              . Most days I&apos;m fine-tuning language models, shaping data
-              pipelines, or prototyping things for the Vision Pro. The rest of
-              the time I&apos;m teaching algorithms, reading, or photographing
-              whatever&apos;s in front of me.
+              . I&apos;m building an internal Claude Code-style CLI agent for
+              classified-data environments and agentic pipelines that automate
+              audit workflows. Before that, a patent-pending multimodal
+              hand-tracking framework on Vision Pro for stroke rehab. When
+              I&apos;m not shipping, I&apos;m teaching algorithms, reading, or
+              photographing whatever&apos;s in front of me.
             </p>
           </Reveal>
 
