@@ -11,15 +11,18 @@ interface RevealProps {
 
 export function Reveal({ children, delay = 0, as = "div", className = "" }: RevealProps) {
   const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
+  // Lazy initial state: if the environment has no IntersectionObserver, we
+  // start visible immediately rather than flipping from an effect (which lint
+  // reasonably flags as a cascading render).
+  const [visible, setVisible] = useState(() => {
+    if (typeof window === "undefined") return false;
+    return !("IntersectionObserver" in window);
+  });
 
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
-    if (typeof window === "undefined" || !("IntersectionObserver" in window)) {
-      setVisible(true);
-      return;
-    }
+    if (!("IntersectionObserver" in window)) return;
     const io = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {

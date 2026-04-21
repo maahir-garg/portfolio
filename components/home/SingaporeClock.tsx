@@ -2,23 +2,23 @@
 
 import { useEffect, useState } from "react";
 
+const SG_FORMATTER = new Intl.DateTimeFormat("en-GB", {
+  timeZone: "Asia/Singapore",
+  hour: "2-digit",
+  minute: "2-digit",
+  hour12: false,
+});
+
 function formatSG(now: Date) {
-  // Singapore Standard Time, UTC+8
-  const fmt = new Intl.DateTimeFormat("en-GB", {
-    timeZone: "Asia/Singapore",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false,
-  });
-  return fmt.format(now);
+  return SG_FORMATTER.format(now);
 }
 
 export function SingaporeClock({ label = "Singapore" }: { label?: string }) {
+  // Start with the placeholder on both server and first client paint to avoid
+  // hydration mismatch, then update inside the effect.
   const [time, setTime] = useState<string>("··:··");
-  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setMounted(true);
     const tick = () => setTime(formatSG(new Date()));
     tick();
     const id = setInterval(tick, 15_000);
@@ -33,7 +33,7 @@ export function SingaporeClock({ label = "Singapore" }: { label?: string }) {
       <span className="uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
         {label}
       </span>
-      <span aria-live="polite" className={mounted ? "caret" : ""}>
+      <span aria-live="polite" className="caret" suppressHydrationWarning>
         {time}
       </span>
     </span>

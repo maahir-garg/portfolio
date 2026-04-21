@@ -24,10 +24,6 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
-
   const isActive = (href: string) =>
     href === "/" ? pathname === "/" : pathname?.startsWith(href);
 
@@ -116,6 +112,7 @@ export function Header() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => setOpen(false)}
               className="flex items-baseline gap-3 py-3 text-[color:var(--color-ink)]"
             >
               <span className="mono text-[11px] text-[color:var(--color-ink-faint)]">
