@@ -14,7 +14,7 @@ function formatSG(now: Date) {
 }
 
 export function SingaporeClock({ label = "Singapore" }: { label?: string }) {
-  const [time, setTime] = useState<string>("—");
+  const [time, setTime] = useState<string>("··:··");
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {

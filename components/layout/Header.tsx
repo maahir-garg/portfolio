@@ -43,7 +43,7 @@ export function Header() {
         <Link
           href="/"
           className="group inline-flex items-baseline gap-2"
-          aria-label="Home — Maahir Garg"
+          aria-label="Home · Maahir Garg"
         >
           <span className="italic-serif text-[color:var(--color-ink)] text-[1.05rem] leading-none">
             Maahir Garg
