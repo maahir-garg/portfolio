@@ -1,86 +1,62 @@
 import { getLeetCodeStats } from "@/lib/leetcode";
-import { Card } from "@/components/ui/Card";
-import { Trophy, Activity } from "lucide-react";
 
 export async function LeetCodeStats({ username }: { username: string }) {
-    const stats = await getLeetCodeStats(username);
+  const stats = await getLeetCodeStats(username);
 
-    if (!stats) {
-        return (
-            <Card className="p-6 bg-paper-light border-border/50">
-                <div className="flex flex-col items-center justify-center text-center space-y-2 py-4">
-                    <Activity className="h-8 w-8 text-ink-muted/50" />
-                    <p className="text-ink-muted">Live stats currently unavailable.</p>
-                </div>
-            </Card>
-        );
-    }
-
-    const { totalSolved, easySolved, mediumSolved, hardSolved, ranking } = stats;
-
+  if (!stats) {
     return (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <Card className="p-6 space-y-4">
-                <div className="flex items-center justify-between">
-                    <h3 className="font-semibold text-ink flex items-center gap-2">
-                        <Trophy className="h-4 w-4 text-accent" />
-                        Total Solved
-                    </h3>
-                    <span className="text-2xl font-bold text-ink">{totalSolved}</span>
-                </div>
-
-                <div className="space-y-3 pt-2">
-                    {/* Easy */}
-                    <div className="space-y-1">
-                        <div className="flex justify-between text-xs">
-                            <span className="text-emerald-600 font-medium">Easy</span>
-                            <span className="text-ink-muted">{easySolved}</span>
-                        </div>
-                        <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                            <div
-                                className="h-full bg-emerald-500 rounded-full"
-                                style={{ width: `${totalSolved > 0 ? (easySolved / totalSolved) * 100 : 0}%` }}
-                            />
-                        </div>
-                    </div>
-
-                    {/* Medium */}
-                    <div className="space-y-1">
-                        <div className="flex justify-between text-xs">
-                            <span className="text-amber-500 font-medium">Medium</span>
-                            <span className="text-ink-muted">{mediumSolved}</span>
-                        </div>
-                        <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                            <div
-                                className="h-full bg-amber-500 rounded-full"
-                                style={{ width: `${totalSolved > 0 ? (mediumSolved / totalSolved) * 100 : 0}%` }}
-                            />
-                        </div>
-                    </div>
-
-                    {/* Hard */}
-                    <div className="space-y-1">
-                        <div className="flex justify-between text-xs">
-                            <span className="text-rose-500 font-medium">Hard</span>
-                            <span className="text-ink-muted">{hardSolved}</span>
-                        </div>
-                        <div className="h-2 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden">
-                            <div
-                                className="h-full bg-rose-500 rounded-full"
-                                style={{ width: `${totalSolved > 0 ? (hardSolved / totalSolved) * 100 : 0}%` }}
-                            />
-                        </div>
-                    </div>
-                </div>
-            </Card>
-
-            <Card className="p-6 flex flex-col items-center justify-center text-center space-y-2">
-                <div className="p-3 rounded-full bg-accent/10 text-accent mb-1">
-                    <Activity size={32} />
-                </div>
-                <p className="text-sm font-medium text-ink-muted uppercase tracking-wider">Global Ranking</p>
-                <p className="text-4xl font-bold text-ink tracking-tight">#{ranking.toLocaleString()}</p>
-            </Card>
-        </div>
+      <p className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)" }}>
+        Live stats temporarily unreachable. They&apos;ll return.
+      </p>
     );
+  }
+
+  const { totalSolved, easySolved, mediumSolved, hardSolved, ranking } = stats;
+  const pct = (n: number) => (totalSolved > 0 ? (n / totalSolved) * 100 : 0);
+
+  return (
+    <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
+      {/* Solved ladder */}
+      <div>
+        <div className="flex items-baseline justify-between border-b border-[color:var(--color-rule)] pb-2">
+          <p className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">Solved</p>
+          <p className="mono text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-3)" }}>
+            {totalSolved}
+          </p>
+        </div>
+
+        <ul className="mt-4 space-y-4">
+          {[
+            { label: "Easy", value: easySolved },
+            { label: "Medium", value: mediumSolved },
+            { label: "Hard", value: hardSolved },
+          ].map((row) => (
+            <li key={row.label}>
+              <div className="flex items-baseline justify-between mono text-[11px] uppercase tracking-[0.14em]">
+                <span className="text-[color:var(--color-ink-dim)]">{row.label}</span>
+                <span className="text-[color:var(--color-ink)]">{row.value}</span>
+              </div>
+              <div className="mt-2 h-px bg-[color:var(--color-rule)] relative overflow-hidden">
+                <div
+                  className="absolute inset-y-0 left-0 bg-[color:var(--color-mark)]"
+                  style={{ width: `${pct(row.value)}%`, height: "2px", top: "-0.5px" }}
+                />
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      {/* Ranking */}
+      <div className="flex flex-col justify-between border-t border-[color:var(--color-rule)] pt-2 md:border-t-0 md:pt-0">
+        <p className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">Global rank</p>
+        <p className="mono mt-2 text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-5)", lineHeight: 1 }}>
+          #{ranking.toLocaleString()}
+        </p>
+        <p className="mono mt-3 text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
+          updates hourly
+        </p>
+      </div>
+    </div>
+  );
 }

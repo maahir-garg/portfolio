@@ -1,124 +1,131 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X, Github, Linkedin, Mail } from "lucide-react";
-import { Container } from "@/components/ui/Container";
-import { cn } from "@/lib/utils";
-import { DATA } from "@/lib/data";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
-const navItems = [
-    { name: "Projects", href: "/projects" },
-    { name: "Photography", href: "/photography" },
-    { name: "Experience", href: "/experience" },
-    { name: "About", href: "/about" },
-    { name: "Contact", href: "/contact" },
+const nav = [
+  { label: "Work", href: "/experience" },
+  { label: "Projects", href: "/projects" },
+  { label: "Photography", href: "/photography" },
+  { label: "About", href: "/about" },
 ];
 
 export function Header() {
-    const [isOpen, setIsOpen] = useState(false);
-    const [scrolled, setScrolled] = useState(false);
-    const pathname = usePathname();
+  const pathname = usePathname();
+  const [open, setOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
 
-    useEffect(() => {
-        const handleScroll = () => {
-            setScrolled(window.scrollY > 20);
-        };
-        window.addEventListener("scroll", handleScroll);
-        return () => window.removeEventListener("scroll", handleScroll);
-    }, []);
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-    // Close menu on route change
-    useEffect(() => {
-        if (isOpen) setIsOpen(false);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [pathname]);
+  useEffect(() => {
+    setOpen(false);
+  }, [pathname]);
 
-    return (
-        <header
-            className={cn(
-                "fixed top-0 left-0 right-0 z-50 transition-all duration-300",
-                scrolled
-                    ? "bg-canvas/80 backdrop-blur-md border-b border-border/50 py-3"
-                    : "bg-transparent py-5"
-            )}
+  const isActive = (href: string) =>
+    href === "/" ? pathname === "/" : pathname?.startsWith(href);
+
+  return (
+    <header
+      className={`fixed inset-x-0 top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-300 ${
+        scrolled || open
+          ? "bg-[color:var(--color-canvas)]/85 backdrop-blur-md border-b border-[color:var(--color-rule)]"
+          : "bg-transparent border-b border-transparent"
+      }`}
+    >
+      <div className="container-page flex h-14 items-center justify-between gap-6">
+        <Link
+          href="/"
+          className="group inline-flex items-baseline gap-2"
+          aria-label="Home — Maahir Garg"
         >
-            <Container className="flex items-center justify-between">
-                <Link
-                    href="/"
-                    className="text-xl font-bold tracking-tight text-ink hover:text-accent transition-colors"
-                >
-                    {DATA.name.split(" ")[0]}
-                </Link>
+          <span className="italic-serif text-[color:var(--color-ink)] text-[1.05rem] leading-none">
+            Maahir Garg
+          </span>
+          <span className="mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-faint)]">
+            /mg
+          </span>
+        </Link>
 
-                {/* Desktop Nav */}
-                <nav className="hidden md:flex items-center gap-8">
-                    {navItems.map((item) => (
-                        <Link
-                            key={item.href}
-                            href={item.href}
-                            className={cn(
-                                "text-sm font-medium transition-colors hover:text-accent",
-                                pathname === item.href
-                                    ? "text-accent"
-                                    : "text-ink-muted"
-                            )}
-                        >
-                            {item.name}
-                        </Link>
-                    ))}
-                </nav>
+        <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">
+          {nav.map((item, i) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className="group relative inline-flex items-baseline gap-1.5 text-[0.92rem] text-[color:var(--color-ink-dim)] transition-colors hover:text-[color:var(--color-ink)]"
+            >
+              <span className="mono text-[10px] text-[color:var(--color-ink-faint)] tabular-nums">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span
+                className={`link-underline ${
+                  isActive(item.href) ? "text-[color:var(--color-ink)]" : ""
+                }`}
+                style={
+                  isActive(item.href)
+                    ? { backgroundSize: "100% 1px", backgroundImage: "linear-gradient(var(--color-mark), var(--color-mark))", color: "var(--color-ink)" }
+                    : undefined
+                }
+              >
+                {item.label}
+              </span>
+            </Link>
+          ))}
+          <ThemeToggle />
+        </nav>
 
-                {/* Mobile Toggle */}
-                <button
-                    className="md:hidden p-2 text-ink hover:text-accent"
-                    onClick={() => setIsOpen(!isOpen)}
-                    aria-label="Toggle menu"
-                >
-                    {isOpen ? <X size={24} /> : <Menu size={24} />}
-                </button>
-            </Container>
+        <div className="flex items-center gap-3 md:hidden">
+          <ThemeToggle />
+          <button
+            type="button"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label="Toggle menu"
+            className="mono inline-flex h-8 items-center gap-1.5 rounded-full border border-[color:var(--color-rule)] px-3 text-[11px] uppercase tracking-wider text-[color:var(--color-ink)]"
+          >
+            <span className="relative inline-block h-3 w-4" aria-hidden>
+              <span
+                className="absolute left-0 right-0 top-0.5 h-px bg-current transition-transform duration-300"
+                style={open ? { transform: "translateY(5px) rotate(45deg)" } : undefined}
+              />
+              <span
+                className="absolute left-0 right-0 bottom-0.5 h-px bg-current transition-transform duration-300"
+                style={open ? { transform: "translateY(-5px) rotate(-45deg)" } : undefined}
+              />
+            </span>
+            {open ? "Close" : "Menu"}
+          </button>
+        </div>
+      </div>
 
-
-            {/* Mobile Menu Overlay */}
-            <AnimatePresence>
-                {isOpen && (
-                    <motion.div
-                        initial={{ opacity: 0, y: -20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -20 }}
-                        className="absolute top-full left-0 right-0 bg-canvas border-b border-border p-4 md:hidden shadow-2xl"
-                    >
-                        <Container className="flex flex-col gap-4">
-                            {navItems.map((item) => (
-                                <Link
-                                    key={item.href}
-                                    href={item.href}
-                                    className={cn(
-                                        "text-lg font-medium py-2 border-b border-border/10",
-                                        pathname === item.href ? "text-accent" : "text-ink"
-                                    )}
-                                >
-                                    {item.name}
-                                </Link>
-                            ))}
-                            <div className="flex gap-4 mt-4 pt-4 border-t border-border">
-                                <a href={DATA.contact.social.GitHub.url} target="_blank" rel="noopener noreferrer" className="text-ink-muted hover:text-accent">
-                                    <Github size={20} />
-                                </a>
-                                <a href={DATA.contact.social.LinkedIn.url} target="_blank" rel="noopener noreferrer" className="text-ink-muted hover:text-accent">
-                                    <Linkedin size={20} />
-                                </a>
-                                <a href={DATA.contact.social.email.url} className="text-ink-muted hover:text-accent">
-                                    <Mail size={20} />
-                                </a>
-                            </div>
-                        </Container>
-                    </motion.div>
-                )}
-            </AnimatePresence>
-        </header>
-    );
+      {/* Mobile menu */}
+      <div
+        className={`md:hidden overflow-hidden border-t border-[color:var(--color-rule)] transition-[max-height,opacity] duration-300 ${
+          open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+        }`}
+      >
+        <nav className="container-page flex flex-col py-4" aria-label="Mobile">
+          {nav.map((item, i) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className="flex items-baseline gap-3 py-3 text-[color:var(--color-ink)]"
+            >
+              <span className="mono text-[11px] text-[color:var(--color-ink-faint)]">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <span className="italic-serif text-2xl">{item.label}</span>
+            </Link>
+          ))}
+        </nav>
+      </div>
+    </header>
+  );
 }
