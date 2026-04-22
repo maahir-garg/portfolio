@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { Skills } from "@/components/Skills";
@@ -15,29 +14,8 @@ export default function AboutPage() {
     <div className="container-page pt-6 pb-10">
       <Reveal>
         <header className="grid grid-cols-1 gap-6 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-2 flex flex-col gap-5">
+          <div className="md:col-span-2">
             <p className="meta">§ About</p>
-            <div
-              className="relative w-28 h-36 overflow-hidden border border-[color:var(--color-rule)] self-start"
-              style={{ transform: "rotate(-1.5deg)" }}
-            >
-              <Image
-                src="/me.png"
-                alt="Maahir Garg"
-                fill
-                sizes="112px"
-                className="object-cover saturate-[0.92]"
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute left-0 top-0 h-full w-[5px]"
-                style={{
-                  backgroundImage:
-                    "repeating-linear-gradient(to bottom, rgba(0,0,0,0.4) 0 5px, transparent 5px 12px)",
-                  mixBlendMode: "multiply",
-                }}
-              />
-            </div>
           </div>
           <div className="md:col-span-10">
             <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
@@ -45,6 +23,7 @@ export default function AboutPage() {
             </h1>
           </div>
         </header>
+
       </Reveal>
 
       {/* The letter */}

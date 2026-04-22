@@ -99,7 +99,7 @@ export async function FlightsMap() {
         xmlns="http://www.w3.org/2000/svg"
         role="img"
         aria-label={`Flight map: ${home.code} home, with ${others.length} destinations`}
-        style={{ width: "100%", maxWidth: 480, display: "block" }}
+        style={{ width: "100%", maxWidth: 640, display: "block" }}
       >
         {/* Landmasses use --color-rule so they shift in dark mode. */}
         <g>
