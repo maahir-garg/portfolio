@@ -20,6 +20,7 @@ export default async function ProjectPage({
   const nextProject = idx < DATA.projects.length - 1 ? DATA.projects[idx + 1] : null;
 
   const hasLiveStats = "liveStats" in project && project.liveStats === true;
+  const notes = "notes" in project ? (project as { notes?: string }).notes : undefined;
 
   return (
     <article className="container-page pt-6 pb-10">
@@ -98,6 +99,27 @@ export default async function ProjectPage({
           </div>
         </section>
       </Reveal>
+
+      {notes && (
+        <Reveal delay={220}>
+          <section className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
+            <div className="md:col-span-2">
+              <p className="meta">Notes</p>
+            </div>
+            <div className="md:col-span-10 max-w-3xl">
+              {notes.split(/\n\n+/).map((para, i) => (
+                <p
+                  key={i}
+                  className="text-[color:var(--color-ink)] [&:not(:first-child)]:mt-5"
+                  style={{ fontSize: "var(--step-1)", lineHeight: 1.7 }}
+                >
+                  {para}
+                </p>
+              ))}
+            </div>
+          </section>
+        </Reveal>
+      )}
 
       {hasLiveStats && (
         <Reveal delay={240}>

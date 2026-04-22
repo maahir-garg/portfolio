@@ -38,11 +38,11 @@ export default function ContactPage() {
           <div className="md:col-span-10">
             <a
               href={mailto}
-              className="group inline-flex flex-wrap items-baseline gap-x-4"
+              className="group inline-flex flex-wrap items-baseline gap-x-4 max-w-full"
             >
               <span
-                className="text-[color:var(--color-ink)] link-underline"
-                style={{ fontSize: "var(--step-4)", lineHeight: 1.05 }}
+                className="text-[color:var(--color-ink)] link-underline break-all"
+                style={{ fontSize: "clamp(1.6rem, 1rem + 4vw, 3.4rem)", lineHeight: 1.05 }}
               >
                 {DATA.contact.email}
               </span>

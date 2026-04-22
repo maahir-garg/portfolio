@@ -57,6 +57,9 @@ export function Colophon() {
               <Link href="/contact" className="mono text-[11px] uppercase tracking-[0.15em] link-underline">
                 Start a letter ↗
               </Link>
+              <Link href="/now" className="mono text-[11px] uppercase tracking-[0.15em] link-underline">
+                What I&apos;m on now ↗
+              </Link>
               <a
                 href={DATA.contact.social.LinkedIn.url}
                 target="_blank"

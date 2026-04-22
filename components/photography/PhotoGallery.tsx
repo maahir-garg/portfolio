@@ -18,10 +18,18 @@ type Exif = {
   display: ExifDisplay;
 };
 
+type PhotoMeta = {
+  location?: string;
+  caption?: string;
+  year?: number;
+  gear?: string;
+};
+
 type ManifestImage = {
   src: string;
   filename: string;
   exif: Exif | null;
+  meta?: PhotoMeta | null;
 };
 
 type ManifestCategory = {
@@ -36,6 +44,7 @@ type Photo = {
   index: number;
   total: number;
   exif: Exif | null;
+  meta: PhotoMeta | null;
 };
 
 const CATEGORIES: ManifestCategory[] = manifest as ManifestCategory[];
@@ -48,10 +57,11 @@ const BUILT: Photo[] = CATEGORIES.flatMap((cat) =>
     index: i + 1,
     total: arr.length,
     exif: img.exif,
+    meta: img.meta ?? null,
   })),
 );
 
-/** "f/2.8 · 35mm · 1/250s · ISO 400" — only joins the parts that exist. */
+/** "f/2.8 · 35mm · 1/250s · ISO 400" - only joins the parts that exist. */
 function captionFromExif(exif: Exif | null): string | null {
   if (!exif) return null;
   const { aperture, focalLength, shutter, iso } = exif.display;
@@ -79,10 +89,14 @@ export function PhotoGallery() {
     return ["all", ...ids];
   }, []);
 
-  const filtered = useMemo(
-    () => (active === "all" ? BUILT : BUILT.filter((p) => p.category === active)),
-    [active],
-  );
+  const filtered = useMemo(() => {
+    const arr = active === "all" ? [...BUILT] : BUILT.filter((p) => p.category === active);
+    for (let i = arr.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [arr[i], arr[j]] = [arr[j], arr[i]];
+    }
+    return arr;
+  }, [active]);
 
   const close = useCallback(() => setLightbox(null), []);
   const next = useCallback(
@@ -114,8 +128,14 @@ export function PhotoGallery() {
   }, [lightbox, close, next, prev]);
 
   const current = lightbox !== null ? filtered[lightbox] : null;
-  const currentCaption = captionFromExif(current?.exif ?? null);
-  const currentYear = yearFromIso(current?.exif?.takenAt ?? null);
+  const currentExifLine = captionFromExif(current?.exif ?? null);
+  const currentYear =
+    current?.meta?.year != null
+      ? String(current.meta.year)
+      : yearFromIso(current?.exif?.takenAt ?? null);
+  const currentLocation = current?.meta?.location ?? null;
+  const currentNote = current?.meta?.caption ?? null;
+  const currentGear = current?.meta?.gear ?? current?.exif?.camera ?? null;
 
   return (
     <div className="mt-10">
@@ -165,7 +185,8 @@ export function PhotoGallery() {
         className="mt-10 grid grid-cols-2 gap-x-3 gap-y-10 md:grid-cols-3 md:gap-x-5 lg:grid-cols-4"
       >
         {filtered.map((photo, i) => {
-          const caption = captionFromExif(photo.exif);
+          const caption = photo.meta?.caption ?? captionFromExif(photo.exif);
+          const location = photo.meta?.location ?? null;
           return (
             <li key={photo.id} className="group">
               <button
@@ -177,7 +198,7 @@ export function PhotoGallery() {
                 <div className="relative aspect-[4/5] overflow-hidden bg-[color:var(--color-paper)]">
                   <Image
                     src={photo.src}
-                    alt={`${photo.category} ${photo.index}/${photo.total}`}
+                    alt={`${photo.category} photograph`}
                     fill
                     sizes="(min-width: 1024px) 22vw, 45vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] saturate-[0.92]"
@@ -192,17 +213,19 @@ export function PhotoGallery() {
                     }}
                   />
                 </div>
-                <div className="mt-2 flex items-center justify-between gap-2">
+                <div className="mt-2">
                   <span className="mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--color-ink-faint)]">
-                    {photo.category}
-                  </span>
-                  <span className="mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--color-ink-faint)]">
-                    {String(photo.index).padStart(2, "0")} /{" "}
-                    {String(photo.total).padStart(2, "0")}
+                    {location ?? photo.category}
                   </span>
                 </div>
                 {caption && (
-                  <p className="mt-1 mono text-[10px] tracking-[0.14em] text-[color:var(--color-ink-dim)] line-clamp-1">
+                  <p
+                    className={
+                      photo.meta?.caption
+                        ? "mt-1 italic-serif text-[12px] text-[color:var(--color-ink-dim)] line-clamp-1"
+                        : "mt-1 mono text-[10px] tracking-[0.14em] text-[color:var(--color-ink-dim)] line-clamp-1"
+                    }
+                  >
                     {caption}
                   </p>
                 )}
@@ -226,7 +249,7 @@ export function PhotoGallery() {
         <div
           role="dialog"
           aria-modal="true"
-          aria-label={`Photo ${current.index} of ${current.total}`}
+          aria-label={`Photo ${lightbox! + 1} of ${filtered.length}`}
           className="fixed inset-0 z-50 flex items-center justify-center bg-[color:var(--color-canvas)]/95 backdrop-blur-md p-4 md:p-10"
           onClick={close}
         >
@@ -234,7 +257,7 @@ export function PhotoGallery() {
             type="button"
             onClick={close}
             aria-label="Close"
-            className="absolute top-4 right-4 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
+            className="absolute top-4 right-4 z-10 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
           >
             Close ✕
           </button>
@@ -246,7 +269,7 @@ export function PhotoGallery() {
               prev();
             }}
             aria-label="Previous photo"
-            className="absolute left-4 top-1/2 -translate-y-1/2 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
+            className="absolute left-4 top-1/2 z-10 -translate-y-1/2 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
           >
             ← Prev
           </button>
@@ -257,7 +280,7 @@ export function PhotoGallery() {
               next();
             }}
             aria-label="Next photo"
-            className="absolute right-4 top-1/2 -translate-y-1/2 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
+            className="absolute right-4 top-1/2 z-10 -translate-y-1/2 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
           >
             Next →
           </button>
@@ -275,20 +298,30 @@ export function PhotoGallery() {
                 style={{ maxHeight: "78vh", maxWidth: "100%", objectFit: "contain", display: "block" }}
               />
             </div>
-            <div className="mt-4 flex flex-col items-center gap-1">
+            <div className="mt-4 flex flex-col items-center gap-1.5 text-center">
               <p className="mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--color-ink-dim)]">
-                {current.category} · {String(current.index).padStart(2, "0")} /{" "}
-                {String(current.total).padStart(2, "0")}
+                {currentLocation ?? current.category}
                 {currentYear ? ` · ${currentYear}` : ""}
+                {" · "}
+                {String(lightbox! + 1).padStart(2, "0")} /{" "}
+                {String(filtered.length).padStart(2, "0")}
               </p>
-              {currentCaption && (
-                <p className="mono text-[10px] tracking-[0.18em] text-[color:var(--color-ink-faint)]">
-                  {currentCaption}
+              {currentNote && (
+                <p
+                  className="italic-serif text-[color:var(--color-ink)]"
+                  style={{ fontSize: "var(--step-1)", lineHeight: 1.4 }}
+                >
+                  {currentNote}
                 </p>
               )}
-              {current.exif?.camera && (
+              {currentExifLine && (
                 <p className="mono text-[10px] tracking-[0.18em] text-[color:var(--color-ink-faint)]">
-                  {current.exif.camera}
+                  {currentExifLine}
+                </p>
+              )}
+              {currentGear && (
+                <p className="mono text-[10px] tracking-[0.18em] text-[color:var(--color-ink-faint)]">
+                  {currentGear}
                 </p>
               )}
             </div>

@@ -19,6 +19,26 @@ const exifr = require('exifr');
 const photoDir = path.join(process.cwd(), 'public', 'photography');
 const outputDir = path.join(process.cwd(), 'lib');
 const outputFile = path.join(outputDir, 'photos-manifest.json');
+const sidecarFile = path.join(outputDir, 'photos-meta.json');
+
+// Sidecar metadata, keyed by filename. Optional fields:
+//   location · caption · year · gear
+// Keys starting with "_" (e.g. _template) are ignored.
+function loadSidecar() {
+    if (!fs.existsSync(sidecarFile)) return {};
+    try {
+        const raw = JSON.parse(fs.readFileSync(sidecarFile, 'utf8'));
+        const meta = {};
+        for (const [k, v] of Object.entries(raw)) {
+            if (k.startsWith('_')) continue;
+            if (v && typeof v === 'object') meta[k] = v;
+        }
+        return meta;
+    } catch (err) {
+        console.warn(`   ⚠ failed to parse photos-meta.json: ${err.message}`);
+        return {};
+    }
+}
 
 const IMAGE_RE = /\.(jpe?g|png|webp|tiff?|heic)$/i;
 
@@ -103,7 +123,7 @@ async function extractExif(absPath) {
             // pre-formatted for templates
             display: {
                 aperture: formatAperture(aperture),
-                // Prefer 35mm-equivalent focal length when available — that's
+                // Prefer 35mm-equivalent focal length when available - that's
                 // the number photographers actually quote. Falls back to the
                 // physical focal length (useful for real cameras that don't
                 // emit the 35mm-equivalent tag).
@@ -129,7 +149,7 @@ function discoverCategories() {
         .sort();
 }
 
-async function buildCategory(category) {
+async function buildCategory(category, sidecar) {
     const dir = path.join(photoDir, category);
     const files = fs
         .readdirSync(dir)
@@ -141,10 +161,12 @@ async function buildCategory(category) {
         const abs = path.join(dir, file);
         const src = `/photography/${category}/${file}`;
         const exif = await extractExif(abs);
+        const meta = sidecar[file] ?? null;
         images.push({
             src,
             filename: file,
             exif,
+            meta,
         });
     }
     return { category, images };
@@ -167,13 +189,28 @@ async function generateManifest() {
         console.log(`   found ${categories.length} categories: ${categories.join(', ')}`);
     }
 
+    const sidecar = loadSidecar();
+    const sidecarKeys = Object.keys(sidecar).length;
+    if (sidecarKeys > 0) {
+        console.log(`   sidecar: ${sidecarKeys} entries in photos-meta.json`);
+    }
+
     const manifest = [];
+    const seenFilenames = new Set();
     for (const cat of categories) {
         process.stdout.write(`   · ${cat}... `);
-        const entry = await buildCategory(cat);
+        const entry = await buildCategory(cat, sidecar);
+        entry.images.forEach((i) => seenFilenames.add(i.filename));
         manifest.push(entry);
         const exifHits = entry.images.filter((i) => i.exif).length;
-        console.log(`${entry.images.length} photos (${exifHits} with exif)`);
+        const metaHits = entry.images.filter((i) => i.meta).length;
+        console.log(`${entry.images.length} photos (${exifHits} exif, ${metaHits} sidecar)`);
+    }
+
+    // Warn on orphaned sidecar entries - usually a typo or a renamed file.
+    const orphaned = Object.keys(sidecar).filter((k) => !seenFilenames.has(k));
+    if (orphaned.length > 0) {
+        console.warn(`   ⚠ sidecar has ${orphaned.length} orphaned entries: ${orphaned.join(', ')}`);
     }
 
     if (!fs.existsSync(outputDir)) {

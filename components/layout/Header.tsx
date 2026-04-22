@@ -6,10 +6,12 @@ import { usePathname } from "next/navigation";
 import { ThemeToggle } from "@/components/ThemeToggle";
 
 const nav = [
+  { label: "Now", href: "/now" },
   { label: "Work", href: "/experience" },
-  { label: "Projects", href: "/projects" },
   { label: "Photography", href: "/photography" },
+  { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export function Header() {
@@ -49,7 +51,7 @@ export function Header() {
           </span>
         </Link>
 
-        <nav aria-label="Primary" className="hidden items-center gap-7 md:flex">
+        <nav aria-label="Primary" className="hidden items-center gap-5 md:flex lg:gap-7">
           {nav.map((item, i) => (
             <Link
               key={item.href}
@@ -57,7 +59,7 @@ export function Header() {
               aria-current={isActive(item.href) ? "page" : undefined}
               className="group relative inline-flex items-baseline gap-1.5 text-[0.92rem] text-[color:var(--color-ink-dim)] transition-colors hover:text-[color:var(--color-ink)]"
             >
-              <span className="mono text-[10px] text-[color:var(--color-ink-faint)] tabular-nums">
+              <span className="mono text-[10px] text-[color:var(--color-ink-faint)] tabular-nums hidden lg:inline">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span
