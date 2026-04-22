@@ -78,6 +78,24 @@ function yearFromIso(iso: string | null): string | null {
   return String(d.getFullYear());
 }
 
+function seededRandom(seed: string): () => number {
+  let hash = 0;
+  for (let i = 0; i < seed.length; i++) {
+    const char = seed.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash;
+  }
+  let m_w = hash + 1;
+  let m_z = 123456;
+  return function() {
+    m_z = (36969 * (m_z & 65535) + (m_z >> 16)) & 0xffffffff;
+    m_w = (18000 * (m_w & 65535) + (m_w >> 16)) & 0xffffffff;
+    let result = ((m_z << 16) + (m_w & 65535)) >>> 0;
+    result /= 4294967296;
+    return result;
+  };
+}
+
 export function PhotoGallery() {
   const [active, setActive] = useState<string>("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
@@ -91,8 +109,9 @@ export function PhotoGallery() {
 
   const filtered = useMemo(() => {
     const arr = active === "all" ? [...BUILT] : BUILT.filter((p) => p.category === active);
+    const rng = seededRandom(active);
     for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(Math.random() * (i + 1));
+      const j = Math.floor(rng() * (i + 1));
       [arr[i], arr[j]] = [arr[j], arr[i]];
     }
     return arr;

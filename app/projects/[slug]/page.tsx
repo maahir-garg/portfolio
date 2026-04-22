@@ -1,3 +1,4 @@
+import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -5,6 +6,40 @@ import { DATA } from "@/lib/data";
 import { Reveal } from "@/components/ui/Reveal";
 import { LeetCodeStats } from "@/components/feature/LeetCodeStats";
 import { LeetCodeStatsSkeleton } from "@/components/feature/LeetCodeStatsSkeleton";
+
+const BASE_URL = "https://maahir-garg.vercel.app";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const project = DATA.projects.find((p) => p.slug === slug);
+  if (!project) return {};
+
+  const url = `${BASE_URL}/projects/${slug}`;
+  const title = project.title;
+  const description = project.description;
+
+  return {
+    title,
+    description,
+    alternates: { canonical: url },
+    openGraph: {
+      title: `${title} · Maahir Garg`,
+      description,
+      url,
+      type: "article",
+      authors: ["Maahir Garg"],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${title} · Maahir Garg`,
+      description,
+    },
+  };
+}
 
 export default async function ProjectPage({
   params,

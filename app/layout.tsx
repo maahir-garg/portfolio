@@ -28,16 +28,59 @@ const newsreader = Newsreader({
   display: "swap",
 });
 
+const BASE_URL = "https://maahir-garg.vercel.app";
+
 export const metadata: Metadata = {
-  title: "Maahir Garg · Field Notebook",
+  metadataBase: new URL(BASE_URL),
+  title: {
+    default: "Maahir Garg · Field Notebook",
+    template: "%s · Maahir Garg",
+  },
   description:
     "Maahir Garg. AI Engineer at GIC, building agentic LLM tooling for classified-data environments. Computer Science & Quantitative Finance at NUS. Patent-pending multimodal hand-tracking on Vision Pro. Also a photographer.",
-  authors: [{ name: "Maahir Garg" }],
+  authors: [{ name: "Maahir Garg", url: BASE_URL }],
+  creator: "Maahir Garg",
+  keywords: [
+    "Maahir Garg",
+    "AI Engineer",
+    "LLM",
+    "agentic AI",
+    "machine learning",
+    "NUS",
+    "GIC",
+    "Apple Vision Pro",
+    "spatial computing",
+    "portfolio",
+    "software engineer",
+  ],
+  alternates: {
+    canonical: BASE_URL,
+  },
   openGraph: {
     title: "Maahir Garg · Field Notebook",
     description:
       "AI Engineer at GIC. Agentic LLMs, model optimization, spatial computing. CS + Quant Finance at NUS.",
     type: "website",
+    url: BASE_URL,
+    siteName: "Maahir Garg · Field Notebook",
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Maahir Garg · Field Notebook",
+    description:
+      "AI Engineer at GIC. Agentic LLMs, model optimization, spatial computing. CS + Quant Finance at NUS.",
+    creator: "@maahirgarg",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
