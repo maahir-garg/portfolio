@@ -4,7 +4,15 @@ import { Reveal } from "@/components/ui/Reveal";
 export const metadata = {
   title: "Now · Maahir Garg",
   description:
-    "What I'm building, reading, watching, and listening to right now.",
+    "What Maahir Garg is building, reading, watching, and listening to right now.",
+  alternates: { canonical: "https://maahir-garg.vercel.app/now" },
+  openGraph: {
+    title: "Now · Maahir Garg",
+    description:
+      "What Maahir Garg is building, reading, watching, and listening to right now.",
+    url: "https://maahir-garg.vercel.app/now",
+    type: "website",
+  },
 };
 
 const lastUpdated = "Apr 2026";

@@ -33,41 +33,50 @@ const BASE_URL = "https://maahir-garg.vercel.app";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Maahir Garg · Field Notebook",
+    default: "Maahir Garg — AI Engineer | Portfolio",
     template: "%s · Maahir Garg",
   },
   description:
-    "Maahir Garg. AI Engineer at GIC, building agentic LLM tooling for classified-data environments. Computer Science & Quantitative Finance at NUS. Patent-pending multimodal hand-tracking on Vision Pro. Also a photographer.",
+    "Maahir Garg is an AI Engineer at GIC and a Computer Science & Quantitative Finance student at the National University of Singapore (NUS). Maahir builds agentic LLM tooling for classified-data environments and holds a patent-pending multimodal hand-tracking framework on Apple Vision Pro. Portfolio, projects, and photography.",
+  applicationName: "Maahir Garg · Field Notebook",
   authors: [{ name: "Maahir Garg", url: BASE_URL }],
   creator: "Maahir Garg",
+  publisher: "Maahir Garg",
   keywords: [
     "Maahir Garg",
-    "AI Engineer",
-    "LLM",
+    "Maahir",
+    "Garg",
+    "Maahir Garg portfolio",
+    "Maahir Garg AI Engineer",
+    "Maahir Garg NUS",
+    "Maahir Garg GIC",
+    "Maahir Garg Singapore",
+    "AI Engineer Singapore",
+    "LLM engineer",
     "agentic AI",
     "machine learning",
-    "NUS",
-    "GIC",
-    "Apple Vision Pro",
+    "NUS Computer Science",
+    "NUS Quantitative Finance",
+    "GIC AI Engineer",
+    "Apple Vision Pro developer",
     "spatial computing",
-    "portfolio",
-    "software engineer",
+    "software engineer portfolio",
   ],
   alternates: {
     canonical: BASE_URL,
   },
   openGraph: {
-    title: "Maahir Garg · Field Notebook",
+    title: "Maahir Garg — AI Engineer | Portfolio",
     description:
       "AI Engineer at GIC. Agentic LLMs, model optimization, spatial computing. CS + Quant Finance at NUS.",
     type: "website",
     url: BASE_URL,
-    siteName: "Maahir Garg · Field Notebook",
+    siteName: "Maahir Garg",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maahir Garg · Field Notebook",
+    title: "Maahir Garg — AI Engineer | Portfolio",
     description:
       "AI Engineer at GIC. Agentic LLMs, model optimization, spatial computing. CS + Quant Finance at NUS.",
     creator: "@maahirgarg",
@@ -80,7 +89,14 @@ export const metadata: Metadata = {
       follow: true,
       "max-image-preview": "large",
       "max-snippet": -1,
+      "max-video-preview": -1,
     },
+  },
+  category: "technology",
+  verification: {
+    // Paste the Google Search Console verification token here after creating a property
+    // at https://search.google.com/search-console (choose "URL prefix" → this site's URL).
+    // google: "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN",
   },
 };
 

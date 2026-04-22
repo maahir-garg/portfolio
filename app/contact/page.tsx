@@ -2,8 +2,16 @@ import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
 
 export const metadata = {
-  title: "Contact · Maahir Garg",
-  description: "The shortest path to Maahir's inbox.",
+  title: "Contact Maahir Garg",
+  description:
+    "Get in touch with Maahir Garg — email, GitHub, and LinkedIn. AI Engineer at GIC, based in Singapore.",
+  alternates: { canonical: "https://maahir-garg.vercel.app/contact" },
+  openGraph: {
+    title: "Contact · Maahir Garg",
+    description: "Email, GitHub, and LinkedIn for Maahir Garg.",
+    url: "https://maahir-garg.vercel.app/contact",
+    type: "website",
+  },
 };
 
 export default function ContactPage() {

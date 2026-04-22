@@ -3,7 +3,16 @@ import { Reveal } from "@/components/ui/Reveal";
 
 export const metadata = {
   title: "Photography · Maahir Garg",
-  description: "A working contact sheet of landscapes, streets, and portraits.",
+  description:
+    "Photography by Maahir Garg — a working contact sheet of landscapes, streets, and portraits.",
+  alternates: { canonical: "https://maahir-garg.vercel.app/photography" },
+  openGraph: {
+    title: "Photography · Maahir Garg",
+    description:
+      "Photography by Maahir Garg — landscapes, streets, and portraits.",
+    url: "https://maahir-garg.vercel.app/photography",
+    type: "website",
+  },
 };
 
 export default function PhotographyPage() {
