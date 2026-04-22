@@ -5,8 +5,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { SingaporeClock } from "@/components/home/SingaporeClock";
 
-// Swap to /me.png once the portrait exists in /public.
-const HERO_PHOTO = "/photography/portraits/Photo_1.jpg";
+const HERO_PHOTO = "/me.png";
 
 export function Hero() {
   const now = new Date();
@@ -39,7 +38,7 @@ export function Hero() {
 
         <div className="md:col-span-10">
           <Reveal>
-            {/* Hero photo — floated right, slight tilt */}
+            {/* Hero photo - floated right, slight tilt */}
             <div
               className="float-right ml-6 mb-4 hidden md:block"
               style={{ transform: "rotate(2deg)" }}
@@ -108,8 +107,8 @@ export function Hero() {
             </p>
 
             {/* "Now" status strip */}
-            <p className="mt-5 inline-flex items-baseline gap-2 mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
-              <span className="inline-block size-1.5 rounded-full bg-[color:var(--color-mark)] relative self-center">
+            <p className="mt-5 flex flex-wrap items-baseline gap-x-2 gap-y-1 mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
+              <span className="inline-block size-1.5 rounded-full bg-[color:var(--color-mark)] relative self-center shrink-0">
                 <span className="absolute inset-0 rounded-full bg-[color:var(--color-mark)] motion-safe:animate-ping opacity-70" />
               </span>
               <span>
@@ -118,8 +117,8 @@ export function Hero() {
                   building a CLI agent at GIC
                 </span>
               </span>
-              <span className="text-[color:var(--color-rule)]">·</span>
-              <span className="text-[color:var(--color-ink-faint)]">
+              <span className="text-[color:var(--color-rule)] hidden sm:inline">·</span>
+              <span className="text-[color:var(--color-ink-faint)] basis-full sm:basis-auto">
                 Last updated {mastheadDate}
               </span>
             </p>

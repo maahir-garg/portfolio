@@ -22,7 +22,7 @@ function resolveInitialTheme(): Theme {
 }
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Lazy initializer — picks up whatever the inline `themeInitScript` already
+  // Lazy initializer - picks up whatever the inline `themeInitScript` already
   // applied to <html> before hydration, so React's state matches the DOM on
   // first paint. No cascading setState-in-effect.
   const [theme, setTheme] = useState<Theme>(resolveInitialTheme);

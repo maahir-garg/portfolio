@@ -178,6 +178,8 @@ export const DATA = {
       active: true,
       description:
         "Achieved a 69% reduction in model size (440MB to 128MB) with <0.5% F1 loss via post-training quantization. Implemented custom mask-enforced pruning to reach 54.7% sparsity and analyzed efficiency vs generalization trade-offs.",
+      notes:
+        "I went in expecting quantization to be the headline. It wasn't - int8 was basically free, the real story was pruning. Hugging Face's built-in pruning rounds the mask too aggressively for fine-grained sparsity, so I enforced the zero-mask inside the forward hook to keep the sparsity I asked for. Past 50% sparsity the F1 curve develops a clear elbow: cheap until it isn't, and the cliff erases the long-tail of generalization first. The interesting decision wasn't 'how small can it get' but 'where do I stop.'",
       technologies: ["BERT", "Quantization", "Pruning", "NLP", "Python"],
       links: [
         {
@@ -197,6 +199,8 @@ export const DATA = {
       active: true,
       description:
         "Built a PEFT pipeline (BitFit + few-shot) for health insurance claim reasoning, fine-tuning <0.1% of parameters (bias terms only). Improved reasoning accuracy from 47% to 73% on clause-extracted scenarios.",
+      notes:
+        "A study in how little you can actually train and still meaningfully shift behavior. BitFit touches only the bias terms - under a tenth of a percent of parameters - so this was as much a diagnostic as a fine-tune: is the base model close enough that a nudge gets us there. The unexpected finding was that domain coverage of the few-shot examples mattered far more than count; three well-chosen scenarios beat ten near-duplicates. I wouldn't ship BitFit alone in production, but it's now my first step before reaching for LoRA - it tells you whether the problem is reachable from where the base model already sits.",
       technologies: ["LLM", "PEFT", "BitFit", "Few-Shot Learning", "AI"],
       links: [
         {
@@ -216,6 +220,8 @@ export const DATA = {
       active: true,
       description:
         "Patent-pending framework that unifies iPhone and Apple Vision Pro into a single tracking surface for hand-eye coordination assessment in stroke rehabilitation. Co-invented at Interactive 3D Lab; built in Swift and RealityKit; validated in controlled studies with healthcare practitioners at 89% cross-device accuracy. Research paper in preparation.",
+      notes:
+        "We wanted to assess hand-eye coordination in stroke patients without sensors or a lab rig. Vision Pro tracks hands beautifully but only inside its own world space; the iPhone sees the room from outside. The hard part wasn't the geometry - it was the latency budget. Frame sync between the two devices had to stay tight enough that a fast reach didn't desync the surfaces, and that single constraint dictated the whole architecture. The clinical sessions were where the design pressure became real: practitioners don't have time to recalibrate, so the system had to stay accurate without intervention for a full assessment.",
       technologies: [
         "Swift",
         "RealityKit",
@@ -241,6 +247,8 @@ export const DATA = {
       liveStats: true,
       description:
         "An ongoing LeetCode practice track focused on deepening algorithmic thinking and problem‑solving speed, backed by live stats.",
+      notes:
+        "Less about grinding count, more about pattern fluency. I track which categories I'm slow on - DP transitions, monotonic stacks, range queries - and bias practice toward those rather than whatever feels easy. The live stats are partly to keep me honest. The longer I do it, the less it feels like prep and the more it feels like a small daily warm-up for thinking precisely.",
       technologies: [
         "Algorithms",
         "Data Structures",
@@ -265,6 +273,8 @@ export const DATA = {
       active: true,
       description:
         "Data pipelines to analyze Stack Overflow feedback mechanisms.",
+      notes:
+        "Research infrastructure, not a product. The lab wanted to know whether feedback signals - votes, accepted answers, edit cycles - shape content quality over time. Most of the interesting decisions ended up being about backoff strategy and resumable extraction rather than the analysis on top; the Stack Exchange API is generous if you respect it and brutal if you don't. Taught me that for any long-running scrape, the first thing worth designing is the resume path, not the happy path.",
       technologies: [
         "Python",
         "Data Engineering",
@@ -288,6 +298,8 @@ export const DATA = {
       active: true,
       description:
         "Automated scraping tool for academic research analysis, saving 520+ hours.",
+      notes:
+        "Built to free 520 hours the lab was burning on manual citation entry. Scholar doesn't expose an official API, so the tool routes through Postman with careful pacing to avoid getting flagged. Boring code that solved a real problem - most of the value was in the resumability and the dedup on the backend, not the scrape itself. A small reminder that the unglamorous infrastructure projects often return the most time.",
       technologies: [
         "Python",
         "Postman",
@@ -311,6 +323,8 @@ export const DATA = {
       active: true,
       description:
         "Air quality data scraper using SQLite and JWT, saving 10,000+ hours.",
+      notes:
+        "A Python scraper for India's CAAQMS air-quality monitoring data. The portal sits behind a JWT-based session with a finicky token-refresh loop, so the bulk of the work was the auth dance, not the data shaping. SQLite for portability - research collaborators could sync the file rather than spin up a database. Saved the team well over 10,000 hours of manual entry across its lifetime.",
       technologies: [
         "Python",
         "SQLite",
@@ -333,7 +347,9 @@ export const DATA = {
       dates: "Mar 2024",
       active: true,
       description:
-        "End-to-end pipeline for fine-tuning Llama2 large language models using LoRA / PEFT adapters. Covers data preparation, supervised fine-tuning, and evaluation — built as a reproducible notebook for experimenting with domain adaptation of open-weight LLMs.",
+        "End-to-end pipeline for fine-tuning Llama2 large language models using LoRA / PEFT adapters. Covers data preparation, supervised fine-tuning, and evaluation - built as a reproducible notebook for experimenting with domain adaptation of open-weight LLMs.",
+      notes:
+        "A learning project to internalize the LoRA pipeline end-to-end: data prep, supervised fine-tuning, adapter merge, and a small eval harness. Scope was deliberately narrow so I could touch every piece. The base model is dated now, but the muscle memory transferred - when I reach for PEFT in newer work, it's because of what this project taught me about adapters and merge mechanics.",
       technologies: [
         "Python",
         "Llama2",
@@ -359,6 +375,8 @@ export const DATA = {
       active: true,
       description:
         "This site. Editorial field-notebook redesign: warm paper canvas and oxidized-red pencil mark, indexed sections, live Singapore clock, both light and dark tuned independently. Built with Next.js 16 + Tailwind v4; motion respects prefers-reduced-motion; a11y basics from skip-link to keyboard lightbox.",
+      notes:
+        "A deliberate departure from the standard developer-portfolio aesthetic. I wanted the site to read like a field notebook - paper-warm, restrained, with one accent color carrying all the emphasis. Both light and dark were tuned independently rather than inverted; the dark mode uses lighter font weights because the same type reads heavier on a dark canvas. Every animation respects prefers-reduced-motion, the lightbox is keyboard-navigable, and there's a skip-link in the right place. The whole thing should feel quiet - that's the design goal.",
       technologies: [
         "Next.js",
         "React",

@@ -1,6 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { Skills } from "@/components/Skills";
+import { FlightsMap } from "@/components/feature/FlightsMap";
 import { DATA } from "@/lib/data";
 
 export const metadata = {
@@ -12,8 +14,31 @@ export default function AboutPage() {
   return (
     <div className="container-page pt-6 pb-10">
       <Reveal>
-        <header className="grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-2"><p className="meta">§ About</p></div>
+        <header className="grid grid-cols-1 gap-6 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
+          <div className="md:col-span-2 flex flex-col gap-5">
+            <p className="meta">§ About</p>
+            <div
+              className="relative w-28 h-36 overflow-hidden border border-[color:var(--color-rule)] self-start"
+              style={{ transform: "rotate(-1.5deg)" }}
+            >
+              <Image
+                src="/me.png"
+                alt="Maahir Garg"
+                fill
+                sizes="112px"
+                className="object-cover saturate-[0.92]"
+              />
+              <div
+                aria-hidden
+                className="pointer-events-none absolute left-0 top-0 h-full w-[5px]"
+                style={{
+                  backgroundImage:
+                    "repeating-linear-gradient(to bottom, rgba(0,0,0,0.4) 0 5px, transparent 5px 12px)",
+                  mixBlendMode: "multiply",
+                }}
+              />
+            </div>
+          </div>
           <div className="md:col-span-10">
             <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
               A <em className="italic-serif">short letter</em>, more or less.
@@ -73,7 +98,7 @@ export default function AboutPage() {
         </section>
       </Reveal>
 
-      {/* Education — anchoring context first */}
+      {/* Education - anchoring context first */}
       <Reveal delay={160}>
         <section className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><p className="meta">§ Study</p></div>
@@ -97,6 +122,27 @@ export default function AboutPage() {
           <div className="md:col-span-2"><p className="meta">§ Toolkit</p></div>
           <div className="md:col-span-10">
             <Skills />
+          </div>
+        </section>
+      </Reveal>
+
+      {/* Where I've been */}
+      <Reveal delay={230}>
+        <section className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
+          <div className="md:col-span-2">
+            <p className="meta">§ Routes</p>
+          </div>
+          <div className="md:col-span-10">
+            <p
+              className="max-w-2xl text-[color:var(--color-ink-dim)]"
+              style={{ fontSize: "var(--step-1)", lineHeight: 1.6 }}
+            >
+              Singapore is home, but I&apos;ve crossed enough of South and
+              Southeast Asia to have opinions about airport lounges.
+            </p>
+            <div className="mt-8">
+              <FlightsMap />
+            </div>
           </div>
         </section>
       </Reveal>

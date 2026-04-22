@@ -18,7 +18,7 @@ export function Footer() {
         </div>
 
         {/* elsewhere */}
-        <div className="md:col-span-3">
+        {/* <div className="md:col-span-3">
           <p className="meta mb-3">Elsewhere</p>
           <ul className="space-y-2 text-[0.95rem]">
             <li>
@@ -41,6 +41,59 @@ export function Footer() {
                 LinkedIn ↗
               </a>
             </li>
+            <li className="pt-3">
+              <a
+                href="/maahir-garg-resume.pdf"
+                target="_blank"
+                rel="noreferrer noopener"
+                className="group inline-flex items-baseline gap-2"
+              >
+                <span
+                  className="italic-serif text-[color:var(--color-ink)] link-underline"
+                  style={{ fontSize: "var(--step-1)", lineHeight: 1 }}
+                >
+                  Résumé
+                </span>
+                <span className="mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-faint)]">
+                  pdf ↗
+                </span>
+              </a>
+            </li>
+          </ul>
+        </div> */}
+        <div className="md:col-span-3">
+          <p className="meta mb-3">Elsewhere</p>
+          <ul className="space-y-2 text-[0.95rem]">
+            <li>
+              <a
+                href={DATA.contact.social.GitHub.url}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                GitHub ↗
+              </a>
+            </li>
+            <li>
+              <a
+                href={DATA.contact.social.LinkedIn.url}
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                LinkedIn ↗
+              </a>
+            </li>
+            <li>
+              <a
+                href="/maahir-garg-resume.pdf"
+                target="_blank"
+                rel="noreferrer noopener"
+              >
+                Résumé {" "}
+                <span className="mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-faint)]">
+                  pdf ↗
+                </span>
+              </a>
+            </li>
           </ul>
         </div>
 
@@ -59,6 +112,11 @@ export function Footer() {
           <p className="meta mt-6">
             <Link href="/contact" className="link-underline">
               Or see all the ways to reach me
+            </Link>
+          </p>
+          <p className="meta mt-2">
+            <Link href="/now" className="link-underline">
+              What I&apos;m on right now
             </Link>
           </p>
         </div>

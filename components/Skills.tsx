@@ -13,14 +13,14 @@ export function Skills({ skills = DATA.skills }: { skills?: SkillsByCategory }) 
 
   return (
     <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
-      {entries.map(([category, items], i) => (
+      {entries.map(([category, items]) => (
         <div key={String(category)}>
           <div className="flex items-baseline justify-between border-b border-[color:var(--color-rule)] pb-2">
             <h3 className="text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-2)" }}>
               {String(category)}
             </h3>
             <span className="mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
-              {String(i + 1).padStart(2, "0")} · {String(items.length).padStart(2, "0")}
+              {items.length} items
             </span>
           </div>
           <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-2">
