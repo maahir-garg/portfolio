@@ -1,16 +1,24 @@
 "use client";
 
+import { useSyncExternalStore } from "react";
 import { useTheme } from "@/components/ThemeProvider";
 
 export function ThemeToggle() {
   const { theme, toggle } = useTheme();
-  const isDark = theme === "dark";
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+
+  // Keep first server/client render identical; apply real theme visuals after mount.
+  const isDark = mounted ? theme === "dark" : false;
 
   return (
     <button
       type="button"
       onClick={toggle}
-      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
+      aria-label={mounted ? `Switch to ${isDark ? "light" : "dark"} mode` : "Toggle theme"}
       aria-pressed={isDark}
       className="group mono inline-flex items-baseline gap-2 text-[11px] uppercase tracking-[0.18em] text-[color:var(--color-ink-faint)] transition-colors hover:text-[color:var(--color-ink)]"
     >

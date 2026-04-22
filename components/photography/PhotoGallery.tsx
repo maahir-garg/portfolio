@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState, useEffect, useCallback } from "react";
+import { useMemo, useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import Image from "next/image";
 import manifest from "@/lib/photos-manifest.json";
 
@@ -96,9 +96,21 @@ function seededRandom(seed: string): () => number {
   };
 }
 
+function shuffleInPlace<T>(arr: T[], rng: () => number) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+
 export function PhotoGallery() {
   const [active, setActive] = useState<string>("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
 
   const categories = useMemo(() => {
     const ids = CATEGORIES.map((c) => c.category).filter(
@@ -109,13 +121,11 @@ export function PhotoGallery() {
 
   const filtered = useMemo(() => {
     const arr = active === "all" ? [...BUILT] : BUILT.filter((p) => p.category === active);
-    const rng = seededRandom(active);
-    for (let i = arr.length - 1; i > 0; i--) {
-      const j = Math.floor(rng() * (i + 1));
-      [arr[i], arr[j]] = [arr[j], arr[i]];
-    }
+    // Deterministic order for SSR + first client render; true random after mount.
+    const rng = mounted ? Math.random : seededRandom(active);
+    shuffleInPlace(arr, rng);
     return arr;
-  }, [active]);
+  }, [active, mounted]);
 
   const close = useCallback(() => setLightbox(null), []);
   const next = useCallback(
