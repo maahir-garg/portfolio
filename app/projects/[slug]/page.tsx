@@ -16,6 +16,11 @@ export default async function ProjectPage({
   const project = DATA.projects[idx];
   if (!project) notFound();
 
+  const prevProject = idx > 0 ? DATA.projects[idx - 1] : null;
+  const nextProject = idx < DATA.projects.length - 1 ? DATA.projects[idx + 1] : null;
+
+  const hasLiveStats = "liveStats" in project && project.liveStats === true;
+
   return (
     <article className="container-page pt-6 pb-10">
       <Reveal>
@@ -38,7 +43,7 @@ export default async function ProjectPage({
             </p>
           </div>
           <div className="md:col-span-10">
-            <h1 className="italic-serif" style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
+            <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
               {project.title}
             </h1>
             <p
@@ -73,20 +78,20 @@ export default async function ProjectPage({
           <div className="md:col-span-2"><p className="meta">Links</p></div>
           <div className="md:col-span-10 flex flex-wrap gap-x-6 gap-y-2">
             {project.links.map((link, i) => {
-              const label = link.href ? `${link.type} ↗` : `${link.type} (private)`;
+              const label = link.href ? `${link.type} ↗` : "Private repo";
               return link.href ? (
                 <a
                   key={i}
                   href={link.href}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="italic-serif text-xl link-underline"
+                  className="text-xl link-underline"
                 >
                   {label}
                 </a>
               ) : (
-                <span key={i} className="italic-serif text-xl text-[color:var(--color-ink-faint)]">
-                  {label}
+                <span key={i} className="text-xl text-[color:var(--color-ink-faint)]">
+                  🔒 {label}
                 </span>
               );
             })}
@@ -94,7 +99,7 @@ export default async function ProjectPage({
         </section>
       </Reveal>
 
-      {slug === "leetcoding" && (
+      {hasLiveStats && (
         <Reveal delay={240}>
           <section className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
             <div className="md:col-span-2"><p className="meta">Live ticker</p></div>
@@ -106,6 +111,51 @@ export default async function ProjectPage({
           </section>
         </Reveal>
       )}
+
+      {/* prev / next navigation */}
+      <Reveal delay={280}>
+        <nav
+          aria-label="Project navigation"
+          className="mt-20 grid grid-cols-2 gap-4 border-t border-[color:var(--color-rule)] pt-10"
+        >
+          <div>
+            {prevProject && (
+              <Link
+                href={`/projects/${prevProject.slug}`}
+                className="group flex flex-col gap-1"
+              >
+                <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
+                  ← Prev
+                </span>
+                <span
+                  className="text-[color:var(--color-ink-dim)] group-hover:text-[color:var(--color-mark)] transition-colors"
+                  style={{ fontSize: "var(--step-1)" }}
+                >
+                  {prevProject.title}
+                </span>
+              </Link>
+            )}
+          </div>
+          <div className="text-right">
+            {nextProject && (
+              <Link
+                href={`/projects/${nextProject.slug}`}
+                className="group flex flex-col gap-1 items-end"
+              >
+                <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
+                  Next →
+                </span>
+                <span
+                  className="text-[color:var(--color-ink-dim)] group-hover:text-[color:var(--color-mark)] transition-colors"
+                  style={{ fontSize: "var(--step-1)" }}
+                >
+                  {nextProject.title}
+                </span>
+              </Link>
+            )}
+          </div>
+        </nav>
+      </Reveal>
     </article>
   );
 }

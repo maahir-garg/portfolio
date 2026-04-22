@@ -10,16 +10,15 @@ export const DATA = {
   avatarUrl: "/me.png",
   skills: {
     Programming: ["Python", "Java", "JavaScript", "C/C++", "Swift", "R", "LaTeX"],
-    "ML & AI": ["PyTorch", "hugging Face", "LLM Fine-tuning", "Agentic LLMs", "GraphRAG", "Vector Databases", "Databricks Mosaic AI"],
+    "ML & AI": ["PyTorch", "Hugging Face", "LLM Fine-tuning", "Agentic LLMs", "GraphRAG", "Vector Databases"],
     "Data & Distributed": ["Snowflake", "Databricks", "Kafka", "Spark", "Airflow", "ETL Pipelines"],
     "Cloud & DevOps": ["AWS (EC2, S3, Lambda)", "Docker", "Git", "Bash"],
-    "Web & DB": ["React", "HTML/CSS", "PHP", "SQL (MySQL, PostgreSQL, Snowflake)"],
+    "Web & DB": ["React", "Next.js", "SQL (MySQL, PostgreSQL, Snowflake)"],
     Analysis: ["Pandas", "NumPy", "Matplotlib", "MATLAB", "Looker Studio"],
-    Tools: ["RealityKit", "Figma", "Adobe Suite"],
+    Tools: ["RealityKit", "Figma"],
   },
   contact: {
     email: "maahirrgarg@gmail.com",
-    tel: "+65 86219217",
     social: {
       GitHub: {
         name: "GitHub",
@@ -53,7 +52,7 @@ export const DATA = {
     },
     {
       company: "Interactive 3D Lab",
-      href: "",
+      href: "https://www.i3d.design",
       badges: [],
       location: "Singapore",
       title: "Swift Developer, Apple Vision Pro",
@@ -172,30 +171,6 @@ export const DATA = {
   ],
   projects: [
     {
-      title: "Portfolio Website",
-      slug: "portfolio",
-      href: "https://github.com/maahir-garg/portfolio",
-      dates: "Apr 2026",
-      active: true,
-      description:
-        "This site. Editorial field-notebook redesign: warm paper canvas and oxidized-red pencil mark, indexed sections, live Singapore clock, both light and dark tuned independently. Built with Next.js 16 + Tailwind v4; motion respects prefers-reduced-motion; a11y basics from skip-link to keyboard lightbox.",
-      technologies: [
-        "Next.js",
-        "React",
-        "TypeScript",
-        "Tailwind CSS v4"
-      ],
-      links: [
-        {
-          type: "Source",
-          href: "https://github.com/maahir-garg/portfolio",
-          icon: "github",
-        },
-      ],
-      image: "",
-      video: "",
-    },
-    {
       title: "Optimizing BERT for Question Answering",
       slug: "bert-qa-quant-prune",
       href: "",
@@ -263,6 +238,7 @@ export const DATA = {
       href: "https://leetcode.com/u/maahir_garg/",
       dates: "Ongoing",
       active: true,
+      liveStats: true,
       description:
         "An ongoing LeetCode practice track focused on deepening algorithmic thinking and problem‑solving speed, backed by live stats.",
       technologies: [
@@ -351,22 +327,48 @@ export const DATA = {
       video: "",
     },
     {
-      title: "Llama2 Finetuning",
+      title: "Llama2 Fine-tuning",
       slug: "llama2-finetuning",
       href: "https://github.com/maahir-garg/llama2-finetuning",
       dates: "Mar 2024",
       active: true,
       description:
-        "Code to fine-tune Llama2 large language models.",
+        "End-to-end pipeline for fine-tuning Llama2 large language models using LoRA / PEFT adapters. Covers data preparation, supervised fine-tuning, and evaluation — built as a reproducible notebook for experimenting with domain adaptation of open-weight LLMs.",
       technologies: [
         "Python",
-        "LLM",
+        "Llama2",
+        "LoRA",
+        "PEFT",
         "Jupyter"
       ],
       links: [
         {
           type: "Source",
           href: "https://github.com/maahir-garg/llama2-finetuning",
+          icon: "github",
+        },
+      ],
+      image: "",
+      video: "",
+    },
+    {
+      title: "Portfolio Website",
+      slug: "portfolio",
+      href: "https://github.com/maahir-garg/portfolio",
+      dates: "Apr 2026",
+      active: true,
+      description:
+        "This site. Editorial field-notebook redesign: warm paper canvas and oxidized-red pencil mark, indexed sections, live Singapore clock, both light and dark tuned independently. Built with Next.js 16 + Tailwind v4; motion respects prefers-reduced-motion; a11y basics from skip-link to keyboard lightbox.",
+      technologies: [
+        "Next.js",
+        "React",
+        "TypeScript",
+        "Tailwind CSS v4"
+      ],
+      links: [
+        {
+          type: "Source",
+          href: "https://github.com/maahir-garg/portfolio",
           icon: "github",
         },
       ],

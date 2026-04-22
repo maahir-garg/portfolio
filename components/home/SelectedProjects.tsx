@@ -8,7 +8,7 @@ const featured = [
   "bert-qa-quant-prune",
   "llm-reasoning-peft-bitfit",
   "3d-iphone",
-  "leetcoding",
+  "llama2-finetuning",
 ];
 
 export function SelectedProjects() {
@@ -24,8 +24,8 @@ export function SelectedProjects() {
             <p className="meta">§ 02</p>
           </div>
           <div className="md:col-span-10 flex items-end justify-between gap-4">
-            <h2 className="italic-serif" style={{ fontSize: "var(--step-4)" }}>
-              Projects, annotated
+            <h2 style={{ fontSize: "var(--step-4)" }}>
+              Projects, <em className="italic-serif">annotated</em>
             </h2>
             <Link
               href="/projects"
@@ -58,7 +58,7 @@ export function SelectedProjects() {
 
                 <div className="md:col-span-7">
                   <h3
-                    className="italic-serif text-[color:var(--color-ink)] transition-colors group-hover:text-[color:var(--color-mark)]"
+                    className="text-[color:var(--color-ink)] transition-colors group-hover:text-[color:var(--color-mark)]"
                     style={{ fontSize: "var(--step-3)" }}
                   >
                     {project.title}

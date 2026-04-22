@@ -13,7 +13,7 @@ export default function PhotographyPage() {
         <header className="grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><p className="meta">§ Photography</p></div>
           <div className="md:col-span-10">
-            <h1 className="italic-serif" style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
+            <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
               A <em className="italic-serif">contact sheet</em>, kept open.
             </h1>
             <p

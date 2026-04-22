@@ -89,8 +89,8 @@ export function PhotographyStrip() {
             <p className="meta">§ 03</p>
           </div>
           <div className="md:col-span-10 flex items-end justify-between gap-4">
-            <h2 className="italic-serif" style={{ fontSize: "var(--step-4)" }}>
-              A small contact sheet
+            <h2 style={{ fontSize: "var(--step-4)" }}>
+              A small <em className="italic-serif">contact sheet</em>
             </h2>
             <Link
               href="/photography"

@@ -12,27 +12,33 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
       aria-pressed={isDark}
-      className="group relative inline-flex h-7 w-12 items-center rounded-full border border-[color:var(--color-rule)] bg-[color:var(--color-paper)] transition-colors hover:border-[color:var(--color-ink-dim)]"
+      className="group mono inline-flex items-baseline gap-2 text-[11px] uppercase tracking-[0.18em] text-[color:var(--color-ink-faint)] transition-colors hover:text-[color:var(--color-ink)]"
     >
       <span
-        className="mono absolute left-1.5 text-[10px] uppercase tracking-wider text-[color:var(--color-ink-faint)] transition-opacity"
-        style={{ opacity: isDark ? 0.4 : 1 }}
-        aria-hidden
+        style={{
+          color: isDark ? "var(--color-ink-faint)" : "var(--color-mark)",
+          backgroundImage: isDark ? undefined : "linear-gradient(var(--color-mark), var(--color-mark))",
+          backgroundSize: "100% 1px",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "0 100%",
+          paddingBottom: "1px",
+        }}
       >
-        L
+        Day
       </span>
+      <span aria-hidden className="text-[color:var(--color-rule)]">/</span>
       <span
-        className="mono absolute right-1.5 text-[10px] uppercase tracking-wider text-[color:var(--color-ink-faint)] transition-opacity"
-        style={{ opacity: isDark ? 1 : 0.4 }}
-        aria-hidden
+        style={{
+          color: isDark ? "var(--color-mark)" : "var(--color-ink-faint)",
+          backgroundImage: isDark ? "linear-gradient(var(--color-mark), var(--color-mark))" : undefined,
+          backgroundSize: "100% 1px",
+          backgroundRepeat: "no-repeat",
+          backgroundPosition: "0 100%",
+          paddingBottom: "1px",
+        }}
       >
-        D
+        Night
       </span>
-      <span
-        className="pointer-events-none absolute top-0.5 h-5 w-5 rounded-full bg-[color:var(--color-ink)] shadow-sm transition-transform duration-300 ease-out"
-        style={{ transform: isDark ? "translateX(24px)" : "translateX(2px)" }}
-        aria-hidden
-      />
     </button>
   );
 }

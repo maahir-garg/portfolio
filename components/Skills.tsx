@@ -16,7 +16,7 @@ export function Skills({ skills = DATA.skills }: { skills?: SkillsByCategory }) 
       {entries.map(([category, items], i) => (
         <div key={String(category)}>
           <div className="flex items-baseline justify-between border-b border-[color:var(--color-rule)] pb-2">
-            <h3 className="italic-serif text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-2)" }}>
+            <h3 className="text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-2)" }}>
               {String(category)}
             </h3>
             <span className="mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">

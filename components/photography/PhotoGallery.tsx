@@ -122,7 +122,7 @@ export function PhotoGallery() {
       {/* Filter row */}
       <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-[color:var(--color-rule)] pb-6">
         <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
-          Roll:
+          Filter:
         </span>
         {categories.map((c) => {
           const isActive = active === c;
@@ -266,14 +266,13 @@ export function PhotoGallery() {
             className="relative max-h-[82vh] w-full max-w-5xl"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="relative mx-auto aspect-[3/2] max-h-[82vh] w-full">
-              <Image
+            <div className="flex items-center justify-center" style={{ maxHeight: "78vh", minHeight: "40vh" }}>
+              {/* Using <img> avoids needing fixed dimensions for the fill strategy */}
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src={current.src}
                 alt={`${current.category} photograph`}
-                fill
-                sizes="100vw"
-                priority
-                className="object-contain"
+                style={{ maxHeight: "78vh", maxWidth: "100%", objectFit: "contain", display: "block" }}
               />
             </div>
             <div className="mt-4 flex flex-col items-center gap-1">

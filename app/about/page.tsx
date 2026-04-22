@@ -15,7 +15,7 @@ export default function AboutPage() {
         <header className="grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><p className="meta">§ About</p></div>
           <div className="md:col-span-10">
-            <h1 className="italic-serif" style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
+            <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
               A <em className="italic-serif">short letter</em>, more or less.
             </h1>
           </div>
@@ -73,24 +73,14 @@ export default function AboutPage() {
         </section>
       </Reveal>
 
-      {/* Skills */}
+      {/* Education — anchoring context first */}
       <Reveal delay={160}>
-        <section className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-2"><p className="meta">§ Toolkit</p></div>
-          <div className="md:col-span-10">
-            <Skills />
-          </div>
-        </section>
-      </Reveal>
-
-      {/* Education */}
-      <Reveal delay={200}>
         <section className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><p className="meta">§ Study</p></div>
           <div className="md:col-span-10">
             {DATA.education.map((e, i) => (
               <div key={i} className="flex flex-wrap items-baseline gap-x-4 border-t border-[color:var(--color-rule)] pt-6">
-                <h3 className="italic-serif" style={{ fontSize: "var(--step-2)" }}>{e.school}</h3>
+                <h3 style={{ fontSize: "var(--step-2)" }}>{e.school}</h3>
                 <p className="text-[color:var(--color-ink-dim)]">/ {e.degree}</p>
                 <span className="mono ml-auto text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
                   {e.start} → {e.end}
@@ -101,13 +91,23 @@ export default function AboutPage() {
         </section>
       </Reveal>
 
+      {/* Toolkit */}
+      <Reveal delay={200}>
+        <section className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
+          <div className="md:col-span-2"><p className="meta">§ Toolkit</p></div>
+          <div className="md:col-span-10">
+            <Skills />
+          </div>
+        </section>
+      </Reveal>
+
       {/* Reach */}
       <Reveal delay={260}>
         <section className="mt-20 grid grid-cols-1 gap-4 border-t border-[color:var(--color-rule)] pt-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><p className="meta">§ Reach</p></div>
           <div className="md:col-span-10">
-            <p className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-2)", lineHeight: 1.35 }}>
-              If this reads like someone you&apos;d want on a problem,{" "}
+            <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-2)", lineHeight: 1.35 }}>
+              If this reads like <em className="italic-serif">someone you&apos;d want</em> thinking about your problem,{" "}
               <Link href="/contact" className="link-underline text-[color:var(--color-ink)]">
                 let&apos;s talk
               </Link>

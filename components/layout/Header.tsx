@@ -41,7 +41,7 @@ export function Header() {
           className="group inline-flex items-baseline gap-2"
           aria-label="Home · Maahir Garg"
         >
-          <span className="italic-serif text-[color:var(--color-ink)] text-[1.05rem] leading-none">
+          <span className="text-[color:var(--color-ink)] text-[1.05rem] leading-none">
             Maahir Garg
           </span>
           <span className="mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-faint)]">
@@ -118,7 +118,7 @@ export function Header() {
               <span className="mono text-[11px] text-[color:var(--color-ink-faint)]">
                 {String(i + 1).padStart(2, "0")}
               </span>
-              <span className="italic-serif text-2xl">{item.label}</span>
+              <span className="text-2xl">{item.label}</span>
             </Link>
           ))}
         </nav>

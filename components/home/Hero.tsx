@@ -1,16 +1,26 @@
 "use client";
 
+import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { SingaporeClock } from "@/components/home/SingaporeClock";
 
+// Swap to /me.png once the portrait exists in /public.
+const HERO_PHOTO = "/photography/portraits/Photo_1.jpg";
+
 export function Hero() {
+  const now = new Date();
+  const mastheadDate = now.toLocaleDateString("en-GB", {
+    month: "short",
+    year: "numeric",
+  });
+
   return (
     <section className="container-page pt-10 md:pt-16">
       {/* masthead strip */}
       <Reveal as="div" className="flex flex-wrap items-center justify-between gap-3 pb-6 mb-12 border-b border-[color:var(--color-rule)]">
         <p className="mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--color-ink-faint)]">
-          Vol. 01 · Issue 04 · Apr 2026 ·{" "}
+          {mastheadDate} ·{" "}
           <span className="text-[color:var(--color-ink-dim)]">field notebook</span>
         </p>
         <SingaporeClock />
@@ -29,13 +39,40 @@ export function Hero() {
 
         <div className="md:col-span-10">
           <Reveal>
+            {/* Hero photo — floated right, slight tilt */}
+            <div
+              className="float-right ml-6 mb-4 hidden md:block"
+              style={{ transform: "rotate(2deg)" }}
+            >
+              <div className="relative w-32 h-44 overflow-hidden border border-[color:var(--color-rule)]">
+                <Image
+                  src={HERO_PHOTO}
+                  alt="Maahir Garg"
+                  fill
+                  sizes="128px"
+                  className="object-cover saturate-[0.92]"
+                  priority
+                />
+                {/* sprocket edge */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute left-0 top-0 h-full w-[5px]"
+                  style={{
+                    backgroundImage:
+                      "repeating-linear-gradient(to bottom, rgba(0,0,0,0.4) 0 5px, transparent 5px 12px)",
+                    mixBlendMode: "multiply",
+                  }}
+                />
+              </div>
+            </div>
+
             <h1
               className="text-[color:var(--color-ink)]"
               style={{ fontSize: "var(--step-5)", lineHeight: 1.02, letterSpacing: "-0.015em" }}
             >
               I&apos;m <em className="italic-serif">Maahir</em>, and I build{" "}
               <span className="mark-underline">careful systems</span> for{" "}
-              <em className="italic-serif">uncareful</em> data.
+              <em className="italic-serif">unruly</em> data.
             </h1>
           </Reveal>
 
@@ -69,19 +106,37 @@ export function Hero() {
               I&apos;m not shipping, I&apos;m teaching algorithms, reading, or
               photographing whatever&apos;s in front of me.
             </p>
+
+            {/* "Now" status strip */}
+            <p className="mt-5 inline-flex items-baseline gap-2 mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
+              <span className="inline-block size-1.5 rounded-full bg-[color:var(--color-mark)] relative self-center">
+                <span className="absolute inset-0 rounded-full bg-[color:var(--color-mark)] motion-safe:animate-ping opacity-70" />
+              </span>
+              <span>
+                Currently:{" "}
+                <span className="text-[color:var(--color-ink-dim)]">
+                  building a CLI agent at GIC
+                </span>
+              </span>
+              <span className="text-[color:var(--color-rule)]">·</span>
+              <span className="text-[color:var(--color-ink-faint)]">
+                Last updated {mastheadDate}
+              </span>
+            </p>
           </Reveal>
 
           <Reveal delay={240}>
             <ul className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-3">
+              {/* Primary CTA */}
               <li>
                 <Link
                   href="/experience"
-                  className="group inline-flex items-baseline gap-2 text-[color:var(--color-ink)]"
+                  className="group inline-flex items-center gap-3"
                 >
-                  <span className="mono text-[11px] text-[color:var(--color-ink-faint)] uppercase tracking-[0.15em]">
-                    01
-                  </span>
-                  <span className="italic-serif text-xl link-underline">
+                  <span
+                    className="text-[color:var(--color-ink)] border-b-2 border-[color:var(--color-mark)] pb-0.5 transition-colors group-hover:text-[color:var(--color-mark)]"
+                    style={{ fontSize: "var(--step-1)", fontWeight: 500 }}
+                  >
                     Read the work
                   </span>
                   <span className="text-[color:var(--color-mark)] transition-transform duration-300 group-hover:translate-x-1">
@@ -89,17 +144,14 @@ export function Hero() {
                   </span>
                 </Link>
               </li>
+              {/* Secondary CTAs */}
               <li>
                 <Link
                   href="/projects"
-                  className="group inline-flex items-baseline gap-2 text-[color:var(--color-ink)]"
+                  className="group inline-flex items-center gap-2 text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-ink)] transition-colors"
+                  style={{ fontSize: "var(--step-0)" }}
                 >
-                  <span className="mono text-[11px] text-[color:var(--color-ink-faint)] uppercase tracking-[0.15em]">
-                    02
-                  </span>
-                  <span className="italic-serif text-xl link-underline">
-                    See the projects
-                  </span>
+                  <span className="link-underline">See the projects</span>
                   <span className="text-[color:var(--color-mark)] transition-transform duration-300 group-hover:translate-x-1">
                     →
                   </span>
@@ -108,14 +160,10 @@ export function Hero() {
               <li>
                 <Link
                   href="/photography"
-                  className="group inline-flex items-baseline gap-2 text-[color:var(--color-ink)]"
+                  className="group inline-flex items-center gap-2 text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-ink)] transition-colors"
+                  style={{ fontSize: "var(--step-0)" }}
                 >
-                  <span className="mono text-[11px] text-[color:var(--color-ink-faint)] uppercase tracking-[0.15em]">
-                    03
-                  </span>
-                  <span className="italic-serif text-xl link-underline">
-                    Look at the photos
-                  </span>
+                  <span className="link-underline">Look at the photos</span>
                   <span className="text-[color:var(--color-mark)] transition-transform duration-300 group-hover:translate-x-1">
                     →
                   </span>
