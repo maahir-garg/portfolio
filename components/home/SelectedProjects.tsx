@@ -48,10 +48,10 @@ export function SelectedProjects() {
                 className="grid grid-cols-1 gap-4 py-8 md:grid-cols-12 md:gap-8 md:py-10"
               >
                 <div className="md:col-span-2">
-                  <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
+                  <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
                     {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
                   </span>
-                  <p className="mono mt-2 text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
+                  <p className="mono mt-2 text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
                     {project.dates}
                   </p>
                 </div>
@@ -75,7 +75,7 @@ export function SelectedProjects() {
                   {project.technologies.slice(0, 4).map((t) => (
                     <span
                       key={t}
-                      className="mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]"
+                      className="mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]"
                     >
                       {t}
                     </span>

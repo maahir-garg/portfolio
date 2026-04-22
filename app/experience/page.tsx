@@ -99,7 +99,7 @@ export default function ExperiencePage() {
                 <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>
                   / {e.degree}
                 </p>
-                <span className="mono ml-auto text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
+                <span className="mono ml-auto text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
                   {e.start} → {e.end}
                 </span>
               </div>
