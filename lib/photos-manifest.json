@@ -23,7 +23,9 @@
             "iso": "ISO 25"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Goa, India"
+        }
       },
       {
         "src": "/photography/landscape/IMG_0193.JPG",
@@ -69,7 +71,9 @@
             "iso": "ISO 20"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Somewhere near the water..."
+        }
       },
       {
         "src": "/photography/landscape/IMG_1239.jpeg",
@@ -92,7 +96,9 @@
             "iso": "ISO 640"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "On the Nile, Egypt"
+        }
       },
       {
         "src": "/photography/landscape/IMG_1464.jpeg",
@@ -138,7 +144,10 @@
             "iso": null
           }
         },
-        "meta": null
+        "meta": {
+          "location": "The Moon",
+          "caption": "Moonlight and stardust dreams."
+        }
       },
       {
         "src": "/photography/landscape/IMG_2115.jpeg",
@@ -257,7 +266,9 @@
             "iso": "ISO 32"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Kandy, Sri Lanka"
+        }
       },
       {
         "src": "/photography/landscape/IMG_4435.jpeg",
@@ -349,7 +360,9 @@
             "iso": "ISO 50"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Kyoto, Japan"
+        }
       },
       {
         "src": "/photography/landscape/IMG_6555.jpeg",
@@ -372,7 +385,9 @@
             "iso": "ISO 160"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Bamboo Forest"
+        }
       },
       {
         "src": "/photography/landscape/IMG_6654.jpeg",
@@ -448,7 +463,9 @@
             "iso": null
           }
         },
-        "meta": null
+        "meta": {
+          "caption": "Whispering secrets in green."
+        }
       },
       {
         "src": "/photography/portraits/IMG_2344.jpeg",
@@ -471,7 +488,9 @@
             "iso": "ISO 640"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "King Tut"
+        }
       },
       {
         "src": "/photography/portraits/IMG_3194.JPG",
@@ -542,7 +561,9 @@
             "iso": null
           }
         },
-        "meta": null
+        "meta": {
+          "caption": "Sunset captured in petals."
+        }
       },
       {
         "src": "/photography/portraits/Photo_2.jpg",
@@ -565,7 +586,9 @@
             "iso": null
           }
         },
-        "meta": null
+        "meta": {
+          "caption": "Ginger fur full of attitude."
+        }
       },
       {
         "src": "/photography/portraits/Photo_3.jpg",
@@ -588,7 +611,9 @@
             "iso": null
           }
         },
-        "meta": null
+        "meta": {
+          "caption": "A quiet moment up high."
+        }
       },
       {
         "src": "/photography/portraits/post.jpg",
@@ -611,7 +636,9 @@
             "iso": null
           }
         },
-        "meta": null
+        "meta": {
+          "caption": "A gentle giant resting."
+        }
       }
     ]
   },
@@ -639,7 +666,9 @@
             "iso": "ISO 50"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Fujikawaguchiko, Japan"
+        }
       },
       {
         "src": "/photography/street/IMG_1370.jpeg",
@@ -662,7 +691,9 @@
             "iso": "ISO 50"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Wat Arun, Thailand"
+        }
       },
       {
         "src": "/photography/street/IMG_1446.jpeg",
@@ -754,7 +785,9 @@
             "iso": "ISO 250"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "In some tomb in Egypt"
+        }
       },
       {
         "src": "/photography/street/IMG_20210327_233118.jpg",
@@ -777,7 +810,9 @@
             "iso": null
           }
         },
-        "meta": null
+        "meta": {
+          "caption": "A rainy ride back home."
+        }
       },
       {
         "src": "/photography/street/IMG_2510.jpeg",
@@ -800,7 +835,9 @@
             "iso": "ISO 1600"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Krabi, Thailand"
+        }
       },
       {
         "src": "/photography/street/IMG_4876.jpeg",
@@ -892,7 +929,9 @@
             "iso": "ISO 64"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Torii Gates"
+        }
       },
       {
         "src": "/photography/street/IMG_6151.jpeg",
@@ -1007,7 +1046,9 @@
             "iso": null
           }
         },
-        "meta": null
+        "meta": {
+          "caption": "Simple ideas burning brightly."
+        }
       },
       {
         "src": "/photography/street/Photo_4.jpg",
@@ -1030,7 +1071,9 @@
             "iso": null
           }
         },
-        "meta": null
+        "meta": {
+          "caption": "Lost in the city glow."
+        }
       }
     ]
   },
@@ -1081,7 +1124,9 @@
             "iso": null
           }
         },
-        "meta": null
+        "meta": {
+          "caption": "Sparks over the city"
+        }
       },
       {
         "src": "/photography/urban/IMG_1011.jpeg",
@@ -1150,7 +1195,9 @@
             "iso": "ISO 250"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Twin Towers, Malaysia"
+        }
       },
       {
         "src": "/photography/urban/IMG_5493.jpeg",
@@ -1173,7 +1220,9 @@
             "iso": "ISO 250"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Manila, Philippines"
+        }
       },
       {
         "src": "/photography/urban/IMG_6015.jpeg",
@@ -1242,7 +1291,9 @@
             "iso": "ISO 100"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Tokyo Tower, Japan"
+        }
       },
       {
         "src": "/photography/urban/IMG_9532.jpeg",

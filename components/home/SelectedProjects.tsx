@@ -38,60 +38,71 @@ export function SelectedProjects() {
       </Reveal>
 
       <ol>
-        {items.map((project, i) => (
-          <Reveal key={project.slug} delay={i * 60}>
-            <li
-              className="group relative border-b border-[color:var(--color-rule)]"
-            >
-              <Link
-                href={`/projects/${project.slug}`}
-                className="grid grid-cols-1 gap-4 py-8 md:grid-cols-12 md:gap-8 md:py-10"
-              >
-                <div className="md:col-span-2">
-                  <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
-                    {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
-                  </span>
-                  <p className="mono mt-2 text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
-                    {project.dates}
-                  </p>
-                </div>
-
-                <div className="md:col-span-7">
-                  <h3
-                    className="text-[color:var(--color-ink)] transition-colors group-hover:text-[color:var(--color-mark)]"
-                    style={{ fontSize: "var(--step-3)" }}
-                  >
-                    {project.title}
-                  </h3>
-                  <p
-                    className="mt-3 max-w-2xl text-[color:var(--color-ink-dim)]"
-                    style={{ fontSize: "var(--step-0)", lineHeight: 1.65 }}
-                  >
-                    {project.description}
-                  </p>
-                </div>
-
-                <div className="md:col-span-3 flex flex-wrap items-start gap-x-3 gap-y-1 md:justify-end">
-                  {project.technologies.slice(0, 4).map((t) => (
-                    <span
-                      key={t}
-                      className="mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                <span
-                  aria-hidden
-                  className="mono absolute right-0 top-1/2 -translate-y-1/2 text-[color:var(--color-mark)] opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1 pr-2"
+        {items.map((project, i) => {
+          const isFeatured = i === 0;
+          return (
+            <Reveal key={project.slug} delay={i * 60}>
+              <li className="group relative border-b border-[color:var(--color-rule)]">
+                <Link
+                  href={`/projects/${project.slug}`}
+                  className="grid grid-cols-1 gap-4 py-8 md:grid-cols-12 md:gap-8 md:py-10"
                 >
-                  →
-                </span>
-              </Link>
-            </li>
-          </Reveal>
-        ))}
+                  <div className="md:col-span-2">
+                    <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
+                      {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
+                      {isFeatured && (
+                        <span className="ml-2 text-[color:var(--color-mark)]">● featured</span>
+                      )}
+                    </span>
+                    <p className="mono mt-2 text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
+                      {project.dates}
+                    </p>
+                  </div>
+
+                  <div className="md:col-span-7">
+                    <div className="flex items-baseline gap-3">
+                      <h3
+                        className="text-[color:var(--color-ink)] transition-colors group-hover:text-[color:var(--color-mark)]"
+                        style={{
+                          fontSize: isFeatured ? "var(--step-4)" : "var(--step-3)",
+                          lineHeight: 1.1,
+                        }}
+                      >
+                        {project.title}
+                      </h3>
+                      <span
+                        aria-hidden
+                        className="mono text-[color:var(--color-mark)] opacity-0 transition-all duration-300 group-hover:opacity-100 group-hover:translate-x-1"
+                      >
+                        →
+                      </span>
+                    </div>
+                    <p
+                      className="mt-3 max-w-2xl text-[color:var(--color-ink-dim)]"
+                      style={{
+                        fontSize: isFeatured ? "var(--step-1)" : "var(--step-0)",
+                        lineHeight: 1.65,
+                      }}
+                    >
+                      {project.description}
+                    </p>
+                  </div>
+
+                  <div className="md:col-span-3 flex flex-wrap items-start gap-3 md:justify-end">
+                    {project.technologies.slice(0, 4).map((t) => (
+                      <span
+                        key={t}
+                        className="mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]"
+                      >
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                </Link>
+              </li>
+            </Reveal>
+          );
+        })}
       </ol>
     </section>
   );

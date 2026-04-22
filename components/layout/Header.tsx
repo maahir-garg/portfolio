@@ -11,7 +11,6 @@ const nav = [
   { label: "Photography", href: "/photography" },
   { label: "Projects", href: "/projects" },
   { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
 ];
 
 export function Header() {
@@ -47,7 +46,7 @@ export function Header() {
             Maahir Garg
           </span>
           <span className="mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-faint)]">
-            /mg
+            · MG
           </span>
         </Link>
 
@@ -59,7 +58,7 @@ export function Header() {
               aria-current={isActive(item.href) ? "page" : undefined}
               className="group relative inline-flex items-baseline gap-1.5 text-[0.92rem] text-[color:var(--color-ink-dim)] transition-colors hover:text-[color:var(--color-ink)]"
             >
-              <span className="mono text-[10px] text-[color:var(--color-ink-faint)] tabular-nums hidden lg:inline">
+              <span className="mono text-[10px] text-[color:var(--color-ink-faint)] tabular-nums">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <span

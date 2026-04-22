@@ -1,5 +1,6 @@
 "use client";
 
+import { useMemo, useSyncExternalStore } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
@@ -51,35 +52,89 @@ function exifCaption(img: ManifestImage | undefined, category: string): string {
   return `${category.toUpperCase()} · ${parts.slice(0, 2).join(" · ")}`;
 }
 
+function hashString(value: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < value.length; i++) {
+    h ^= value.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+function shuffle<T>(arr: T[]): T[] {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
 /**
- * Pick up to four frames across categories so the strip stays visually
- * mixed. Deterministic: takes the first image from each available
- * category, then rotates to the next frame of the first category to
- * fill to four.
+ * Pick four frames deterministically so server and client render the same
+ * strip during hydration.
  */
-function buildPicks(): Pick[] {
+function buildDeterministicPicks(): Pick[] {
   const out: Pick[] = [];
-  for (const cat of CATEGORIES) {
-    const first = cat.images[0];
-    if (!first) continue;
-    out.push({ src: first.src, category: cat.category, caption: exifCaption(first, cat.category) });
+  const cats = [...CATEGORIES].sort((a, b) => a.category.localeCompare(b.category));
+  for (const cat of cats) {
+    if (cat.images.length === 0) continue;
+    const idx = hashString(cat.category) % cat.images.length;
+    const img = cat.images[idx];
+    out.push({ src: img.src, category: cat.category, caption: exifCaption(img, cat.category) });
     if (out.length === 4) return out;
   }
-  // top up from the earliest-populated category
-  const firstCat = CATEGORIES.find((c) => c.images.length > 1);
-  let idx = 1;
-  while (out.length < 4 && firstCat && firstCat.images[idx]) {
-    const img = firstCat.images[idx];
-    out.push({ src: img.src, category: firstCat.category, caption: exifCaption(img, firstCat.category) });
-    idx++;
+  // top up from any category with remaining images
+  const allImages: { img: ManifestImage; category: string }[] = CATEGORIES.flatMap((c) =>
+    c.images.map((img) => ({ img, category: c.category }))
+  );
+  const ordered = [...allImages].sort((a, b) => a.img.src.localeCompare(b.img.src));
+  for (const { img, category } of ordered) {
+    if (out.some((p) => p.src === img.src)) continue;
+    out.push({ src: img.src, category, caption: exifCaption(img, category) });
+    if (out.length === 4) return out;
   }
   return out;
 }
 
-const PICKS: Pick[] = buildPicks();
+/**
+ * Randomized picks for post-hydration client render.
+ */
+function buildRandomPicks(): Pick[] {
+  const out: Pick[] = [];
+  const cats = shuffle(CATEGORIES);
+  for (const cat of cats) {
+    if (cat.images.length === 0) continue;
+    const img = cat.images[Math.floor(Math.random() * cat.images.length)];
+    out.push({ src: img.src, category: cat.category, caption: exifCaption(img, cat.category) });
+    if (out.length === 4) return out;
+  }
+
+  const allImages: { img: ManifestImage; category: string }[] = CATEGORIES.flatMap((c) =>
+    c.images.map((img) => ({ img, category: c.category }))
+  );
+  for (const { img, category } of shuffle(allImages)) {
+    if (out.some((p) => p.src === img.src)) continue;
+    out.push({ src: img.src, category, caption: exifCaption(img, category) });
+    if (out.length === 4) return out;
+  }
+  return out;
+}
+
+const SSR_PICKS: Pick[] = buildDeterministicPicks();
 
 export function PhotographyStrip() {
-  if (PICKS.length === 0) return null;
+  // Guarantees identical SSR + first client render, then allows one-time
+  // randomized picks after mount without hydration mismatch.
+  const mounted = useSyncExternalStore(
+    () => () => {},
+    () => true,
+    () => false,
+  );
+
+  const picks = useMemo(() => (mounted ? buildRandomPicks() : SSR_PICKS), [mounted]);
+
+  if (picks.length === 0) return null;
 
   return (
     <section className="container-page mt-32 md:mt-40">
@@ -104,7 +159,7 @@ export function PhotographyStrip() {
 
       <Reveal delay={120}>
         <div className="mt-10 grid grid-cols-2 gap-x-4 gap-y-10 md:grid-cols-4 md:gap-x-6">
-          {PICKS.map((p, i) => (
+          {picks.map((p, i) => (
             <figure
               key={`${p.src}-${i}`}
               className="group flex flex-col gap-2"
@@ -133,7 +188,7 @@ export function PhotographyStrip() {
                 {p.caption}
                 <span className="mx-2">·</span>
                 <span className="text-[color:var(--color-ink-dim)]">
-                  {String(i + 1).padStart(2, "0")} / {String(PICKS.length).padStart(2, "0")}
+                  {String(i + 1).padStart(2, "0")} / {String(picks.length).padStart(2, "0")}
                 </span>
               </figcaption>
             </figure>
