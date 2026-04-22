@@ -38,7 +38,7 @@ export function SelectedWork() {
                 <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
                   {String(i + 1).padStart(2, "0")}
                 </span>
-                <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
+                <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
                   {role.start}
                   {" → "}
                   {role.end === "Present" ? "now" : role.end}

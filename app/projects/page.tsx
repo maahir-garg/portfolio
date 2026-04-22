@@ -129,7 +129,7 @@ export default function ProjectsPage() {
                   {p.technologies.slice(0, 4).map((t) => (
                     <span
                       key={t}
-                      className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]"
+                      className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]"
                     >
                       {t}
                     </span>
