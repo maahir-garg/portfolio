@@ -5,8 +5,17 @@ import { FlightsMap } from "@/components/feature/FlightsMap";
 import { DATA } from "@/lib/data";
 
 export const metadata = {
-  title: "About · Maahir Garg",
-  description: "A letter from Maahir. What I do, how I think, what I'm learning.",
+  title: "About Maahir Garg",
+  description:
+    "About Maahir Garg — AI Engineer at GIC, Computer Science & Quantitative Finance at NUS. How I work, what I'm learning, and the throughlines across my projects.",
+  alternates: { canonical: "https://maahir-garg.vercel.app/about" },
+  openGraph: {
+    title: "About · Maahir Garg",
+    description:
+      "About Maahir Garg — AI Engineer at GIC, Computer Science & Quantitative Finance at NUS.",
+    url: "https://maahir-garg.vercel.app/about",
+    type: "profile",
+  },
 };
 
 export default function AboutPage() {

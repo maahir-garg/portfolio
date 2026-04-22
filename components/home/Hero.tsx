@@ -68,7 +68,7 @@ export function Hero() {
                 className="text-[color:var(--color-ink)]"
                 style={{ fontSize: "var(--step-5)", lineHeight: 1.02, letterSpacing: "-0.015em" }}
               >
-                I&apos;m <em className="italic-serif">Maahir</em>, and I build{" "}
+                I&apos;m <em className="italic-serif">Maahir Garg</em>, and I build{" "}
                 <span className="mark-underline">careful systems</span> for{" "}
                 <em className="italic-serif">unruly</em> data.
               </h1>

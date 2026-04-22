@@ -2,8 +2,17 @@ import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
 
 export const metadata = {
-  title: "Work · Maahir Garg",
-  description: "A chronological list of roles across AI engineering, research, data, and teaching.",
+  title: "Experience · Maahir Garg",
+  description:
+    "Maahir Garg's work experience — AI Engineer at GIC, Apple Vision Pro research, teaching at NUS, and data/ML roles across research and industry.",
+  alternates: { canonical: "https://maahir-garg.vercel.app/experience" },
+  openGraph: {
+    title: "Experience · Maahir Garg",
+    description:
+      "Maahir Garg's work history: AI engineering, Apple Vision Pro research, teaching at NUS, and data/ML roles.",
+    url: "https://maahir-garg.vercel.app/experience",
+    type: "profile",
+  },
 };
 
 export default function ExperiencePage() {
