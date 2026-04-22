@@ -16,7 +16,7 @@ export function SelectedWork() {
           </div>
           <div className="md:col-span-10 flex items-end justify-between gap-4">
             <h2 style={{ fontSize: "var(--step-4)" }}>
-              Selected <em className="italic-serif">work</em>
+              Selected works
             </h2>
             <Link
               href="/experience"
