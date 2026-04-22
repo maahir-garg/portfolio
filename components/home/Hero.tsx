@@ -29,9 +29,9 @@ export function Hero() {
       </Reveal>
 
       {/* editorial statement */}
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-12">
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-12 md:items-stretch">
           {/* Text content */}
-          <div className="md:col-span-7">
+          <div className="md:col-span-7 flex flex-col justify-center">
             <Reveal>
               <h1
                 className="text-[color:var(--color-ink)]"
@@ -141,12 +141,12 @@ export function Hero() {
           </div>
 
           {/* Hero photo - right side card */}
-          <Reveal as="div" className="md:col-span-5 hidden md:block">
+          <Reveal as="div" className="md:col-span-5 hidden md:flex md:h-full">
             <div
-              className="w-full"
+              className="w-full h-full"
               style={{ transform: "rotate(2deg)" }}
             >
-              <div className="relative w-full h-96 overflow-hidden border border-[color:var(--color-rule)]">
+              <div className="relative w-full h-full min-h-[520px] overflow-hidden border border-[color:var(--color-rule)]">
                 <Image
                   src={HERO_PHOTO}
                   alt="Maahir Garg"
