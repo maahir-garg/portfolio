@@ -161,7 +161,9 @@
             "iso": "ISO 20"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Cairo, Egypt"
+        }
       },
       {
         "src": "/photography/landscape/IMG_2801.jpeg",
@@ -184,7 +186,9 @@
             "iso": "ISO 50"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Alamaty, Kazakhstan"
+        }
       },
       {
         "src": "/photography/landscape/IMG_3192.JPG",
@@ -391,7 +395,9 @@
             "iso": "ISO 50"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Fuji, Japan"
+        }
       }
     ]
   },
@@ -511,7 +517,9 @@
             "iso": "ISO 200"
           }
         },
-        "meta": null
+        "meta": {
+          "location": "Van Gogh Museum"
+        }
       },
       {
         "src": "/photography/portraits/Photo_1.jpg",
