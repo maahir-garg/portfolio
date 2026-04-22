@@ -11,8 +11,8 @@ export function Colophon() {
         <header className="grid grid-cols-1 gap-4 pb-10 md:grid-cols-12 md:gap-8 border-b border-[color:var(--color-rule)]">
           <div className="md:col-span-2"><p className="meta">§ 04</p></div>
           <div className="md:col-span-10">
-            <h2 className="italic-serif" style={{ fontSize: "var(--step-4)" }}>
-              Currently
+            <h2 style={{ fontSize: "var(--step-4)" }}>
+              Here, <em className="italic-serif">currently</em>
             </h2>
           </div>
         </header>
@@ -22,10 +22,10 @@ export function Colophon() {
         <Reveal as="div" className="md:col-span-6" delay={60}>
           <p className="meta mb-3">On the desk</p>
           <ul className="colophon-list space-y-2 text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-1)" }}>
-            <li>fine-tuning a reasoning model on clause-extracted data</li>
+            <li>building an agentic CLI tool at GIC</li>
             <li>reading <em className="italic-serif">Designing Data-Intensive Applications</em></li>
-            <li>building this site, out loud</li>
-            <li>logging one LeetCode problem a day, give or take</li>
+            <li>optimizing a reasoning pipeline on clause-extracted data</li>
+            <li>drafting a paper on multimodal hand tracking for stroke rehab</li>
           </ul>
         </Reveal>
 
@@ -44,9 +44,10 @@ export function Colophon() {
         <div className="mt-16 grid grid-cols-1 gap-8 border-t border-[color:var(--color-rule)] pt-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><p className="meta">Letters</p></div>
           <div className="md:col-span-10">
-            <p className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-2)", lineHeight: 1.35 }}>
-              If any of this reads like something you&apos;d want to talk about,
-              models, optimization, pipelines, or a quiet photograph,{" "}
+            <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-2)", lineHeight: 1.35 }}>
+              If any of this reads like something you&apos;d want to{" "}
+              <em className="italic-serif">talk about</em>, models, optimization,
+              pipelines, or a quiet photograph,{" "}
               <a href={`mailto:${DATA.contact.email}`} className="link-underline text-[color:var(--color-ink)]">
                 write to me
               </a>

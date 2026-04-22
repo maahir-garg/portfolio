@@ -15,8 +15,8 @@ export function SelectedWork() {
             <p className="meta">§ 01</p>
           </div>
           <div className="md:col-span-10 flex items-end justify-between gap-4">
-            <h2 className="italic-serif" style={{ fontSize: "var(--step-4)" }}>
-              Selected work
+            <h2 style={{ fontSize: "var(--step-4)" }}>
+              Selected <em className="italic-serif">work</em>
             </h2>
             <Link
               href="/experience"
@@ -48,7 +48,7 @@ export function SelectedWork() {
               <div className="md:col-span-10">
                 <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
                   <h3
-                    className="italic-serif text-[color:var(--color-ink)] transition-colors group-hover:text-[color:var(--color-mark)]"
+                    className="text-[color:var(--color-ink)] transition-colors group-hover:text-[color:var(--color-mark)]"
                     style={{ fontSize: "var(--step-3)" }}
                   >
                     {role.company}

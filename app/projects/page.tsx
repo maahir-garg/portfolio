@@ -10,17 +10,17 @@ const categories = [
   { id: "ml",  label: "ML / LLM" },
   { id: "spatial", label: "Spatial" },
   { id: "data", label: "Data" },
-  { id: "open", label: "Open source" },
+  { id: "open", label: "Public" },
 ];
 
 function classify(p: (typeof DATA.projects)[number]): string[] {
   const tech = p.technologies.join(" ").toLowerCase();
   const desc = p.description.toLowerCase();
   const tags: string[] = [];
-  if (/(llm|bert|peft|fine|ai|ml|pytorch|nlp|few-shot|quantization|pruning)/.test(tech + desc)) tags.push("ml");
-  if (/(swift|vision|realitykit|visionpro)/.test(tech + desc)) tags.push("spatial");
-  if (/(scraping|pipeline|etl|data engineering|sqlite|kafka|spark)/.test(tech + desc)) tags.push("data");
-  if (p.links.some((l) => l.icon === "github")) tags.push("open");
+  if (/(llm|bert|peft|fine|lora|llama|ai|ml|pytorch|nlp|few-shot|quantization|pruning|rag|vector|algorithm|leetcode|problem solving)/.test(tech + desc)) tags.push("ml");
+  if (/(swift|vision|realitykit|visionpro|iphone|multimodal.*track|stroke)/.test(tech + desc)) tags.push("spatial");
+  if (/(scraping|pipeline|etl|data engineering|sqlite|kafka|spark|snowflake|airflow)/.test(tech + desc)) tags.push("data");
+  if (p.links.some((l) => Boolean(l.href))) tags.push("open");
   return tags;
 }
 
@@ -38,16 +38,15 @@ export default function ProjectsPage() {
         <header className="grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><p className="meta">§ Projects</p></div>
           <div className="md:col-span-10">
-            <h1 className="italic-serif" style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
-              Things I&apos;ve <em>made, broken,</em> re-made.
+            <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
+              Things I&apos;ve <em className="italic-serif">made, broken,</em> re-made.
             </h1>
             <p
               className="mt-6 max-w-2xl text-[color:var(--color-ink-dim)]"
               style={{ fontSize: "var(--step-1)", lineHeight: 1.6 }}
             >
               A running archive. Some shipped, some sat in a drawer, some
-              became homework for a class I was teaching. Click in for the
-              notes.
+              became the curriculum. Click in for the notes.
             </p>
           </div>
         </header>
@@ -113,7 +112,7 @@ export default function ProjectsPage() {
 
                 <div className="md:col-span-7">
                   <h2
-                    className="italic-serif text-[color:var(--color-ink)] transition-colors group-hover:text-[color:var(--color-mark)]"
+                    className="text-[color:var(--color-ink)] transition-colors group-hover:text-[color:var(--color-mark)]"
                     style={{ fontSize: "var(--step-3)" }}
                   >
                     {p.title}
@@ -130,7 +129,7 @@ export default function ProjectsPage() {
                   {p.technologies.slice(0, 4).map((t) => (
                     <span
                       key={t}
-                      className="mono text-[10px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]"
+                      className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]"
                     >
                       {t}
                     </span>

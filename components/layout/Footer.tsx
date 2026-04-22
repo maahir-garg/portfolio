@@ -8,10 +8,9 @@ export function Footer() {
       <div className="container-page grid grid-cols-1 gap-10 py-14 md:grid-cols-12 md:gap-8">
         {/* signature */}
         <div className="md:col-span-5">
-          <p className="italic-serif text-[color:var(--color-ink)] text-2xl leading-[1.15]">
-            Writing software,
-            <br />
-            sometimes reading light.
+          <p className="text-[color:var(--color-ink)] text-2xl leading-[1.15]">
+            Writing software.{" "}
+            <em className="italic-serif">Reading light.</em>
           </p>
           <p className="meta mt-4 max-w-sm">
             Built in Singapore · Next.js 16 · Typeset in Newsreader &amp; Geist
@@ -42,16 +41,6 @@ export function Footer() {
                 LinkedIn ↗
               </a>
             </li>
-            <li>
-              <a
-                href="https://leetcode.com/u/maahir_garg/"
-                target="_blank"
-                rel="noreferrer noopener"
-                className="link-underline"
-              >
-                LeetCode ↗
-              </a>
-            </li>
           </ul>
         </div>
 
@@ -62,7 +51,7 @@ export function Footer() {
             href={`mailto:${DATA.contact.email}`}
             className="group inline-flex items-baseline gap-2"
           >
-            <span className="italic-serif text-2xl link-underline">
+            <span className="text-2xl link-underline">
               {DATA.contact.email}
             </span>
             <span className="text-[color:var(--color-mark)]">→</span>

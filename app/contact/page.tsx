@@ -1,6 +1,5 @@
 import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
-import { SingaporeClock } from "@/components/home/SingaporeClock";
 
 export const metadata = {
   title: "Contact · Maahir Garg",
@@ -8,7 +7,7 @@ export const metadata = {
 };
 
 export default function ContactPage() {
-  const emailSubject = encodeURIComponent("Hello from your portfolio");
+  const emailSubject = encodeURIComponent("[Portfolio] ");
   const mailto = `mailto:${DATA.contact.email}?subject=${emailSubject}`;
 
   return (
@@ -17,7 +16,7 @@ export default function ContactPage() {
         <header className="grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><p className="meta">§ Contact</p></div>
           <div className="md:col-span-10">
-            <h1 className="italic-serif" style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
+            <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
               The <em className="italic-serif">shortest</em> way in.
             </h1>
             <p
@@ -42,7 +41,7 @@ export default function ContactPage() {
               className="group inline-flex flex-wrap items-baseline gap-x-4"
             >
               <span
-                className="italic-serif text-[color:var(--color-ink)] link-underline"
+                className="text-[color:var(--color-ink)] link-underline"
                 style={{ fontSize: "var(--step-4)", lineHeight: 1.05 }}
               >
                 {DATA.contact.email}
@@ -66,7 +65,7 @@ export default function ContactPage() {
       <Reveal delay={140}>
         <section className="mt-20 grid grid-cols-1 gap-4 border-t border-[color:var(--color-rule)] pt-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><p className="meta">Elsewhere</p></div>
-          <div className="md:col-span-10 grid grid-cols-1 gap-6 md:grid-cols-3">
+          <div className="md:col-span-10 grid grid-cols-1 gap-6 md:grid-cols-2">
             <a
               href={DATA.contact.social.LinkedIn.url}
               target="_blank"
@@ -74,7 +73,7 @@ export default function ContactPage() {
               className="group flex flex-col gap-2"
             >
               <span className="mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-faint)]">01</span>
-              <span className="italic-serif text-[color:var(--color-ink)] group-hover:text-[color:var(--color-mark)]" style={{ fontSize: "var(--step-2)" }}>
+              <span className="text-[color:var(--color-ink)] group-hover:text-[color:var(--color-mark)]" style={{ fontSize: "var(--step-2)" }}>
                 LinkedIn ↗
               </span>
               <span className="mono text-[11px] text-[color:var(--color-ink-dim)]">linkedin.com/in/maahir-garg</span>
@@ -87,23 +86,10 @@ export default function ContactPage() {
               className="group flex flex-col gap-2"
             >
               <span className="mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-faint)]">02</span>
-              <span className="italic-serif text-[color:var(--color-ink)] group-hover:text-[color:var(--color-mark)]" style={{ fontSize: "var(--step-2)" }}>
+              <span className="text-[color:var(--color-ink)] group-hover:text-[color:var(--color-mark)]" style={{ fontSize: "var(--step-2)" }}>
                 GitHub ↗
               </span>
               <span className="mono text-[11px] text-[color:var(--color-ink-dim)]">github.com/maahir-garg</span>
-            </a>
-
-            <a
-              href="https://leetcode.com/u/maahir_garg/"
-              target="_blank"
-              rel="noreferrer noopener"
-              className="group flex flex-col gap-2"
-            >
-              <span className="mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-ink-faint)]">03</span>
-              <span className="italic-serif text-[color:var(--color-ink)] group-hover:text-[color:var(--color-mark)]" style={{ fontSize: "var(--step-2)" }}>
-                LeetCode ↗
-              </span>
-              <span className="mono text-[11px] text-[color:var(--color-ink-dim)]">u/maahir_garg</span>
             </a>
           </div>
         </section>
@@ -117,13 +103,9 @@ export default function ContactPage() {
             <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
               01°17′N, 103°51′E · Singapore
             </span>
-            <SingaporeClock />
-            <a
-              href={`tel:${DATA.contact.tel.replace(/\s+/g, "")}`}
-              className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)] link-underline"
-            >
-              {DATA.contact.tel}
-            </a>
+            <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
+              UTC+8
+            </span>
           </div>
         </section>
       </Reveal>
