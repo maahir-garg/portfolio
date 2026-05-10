@@ -1,16 +1,24 @@
+import type { Metadata } from "next";
 import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
+import { absoluteUrl } from "@/lib/site";
+import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
-export const metadata = {
-  title: "Contact Maahir Garg",
+export const metadata: Metadata = {
+  title: "Contact",
   description:
-    "Get in touch with Maahir Garg — email, GitHub, and LinkedIn. AI Engineer at GIC, based in Singapore.",
-  alternates: { canonical: "https://maahir-garg.vercel.app/contact" },
+    "Get in touch with Maahir Garg via email, GitHub, or LinkedIn. AI Engineer at GIC, based in Singapore.",
+  alternates: { canonical: absoluteUrl("/contact") },
   openGraph: {
     title: "Contact · Maahir Garg",
-    description: "Email, GitHub, and LinkedIn for Maahir Garg.",
-    url: "https://maahir-garg.vercel.app/contact",
+    description: "Email, GitHub, and LinkedIn for Maahir Garg, AI Engineer in Singapore.",
+    url: absoluteUrl("/contact"),
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact · Maahir Garg",
+    description: "Email, GitHub, and LinkedIn for Maahir Garg.",
   },
 };
 
@@ -20,11 +28,18 @@ export default function ContactPage() {
 
   return (
     <div className="container-page pt-6 pb-10">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Contact", path: "/contact" },
+        ]}
+      />
       <Reveal>
         <header className="grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><p className="meta">§ Contact</p></div>
           <div className="md:col-span-10">
             <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
+              <span className="sr-only">Contact Maahir Garg. </span>
               The <em className="italic-serif">shortest</em> way in.
             </h1>
             <p

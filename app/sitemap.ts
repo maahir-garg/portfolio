@@ -1,30 +1,38 @@
 import { MetadataRoute } from "next";
 import { DATA } from "@/lib/data";
+import { SITE, absoluteUrl } from "@/lib/site";
+
+/**
+ * Stable per-resource lastModified. Avoid `new Date()` here, since that ties
+ * lastmod to deploy time, which makes Google's crawler ignore the signal
+ * (it rotates on every push regardless of whether the page changed).
+ */
+const lastMod = new Date(SITE.lastModified);
+
+const staticRoutes: { path: string; changeFrequency: MetadataRoute.Sitemap[number]["changeFrequency"]; priority: number }[] = [
+  { path: "",            changeFrequency: "weekly",  priority: 1.0 },
+  { path: "/about",      changeFrequency: "monthly", priority: 0.9 },
+  { path: "/experience", changeFrequency: "monthly", priority: 0.9 },
+  { path: "/projects",   changeFrequency: "weekly",  priority: 0.9 },
+  { path: "/photography",changeFrequency: "monthly", priority: 0.7 },
+  { path: "/contact",    changeFrequency: "yearly",  priority: 0.6 },
+  { path: "/now",        changeFrequency: "weekly",  priority: 0.6 },
+];
 
 export default function sitemap(): MetadataRoute.Sitemap {
-    const baseUrl = "https://maahir-garg.vercel.app";
+  const staticEntries: MetadataRoute.Sitemap = staticRoutes.map((r) => ({
+    url: absoluteUrl(r.path),
+    lastModified: lastMod,
+    changeFrequency: r.changeFrequency,
+    priority: r.priority,
+  }));
 
-    const staticRoutes = [
-        "",
-        "/projects",
-        "/experience",
-        "/about",
-        "/contact",
-        "/photography",
-        "/now",
-    ].map((route) => ({
-        url: `${baseUrl}${route}`,
-        lastModified: new Date(),
-        changeFrequency: "monthly" as const,
-        priority: route === "" ? 1 : 0.8,
-    }));
+  const projectEntries: MetadataRoute.Sitemap = DATA.projects.map((project) => ({
+    url: absoluteUrl(`/projects/${project.slug}`),
+    lastModified: lastMod,
+    changeFrequency: "monthly",
+    priority: 0.7,
+  }));
 
-    const projectRoutes = DATA.projects.map((project) => ({
-        url: `${baseUrl}/projects/${project.slug}`,
-        lastModified: new Date(),
-        changeFrequency: "weekly" as const,
-        priority: 0.6,
-    }));
-
-    return [...staticRoutes, ...projectRoutes];
+  return [...staticEntries, ...projectEntries];
 }
