@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
@@ -7,17 +7,20 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider, themeInitScript } from "@/components/ThemeProvider";
+import { SITE, absoluteUrl } from "@/lib/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
   display: "swap",
+  preload: true,
 });
 
 const newsreader = Newsreader({
@@ -26,22 +29,31 @@ const newsreader = Newsreader({
   style: ["normal", "italic"],
   weight: ["300", "400", "500"],
   display: "swap",
+  preload: true,
 });
 
-const BASE_URL = "https://maahir-garg.vercel.app";
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f6f3ec" },
+    { media: "(prefers-color-scheme: dark)", color: "#0f0e0c" },
+  ],
+  colorScheme: "light dark",
+};
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(SITE.baseUrl),
   title: {
-    default: "Maahir Garg — AI Engineer | Portfolio",
+    default: "Maahir Garg · AI Engineer at GIC · NUS Computer Science",
     template: "%s · Maahir Garg",
   },
   description:
     "Maahir Garg is an AI Engineer at GIC and a Computer Science & Quantitative Finance student at the National University of Singapore (NUS). Maahir builds agentic LLM tooling for classified-data environments and holds a patent-pending multimodal hand-tracking framework on Apple Vision Pro. Portfolio, projects, and photography.",
   applicationName: "Maahir Garg · Field Notebook",
-  authors: [{ name: "Maahir Garg", url: BASE_URL }],
-  creator: "Maahir Garg",
-  publisher: "Maahir Garg",
+  authors: [{ name: SITE.fullName, url: SITE.baseUrl }],
+  creator: SITE.fullName,
+  publisher: SITE.fullName,
   keywords: [
     "Maahir Garg",
     "Maahir",
@@ -52,38 +64,47 @@ export const metadata: Metadata = {
     "Maahir Garg GIC",
     "Maahir Garg Singapore",
     "AI Engineer Singapore",
-    "LLM engineer",
+    "LLM engineer Singapore",
     "agentic AI",
-    "machine learning",
+    "machine learning Singapore",
     "NUS Computer Science",
     "NUS Quantitative Finance",
     "GIC AI Engineer",
     "Apple Vision Pro developer",
-    "spatial computing",
-    "software engineer portfolio",
+    "spatial computing Singapore",
+    "Maahir Garg software engineer",
   ],
   alternates: {
-    canonical: BASE_URL,
+    canonical: absoluteUrl(),
+    languages: {
+      "en": absoluteUrl(),
+      "x-default": absoluteUrl(),
+    },
+    types: {
+      "application/rss+xml": [],
+    },
   },
   openGraph: {
-    title: "Maahir Garg — AI Engineer | Portfolio",
+    title: "Maahir Garg · AI Engineer at GIC · NUS Computer Science",
     description:
       "AI Engineer at GIC. Agentic LLMs, model optimization, spatial computing. CS + Quant Finance at NUS.",
     type: "website",
-    url: BASE_URL,
-    siteName: "Maahir Garg",
+    url: absoluteUrl(),
+    siteName: SITE.fullName,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maahir Garg — AI Engineer | Portfolio",
+    title: "Maahir Garg · AI Engineer at GIC · NUS Computer Science",
     description:
       "AI Engineer at GIC. Agentic LLMs, model optimization, spatial computing. CS + Quant Finance at NUS.",
-    creator: "@maahirgarg",
+    creator: SITE.twitter,
+    site: SITE.twitter,
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
@@ -93,10 +114,16 @@ export const metadata: Metadata = {
     },
   },
   category: "technology",
+  // Existing GSC verification is via the /google2504911a6657dea8.html file in
+  // /public, which Google will fetch directly. Adding the meta-tag form below
+  // belt-and-braces if/when the user pastes the verification token.
   verification: {
-    // Paste the Google Search Console verification token here after creating a property
-    // at https://search.google.com/search-console (choose "URL prefix" → this site's URL).
     // google: "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN",
+  },
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
   },
 };
 
@@ -104,6 +131,16 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
+        {/* Resource hints: tell the browser to warm up the connections we
+            know we'll need before any HTML body parses. */}
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
+        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
+        {/* LCP hint: the home hero photo. Browsers ignore it on routes that
+            don't actually use it; on the homepage it lifts LCP measurably. */}
+        <link rel="preload" as="image" href="/me.png" fetchPriority="high" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body

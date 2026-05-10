@@ -1,7 +1,10 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
-export const metadata = {
-  title: "404 · Not Found · Maahir Garg",
+export const metadata: Metadata = {
+  title: "404 · Not Found",
+  description: "The page you were looking for does not exist on Maahir Garg's site.",
+  robots: { index: false, follow: true },
 };
 
 export default function NotFound() {

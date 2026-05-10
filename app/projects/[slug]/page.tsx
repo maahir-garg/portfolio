@@ -6,8 +6,8 @@ import { DATA } from "@/lib/data";
 import { Reveal } from "@/components/ui/Reveal";
 import { LeetCodeStats } from "@/components/feature/LeetCodeStats";
 import { LeetCodeStatsSkeleton } from "@/components/feature/LeetCodeStatsSkeleton";
-
-const BASE_URL = "https://maahir-garg.vercel.app";
+import { absoluteUrl, SITE } from "@/lib/site";
+import { BreadcrumbJsonLd, ProjectJsonLd } from "@/components/seo/JsonLd";
 
 export async function generateMetadata({
   params,
@@ -16,27 +16,43 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { slug } = await params;
   const project = DATA.projects.find((p) => p.slug === slug);
-  if (!project) return {};
+  if (!project) {
+    return {
+      title: "Project not found",
+      robots: { index: false, follow: false },
+    };
+  }
 
-  const url = `${BASE_URL}/projects/${slug}`;
+  const url = absoluteUrl(`/projects/${slug}`);
   const title = project.title;
-  const description = project.description;
+  // Description must be unique per page so Google doesn't fold near-duplicates.
+  // The data already differentiates each project; we just trim/extend safely.
+  const baseDesc = project.description;
+  const description = baseDesc.length > 240 ? `${baseDesc.slice(0, 237)}…` : baseDesc;
 
   return {
     title,
     description,
+    keywords: [
+      "Maahir Garg",
+      `${project.title} Maahir Garg`,
+      ...project.technologies,
+    ],
     alternates: { canonical: url },
     openGraph: {
       title: `${title} · Maahir Garg`,
       description,
       url,
       type: "article",
-      authors: ["Maahir Garg"],
+      authors: [SITE.fullName],
+      siteName: SITE.fullName,
+      publishedTime: project.dates,
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} · Maahir Garg`,
       description,
+      creator: SITE.twitter,
     },
   };
 }
@@ -59,6 +75,14 @@ export default async function ProjectPage({
 
   return (
     <article className="container-page pt-6 pb-10">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Projects", path: "/projects" },
+          { name: project.title, path: `/projects/${project.slug}` },
+        ]}
+      />
+      <ProjectJsonLd slug={project.slug} />
       <Reveal>
         <Link
           href="/projects"

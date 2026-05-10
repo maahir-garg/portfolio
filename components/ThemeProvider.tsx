@@ -74,7 +74,10 @@ export function useTheme() {
   return ctx;
 }
 
-/* inline script. Runs before paint, avoids FOUC. */
+/* inline script. Runs before paint, avoids FOUC.
+   Also flips an `html.js-active` class so progressive-enhancement CSS
+   (e.g. the .reveal animation) can hide content only when JS is around
+   to un-hide it. SSR HTML stays fully visible for crawlers. */
 export const themeInitScript = `
 (function(){try{
   var k='${STORAGE_KEY}';
@@ -83,5 +86,6 @@ export const themeInitScript = `
   var t=(s==='dark'||s==='light')?s:(d?'dark':'light');
   if(t==='dark') document.documentElement.classList.add('dark');
   document.documentElement.style.colorScheme=t;
+  document.documentElement.classList.add('js-active');
 }catch(e){}})();
 `;

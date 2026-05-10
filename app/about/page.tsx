@@ -1,26 +1,70 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { Skills } from "@/components/Skills";
 import { FlightsMap } from "@/components/feature/FlightsMap";
 import { DATA } from "@/lib/data";
+import { absoluteUrl } from "@/lib/site";
+import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
 
-export const metadata = {
-  title: "About Maahir Garg",
+export const metadata: Metadata = {
+  title: "About",
   description:
-    "About Maahir Garg — AI Engineer at GIC, Computer Science & Quantitative Finance at NUS. How I work, what I'm learning, and the throughlines across my projects.",
-  alternates: { canonical: "https://maahir-garg.vercel.app/about" },
+    "About Maahir Garg. AI Engineer at GIC and a Computer Science & Quantitative Finance student at NUS in Singapore. Background, skills, and the throughlines across his projects.",
+  alternates: { canonical: absoluteUrl("/about") },
   openGraph: {
     title: "About · Maahir Garg",
     description:
-      "About Maahir Garg — AI Engineer at GIC, Computer Science & Quantitative Finance at NUS.",
-    url: "https://maahir-garg.vercel.app/about",
+      "About Maahir Garg. AI Engineer at GIC, Computer Science & Quantitative Finance student at NUS, based in Singapore.",
+    url: absoluteUrl("/about"),
     type: "profile",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About · Maahir Garg",
+    description:
+      "AI Engineer at GIC, CS & Quant Finance at NUS, based in Singapore.",
   },
 };
 
 export default function AboutPage() {
   return (
     <div className="container-page pt-6 pb-10">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "About", path: "/about" },
+        ]}
+      />
+      <FaqJsonLd
+        items={[
+          {
+            question: "Who is Maahir Garg?",
+            answer:
+              "Maahir Garg is an AI Engineer at GIC and a Computer Science & Quantitative Finance student at the National University of Singapore (NUS), based in Singapore.",
+          },
+          {
+            question: "What does Maahir Garg work on?",
+            answer:
+              "Maahir builds agentic LLM tooling for classified-data environments at GIC, including an internal Claude Code-style CLI agent adopted across his team and pipelines that automate audit workflows end-to-end.",
+          },
+          {
+            question: "Where is Maahir Garg based?",
+            answer:
+              "Singapore. He studies at the National University of Singapore and works in Singapore at GIC.",
+          },
+          {
+            question: "What has Maahir Garg built?",
+            answer:
+              "A patent-pending multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation; an internal CLI agent at GIC; quantization and pruning work on BERT (~69% size reduction with <0.5% F1 loss); and PEFT/BitFit experiments on LLM reasoning.",
+          },
+          {
+            question: "How do you contact Maahir Garg?",
+            answer:
+              "Email maahirrgarg@gmail.com, or via LinkedIn at linkedin.com/in/maahir-garg and GitHub at github.com/maahir-garg.",
+          },
+        ]}
+      />
       <Reveal>
         <header className="grid grid-cols-1 gap-6 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2">
@@ -28,6 +72,7 @@ export default function AboutPage() {
           </div>
           <div className="md:col-span-10">
             <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
+              <span className="sr-only">About Maahir Garg. </span>
               A <em className="italic-serif">short letter</em>, more or less.
             </h1>
           </div>
@@ -135,8 +180,62 @@ export default function AboutPage() {
         </section>
       </Reveal>
 
+      {/* FAQ. Visible on the page so the FAQPage JSON-LD is grounded
+          in real content, and so AI answer engines have an extractable
+          source of plain-language facts. */}
+      <Reveal delay={250}>
+        <section
+          id="faq"
+          className="mt-20 grid grid-cols-1 gap-4 border-t border-[color:var(--color-rule)] pt-10 md:grid-cols-12 md:gap-8"
+        >
+          <div className="md:col-span-2"><p className="meta">§ FAQ</p></div>
+          <div className="md:col-span-10 space-y-8 max-w-3xl">
+            <div>
+              <h2 className="italic-serif text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-2)" }}>
+                Who is Maahir Garg?
+              </h2>
+              <p className="mt-2 text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)", lineHeight: 1.7 }}>
+                Maahir Garg is an AI Engineer at GIC and a Computer Science &amp; Quantitative Finance student at the National University of Singapore (NUS), based in Singapore.
+              </p>
+            </div>
+            <div>
+              <h2 className="italic-serif text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-2)" }}>
+                What does Maahir Garg work on?
+              </h2>
+              <p className="mt-2 text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)", lineHeight: 1.7 }}>
+                Maahir builds agentic LLM tooling for classified-data environments at GIC, including an internal Claude Code-style CLI agent adopted across his team and pipelines that automate audit workflows end-to-end.
+              </p>
+            </div>
+            <div>
+              <h2 className="italic-serif text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-2)" }}>
+                Where is Maahir Garg based?
+              </h2>
+              <p className="mt-2 text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)", lineHeight: 1.7 }}>
+                Singapore. He studies at the National University of Singapore and works in Singapore at GIC.
+              </p>
+            </div>
+            <div>
+              <h2 className="italic-serif text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-2)" }}>
+                What has Maahir Garg built?
+              </h2>
+              <p className="mt-2 text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)", lineHeight: 1.7 }}>
+                A patent-pending multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation; an internal CLI agent at GIC; quantization and pruning work on BERT (~69% size reduction with &lt;0.5% F1 loss); and PEFT/BitFit experiments on LLM reasoning.
+              </p>
+            </div>
+            <div>
+              <h2 className="italic-serif text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-2)" }}>
+                How do you contact Maahir Garg?
+              </h2>
+              <p className="mt-2 text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)", lineHeight: 1.7 }}>
+                Email <a className="link-underline" href="mailto:maahirrgarg@gmail.com">maahirrgarg@gmail.com</a>, or via <Link href="/contact" className="link-underline">the contact page</Link>.
+              </p>
+            </div>
+          </div>
+        </section>
+      </Reveal>
+
       {/* Reach */}
-      <Reveal delay={260}>
+      <Reveal delay={300}>
         <section className="mt-20 grid grid-cols-1 gap-4 border-t border-[color:var(--color-rule)] pt-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><p className="meta">§ Reach</p></div>
           <div className="md:col-span-10">

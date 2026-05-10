@@ -22,7 +22,7 @@ export function Hero() {
           {mastheadDate} ·{" "}
           <span className="text-[color:var(--color-ink-dim)]">field notebook</span>
           {" · "}
-          <span className="text-[color:var(--color-ink-dim)]">AI engineer — GIC, NUS</span>
+          <span className="text-[color:var(--color-ink-dim)]">AI engineer · GIC, NUS</span>
         </p>
         <p className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)] hidden sm:block">
           Dispatch · 01°17′N 103°51′E
@@ -41,11 +41,12 @@ export function Hero() {
               <div className="relative w-full h-full min-h-[320px] md:min-h-[520px] overflow-hidden border border-[color:var(--color-rule)]">
                 <Image
                   src={HERO_PHOTO}
-                  alt="Maahir Garg"
+                  alt="Portrait of Maahir Garg, AI Engineer at GIC, in Singapore"
                   fill
-                  sizes="280px"
+                  sizes="(min-width: 768px) 42vw, 100vw"
                   className="object-cover saturate-[0.92]"
                   priority
+                  fetchPriority="high"
                 />
                 {/* sprocket edge */}
                 <div

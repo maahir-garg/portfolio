@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
+import { ProjectsCollectionJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 const categories = [
   { id: "all", label: "All" },
@@ -34,11 +35,19 @@ export default function ProjectsPage() {
 
   return (
     <div className="container-page pt-6 pb-10">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Projects", path: "/projects" },
+        ]}
+      />
+      <ProjectsCollectionJsonLd />
       <Reveal>
         <header className="grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><p className="meta">§ Projects</p></div>
           <div className="md:col-span-10">
             <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
+              <span className="sr-only">Projects by Maahir Garg. </span>
               Things I&apos;ve <em className="italic-serif">made, broken,</em> re-made.
             </h1>
             <p

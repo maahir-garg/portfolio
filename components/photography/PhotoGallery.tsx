@@ -227,10 +227,12 @@ export function PhotoGallery() {
                 <div className="relative aspect-[4/5] overflow-hidden bg-[color:var(--color-paper)]">
                   <Image
                     src={photo.src}
-                    alt={`${photo.category} photograph`}
+                    alt={photo.meta?.caption ? `${photo.meta.caption}. ${photo.category} photograph by Maahir Garg.` : `${photo.category} photograph by Maahir Garg`}
                     fill
                     sizes="(min-width: 1024px) 22vw, 45vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] saturate-[0.92]"
+                    loading="lazy"
+                    decoding="async"
                   />
                   <div
                     aria-hidden
@@ -323,7 +325,9 @@ export function PhotoGallery() {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 src={current.src}
-                alt={`${current.category} photograph`}
+                alt={currentNote ? `${currentNote}. Photograph by Maahir Garg.` : `${current.category} photograph by Maahir Garg`}
+                loading="eager"
+                decoding="async"
                 style={{ maxHeight: "78vh", maxWidth: "100%", objectFit: "contain", display: "block" }}
               />
             </div>

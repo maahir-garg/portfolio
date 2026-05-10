@@ -1,17 +1,25 @@
+import type { Metadata } from "next";
 import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
+import { absoluteUrl } from "@/lib/site";
+import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
-export const metadata = {
-  title: "Experience · Maahir Garg",
+export const metadata: Metadata = {
+  title: "Experience",
   description:
-    "Maahir Garg's work experience — AI Engineer at GIC, Apple Vision Pro research, teaching at NUS, and data/ML roles across research and industry.",
-  alternates: { canonical: "https://maahir-garg.vercel.app/experience" },
+    "Maahir Garg's work experience. AI Engineer at GIC, Apple Vision Pro research at Interactive 3D Lab, teaching at NUS, and data/ML roles across research and industry in Singapore.",
+  alternates: { canonical: absoluteUrl("/experience") },
   openGraph: {
     title: "Experience · Maahir Garg",
     description:
-      "Maahir Garg's work history: AI engineering, Apple Vision Pro research, teaching at NUS, and data/ML roles.",
-    url: "https://maahir-garg.vercel.app/experience",
+      "Maahir Garg's work history: AI engineering at GIC, Apple Vision Pro research, teaching at NUS, and data/ML roles.",
+    url: absoluteUrl("/experience"),
     type: "profile",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Experience · Maahir Garg",
+    description: "AI engineering, Apple Vision Pro research, teaching at NUS, and data/ML roles.",
   },
 };
 
@@ -20,6 +28,12 @@ export default function ExperiencePage() {
 
   return (
     <div className="container-page pt-6 pb-10">
+      <BreadcrumbJsonLd
+        items={[
+          { name: "Home", path: "/" },
+          { name: "Experience", path: "/experience" },
+        ]}
+      />
       {/* Masthead */}
       <Reveal>
         <header className="grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
@@ -28,6 +42,7 @@ export default function ExperiencePage() {
           </div>
           <div className="md:col-span-10">
             <h1 className="italic-serif" style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
+              <span className="sr-only">Maahir Garg work experience. </span>
               Every role, <em className="italic-serif">in order</em>.
             </h1>
             <p

@@ -167,11 +167,13 @@ export function PhotographyStrip() {
               <div className="relative aspect-[4/5] overflow-hidden bg-[color:var(--color-paper)]">
                 <Image
                   src={p.src}
-                  alt={`${p.category} photograph`}
+                  alt={`${p.category} photograph by Maahir Garg`}
                   fill
                   sizes="(min-width: 1024px) 22vw, 45vw"
                   className="object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-[1.02] group-hover:saturate-100 saturate-[0.9]"
                   priority={i < 2}
+                  loading={i < 2 ? "eager" : "lazy"}
+                  decoding="async"
                 />
                 {/* sprocket-hole edge (subtle, left) */}
                 <div
