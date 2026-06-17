@@ -6,7 +6,7 @@ export const DATA = {
   description:
     "AI Engineer at GIC. I build agentic LLM tooling for classified-data environments and optimize models that have to run in production.",
   summary:
-    "I study Computer Science and Quantitative Finance at NUS and work as an AI Engineer at GIC, where I built an internal Claude Code–style CLI agent adopted across my team and agentic pipelines that automate audit workflows end-to-end. Before GIC I prototyped a patent-pending multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation, taught algorithms at NUS, and shipped data infrastructure across a handful of research and industry roles.",
+    "I study Computer Science and Quantitative Finance at NUS and work as an AI Engineer at GIC, where I built an internal CLI agent and sandboxed Chainlit assistant for an 11-person team and agentic pipelines that automate audit workflows end-to-end. Before GIC I prototyped a multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation (patent application in progress), taught algorithms at NUS, and shipped data infrastructure across a handful of research and industry roles.",
   avatarUrl: "/me.png",
   skills: {
     Programming: ["Python", "Java", "JavaScript", "C/C++", "Swift", "R", "LaTeX"],
@@ -48,7 +48,7 @@ export const DATA = {
       start: "Jan 2026",
       end: "Present",
       description:
-        "Built an internal Claude Code-style CLI agent from scratch on Chainlit with modular tool-calling and a skill-routing system over proprietary models. Adopted by 100% of my team as the primary AI interface where classified-data constraints rule out Copilot. Also deploying agentic LLM pipelines that automate internal audit workflows end-to-end; two previously manual data sources now run effectively instantly.",
+        "Built an internal agentic CLI agent and a sandboxed Chainlit assistant over proprietary models, with 8 custom tools, multi-agent orchestration, and skill-routing, giving an 11-person team AI tooling where classified-data constraints rule out Copilot. Engineered step-level guardrails via custom hooks that audit and validate every agent action, and designed an agentic audit pipeline that queries Snowflake and SharePoint as tools, runs ETL, and generates audit-ready reports from plain-English prompts, automating two previously manual data sources from hours to near-instant.",
     },
     {
       company: "Interactive 3D Lab",
@@ -60,7 +60,7 @@ export const DATA = {
       start: "May 2025",
       end: "Dec 2025",
       description:
-        "Co-inventor of a patent-pending multimodal tracking framework for hand–eye coordination assessment in stroke rehabilitation, unifying Apple Vision Pro and iPhone into one tracking surface at 89% cross-device accuracy (Swift, RealityKit). Ran controlled user studies with healthcare practitioners and iterated system design from empirical findings. Paper in preparation.",
+        "Co-inventor of a multimodal tracking framework (patent application in progress) for hand-eye coordination assessment in stroke rehabilitation, unifying Apple Vision Pro and iPhone into one tracking surface at 89% cross-device accuracy, 30 fps, and sub-millisecond latency (Swift, RealityKit). Ran controlled user studies with healthcare practitioners and iterated system design from empirical findings. Co-author on a research paper in preparation.",
     },
     {
       company: "NUS Computing",
@@ -72,7 +72,7 @@ export const DATA = {
       start: "Aug 2024",
       end: "Dec 2025",
       description:
-        "Three semesters across CS3230 (Design & Analysis of Algorithms), CS2040S (Data Structures & Algorithms), and CS1231S (Discrete Structures). Coached students through dynamic programming, graph algorithms, and complexity analysis. 4.8/5.0 teaching effectiveness rating vs 4.2 faculty average.",
+        "Three semesters across CS3230 (Design & Analysis of Algorithms), CS2040S (Data Structures & Algorithms), and CS1231S (Discrete Structures). Coached students through dynamic programming, graph algorithms, and complexity analysis. 4.8/5.0 teaching effectiveness rating vs 4.2 faculty average; named to the NUS Honour List of Student Tutors.",
     },
     {
       company: "National University of Singapore",
@@ -84,7 +84,7 @@ export const DATA = {
       start: "May 2025",
       end: "Aug 2025",
       description:
-        "Mentored 12 student engineering teams on software architecture, implementation planning, and release management. All 12 projects passed at or above their targeted grade level.",
+        "Effectively a TA for a full semester-long software-engineering project: advised 12 student teams across the whole build: architecture, implementation planning, code review, and release management. All 12 projects passed at or above their targeted grade level.",
     },
     {
       company: "National University of Singapore",
@@ -96,7 +96,7 @@ export const DATA = {
       start: "Aug 2024",
       end: "Apr 2025",
       description:
-        "Built and optimized data pipelines against Stack Overflow to analyze how feedback mechanisms shape content quality over time.",
+        "Built and optimized data pipelines against Stack Overflow under Prof. Nan Chen, modeling how feedback signals (upvotes, downvotes, acceptance rates) shape content quality over time, in support of an empirical paper.",
     },
     {
       company: "Accelerice",
@@ -120,7 +120,7 @@ export const DATA = {
       start: "Feb 2024",
       end: "Jul 2024",
       description:
-        "Led IT security projects, negotiated vendors, and promoted digital security best practices.",
+        "Supported NUS IT's bug-bounty and security programme: led security projects, negotiated with vendors, and ran security-awareness training sessions for staff and peers.",
     },
     {
       company: "National University of Singapore",
@@ -132,7 +132,7 @@ export const DATA = {
       start: "Nov 2023",
       end: "Feb 2024",
       description:
-        "Automated Google Scholar data scraping using Python and Postman, saving 520 hours and ensuring timely publication.",
+        "Automated Google Scholar citation scraping with Python and Postman for an economics paper on a tight deadline, saving roughly 520 hours and enabling on-time publication.",
     },
     {
       company: "National University of Singapore",
@@ -144,7 +144,7 @@ export const DATA = {
       start: "Sep 2023",
       end: "Jan 2024",
       description:
-        "Developed a Python-based web scraper using SQLite and JWT for CAAQMS air pollution data, saving over 10,000 hours of manual entry.",
+        "Built a Python web scraper using SQLite and JWT to automate CAAQMS air-quality data collection under Prof. Nils Mattsson, eliminating over 10,000 hours of manual entry, and ran the downstream analysis.",
     },
     {
       company: "Augmented Human Lab",
@@ -156,7 +156,7 @@ export const DATA = {
       start: "Sep 2023",
       end: "Nov 2023",
       description:
-        "Collaborated with Meta on a large AR/VR motion sickness study with 500+ participants.",
+        "Ran a 500+ participant AR/VR motion-sickness study in collaboration with Meta, the largest of its kind at NUS: conducted individual sessions, logged data via Python scripts and surveys, and calibrated VR headsets, informing UX improvements to Meta's headsets.",
     },
   ],
   education: [
@@ -169,7 +169,75 @@ export const DATA = {
       end: "2027",
     },
   ],
+  leadership: [
+    {
+      org: "PGPR, NUS",
+      role: "Residential Assistant",
+      start: "May 2025",
+      end: "Present",
+      description:
+        "Supporting 1,000+ residents: pastoral care, events, and first-contact conflict resolution and crisis management.",
+    },
+    {
+      org: "NUS Mathematics Society",
+      role: "Associate Logistics Director",
+      start: "Aug 2024",
+      end: "May 2025",
+      description:
+        "Ran event logistics, vendor relations, and procurement within budget.",
+    },
+    {
+      org: "Project CUP, NUS (Rotary Club)",
+      role: "Mathematics Mentor",
+      start: "Aug 2023",
+      end: "Dec 2024",
+      description:
+        "Taught maths to students using visual, interactive tools like animations and graphs.",
+    },
+  ],
   projects: [
+    {
+      title: "Trader's Edge",
+      slug: "traders-edge",
+      href: "",
+      dates: "May 2025 – Present",
+      active: true,
+      description:
+        "My final-year project (advisor: Anand Bhojan): an AI platform that generates and backtests trading strategies, then packages them into an interactive, data-rich learning environment for students. Working MVP shipped (private).",
+      notes:
+        "The thesis is that most people learn trading backwards: they read strategy descriptions long before they ever watch one fail on real data. Trader's Edge inverts that. You describe an idea in plain English, the system turns it into a backtestable strategy, and you watch it play out against historical data before you trust it. The hard part isn't the generation; LLMs are good at that now. It's the guardrails around backtesting: survivorship bias, look-ahead leakage, overfitting to a single regime. The learning environment exists so a student can see why a strategy that looks great in-sample falls apart out-of-sample. Still building; the MVP is private for now.",
+      technologies: ["AI", "LLMs", "Backtesting", "Quantitative Finance", "Python"],
+      links: [
+        {
+          type: "Private Repo",
+          href: "",
+          icon: "lock",
+        },
+      ],
+      image: "",
+      video: "",
+    },
+    {
+      title: "Prediction-Market Arbitrage Engine",
+      slug: "prediction-market-arbitrage",
+      href: "",
+      dates: "Jan – Feb 2026",
+      active: true,
+      description:
+        "A student-led research prototype exploring cross-venue arbitrage on prediction markets (Polymarket, Kalshi). Identifies mispricings through expected-value and execution-cost modeling. Kept as a research prototype, never deployed, given Singapore's restrictions on prediction markets.",
+      notes:
+        "The premise: the same real-world event is often priced differently on Polymarket and Kalshi, and the gap should be capturable. Modeling it honestly meant the execution-cost side mattered more than the signal; fees, slippage, and settlement timing routinely ate spreads that looked like free money on paper. The expected-value layer had to account for resolution risk too: two venues can word the 'same' contract just differently enough that they don't actually resolve together. I kept this strictly a research prototype, since prediction markets are restricted in Singapore, so there was never live capital or realized P&L. The value was the modeling discipline, not a deployment.",
+      technologies: ["Python", "Quantitative Finance", "Arbitrage", "Modeling"],
+      links: [
+        {
+          type: "Research Prototype",
+          href: "",
+          icon: "lock",
+        },
+      ],
+      image: "",
+      video: "",
+    },
     {
       title: "Optimizing BERT for Question Answering",
       slug: "bert-qa-quant-prune",
@@ -219,7 +287,7 @@ export const DATA = {
       dates: "Dec 2025",
       active: true,
       description:
-        "Patent-pending framework that unifies iPhone and Apple Vision Pro into a single tracking surface for hand-eye coordination assessment in stroke rehabilitation. Co-invented at Interactive 3D Lab; built in Swift and RealityKit; validated in controlled studies with healthcare practitioners at 89% cross-device accuracy. Research paper in preparation.",
+        "A multimodal framework (patent application in progress) that unifies iPhone and Apple Vision Pro into a single tracking surface for hand-eye coordination assessment in stroke rehabilitation. Co-invented at Interactive 3D Lab; built in Swift and RealityKit; validated in controlled studies with healthcare practitioners at 89% cross-device accuracy. Research paper in preparation.",
       notes:
         "We wanted to assess hand-eye coordination in stroke patients without sensors or a lab rig. Vision Pro tracks hands beautifully but only inside its own world space; the iPhone sees the room from outside. The hard part wasn't the geometry - it was the latency budget. Frame sync between the two devices had to stay tight enough that a fast reach didn't desync the surfaces, and that single constraint dictated the whole architecture. The clinical sessions were where the design pressure became real: practitioners don't have time to recalibrate, so the system had to stay accurate without intervention for a full assessment.",
       technologies: [
@@ -248,7 +316,7 @@ export const DATA = {
       description:
         "An ongoing LeetCode practice track focused on deepening algorithmic thinking and problem‑solving speed, backed by live stats.",
       notes:
-        "Less about grinding count, more about pattern fluency. I track which categories I'm slow on - DP transitions, monotonic stacks, range queries - and bias practice toward those rather than whatever feels easy. The live stats are partly to keep me honest. The longer I do it, the less it feels like prep and the more it feels like a small daily warm-up for thinking precisely.",
+        "Less about grinding count, more about pattern fluency. I track which categories I'm slow on - DP transitions, monotonic stacks, range queries - and bias practice toward those rather than whatever feels easy. The live stats are partly to keep me honest. To keep my friends and me honest too, I built Streak Wars - a quick Telegram bot that tracks our LeetCode streaks and nudges whoever's slipping. The longer I do it, the less it feels like prep and the more it feels like a small daily warm-up for thinking precisely.",
       technologies: [
         "Algorithms",
         "Data Structures",
@@ -260,6 +328,11 @@ export const DATA = {
           type: "Profile",
           href: "https://leetcode.com/u/maahir_garg/",
           icon: "external",
+        },
+        {
+          type: "Streak Wars (Telegram bot)",
+          href: "https://github.com/maahir-garg/streak-wars",
+          icon: "github",
         },
       ],
       image: "",

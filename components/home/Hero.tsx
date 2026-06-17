@@ -99,8 +99,8 @@ export function Hero() {
                   NUS
                 </a>
                 . Right now: building an agentic CLI for classified-data
-                environments. Previously: patent-pending hand-tracking on Vision
-                Pro for stroke rehab.
+                environments. Previously: hand-tracking on Vision Pro for stroke
+                rehab (patent application in progress).
               </p>
 
               {/* "Now" status strip */}
@@ -111,7 +111,7 @@ export function Hero() {
                 <span>
                   Currently:{" "}
                   <span className="text-[color:var(--color-ink-dim)]">
-                    building a CLI agent at GIC
+                    building Trader&apos;s Edge, my final-year project
                   </span>
                 </span>
                 <span className="text-[color:var(--color-rule)] hidden sm:inline">·</span>
