@@ -108,24 +108,35 @@ export default function ExperiencePage() {
         ))}
       </ol>
 
-      {/* Education */}
+      {/* Leadership & Service */}
       <Reveal>
         <section className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2">
-            <p className="meta">§ Study</p>
+            <p className="meta">§ Service</p>
           </div>
           <div className="md:col-span-10">
-            {DATA.education.map((e, i) => (
-              <div key={i} className="flex flex-wrap items-baseline gap-x-4 border-t border-[color:var(--color-rule)] pt-6">
-                <h3 className="italic-serif" style={{ fontSize: "var(--step-2)" }}>
-                  {e.school}
-                </h3>
-                <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>
-                  / {e.degree}
+            {DATA.leadership.map((l, i) => (
+              <div
+                key={i}
+                className="mt-6 border-t border-[color:var(--color-rule)] pt-6 first:mt-0"
+              >
+                <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1">
+                  <h3 className="italic-serif" style={{ fontSize: "var(--step-2)" }}>
+                    {l.org}
+                  </h3>
+                  <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>
+                    / {l.role}
+                  </p>
+                  <span className="mono ml-auto text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
+                    {l.start} → {l.end === "Present" ? "now" : l.end}
+                  </span>
+                </div>
+                <p
+                  className="mt-2 max-w-3xl text-[color:var(--color-ink-dim)]"
+                  style={{ fontSize: "var(--step-0)", lineHeight: 1.65 }}
+                >
+                  {l.description}
                 </p>
-                <span className="mono ml-auto text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
-                  {e.start} → {e.end}
-                </span>
               </div>
             ))}
           </div>

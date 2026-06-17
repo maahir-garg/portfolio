@@ -5,10 +5,9 @@ import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
 
 const featured = [
-  "bert-qa-quant-prune",
-  "llm-reasoning-peft-bitfit",
+  "traders-edge",
+  "prediction-market-arbitrage",
   "3d-iphone",
-  "llama2-finetuning",
 ];
 
 export function SelectedProjects() {

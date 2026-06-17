@@ -49,7 +49,7 @@ export const metadata: Metadata = {
     template: "%s · Maahir Garg",
   },
   description:
-    "Maahir Garg is an AI Engineer at GIC and a Computer Science & Quantitative Finance student at the National University of Singapore (NUS). Maahir builds agentic LLM tooling for classified-data environments and holds a patent-pending multimodal hand-tracking framework on Apple Vision Pro. Portfolio, projects, and photography.",
+    "Maahir Garg is an AI Engineer at GIC and a Computer Science & Quantitative Finance student at the National University of Singapore (NUS). Maahir builds agentic LLM tooling for classified-data environments and co-invented a multimodal hand-tracking framework on Apple Vision Pro (patent application in progress). Portfolio, projects, and photography.",
   applicationName: "Maahir Garg · Field Notebook",
   authors: [{ name: SITE.fullName, url: SITE.baseUrl }],
   creator: SITE.fullName,

@@ -56,7 +56,7 @@ export default function AboutPage() {
           {
             question: "What has Maahir Garg built?",
             answer:
-              "A patent-pending multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation; an internal CLI agent at GIC; quantization and pruning work on BERT (~69% size reduction with <0.5% F1 loss); and PEFT/BitFit experiments on LLM reasoning.",
+              "A multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation (patent application in progress); an internal CLI agent at GIC; quantization and pruning work on BERT (~69% size reduction with <0.5% F1 loss); and PEFT/BitFit experiments on LLM reasoning.",
           },
           {
             question: "How do you contact Maahir Garg?",
@@ -100,8 +100,8 @@ export default function AboutPage() {
             </p>
             <p>
               Before GIC I was at Interactive 3D Lab, where I co-invented a{" "}
-              <em className="italic-serif">patent-pending</em> multimodal
-              tracking framework that stitches iPhone and Apple Vision Pro
+              multimodal tracking framework{" "}
+              <em className="italic-serif">(patent application in progress)</em> that stitches iPhone and Apple Vision Pro
               into a single tracking surface for stroke rehabilitation, at
               89% cross-device accuracy, with a research paper in preparation. I also
               taught{" "}
@@ -219,7 +219,7 @@ export default function AboutPage() {
                 What has Maahir Garg built?
               </h2>
               <p className="mt-2 text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)", lineHeight: 1.7 }}>
-                A patent-pending multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation; an internal CLI agent at GIC; quantization and pruning work on BERT (~69% size reduction with &lt;0.5% F1 loss); and PEFT/BitFit experiments on LLM reasoning.
+                A multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation (patent application in progress); an internal CLI agent at GIC; quantization and pruning work on BERT (~69% size reduction with &lt;0.5% F1 loss); and PEFT/BitFit experiments on LLM reasoning.
               </p>
             </div>
             <div>

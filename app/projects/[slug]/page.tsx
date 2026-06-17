@@ -138,7 +138,7 @@ export default async function ProjectPage({
           <div className="md:col-span-2"><p className="meta">Links</p></div>
           <div className="md:col-span-10 flex flex-wrap gap-x-6 gap-y-2">
             {project.links.map((link, i) => {
-              const label = link.href ? `${link.type} ↗` : "Private repo";
+              const label = link.href ? `${link.type} ↗` : link.type;
               return link.href ? (
                 <a
                   key={i}

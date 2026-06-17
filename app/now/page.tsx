@@ -7,12 +7,12 @@ import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "Now",
   description:
-    "What Maahir Garg is building, reading, watching, and listening to right now. Updated regularly from Singapore.",
+    "What Maahir Garg is building, reading, watching, and playing right now. Updated regularly from Singapore.",
   alternates: { canonical: absoluteUrl("/now") },
   openGraph: {
     title: "Now · Maahir Garg",
     description:
-      "What Maahir Garg is building, reading, watching, and listening to right now.",
+      "What Maahir Garg is building, reading, watching, and playing right now.",
     url: absoluteUrl("/now"),
     type: "website",
   },
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
   },
 };
 
-const lastUpdated = "Apr 2026";
+const lastUpdated = "Jun 2026";
 
 const sections: {
   label: string;
@@ -33,29 +33,32 @@ const sections: {
   {
     label: "Building",
     index: "01",
-    items: [{ primary: "Anything that inspires me", secondary: "currently this news-journalesque website" }],
+    items: [
+      { primary: "Trader's Edge", secondary: "my FYP - AI for building & backtesting trading strategies" },
+      { primary: "A LEGO F1 Ferrari", secondary: "the off-screen kind of build, for once" },
+    ],
   },
   {
     label: "Reading",
     index: "02",
     items: [
-      { primary: "Steve Jobs", secondary: "Walter Isaacson" }, 
-      { primary: "Why Bharat Matters", secondary: "S Jaishankar" }
+      { primary: "The Stranger", secondary: "Albert Camus" },
+      { primary: "The 48 Laws of Power", secondary: "Robert Greene" },
     ],
   },
   {
     label: "Watching",
     index: "03",
     items: [
-      { primary: "Formula 1" },
-      { primary: "The Boys", secondary: "S5" },
+      { primary: "The FIFA World Cup" },
+      { primary: "Arsenal & the Knicks", secondary: "still celebrating both wins" },
     ],
   },
   {
-    label: "Listening",
+    label: "Boardgames",
     index: "04",
     items: [
-      { primary: "Anything Spotify suggests" },
+      { primary: "Splendor Duel" },
     ],
   },
 ];
