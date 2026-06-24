@@ -1,5 +1,5 @@
 import { DATA } from "@/lib/data";
-import { SITE, absoluteUrl } from "@/lib/site";
+import { SITE, absoluteUrl, toIsoDate } from "@/lib/site";
 
 const PERSON_ID = `${SITE.baseUrl}/#person`;
 const WEBSITE_ID = `${SITE.baseUrl}/#website`;
@@ -29,6 +29,12 @@ export function JsonLd() {
       "https://leetcode.com/u/maahir_garg/",
     ],
     jobTitle: "AI Engineer",
+    hasOccupation: {
+      "@type": "Occupation",
+      name: "AI Engineer",
+      occupationLocation: { "@type": "City", name: "Singapore" },
+      skills: "Agentic LLMs, model optimization, spatial computing, data engineering, quantitative finance",
+    },
     worksFor: {
       "@type": "Organization",
       name: "GIC",
@@ -95,6 +101,7 @@ export function JsonLd() {
     about: { "@id": PERSON_ID },
     mainEntity: { "@id": PERSON_ID },
     isPartOf: { "@id": WEBSITE_ID },
+    dateModified: SITE.lastModified,
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: ["h1", "main p:first-of-type"],
@@ -197,9 +204,14 @@ export function ProjectJsonLd({ slug }: { slug: string }) {
     keywords: project.technologies.join(", "),
     about: project.technologies,
     isPartOf: { "@id": WEBSITE_ID },
-    dateCreated: project.dates,
-    datePublished: project.dates,
+    dateModified: SITE.lastModified,
   };
+
+  const isoDate = toIsoDate(project.dates);
+  if (isoDate) {
+    data.dateCreated = isoDate;
+    data.datePublished = isoDate;
+  }
 
   if (sourceLink) {
     data.codeRepository = sourceLink;

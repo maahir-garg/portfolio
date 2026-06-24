@@ -6,7 +6,7 @@ import { DATA } from "@/lib/data";
 import { Reveal } from "@/components/ui/Reveal";
 import { LeetCodeStats } from "@/components/feature/LeetCodeStats";
 import { LeetCodeStatsSkeleton } from "@/components/feature/LeetCodeStatsSkeleton";
-import { absoluteUrl, SITE } from "@/lib/site";
+import { absoluteUrl, SITE, toIsoDate } from "@/lib/site";
 import { BreadcrumbJsonLd, ProjectJsonLd } from "@/components/seo/JsonLd";
 
 export async function generateMetadata({
@@ -29,6 +29,7 @@ export async function generateMetadata({
   // The data already differentiates each project; we just trim/extend safely.
   const baseDesc = project.description;
   const description = baseDesc.length > 240 ? `${baseDesc.slice(0, 237)}…` : baseDesc;
+  const publishedIso = toIsoDate(project.dates);
 
   return {
     title,
@@ -46,7 +47,8 @@ export async function generateMetadata({
       type: "article",
       authors: [SITE.fullName],
       siteName: SITE.fullName,
-      publishedTime: project.dates,
+      ...(publishedIso ? { publishedTime: publishedIso } : {}),
+      modifiedTime: SITE.lastModified,
     },
     twitter: {
       card: "summary_large_image",

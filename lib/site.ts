@@ -25,11 +25,35 @@ export const SITE = {
   // ISO date used as default lastModified across the site. Bumped manually
   // when content meaningfully changes so Google sees a real freshness signal
   // instead of a build-time `new Date()` that thrashes every deploy.
-  lastModified: "2026-05-10",
+  lastModified: "2026-06-24",
 } as const;
 
 export function absoluteUrl(path: string = "/"): string {
   if (path === "" || path === "/") return SITE.baseUrl;
   const clean = path.startsWith("/") ? path : `/${path}`;
   return `${SITE.baseUrl}${clean}`.replace(/\/+$/, "");
+}
+
+const MONTHS: Record<string, string> = {
+  jan: "01", feb: "02", mar: "03", apr: "04", may: "05", jun: "06",
+  jul: "07", aug: "08", sep: "09", oct: "10", nov: "11", dec: "12",
+};
+
+/**
+ * Convert a human-readable project date like "Nov 2025" or "Feb 2026 – Present"
+ * into an ISO-8601 date (the start of the range). Structured-data fields
+ * (article:published_time, datePublished, dateCreated) require ISO dates;
+ * passing the raw display string makes Google drop the property. Returns
+ * undefined when there's nothing parseable (e.g. "Ongoing").
+ */
+export function toIsoDate(dates: string): string | undefined {
+  const start = dates.split(/[–-]/)[0].trim();
+  const monthYear = start.match(/^([A-Za-z]{3,})\s+(\d{4})$/);
+  if (monthYear) {
+    const month = MONTHS[monthYear[1].slice(0, 3).toLowerCase()];
+    if (month) return `${monthYear[2]}-${month}-01`;
+  }
+  const yearOnly = start.match(/^(\d{4})$/);
+  if (yearOnly) return `${yearOnly[1]}-01-01`;
+  return undefined;
 }
