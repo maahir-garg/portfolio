@@ -200,7 +200,7 @@ export const DATA = {
       title: "Trader's Edge",
       slug: "traders-edge",
       href: "",
-      dates: "May 2025 – Present",
+      dates: "May 2026 – Present",
       active: true,
       description:
         "My final-year project (advisor: Anand Bhojan): an AI platform that generates and backtests trading strategies, then packages them into an interactive, data-rich learning environment for students. Working MVP shipped (private).",
@@ -221,12 +221,12 @@ export const DATA = {
       title: "Prediction-Market Arbitrage Engine",
       slug: "prediction-market-arbitrage",
       href: "",
-      dates: "Jan – Feb 2026",
+      dates: "Feb 2026 – Present",
       active: true,
       description:
-        "A student-led research prototype exploring cross-venue arbitrage on prediction markets (Polymarket, Kalshi). Identifies mispricings through expected-value and execution-cost modeling. Kept as a research prototype, never deployed, given Singapore's restrictions on prediction markets.",
+        "A student-led research prototype exploring cross-venue arbitrage on prediction markets (Polymarket, Kalshi). Surfaces mispricings via expected-value and execution-cost modeling. A research prototype only: no live capital, no realized P&L.",
       notes:
-        "The premise: the same real-world event is often priced differently on Polymarket and Kalshi, and the gap should be capturable. Modeling it honestly meant the execution-cost side mattered more than the signal; fees, slippage, and settlement timing routinely ate spreads that looked like free money on paper. The expected-value layer had to account for resolution risk too: two venues can word the 'same' contract just differently enough that they don't actually resolve together. I kept this strictly a research prototype, since prediction markets are restricted in Singapore, so there was never live capital or realized P&L. The value was the modeling discipline, not a deployment.",
+        "The premise: the same real-world event is often priced differently on Polymarket and Kalshi, and the gap should be capturable. Modeling it honestly meant the execution-cost side mattered more than the signal; fees, slippage, and settlement timing routinely ate spreads that looked like free money on paper. The expected-value layer had to account for resolution risk too: two venues can word the 'same' contract just differently enough that they don't actually resolve together. I kept this strictly a research prototype, so there was never live capital or realized P&L; the value was the modeling discipline, not a deployment.",
       technologies: ["Python", "Quantitative Finance", "Arbitrage", "Modeling"],
       links: [
         {
