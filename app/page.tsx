@@ -26,7 +26,7 @@ export default function Home() {
           {
             question: "What is Maahir Garg known for?",
             answer:
-              "Co-inventing a multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation (patent application in progress), and building agentic LLM systems and a Claude Code-style CLI agent at GIC.",
+              "Co-inventing a multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation (patent application in progress), and building agentic LLM systems and an agentic CLI agent at GIC.",
           },
         ]}
       />

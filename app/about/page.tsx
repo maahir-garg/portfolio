@@ -46,7 +46,7 @@ export default function AboutPage() {
           {
             question: "What does Maahir Garg work on?",
             answer:
-              "Maahir builds agentic LLM tooling for classified-data environments at GIC, including an internal Claude Code-style CLI agent adopted across his team and pipelines that automate audit workflows end-to-end.",
+              "Maahir builds agentic LLM tooling for classified-data environments at GIC, including an internal agentic CLI agent for an 11-person team and pipelines that automate audit workflows end-to-end.",
           },
           {
             question: "Where is Maahir Garg based?",
@@ -93,10 +93,11 @@ export default function AboutPage() {
               Quantitative Finance at NUS, and I work as an AI engineer at{" "}
               <a className="link-underline" href="https://www.gic.com.sg" target="_blank" rel="noreferrer">GIC</a>.
               Right now I&apos;m building an internal{" "}
-              <em className="italic-serif">Claude Code-style</em> CLI agent
-              for classified-data environments. It&apos;s now the primary AI
-              interface across my team, alongside agentic LLM pipelines that
-              automate internal audit workflows end-to-end.
+              <em className="italic-serif">agentic</em> CLI agent
+              for classified-data environments &mdash; AI tooling for an
+              11-person team where those constraints rule out something like
+              Copilot &mdash; alongside agentic LLM pipelines that automate
+              internal audit workflows end-to-end.
             </p>
             <p>
               Before GIC I was at Interactive 3D Lab, where I co-invented a{" "}
@@ -203,7 +204,7 @@ export default function AboutPage() {
                 What does Maahir Garg work on?
               </h2>
               <p className="mt-2 text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)", lineHeight: 1.7 }}>
-                Maahir builds agentic LLM tooling for classified-data environments at GIC, including an internal Claude Code-style CLI agent adopted across his team and pipelines that automate audit workflows end-to-end.
+                Maahir builds agentic LLM tooling for classified-data environments at GIC, including an internal agentic CLI agent for an 11-person team and pipelines that automate audit workflows end-to-end.
               </p>
             </div>
             <div>
