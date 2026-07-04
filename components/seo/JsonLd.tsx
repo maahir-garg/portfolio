@@ -6,6 +6,16 @@ const WEBSITE_ID = `${SITE.baseUrl}/#website`;
 const PROFILE_ID = `${SITE.baseUrl}/#profilepage`;
 
 /**
+ * JSON.stringify does not escape "<", so a content string containing
+ * "</script" or "<!--" would terminate the inline script and drop every
+ * JSON-LD block on the page. < is identical JSON, so parsers and
+ * Google read it unchanged.
+ */
+function serializeJsonLd(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, "\\u003c");
+}
+
+/**
  * Site-wide JSON-LD bundle. Mounted in the root layout so every page emits
  * a Person, WebSite, and ProfilePage entity. Per-page schemas (Breadcrumb,
  * FAQPage, CreativeWork, etc.) are exported as separate components and
@@ -21,7 +31,7 @@ export function JsonLd() {
     familyName: "Garg",
     alternateName: ["Maahir", "M. Garg"],
     url: SITE.baseUrl,
-    image: absoluteUrl("/me.png"),
+    image: absoluteUrl("/me.jpg"),
     email: `mailto:${DATA.contact.email}`,
     sameAs: [
       DATA.contact.social.GitHub.url,
@@ -40,7 +50,10 @@ export function JsonLd() {
       name: "GIC",
       url: "https://www.gic.com.sg",
     },
-    alumniOf: {
+    // Current student (2023–2027), so memberOf rather than alumniOf —
+    // alumniOf asserts a *completed* affiliation and would contradict the
+    // visible copy ("I study ... at NUS"). Flip to alumniOf after graduation.
+    memberOf: {
       "@type": "CollegeOrUniversity",
       name: "National University of Singapore",
       url: "https://www.nus.edu.sg",
@@ -101,6 +114,7 @@ export function JsonLd() {
     about: { "@id": PERSON_ID },
     mainEntity: { "@id": PERSON_ID },
     isPartOf: { "@id": WEBSITE_ID },
+    dateCreated: SITE.dateCreated,
     dateModified: SITE.lastModified,
     speakable: {
       "@type": "SpeakableSpecification",
@@ -112,15 +126,15 @@ export function JsonLd() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(person) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(person) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(website) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(website) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profilePage) }}
+        dangerouslySetInnerHTML={{ __html: serializeJsonLd(profilePage) }}
       />
     </>
   );
@@ -148,7 +162,7 @@ export function BreadcrumbJsonLd({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
     />
   );
 }
@@ -173,10 +187,16 @@ export function FaqJsonLd({
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
     />
   );
 }
+
+const PROGRAMMING_LANGUAGES = new Set([
+  "Python", "Swift", "TypeScript", "JavaScript", "Java", "R", "Bash",
+  "C", "C++", "C#", "Go", "Rust", "Kotlin", "Scala", "SQL", "MATLAB",
+  "Julia", "HTML", "CSS",
+]);
 
 /**
  * Project-level CreativeWork schema. We use SoftwareSourceCode when there's
@@ -215,13 +235,19 @@ export function ProjectJsonLd({ slug }: { slug: string }) {
 
   if (sourceLink) {
     data.codeRepository = sourceLink;
-    data.programmingLanguage = project.technologies;
+    // technologies mixes languages with frameworks, models, and hardware
+    // ("Vision Pro", "LoRA"); schema.org programmingLanguage must name an
+    // actual language, so only emit the entries that are one.
+    const languages = project.technologies.filter((t) =>
+      PROGRAMMING_LANGUAGES.has(t)
+    );
+    if (languages.length > 0) data.programmingLanguage = languages;
   }
 
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
     />
   );
 }
@@ -256,7 +282,7 @@ export function ProjectsCollectionJsonLd() {
   return (
     <script
       type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
     />
   );
 }

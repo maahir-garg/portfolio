@@ -26,6 +26,9 @@ export const SITE = {
   // when content meaningfully changes so Google sees a real freshness signal
   // instead of a build-time `new Date()` that thrashes every deploy.
   lastModified: "2026-06-24",
+  // Site launch date (first commit / first deploy). Used as ProfilePage
+  // dateCreated — one of Google's two recommended date properties there.
+  dateCreated: "2026-01-19",
 } as const;
 
 export function absoluteUrl(path: string = "/"): string {
