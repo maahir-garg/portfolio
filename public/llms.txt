@@ -1,0 +1,40 @@
+# Maahir Garg
+
+> Maahir Garg is an AI Engineer at GIC and a Computer Science & Quantitative
+> Finance student at the National University of Singapore (NUS), based in
+> Singapore. He builds agentic LLM tooling for classified-data environments
+> and co-invented a multimodal hand-tracking framework on Apple Vision Pro
+> for stroke rehabilitation (patent application in progress).
+
+Key facts:
+
+- Role: AI Engineer at GIC (Singapore's sovereign wealth fund), building an
+  internal agentic CLI agent and LLM pipelines that automate audit workflows.
+- Education: Bachelor of Computing, Computer Science & Quantitative Finance,
+  National University of Singapore (2023–2027).
+- Research: multimodal iPhone + Apple Vision Pro hand-tracking framework for
+  stroke rehabilitation at Interactive 3D Lab, 89% cross-device accuracy
+  (patent application in progress); BERT quantization/pruning (~69% smaller,
+  <0.5% F1 loss); PEFT/BitFit experiments on LLM reasoning.
+- Teaching: Algorithms, Data Structures, and Discrete Structures at NUS
+  across three semesters (4.8/5.0 student rating).
+- Interests: photography, badminton, Formula 1, chess.
+
+## Pages
+
+- [Home](https://maahir-garg.vercel.app/): who Maahir is and what he's building now
+- [About](https://maahir-garg.vercel.app/about): background, skills, and FAQ
+- [Experience](https://maahir-garg.vercel.app/experience): roles at GIC, Interactive 3D Lab, NUS, and earlier
+- [Projects](https://maahir-garg.vercel.app/projects): archive of ML/LLM, spatial computing, and data projects
+- [Now](https://maahir-garg.vercel.app/now): what he's building, reading, and playing this month
+- [Photography](https://maahir-garg.vercel.app/photography): photo work
+- [Contact](https://maahir-garg.vercel.app/contact): how to reach him
+- [Résumé (PDF)](https://maahir-garg.vercel.app/maahir-garg-resume.pdf)
+
+## Profiles
+
+- [GitHub](https://github.com/maahir-garg)
+- [LinkedIn](https://www.linkedin.com/in/maahir-garg)
+- [LeetCode](https://leetcode.com/u/maahir_garg/)
+
+Contact: maahirrgarg@gmail.com

@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { SingaporeClock } from "@/components/home/SingaporeClock";
 
-const HERO_PHOTO = "/me.png";
+const HERO_PHOTO = "/me.jpg";
 
 export function Hero() {
   const now = new Date();

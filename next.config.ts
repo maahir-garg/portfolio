@@ -59,6 +59,13 @@ const nextConfig: NextConfig = {
         destination: "/",
         permanent: true,
       },
+      // The hero portrait was a 13 MB PNG until Jul 2026; anything that
+      // indexed the old URL (e.g. Google Images) should land on the JPEG.
+      {
+        source: "/me.png",
+        destination: "/me.jpg",
+        permanent: true,
+      },
     ];
   },
 };

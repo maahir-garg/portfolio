@@ -80,9 +80,6 @@ export const metadata: Metadata = {
       "en": absoluteUrl(),
       "x-default": absoluteUrl(),
     },
-    types: {
-      "application/rss+xml": [],
-    },
   },
   openGraph: {
     title: "Maahir Garg · AI Engineer at GIC · NUS Computer Science",
@@ -131,16 +128,11 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* Resource hints: tell the browser to warm up the connections we
-            know we'll need before any HTML body parses. */}
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
-        <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        {/* Fonts are self-hosted at build time via next/font, so no
+            connection hints to Google Fonts are needed. The hero photo's
+            preload comes from next/image `priority` on the homepage, which
+            points at the optimized /_next/image URL rather than the raw file. */}
         <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
-        {/* LCP hint: the home hero photo. Browsers ignore it on routes that
-            don't actually use it; on the homepage it lifts LCP measurably. */}
-        <link rel="preload" as="image" href="/me.png" fetchPriority="high" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
