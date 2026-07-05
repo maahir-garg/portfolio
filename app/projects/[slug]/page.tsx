@@ -6,7 +6,7 @@ import { DATA } from "@/lib/data";
 import { Reveal } from "@/components/ui/Reveal";
 import { LeetCodeStats } from "@/components/feature/LeetCodeStats";
 import { LeetCodeStatsSkeleton } from "@/components/feature/LeetCodeStatsSkeleton";
-import { absoluteUrl, SITE, toIsoDate } from "@/lib/site";
+import { absoluteUrl, OG_IMAGE, SITE, toIsoDate } from "@/lib/site";
 import { BreadcrumbJsonLd, ProjectJsonLd } from "@/components/seo/JsonLd";
 
 export async function generateMetadata({
@@ -45,16 +45,19 @@ export async function generateMetadata({
       description,
       url,
       type: "article",
-      authors: [SITE.fullName],
+      // The OG spec defines article:author as a profile URL, not a name.
+      authors: [absoluteUrl("/about")],
       siteName: SITE.fullName,
       ...(publishedIso ? { publishedTime: publishedIso } : {}),
       modifiedTime: SITE.lastModified,
+      images: OG_IMAGE,
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} · Maahir Garg`,
       description,
       creator: SITE.twitter,
+      images: OG_IMAGE,
     },
   };
 }
@@ -121,7 +124,7 @@ export default async function ProjectPage({
       {/* meta grid */}
       <Reveal delay={140}>
         <section className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-2"><p className="meta">Stack</p></div>
+          <div className="md:col-span-2"><h2 className="meta">Stack</h2></div>
           <div className="md:col-span-10 flex flex-wrap gap-x-5 gap-y-2">
             {project.technologies.map((t) => (
               <span
@@ -137,7 +140,7 @@ export default async function ProjectPage({
 
       <Reveal delay={200}>
         <section className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-2"><p className="meta">Links</p></div>
+          <div className="md:col-span-2"><h2 className="meta">Links</h2></div>
           <div className="md:col-span-10 flex flex-wrap gap-x-6 gap-y-2">
             {project.links.map((link, i) => {
               const label = link.href ? `${link.type} ↗` : link.type;
@@ -165,7 +168,7 @@ export default async function ProjectPage({
         <Reveal delay={220}>
           <section className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
             <div className="md:col-span-2">
-              <p className="meta">Notes</p>
+              <h2 className="meta">Notes</h2>
             </div>
             <div className="md:col-span-10 max-w-3xl">
               {notes.split(/\n\n+/).map((para, i) => (
@@ -185,7 +188,7 @@ export default async function ProjectPage({
       {hasLiveStats && (
         <Reveal delay={240}>
           <section className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
-            <div className="md:col-span-2"><p className="meta">Live ticker</p></div>
+            <div className="md:col-span-2"><h2 className="meta">Live ticker</h2></div>
             <div className="md:col-span-10">
               <Suspense fallback={<LeetCodeStatsSkeleton />}>
                 <LeetCodeStats username="maahir_garg" />

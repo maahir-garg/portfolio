@@ -4,7 +4,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { Skills } from "@/components/Skills";
 import { FlightsMap } from "@/components/feature/FlightsMap";
 import { DATA } from "@/lib/data";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, OG_IMAGE } from "@/lib/site";
 import { BreadcrumbJsonLd, FaqJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
@@ -18,12 +18,18 @@ export const metadata: Metadata = {
       "About Maahir Garg. AI Engineer at GIC, Computer Science & Quantitative Finance student at NUS, based in Singapore.",
     url: absoluteUrl("/about"),
     type: "profile",
+    firstName: "Maahir",
+    lastName: "Garg",
+    username: "maahirgarg",
+    siteName: "Maahir Garg",
+    images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",
     title: "About · Maahir Garg",
     description:
       "AI Engineer at GIC, CS & Quant Finance at NUS, based in Singapore.",
+    images: OG_IMAGE,
   },
 };
 
@@ -139,7 +145,7 @@ export default function AboutPage() {
       {/* Education - anchoring context first */}
       <Reveal delay={160}>
         <section className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-2"><p className="meta">§ Study</p></div>
+          <div className="md:col-span-2"><h2 className="meta">§ Study</h2></div>
           <div className="md:col-span-10">
             {DATA.education.map((e, i) => (
               <div key={i} className="flex flex-wrap items-baseline gap-x-4 border-t border-[color:var(--color-rule)] pt-6">
@@ -157,7 +163,7 @@ export default function AboutPage() {
       {/* Toolkit */}
       <Reveal delay={200}>
         <section className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-2"><p className="meta">§ Toolkit</p></div>
+          <div className="md:col-span-2"><h2 className="meta">§ Toolkit</h2></div>
           <div className="md:col-span-10">
             <Skills />
           </div>
@@ -168,7 +174,7 @@ export default function AboutPage() {
       <Reveal delay={230}>
         <section className="mt-20 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2">
-            <p className="meta">§ Routes</p>
+            <h2 className="meta">§ Routes</h2>
           </div>
           <div className="md:col-span-10">
             <p
@@ -193,13 +199,13 @@ export default function AboutPage() {
           id="faq"
           className="mt-20 grid grid-cols-1 gap-4 border-t border-[color:var(--color-rule)] pt-10 md:grid-cols-12 md:gap-8"
         >
-          <div className="md:col-span-2"><p className="meta">§ FAQ</p></div>
+          <div className="md:col-span-2"><h2 className="meta">§ FAQ</h2></div>
           <div className="md:col-span-10 space-y-8 max-w-3xl">
             {ABOUT_FAQ.map((item) => (
               <div key={item.question}>
-                <h2 className="italic-serif text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-2)" }}>
+                <h3 className="italic-serif text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-2)" }}>
                   {item.question}
-                </h2>
+                </h3>
                 <p className="mt-2 text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)", lineHeight: 1.7 }}>
                   {item.question.startsWith("How do you contact") ? (
                     <>
@@ -218,7 +224,7 @@ export default function AboutPage() {
       {/* Reach */}
       <Reveal delay={300}>
         <section className="mt-20 grid grid-cols-1 gap-4 border-t border-[color:var(--color-rule)] pt-10 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-2"><p className="meta">§ Reach</p></div>
+          <div className="md:col-span-2"><h2 className="meta">§ Reach</h2></div>
           <div className="md:col-span-10">
             <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-2)", lineHeight: 1.35 }}>
               If this reads like <em className="italic-serif">someone you&apos;d want</em> thinking about your problem,{" "}

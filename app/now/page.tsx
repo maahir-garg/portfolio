@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, OG_IMAGE } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
@@ -15,11 +15,14 @@ export const metadata: Metadata = {
       "What Maahir Garg is building, reading, watching, and playing right now.",
     url: absoluteUrl("/now"),
     type: "website",
+    siteName: "Maahir Garg",
+    images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",
     title: "Now · Maahir Garg",
     description: "What Maahir Garg is on this week.",
+    images: OG_IMAGE,
   },
 };
 
@@ -88,7 +91,6 @@ export default function NowPage() {
             >
               A short answer to <em className="italic-serif">&ldquo;what are
               you up to?&rdquo;</em> Updated weekly-ish, or whenever I feel like it.
-              .
             </p>
           </div>
         </header>

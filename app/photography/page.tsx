@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { PhotoGallery } from "@/components/photography/PhotoGallery";
 import { Reveal } from "@/components/ui/Reveal";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, OG_IMAGE } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
@@ -15,11 +15,14 @@ export const metadata: Metadata = {
       "Photography by Maahir Garg. Landscapes, streets, and portraits.",
     url: absoluteUrl("/photography"),
     type: "website",
+    siteName: "Maahir Garg",
+    images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",
     title: "Photography · Maahir Garg",
     description: "A contact sheet of landscapes, streets, and portraits.",
+    images: OG_IMAGE,
   },
 };
 
