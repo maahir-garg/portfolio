@@ -167,31 +167,6 @@ export function BreadcrumbJsonLd({
   );
 }
 
-export function FaqJsonLd({
-  items,
-}: {
-  items: { question: string; answer: string }[];
-}) {
-  const data = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: items.map((q) => ({
-      "@type": "Question",
-      name: q.question,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: q.answer,
-      },
-    })),
-  };
-  return (
-    <script
-      type="application/ld+json"
-      dangerouslySetInnerHTML={{ __html: serializeJsonLd(data) }}
-    />
-  );
-}
-
 const PROGRAMMING_LANGUAGES = new Set([
   "Python", "Swift", "TypeScript", "JavaScript", "Java", "R", "Bash",
   "C", "C++", "C#", "Go", "Rust", "Kotlin", "Scala", "SQL", "MATLAB",
