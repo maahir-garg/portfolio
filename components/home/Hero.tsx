@@ -4,12 +4,15 @@ import Image from "next/image";
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { SingaporeClock } from "@/components/home/SingaporeClock";
+import { SITE } from "@/lib/site";
 
 const HERO_PHOTO = "/me.jpg";
 
 export function Hero() {
-  const now = new Date();
-  const mastheadDate = now.toLocaleDateString("en-GB", {
+  // Derived from the manually-bumped SITE.lastModified, not new Date():
+  // a self-freshening "Last updated" would contradict the sitemap lastmod
+  // and JSON-LD dateModified (and hydration-mismatch at month boundaries).
+  const mastheadDate = new Date(SITE.lastModified).toLocaleDateString("en-GB", {
     month: "short",
     year: "numeric",
   });
@@ -88,8 +91,8 @@ export function Hero() {
                   className="link-underline text-[color:var(--color-ink)]"
                 >
                   GIC
-                </a>
-                . Computer Science &amp; Quantitative Finance at{" "}
+                </a>{" "}
+                in Singapore. Computer Science &amp; Quantitative Finance at{" "}
                 <a
                   href="https://nus.edu.sg"
                   target="_blank"

@@ -37,6 +37,22 @@ export function absoluteUrl(path: string = "/"): string {
   return `${SITE.baseUrl}${clean}`.replace(/\/+$/, "");
 }
 
+/**
+ * Shared OG image for page-level `openGraph`/`twitter` overrides. A page
+ * that defines `openGraph` replaces the inherited object entirely, and the
+ * root file-convention opengraph-image.tsx does not attach to segments
+ * that do so — without restating `images`, interior pages unfurl with no
+ * card image on WhatsApp/LinkedIn/Slack/X.
+ */
+export const OG_IMAGE = [
+  {
+    url: `${SITE.baseUrl}/opengraph-image`,
+    width: 1200,
+    height: 630,
+    alt: "Maahir Garg · AI Engineer at GIC. CS + Quantitative Finance at NUS.",
+  },
+];
+
 const MONTHS: Record<string, string> = {
   jan: "01", feb: "02", mar: "03", apr: "04", may: "05", jun: "06",
   jul: "07", aug: "08", sep: "09", oct: "10", nov: "11", dec: "12",

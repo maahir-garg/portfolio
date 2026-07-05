@@ -48,8 +48,10 @@ export const metadata: Metadata = {
     default: "Maahir Garg · AI Engineer at GIC · NUS Computer Science",
     template: "%s · Maahir Garg",
   },
+  // Kept under ~160 chars so Google shows it whole instead of truncating
+  // or rewriting; the long-form bio lives in the Person JSON-LD.
   description:
-    "Maahir Garg is an AI Engineer at GIC and a Computer Science & Quantitative Finance student at the National University of Singapore (NUS). Maahir builds agentic LLM tooling for classified-data environments and co-invented a multimodal hand-tracking framework on Apple Vision Pro (patent application in progress). Portfolio, projects, and photography.",
+    "Maahir Garg is an AI Engineer at GIC and a CS & Quantitative Finance student at NUS, Singapore. Agentic LLMs, Apple Vision Pro research, and photography.",
   applicationName: "Maahir Garg · Field Notebook",
   authors: [{ name: SITE.fullName, url: SITE.baseUrl }],
   creator: SITE.fullName,
@@ -74,13 +76,10 @@ export const metadata: Metadata = {
     "spatial computing Singapore",
     "Maahir Garg software engineer",
   ],
-  alternates: {
-    canonical: absoluteUrl(),
-    languages: {
-      "en": absoluteUrl(),
-      "x-default": absoluteUrl(),
-    },
-  },
+  // No `alternates` here on purpose: a root-layout canonical is inherited
+  // by every page that forgets its own (incl. the 404), silently marking it
+  // a duplicate of the homepage. The homepage canonical lives in app/page.tsx;
+  // every route must declare its own.
   openGraph: {
     title: "Maahir Garg · AI Engineer at GIC · NUS Computer Science",
     description:

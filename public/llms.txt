@@ -10,8 +10,9 @@ Key facts:
 
 - Role: AI Engineer at GIC (Singapore's sovereign wealth fund), building an
   internal agentic CLI agent and LLM pipelines that automate audit workflows.
-- Education: Bachelor of Computing, Computer Science & Quantitative Finance,
-  National University of Singapore (2023–2027).
+- Education: Bachelor of Computing (Honours) in Computer Science with a
+  Second Major in Quantitative Finance, National University of Singapore
+  (2023–2027).
 - Research: multimodal iPhone + Apple Vision Pro hand-tracking framework for
   stroke rehabilitation at Interactive 3D Lab, 89% cross-device accuracy
   (patent application in progress); BERT quantization/pruning (~69% smaller,
@@ -19,6 +20,7 @@ Key facts:
 - Teaching: Algorithms, Data Structures, and Discrete Structures at NUS
   across three semesters (4.8/5.0 student rating).
 - Interests: photography, badminton, Formula 1, chess.
+- Contact: maahirrgarg@gmail.com
 
 ## Pages
 
@@ -36,5 +38,4 @@ Key facts:
 - [GitHub](https://github.com/maahir-garg)
 - [LinkedIn](https://www.linkedin.com/in/maahir-garg)
 - [LeetCode](https://leetcode.com/u/maahir_garg/)
-
-Contact: maahirrgarg@gmail.com
+- [Email](mailto:maahirrgarg@gmail.com)

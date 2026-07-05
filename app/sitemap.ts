@@ -34,5 +34,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticEntries, ...projectEntries];
+  // Google indexes and ranks PDFs from sitemaps; "maahir garg resume" is a
+  // query this file should own. Bump SITE.lastModified when it's replaced.
+  const resumeEntry: MetadataRoute.Sitemap = [
+    {
+      url: absoluteUrl("/maahir-garg-resume.pdf"),
+      lastModified: lastMod,
+      changeFrequency: "monthly",
+      priority: 0.5,
+    },
+  ];
+
+  return [...staticEntries, ...projectEntries, ...resumeEntry];
 }

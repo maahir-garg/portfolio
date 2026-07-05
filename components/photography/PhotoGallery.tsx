@@ -15,6 +15,8 @@ type Exif = {
   takenAt: string | null;
   camera: string | null;
   lens: string | null;
+  width?: number | null;
+  height?: number | null;
   display: ExifDisplay;
 };
 
@@ -76,6 +78,29 @@ function yearFromIso(iso: string | null): string | null {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return null;
   return String(d.getFullYear());
+}
+
+/**
+ * Descriptive, per-photo alt text. Most photos have no caption, so without
+ * location/year every frame in a category would share the identical alt —
+ * useless to Google Images and to screen readers flipping through the grid.
+ */
+function altFor(photo: Photo): string {
+  const year =
+    photo.meta?.year != null
+      ? String(photo.meta.year)
+      : yearFromIso(photo.exif?.takenAt ?? null);
+  const category =
+    photo.category.charAt(0).toUpperCase() + photo.category.slice(1);
+  return [
+    photo.meta?.caption ? `${photo.meta.caption}.` : null,
+    `${category} photograph`,
+    photo.meta?.location ? `in ${photo.meta.location}` : null,
+    year ? `(${year})` : null,
+    "by Maahir Garg",
+  ]
+    .filter(Boolean)
+    .join(" ");
 }
 
 function seededRandom(seed: string): () => number {
@@ -227,7 +252,7 @@ export function PhotoGallery() {
                 <div className="relative aspect-[4/5] overflow-hidden bg-[color:var(--color-paper)]">
                   <Image
                     src={photo.src}
-                    alt={photo.meta?.caption ? `${photo.meta.caption}. ${photo.category} photograph by Maahir Garg.` : `${photo.category} photograph by Maahir Garg`}
+                    alt={altFor(photo)}
                     fill
                     sizes="(min-width: 1024px) 22vw, 45vw"
                     className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] saturate-[0.92]"
@@ -321,14 +346,16 @@ export function PhotoGallery() {
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-center" style={{ maxHeight: "78vh", minHeight: "40vh" }}>
-              {/* Using <img> avoids needing fixed dimensions for the fill strategy */}
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              {/* next/image with the manifest's intrinsic dimensions, so the
+                  lightbox serves an optimized rendition instead of the raw
+                  multi-megabyte original. */}
+              <Image
                 src={current.src}
-                alt={currentNote ? `${currentNote}. Photograph by Maahir Garg.` : `${current.category} photograph by Maahir Garg`}
-                loading="eager"
-                decoding="async"
-                style={{ maxHeight: "78vh", maxWidth: "100%", objectFit: "contain", display: "block" }}
+                alt={altFor(current)}
+                width={current.exif?.width ?? 1600}
+                height={current.exif?.height ?? 1200}
+                sizes="(min-width: 1024px) 80vw, 100vw"
+                style={{ maxHeight: "78vh", width: "auto", maxWidth: "100%", objectFit: "contain", display: "block" }}
               />
             </div>
             <div className="mt-4 flex flex-col items-center gap-1.5 text-center">

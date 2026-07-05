@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, OG_IMAGE } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
@@ -15,11 +15,17 @@ export const metadata: Metadata = {
       "Maahir Garg's work history: AI engineering at GIC, Apple Vision Pro research, teaching at NUS, and data/ML roles.",
     url: absoluteUrl("/experience"),
     type: "profile",
+    firstName: "Maahir",
+    lastName: "Garg",
+    username: "maahirgarg",
+    siteName: "Maahir Garg",
+    images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",
     title: "Experience · Maahir Garg",
     description: "AI engineering, Apple Vision Pro research, teaching at NUS, and data/ML roles.",
+    images: OG_IMAGE,
   },
 };
 

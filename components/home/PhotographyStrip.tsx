@@ -25,6 +25,7 @@ type ManifestImage = {
   exif: {
     display: ExifDisplay;
   } | null;
+  meta?: { location?: string; caption?: string } | null;
 };
 
 type ManifestCategory = {
@@ -36,6 +37,7 @@ type Pick = {
   src: string;
   category: string;
   caption: string;
+  location: string | null;
 };
 
 const CATEGORIES: ManifestCategory[] = manifest as ManifestCategory[];
@@ -81,7 +83,7 @@ function buildDeterministicPicks(): Pick[] {
     if (cat.images.length === 0) continue;
     const idx = hashString(cat.category) % cat.images.length;
     const img = cat.images[idx];
-    out.push({ src: img.src, category: cat.category, caption: exifCaption(img, cat.category) });
+    out.push({ src: img.src, category: cat.category, caption: exifCaption(img, cat.category), location: img.meta?.location ?? null });
     if (out.length === 4) return out;
   }
   // top up from any category with remaining images
@@ -91,7 +93,7 @@ function buildDeterministicPicks(): Pick[] {
   const ordered = [...allImages].sort((a, b) => a.img.src.localeCompare(b.img.src));
   for (const { img, category } of ordered) {
     if (out.some((p) => p.src === img.src)) continue;
-    out.push({ src: img.src, category, caption: exifCaption(img, category) });
+    out.push({ src: img.src, category, caption: exifCaption(img, category), location: img.meta?.location ?? null });
     if (out.length === 4) return out;
   }
   return out;
@@ -106,7 +108,7 @@ function buildRandomPicks(): Pick[] {
   for (const cat of cats) {
     if (cat.images.length === 0) continue;
     const img = cat.images[Math.floor(Math.random() * cat.images.length)];
-    out.push({ src: img.src, category: cat.category, caption: exifCaption(img, cat.category) });
+    out.push({ src: img.src, category: cat.category, caption: exifCaption(img, cat.category), location: img.meta?.location ?? null });
     if (out.length === 4) return out;
   }
 
@@ -115,7 +117,7 @@ function buildRandomPicks(): Pick[] {
   );
   for (const { img, category } of shuffle(allImages)) {
     if (out.some((p) => p.src === img.src)) continue;
-    out.push({ src: img.src, category, caption: exifCaption(img, category) });
+    out.push({ src: img.src, category, caption: exifCaption(img, category), location: img.meta?.location ?? null });
     if (out.length === 4) return out;
   }
   return out;
@@ -167,7 +169,7 @@ export function PhotographyStrip() {
               <div className="relative aspect-[4/5] overflow-hidden bg-[color:var(--color-paper)]">
                 <Image
                   src={p.src}
-                  alt={`${p.category} photograph by Maahir Garg`}
+                  alt={`${p.category.charAt(0).toUpperCase() + p.category.slice(1)} photograph${p.location ? ` in ${p.location}` : ""} by Maahir Garg`}
                   fill
                   sizes="(min-width: 1024px) 22vw, 45vw"
                   className="object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-[1.02] group-hover:saturate-100 saturate-[0.9]"

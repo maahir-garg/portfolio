@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
-import { absoluteUrl } from "@/lib/site";
+import { absoluteUrl, OG_IMAGE } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
@@ -14,11 +14,14 @@ export const metadata: Metadata = {
     description: "Email, GitHub, and LinkedIn for Maahir Garg, AI Engineer in Singapore.",
     url: absoluteUrl("/contact"),
     type: "website",
+    siteName: "Maahir Garg",
+    images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",
     title: "Contact · Maahir Garg",
     description: "Email, GitHub, and LinkedIn for Maahir Garg.",
+    images: OG_IMAGE,
   },
 };
 
