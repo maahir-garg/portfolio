@@ -25,7 +25,7 @@ export const SITE = {
   // ISO date used as default lastModified across the site. Bumped manually
   // when content meaningfully changes so Google sees a real freshness signal
   // instead of a build-time `new Date()` that thrashes every deploy.
-  lastModified: "2026-06-24",
+  lastModified: "2026-07-08",
   // Site launch date (first commit / first deploy). Used as ProfilePage
   // dateCreated — one of Google's two recommended date properties there.
   dateCreated: "2026-01-19",
@@ -52,6 +52,17 @@ export const OG_IMAGE = [
     alt: "Maahir Garg · AI Engineer at GIC. CS + Quantitative Finance at NUS.",
   },
 ];
+
+/**
+ * Expand a YYYY-MM-DD date into a full ISO 8601 DateTime at midnight SGT.
+ * Google's Search Console types ProfilePage dateCreated/dateModified (and
+ * article:*_time OG tags) as DateTime and reports bare dates as
+ * "Invalid datetime value" — every date that reaches JSON-LD or OG meta
+ * must pass through here.
+ */
+export function toIsoDateTime(isoDate: string): string {
+  return `${isoDate}T00:00:00+08:00`;
+}
 
 const MONTHS: Record<string, string> = {
   jan: "01", feb: "02", mar: "03", apr: "04", may: "05", jun: "06",

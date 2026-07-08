@@ -6,7 +6,7 @@ import { DATA } from "@/lib/data";
 import { Reveal } from "@/components/ui/Reveal";
 import { LeetCodeStats } from "@/components/feature/LeetCodeStats";
 import { LeetCodeStatsSkeleton } from "@/components/feature/LeetCodeStatsSkeleton";
-import { absoluteUrl, OG_IMAGE, SITE, toIsoDate } from "@/lib/site";
+import { absoluteUrl, OG_IMAGE, SITE, toIsoDate, toIsoDateTime } from "@/lib/site";
 import { BreadcrumbJsonLd, ProjectJsonLd } from "@/components/seo/JsonLd";
 
 export async function generateMetadata({
@@ -48,8 +48,8 @@ export async function generateMetadata({
       // The OG spec defines article:author as a profile URL, not a name.
       authors: [absoluteUrl("/about")],
       siteName: SITE.fullName,
-      ...(publishedIso ? { publishedTime: publishedIso } : {}),
-      modifiedTime: SITE.lastModified,
+      ...(publishedIso ? { publishedTime: toIsoDateTime(publishedIso) } : {}),
+      modifiedTime: toIsoDateTime(SITE.lastModified),
       images: OG_IMAGE,
     },
     twitter: {
