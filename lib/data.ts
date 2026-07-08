@@ -197,9 +197,30 @@ export const DATA = {
   ],
   projects: [
     {
+      title: "PGPals",
+      slug: "pgpals",
+      href: "https://pgpals-seven.vercel.app",
+      dates: "Jul 2026 – Present",
+      active: true,
+      description:
+        "An event platform for PGPR's two-week buddy challenge: ~200 teams of two complete photo tasks, RAs review submissions and award PGP Coins, and everyone watches the leaderboard — until it goes dark before the closing ceremony.",
+      notes:
+        "PGPR runs this buddy challenge every orientation cycle: paired teams work through a photo-task list, and an RA reviews each submission before awarding PGP Coins. The whole thing lives or dies by the leaderboard — it's the thing 200 teams check obsessively, so the one deliberate mechanic is timing: it goes dark right before the closing ceremony so the final standings land as a reveal instead of a slow leak. Scale is modest (~400 users) but the app has to feel responsive at event peak, so server functions are pinned to Vercel's sin1 region to stay close to the Singapore-hosted Supabase database rather than round-tripping across the Pacific. Everything else — auth, storage, Postgres — is sized to fit comfortably inside free tiers. Still building.",
+      technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS", "shadcn/ui"],
+      links: [
+        {
+          type: "Live Site",
+          href: "https://pgpals-seven.vercel.app",
+          icon: "external",
+        },
+      ],
+      image: "",
+      video: "",
+    },
+    {
       title: "Trader's Edge",
       slug: "traders-edge",
-      href: "",
+      href: "https://traders-edge-eta.vercel.app",
       dates: "May 2026 – Present",
       active: true,
       description:
@@ -208,6 +229,11 @@ export const DATA = {
         "The thesis is that most people learn trading backwards: they read strategy descriptions long before they ever watch one fail on real data. Trader's Edge inverts that. You describe an idea in plain English, the system turns it into a backtestable strategy, and you watch it play out against historical data before you trust it. The hard part isn't the generation; LLMs are good at that now. It's the guardrails around backtesting: survivorship bias, look-ahead leakage, overfitting to a single regime. The learning environment exists so a student can see why a strategy that looks great in-sample falls apart out-of-sample. Still building; the MVP is private for now.",
       technologies: ["AI", "LLMs", "Backtesting", "Quantitative Finance", "Python"],
       links: [
+        {
+          type: "Live Demo",
+          href: "https://traders-edge-eta.vercel.app",
+          icon: "external",
+        },
         {
           type: "Private Repo",
           href: "",
@@ -220,7 +246,7 @@ export const DATA = {
     {
       title: "Prediction-Market Arbitrage Engine",
       slug: "prediction-market-arbitrage",
-      href: "",
+      href: "https://pm-intelligence-7vob.onrender.com",
       dates: "Feb 2026 – Present",
       active: true,
       description:
@@ -229,6 +255,11 @@ export const DATA = {
         "The premise: the same real-world event is often priced differently on Polymarket and Kalshi, and the gap should be capturable. Modeling it honestly meant the execution-cost side mattered more than the signal; fees, slippage, and settlement timing routinely ate spreads that looked like free money on paper. The expected-value layer had to account for resolution risk too: two venues can word the 'same' contract just differently enough that they don't actually resolve together. I kept this strictly a research prototype, so there was never live capital or realized P&L; the value was the modeling discipline, not a deployment.",
       technologies: ["Python", "Quantitative Finance", "Arbitrage", "Modeling"],
       links: [
+        {
+          type: "Live Demo",
+          href: "https://pm-intelligence-7vob.onrender.com",
+          icon: "external",
+        },
         {
           type: "Research Prototype",
           href: "",
