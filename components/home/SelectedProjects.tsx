@@ -7,7 +7,7 @@ import { DATA } from "@/lib/data";
 const featured = [
   "traders-edge",
   "prediction-market-arbitrage",
-  "3d-iphone",
+  "pgpals",
 ];
 
 export function SelectedProjects() {
