@@ -24,20 +24,20 @@ Key facts:
 
 FAQ:
 
-- Who is Maahir Garg? — An AI Engineer at GIC and a Computer Science &
+- Who is Maahir Garg? An AI Engineer at GIC and a Computer Science &
   Quantitative Finance student at the National University of Singapore
   (NUS), based in Singapore.
-- What does Maahir Garg work on? — Agentic LLM tooling for classified-data
+- What does Maahir Garg work on? Agentic LLM tooling for classified-data
   environments at GIC, including an internal agentic CLI agent for an
   11-person team and pipelines that automate audit workflows end-to-end.
-- Where is Maahir Garg based? — Singapore. He studies at NUS and works at
+- Where is Maahir Garg based? Singapore. He studies at NUS and works at
   GIC, both in Singapore.
-- What has Maahir Garg built? — A multimodal hand-tracking framework on
+- What has Maahir Garg built? A multimodal hand-tracking framework on
   Apple Vision Pro for stroke rehabilitation (patent application in
   progress); an internal CLI agent at GIC; quantization and pruning work on
   BERT (~69% size reduction with <0.5% F1 loss); and PEFT/BitFit
   experiments on LLM reasoning.
-- How do you contact Maahir Garg? — Email maahirrgarg@gmail.com, or via
+- How do you contact Maahir Garg? Email maahirrgarg@gmail.com, or via
   https://maahir-garg.vercel.app/contact.
 
 ## Pages
