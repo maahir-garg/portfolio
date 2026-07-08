@@ -203,9 +203,9 @@ export const DATA = {
       dates: "Jul 2026 – Present",
       active: true,
       description:
-        "An event platform for PGPR's two-week buddy challenge: ~200 teams of two complete photo tasks, RAs review submissions and award PGP Coins, and everyone watches the leaderboard — until it goes dark before the closing ceremony.",
+        "An event platform for PGPR's two-week buddy challenge: ~200 teams of two complete photo tasks, RAs review submissions and award PGP Coins, and everyone watches the leaderboard until it goes dark before the closing ceremony.",
       notes:
-        "PGPR runs this buddy challenge every orientation cycle: paired teams work through a photo-task list, and an RA reviews each submission before awarding PGP Coins. The whole thing lives or dies by the leaderboard — it's the thing 200 teams check obsessively, so the one deliberate mechanic is timing: it goes dark right before the closing ceremony so the final standings land as a reveal instead of a slow leak. Scale is modest (~400 users) but the app has to feel responsive at event peak, so server functions are pinned to Vercel's sin1 region to stay close to the Singapore-hosted Supabase database rather than round-tripping across the Pacific. Everything else — auth, storage, Postgres — is sized to fit comfortably inside free tiers. Still building.",
+        "PGPR runs this buddy challenge every orientation cycle: paired teams work through a photo-task list, and an RA reviews each submission before awarding PGP Coins. The whole thing lives or dies by the leaderboard; it's the thing 200 teams check obsessively, so the one deliberate mechanic is timing: it goes dark right before the closing ceremony so the final standings land as a reveal instead of a slow leak. Scale is modest (~400 users) but the app has to feel responsive at event peak, so server functions are pinned to Vercel's sin1 region to stay close to the Singapore-hosted Supabase database rather than round-tripping across the Pacific. Everything else (auth, storage, Postgres) is sized to fit comfortably inside free tiers. Still building.",
       technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS", "shadcn/ui"],
       links: [
         {
