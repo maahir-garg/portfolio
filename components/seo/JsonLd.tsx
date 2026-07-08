@@ -1,5 +1,5 @@
 import { DATA } from "@/lib/data";
-import { SITE, absoluteUrl, toIsoDate } from "@/lib/site";
+import { SITE, absoluteUrl, toIsoDate, toIsoDateTime } from "@/lib/site";
 
 const PERSON_ID = `${SITE.baseUrl}/#person`;
 const WEBSITE_ID = `${SITE.baseUrl}/#website`;
@@ -114,8 +114,8 @@ export function JsonLd() {
     about: { "@id": PERSON_ID },
     mainEntity: { "@id": PERSON_ID },
     isPartOf: { "@id": WEBSITE_ID },
-    dateCreated: SITE.dateCreated,
-    dateModified: SITE.lastModified,
+    dateCreated: toIsoDateTime(SITE.dateCreated),
+    dateModified: toIsoDateTime(SITE.lastModified),
     speakable: {
       "@type": "SpeakableSpecification",
       cssSelector: ["h1", "main p:first-of-type"],
@@ -199,13 +199,13 @@ export function ProjectJsonLd({ slug }: { slug: string }) {
     keywords: project.technologies.join(", "),
     about: project.technologies,
     isPartOf: { "@id": WEBSITE_ID },
-    dateModified: SITE.lastModified,
+    dateModified: toIsoDateTime(SITE.lastModified),
   };
 
   const isoDate = toIsoDate(project.dates);
   if (isoDate) {
-    data.dateCreated = isoDate;
-    data.datePublished = isoDate;
+    data.dateCreated = toIsoDateTime(isoDate);
+    data.datePublished = toIsoDateTime(isoDate);
   }
 
   if (sourceLink) {
