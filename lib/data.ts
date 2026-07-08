@@ -376,7 +376,7 @@ export const DATA = {
       dates: "Sep 2024",
       active: true,
       description:
-        "Resumable data pipelines analyzing how Stack Overflow's feedback mechanisms — votes, accepted answers, edit cycles — shape content quality over time.",
+        "Resumable data pipelines analyzing how Stack Overflow's feedback mechanisms (votes, accepted answers, edit cycles) shape content quality over time.",
       notes:
         "Research infrastructure, not a product. The lab wanted to know whether feedback signals - votes, accepted answers, edit cycles - shape content quality over time. Most of the interesting decisions ended up being about backoff strategy and resumable extraction rather than the analysis on top; the Stack Exchange API is generous if you respect it and brutal if you don't. Taught me that for any long-running scrape, the first thing worth designing is the resume path, not the happy path.",
       technologies: [
@@ -401,7 +401,7 @@ export const DATA = {
       dates: "Mar 2024",
       active: true,
       description:
-        "Automated Google Scholar citation scraper with careful pacing, resumability, and dedup — freed 520+ hours of manual citation entry for an NUS research lab.",
+        "Automated Google Scholar citation scraper with careful pacing, resumability, and dedup, freeing 520+ hours of manual citation entry for an NUS research lab.",
       notes:
         "Built to free 520 hours the lab was burning on manual citation entry. Scholar doesn't expose an official API, so the tool routes through Postman with careful pacing to avoid getting flagged. Boring code that solved a real problem - most of the value was in the resumability and the dedup on the backend, not the scrape itself. A small reminder that the unglamorous infrastructure projects often return the most time.",
       technologies: [
@@ -426,7 +426,7 @@ export const DATA = {
       dates: "Mar 2024",
       active: true,
       description:
-        "Python scraper for India's CAAQMS air-quality network — JWT session handling, SQLite storage for portability, and 10,000+ hours of manual entry saved.",
+        "Python scraper for India's CAAQMS air-quality network: JWT session handling, SQLite storage for portability, and 10,000+ hours of manual entry saved.",
       notes:
         "A Python scraper for India's CAAQMS air-quality monitoring data. The portal sits behind a JWT-based session with a finicky token-refresh loop, so the bulk of the work was the auth dance, not the data shaping. SQLite for portability - research collaborators could sync the file rather than spin up a database. Saved the team well over 10,000 hours of manual entry across its lifetime.",
       technologies: [
