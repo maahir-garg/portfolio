@@ -102,8 +102,7 @@ export function Hero() {
                   NUS
                 </a>
                 . Right now: building an agentic CLI for classified-data
-                environments. Previously: hand-tracking on Vision Pro for stroke
-                rehab (patent application in progress).
+                environments.
               </p>
 
               {/* "Now" status strip */}
