@@ -7,7 +7,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Get in touch with Maahir Garg via email, GitHub, or LinkedIn. AI Engineer at GIC, based in Singapore.",
+    "Get in touch with Maahir Garg via email, GitHub, or LinkedIn. AI engineer and NUS student based in Singapore.",
   alternates: { canonical: absoluteUrl("/contact") },
   openGraph: {
     title: "Contact · Maahir Garg",

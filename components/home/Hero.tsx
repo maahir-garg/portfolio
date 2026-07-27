@@ -25,7 +25,7 @@ export function Hero() {
           {mastheadDate} ·{" "}
           <span className="text-[color:var(--color-ink-dim)]">field notebook</span>
           {" · "}
-          <span className="text-[color:var(--color-ink-dim)]">AI engineer · GIC, NUS</span>
+          <span className="text-[color:var(--color-ink-dim)]">AI engineer · NUS</span>
         </p>
         <p className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)] hidden sm:block">
           Dispatch · 01°17′N 103°51′E
@@ -44,7 +44,7 @@ export function Hero() {
               <div className="relative w-full h-full min-h-[320px] md:min-h-[520px] overflow-hidden border border-[color:var(--color-rule)]">
                 <Image
                   src={HERO_PHOTO}
-                  alt="Portrait of Maahir Garg, AI Engineer at GIC, in Singapore"
+                  alt="Portrait of Maahir Garg in Singapore"
                   fill
                   sizes="(min-width: 768px) 42vw, 100vw"
                   className="object-cover saturate-[0.92]"
@@ -83,7 +83,7 @@ export function Hero() {
                 className="mt-8 max-w-[55ch] text-[color:var(--color-ink-dim)]"
                 style={{ fontSize: "var(--step-1)", lineHeight: 1.6 }}
               >
-                AI engineer at{" "}
+                I recently worked as an AI engineer at{" "}
                 <a
                   href="https://www.gic.com.sg"
                   target="_blank"
@@ -92,7 +92,8 @@ export function Hero() {
                 >
                   GIC
                 </a>{" "}
-                in Singapore. Computer Science &amp; Quantitative Finance at{" "}
+                in Singapore, building agentic tooling for classified-data
+                environments. I study Computer Science &amp; Quantitative Finance at{" "}
                 <a
                   href="https://nus.edu.sg"
                   target="_blank"
@@ -101,8 +102,7 @@ export function Hero() {
                 >
                   NUS
                 </a>
-                . Right now: building an agentic CLI for classified-data
-                environments.
+                .
               </p>
 
               {/* "Now" status strip */}

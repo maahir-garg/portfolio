@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
-export const alt = "Maahir Garg · AI Engineer at GIC. CS + Quantitative Finance at NUS.";
+export const alt = "Maahir Garg · AI Engineer. CS + Quantitative Finance at NUS.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -56,7 +56,7 @@ export default async function OGImage() {
               maxWidth: 960,
             }}
           >
-            AI Engineer at GIC. Computer Science &amp; Quantitative Finance at NUS.
+            AI Engineer. Computer Science &amp; Quantitative Finance at NUS.
           </div>
         </div>
 

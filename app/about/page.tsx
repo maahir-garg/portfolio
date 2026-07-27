@@ -10,12 +10,12 @@ import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About Maahir Garg. AI Engineer at GIC and a Computer Science & Quantitative Finance student at NUS in Singapore. Background, skills, and the throughlines across his projects.",
+    "About Maahir Garg. AI engineer and Computer Science & Quantitative Finance student at NUS, formerly at GIC. Background, skills, and projects.",
   alternates: { canonical: absoluteUrl("/about") },
   openGraph: {
     title: "About · Maahir Garg",
     description:
-      "About Maahir Garg. AI Engineer at GIC, Computer Science & Quantitative Finance student at NUS, based in Singapore.",
+      "About Maahir Garg. AI engineer and Computer Science & Quantitative Finance student at NUS, formerly at GIC.",
     url: absoluteUrl("/about"),
     type: "profile",
     firstName: "Maahir",
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About · Maahir Garg",
     description:
-      "AI Engineer at GIC, CS & Quant Finance at NUS, based in Singapore.",
+      "AI engineer, CS & Quant Finance at NUS, formerly at GIC.",
     images: OG_IMAGE,
   },
 };
@@ -67,9 +67,9 @@ export default function AboutPage() {
           >
             <p>
               Hello. I&apos;m Maahir. I study Computer Science and
-              Quantitative Finance at NUS, and I work as an AI engineer at{" "}
+              Quantitative Finance at NUS, and I recently worked as an AI engineer at{" "}
               <a className="link-underline" href="https://www.gic.com.sg" target="_blank" rel="noreferrer">GIC</a>.
-              Right now I&apos;m building an internal{" "}
+              There I built an internal{" "}
               <em className="italic-serif">agentic</em> CLI agent
               for classified-data environments &mdash; AI tooling for an
               11-person team where those constraints rule out something like

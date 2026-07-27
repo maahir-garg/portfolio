@@ -22,7 +22,7 @@ export function Colophon() {
         <Reveal as="div" className="md:col-span-6" delay={60}>
           <p className="meta mb-3">On the desk</p>
           <ul className="colophon-list space-y-2 text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-1)" }}>
-            <li>building an agentic CLI tool at GIC</li>
+            <li>built an agentic CLI tool at GIC</li>
             <li>reading <em className="italic-serif">Designing Data-Intensive Applications</em></li>
             <li>optimizing a reasoning pipeline on clause-extracted data</li>
             <li>drafting a paper on multimodal hand tracking for stroke rehab</li>

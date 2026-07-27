@@ -41,7 +41,7 @@ export function SelectedWork() {
                 <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
                   {role.start}
                   {" → "}
-                  {role.end === "Present" ? "now" : role.end}
+                  {String(role.end) === "Present" ? "now" : role.end}
                 </span>
               </div>
 
@@ -56,7 +56,7 @@ export function SelectedWork() {
                   <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)" }}>
                     {role.title}
                   </p>
-                  {role.end === "Present" && (
+                  {String(role.end) === "Present" && (
                     <span className="mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-mark)] ml-auto">
                       ● now
                     </span>
