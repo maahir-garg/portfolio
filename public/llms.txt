@@ -1,15 +1,16 @@
 # Maahir Garg
 
-> Maahir Garg is an AI Engineer at GIC and a Computer Science & Quantitative
-> Finance student at the National University of Singapore (NUS), based in
-> Singapore. He builds agentic LLM tooling for classified-data environments
-> and co-invented a multimodal hand-tracking framework on Apple Vision Pro
-> for stroke rehabilitation (patent application in progress).
+> Maahir Garg is an AI engineer and Computer Science & Quantitative Finance
+> student at the National University of Singapore (NUS), based in Singapore.
+> He recently worked at GIC, where he built agentic LLM tooling for
+> classified-data environments, and co-invented a multimodal hand-tracking
+> framework on Apple Vision Pro for stroke rehabilitation (patent application
+> in progress).
 
 Key facts:
 
-- Role: AI Engineer at GIC (Singapore's sovereign wealth fund), building an
-  internal agentic CLI agent and LLM pipelines that automate audit workflows.
+- Experience: AI Engineer at GIC (Jan–Jul 2026), where he built an internal
+  agentic CLI agent and LLM pipelines that automate audit workflows.
 - Education: Bachelor of Computing (Honours) in Computer Science with a
   Second Major in Quantitative Finance, National University of Singapore
   (2023–2027).
@@ -24,14 +25,13 @@ Key facts:
 
 FAQ:
 
-- Who is Maahir Garg? An AI Engineer at GIC and a Computer Science &
-  Quantitative Finance student at the National University of Singapore
-  (NUS), based in Singapore.
-- What does Maahir Garg work on? Agentic LLM tooling for classified-data
-  environments at GIC, including an internal agentic CLI agent for an
-  11-person team and pipelines that automate audit workflows end-to-end.
-- Where is Maahir Garg based? Singapore. He studies at NUS and works at
-  GIC, both in Singapore.
+- Who is Maahir Garg? An AI engineer and Computer Science & Quantitative
+  Finance student at the National University of Singapore (NUS), based in
+  Singapore, who previously worked at GIC.
+- What did Maahir Garg work on at GIC? Agentic LLM tooling for
+  classified-data environments, including an internal agentic CLI agent for
+  an 11-person team and pipelines that automate audit workflows end-to-end.
+- Where is Maahir Garg based? Singapore, where he studies at NUS.
 - What has Maahir Garg built? A multimodal hand-tracking framework on
   Apple Vision Pro for stroke rehabilitation (patent application in
   progress); an internal CLI agent at GIC; quantization and pruning work on

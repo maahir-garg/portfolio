@@ -4,9 +4,9 @@ export const DATA = {
   location: "Singapore",
   locationLink: "https://www.google.com/maps/place/singapore",
   description:
-    "AI Engineer at GIC. I build agentic LLM tooling for classified-data environments and optimize models that have to run in production.",
+    "AI engineer focused on agentic LLM tooling, production model optimization, and careful systems for unruly data.",
   summary:
-    "I study Computer Science and Quantitative Finance at NUS and work as an AI Engineer at GIC, where I built an internal CLI agent and sandboxed Chainlit assistant for an 11-person team and agentic pipelines that automate audit workflows end-to-end. Before GIC I prototyped a multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation (patent application in progress), taught algorithms at NUS, and shipped data infrastructure across a handful of research and industry roles.",
+    "I study Computer Science and Quantitative Finance at NUS and recently worked as an AI Engineer at GIC, where I built an internal CLI agent and sandboxed Chainlit assistant for an 11-person team and agentic pipelines that automate audit workflows end-to-end. Before GIC I prototyped a multimodal hand-tracking framework on Apple Vision Pro for stroke rehabilitation (patent application in progress), taught algorithms at NUS, and shipped data infrastructure across a handful of research and industry roles.",
   avatarUrl: "/me.png",
   skills: {
     Programming: ["Python", "Java", "JavaScript", "C/C++", "Swift", "R", "LaTeX"],
@@ -46,7 +46,7 @@ export const DATA = {
       title: "AI Engineer",
       logoUrl: "/gic.png",
       start: "Jan 2026",
-      end: "Present",
+      end: "Jul 2026",
       description:
         "Built an internal agentic CLI agent and a sandboxed Chainlit assistant over proprietary models, with 8 custom tools, multi-agent orchestration, and skill-routing, giving an 11-person team AI tooling where classified-data constraints rule out Copilot. Engineered step-level guardrails via custom hooks that audit and validate every agent action, and designed an agentic audit pipeline that queries Snowflake and SharePoint as tools, runs ETL, and generates audit-ready reports from plain-English prompts, automating two previously manual data sources from hours to near-instant.",
     },
@@ -199,7 +199,7 @@ export const DATA = {
     {
       title: "PGPals",
       slug: "pgpals",
-      href: "https://pgpals-seven.vercel.app",
+      href: "https://pgpals.vercel.app",
       dates: "Jul 2026 – Present",
       active: true,
       description:
@@ -210,7 +210,7 @@ export const DATA = {
       links: [
         {
           type: "Live Site",
-          href: "https://pgpals-seven.vercel.app",
+          href: "https://pgpals.vercel.app",
           icon: "external",
         },
       ],

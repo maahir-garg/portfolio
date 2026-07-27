@@ -45,13 +45,13 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(SITE.baseUrl),
   title: {
-    default: "Maahir Garg · AI Engineer at GIC · NUS Computer Science",
+    default: "Maahir Garg · AI Engineer · NUS Computer Science",
     template: "%s · Maahir Garg",
   },
   // Kept under ~160 chars so Google shows it whole instead of truncating
   // or rewriting; the long-form bio lives in the Person JSON-LD.
   description:
-    "Maahir Garg is an AI Engineer at GIC and a CS & Quantitative Finance student at NUS, Singapore. Agentic LLMs, Apple Vision Pro research, and photography.",
+    "Maahir Garg is an AI engineer and CS & Quantitative Finance student at NUS, formerly at GIC. Agentic LLMs, Apple Vision Pro research, and photography.",
   applicationName: "Maahir Garg · Field Notebook",
   authors: [{ name: SITE.fullName, url: SITE.baseUrl }],
   creator: SITE.fullName,
@@ -81,9 +81,9 @@ export const metadata: Metadata = {
   // a duplicate of the homepage. The homepage canonical lives in app/page.tsx;
   // every route must declare its own.
   openGraph: {
-    title: "Maahir Garg · AI Engineer at GIC · NUS Computer Science",
+    title: "Maahir Garg · AI Engineer · NUS Computer Science",
     description:
-      "AI Engineer at GIC. Agentic LLMs, model optimization, spatial computing. CS + Quant Finance at NUS.",
+      "AI engineer focused on agentic LLMs, model optimization, and spatial computing. CS + Quant Finance at NUS.",
     type: "website",
     url: absoluteUrl(),
     siteName: SITE.fullName,
@@ -91,9 +91,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Maahir Garg · AI Engineer at GIC · NUS Computer Science",
+    title: "Maahir Garg · AI Engineer · NUS Computer Science",
     description:
-      "AI Engineer at GIC. Agentic LLMs, model optimization, spatial computing. CS + Quant Finance at NUS.",
+      "AI engineer focused on agentic LLMs, model optimization, and spatial computing. CS + Quant Finance at NUS.",
     creator: SITE.twitter,
     site: SITE.twitter,
   },

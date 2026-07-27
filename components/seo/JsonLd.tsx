@@ -45,11 +45,6 @@ export function JsonLd() {
       occupationLocation: { "@type": "City", name: "Singapore" },
       skills: "Agentic LLMs, model optimization, spatial computing, data engineering, quantitative finance",
     },
-    worksFor: {
-      "@type": "Organization",
-      name: "GIC",
-      url: "https://www.gic.com.sg",
-    },
     // Current student (2023–2027), so memberOf rather than alumniOf —
     // alumniOf asserts a *completed* affiliation and would contradict the
     // visible copy ("I study ... at NUS"). Flip to alumniOf after graduation.

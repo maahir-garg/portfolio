@@ -7,7 +7,7 @@ import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "Experience",
   description:
-    "Maahir Garg's work experience. AI Engineer at GIC, Apple Vision Pro research at Interactive 3D Lab, teaching at NUS, and data/ML roles across research and industry in Singapore.",
+    "Maahir Garg's work experience: AI engineering at GIC, Apple Vision Pro research at Interactive 3D Lab, teaching at NUS, and data/ML roles.",
   alternates: { canonical: absoluteUrl("/experience") },
   openGraph: {
     title: "Experience · Maahir Garg",
@@ -71,7 +71,7 @@ export default function ExperiencePage() {
                   {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
                 </span>
                 <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
-                  {role.start} → {role.end === "Present" ? "now" : role.end}
+                  {role.start} → {String(role.end) === "Present" ? "now" : role.end}
                 </span>
                 <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
                   {role.location}
