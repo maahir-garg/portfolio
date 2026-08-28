@@ -5,7 +5,15 @@ import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
 
 export function SelectedWork() {
-  const selected = DATA.work.slice(0, 4);
+  const featuredOrder = [
+    "AI Centre for Educational Technologies, Team Koditsu",
+    "GIC",
+    "Interactive 3D Lab, in collaboration with Apple",
+    "NUS, School of Computing",
+  ];
+  const selected = featuredOrder
+    .map((company) => DATA.work.find((role) => role.company === company && role.featured))
+    .filter((role): role is (typeof DATA.work)[number] => Boolean(role));
 
   return (
     <section className="container-page mt-32 md:mt-40">
@@ -39,9 +47,7 @@ export function SelectedWork() {
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
-                  {role.start}
-                  {" → "}
-                  {String(role.end) === "Present" ? "now" : role.end}
+                  {role.dates.replace("Present", "now")}
                 </span>
               </div>
 
@@ -56,7 +62,7 @@ export function SelectedWork() {
                   <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)" }}>
                     {role.title}
                   </p>
-                  {String(role.end) === "Present" && (
+                  {role.current && (
                     <span className="mono text-[10px] uppercase tracking-[0.18em] text-[color:var(--color-mark)] ml-auto">
                       ● now
                     </span>

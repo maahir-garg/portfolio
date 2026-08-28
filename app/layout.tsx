@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   // Kept under ~160 chars so Google shows it whole instead of truncating
   // or rewriting; the long-form bio lives in the Person JSON-LD.
   description:
-    "Maahir Garg is an AI engineer and CS & Quantitative Finance student at NUS, formerly at GIC. Agentic LLMs, Apple Vision Pro research, and photography.",
+    "Maahir Garg is an AI Engineer at AICET's Team Koditsu and former GIC AI Engineer, studying Computer Science and Quantitative Finance at NUS.",
   applicationName: "Maahir Garg · Field Notebook",
   authors: [{ name: SITE.fullName, url: SITE.baseUrl }],
   creator: SITE.fullName,
@@ -64,6 +64,8 @@ export const metadata: Metadata = {
     "Maahir Garg AI Engineer",
     "Maahir Garg NUS",
     "Maahir Garg GIC",
+    "Maahir Garg AICET",
+    "Maahir Garg Koditsu",
     "Maahir Garg Singapore",
     "AI Engineer Singapore",
     "LLM engineer Singapore",
@@ -83,17 +85,17 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Maahir Garg · AI Engineer · NUS Computer Science",
     description:
-      "AI engineer focused on agentic LLMs, model optimization, and spatial computing. CS + Quant Finance at NUS.",
+      "AI Engineer at AICET's Team Koditsu, former GIC AI Engineer, and CS plus Quantitative Finance student at NUS.",
     type: "website",
     url: absoluteUrl(),
     siteName: SITE.fullName,
-    locale: "en_US",
+    locale: "en_SG",
   },
   twitter: {
     card: "summary_large_image",
     title: "Maahir Garg · AI Engineer · NUS Computer Science",
     description:
-      "AI engineer focused on agentic LLMs, model optimization, and spatial computing. CS + Quant Finance at NUS.",
+      "AI Engineer at AICET's Team Koditsu, former GIC AI Engineer, and CS plus Quantitative Finance student at NUS.",
     creator: SITE.twitter,
     site: SITE.twitter,
   },
@@ -125,12 +127,12 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en-SG" suppressHydrationWarning>
       <head>
         {/* Fonts are self-hosted at build time via next/font, so no
             connection hints to Google Fonts are needed. The hero photo's
             preload comes from next/image `priority` on the homepage, which
-            points at the optimized /_next/image URL rather than the raw file. */}
+            points at the optimised /_next/image URL rather than the raw file. */}
         <link rel="dns-prefetch" href="https://va.vercel-scripts.com" />
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>

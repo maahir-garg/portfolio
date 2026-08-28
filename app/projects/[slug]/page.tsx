@@ -6,7 +6,7 @@ import { DATA } from "@/lib/data";
 import { Reveal } from "@/components/ui/Reveal";
 import { LeetCodeStats } from "@/components/feature/LeetCodeStats";
 import { LeetCodeStatsSkeleton } from "@/components/feature/LeetCodeStatsSkeleton";
-import { absoluteUrl, OG_IMAGE, SITE, toIsoDate, toIsoDateTime } from "@/lib/site";
+import { absoluteUrl, SITE, toIsoDate, toIsoDateTime } from "@/lib/site";
 import { BreadcrumbJsonLd, ProjectJsonLd } from "@/components/seo/JsonLd";
 
 export async function generateMetadata({
@@ -50,14 +50,14 @@ export async function generateMetadata({
       siteName: SITE.fullName,
       ...(publishedIso ? { publishedTime: toIsoDateTime(publishedIso) } : {}),
       modifiedTime: toIsoDateTime(SITE.lastModified),
-      images: OG_IMAGE,
+      images: [],
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} · Maahir Garg`,
       description,
       creator: SITE.twitter,
-      images: OG_IMAGE,
+      images: [],
     },
   };
 }
@@ -181,6 +181,22 @@ export default async function ProjectPage({
                 </p>
               ))}
             </div>
+          </section>
+        </Reveal>
+      )}
+
+      {project.evidence.length > 0 && (
+        <Reveal delay={230}>
+          <section className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
+            <div className="md:col-span-2"><h2 className="meta">Evidence</h2></div>
+            <dl className="md:col-span-10 max-w-4xl divide-y divide-[color:var(--color-rule)] border-y border-[color:var(--color-rule)]">
+              {project.evidence.map((item) => (
+                <div key={item.label} className="grid grid-cols-1 gap-2 py-5 sm:grid-cols-4 sm:gap-6">
+                  <dt className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">{item.label}</dt>
+                  <dd className="text-[color:var(--color-ink-dim)] sm:col-span-3" style={{ fontSize: "var(--step-0)", lineHeight: 1.65 }}>{item.body}</dd>
+                </div>
+              ))}
+            </dl>
           </section>
         </Reveal>
       )}

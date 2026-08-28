@@ -2,9 +2,17 @@
 
 import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
-import { DATA } from "@/lib/data";
+import { DATA, NOW } from "@/lib/data";
 
 export function Colophon() {
+  const itemsFor = (
+    label: string
+  ): ReadonlyArray<{ primary: string; secondary?: string }> =>
+    NOW.sections.find((section) => section.label === label)?.items ?? [];
+
+  const deskItems = itemsFor("Building");
+  const offDeskItems = [...itemsFor("Watching"), ...itemsFor("Off-screen")];
+
   return (
     <section className="container-page mt-32 md:mt-40">
       <Reveal>
@@ -22,20 +30,18 @@ export function Colophon() {
         <Reveal as="div" className="md:col-span-6" delay={60}>
           <p className="meta mb-3">On the desk</p>
           <ul className="colophon-list space-y-2 text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-1)" }}>
-            <li>built an agentic CLI tool at GIC</li>
-            <li>reading <em className="italic-serif">Designing Data-Intensive Applications</em></li>
-            <li>optimizing a reasoning pipeline on clause-extracted data</li>
-            <li>drafting a paper on multimodal hand tracking for stroke rehab</li>
+            {deskItems.slice(0, 4).map((item) => (
+              <li key={item.primary}>{item.primary.toLowerCase()}</li>
+            ))}
           </ul>
         </Reveal>
 
         <Reveal as="div" className="md:col-span-6" delay={120}>
           <p className="meta mb-3">Off the desk</p>
           <ul className="colophon-list space-y-2 text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-1)" }}>
-            <li>badminton on wednesdays</li>
-            <li>three F1 tabs open somewhere</li>
-            <li>chess, mostly blitz, losing honestly</li>
-            <li>photographing whatever the light does</li>
+            {offDeskItems.slice(0, 4).map((item) => (
+              <li key={item.primary}>{item.primary.toLowerCase()}</li>
+            ))}
           </ul>
         </Reveal>
       </div>
@@ -46,7 +52,7 @@ export function Colophon() {
           <div className="md:col-span-10">
             <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-2)", lineHeight: 1.35 }}>
               If any of this reads like something you&apos;d want to{" "}
-              <em className="italic-serif">talk about</em>, models, optimization,
+              <em className="italic-serif">talk about</em>, models, optimisation,
               pipelines, or a quiet photograph,{" "}
               <a href={`mailto:${DATA.contact.email}`} className="link-underline text-[color:var(--color-ink)]">
                 write to me

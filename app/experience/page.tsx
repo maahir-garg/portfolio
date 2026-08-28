@@ -7,12 +7,12 @@ import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 export const metadata: Metadata = {
   title: "Experience",
   description:
-    "Maahir Garg's work experience: AI engineering at GIC, Apple Vision Pro research at Interactive 3D Lab, teaching at NUS, and data/ML roles.",
+    "Maahir Garg's work experience: AI engineering at AICET and GIC, Apple Vision Pro research, and teaching at NUS.",
   alternates: { canonical: absoluteUrl("/experience") },
   openGraph: {
     title: "Experience · Maahir Garg",
     description:
-      "Maahir Garg's work history: AI engineering at GIC, Apple Vision Pro research, teaching at NUS, and data/ML roles.",
+      "Maahir Garg's work history: AI engineering at AICET and GIC, Apple Vision Pro research, and teaching at NUS.",
     url: absoluteUrl("/experience"),
     type: "profile",
     firstName: "Maahir",
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Experience · Maahir Garg",
-    description: "AI engineering, Apple Vision Pro research, teaching at NUS, and data/ML roles.",
+    description: "AI engineering at AICET and GIC, Apple Vision Pro research, and teaching at NUS.",
     images: OG_IMAGE,
   },
 };
@@ -71,7 +71,7 @@ export default function ExperiencePage() {
                   {String(i + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
                 </span>
                 <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
-                  {role.start} → {String(role.end) === "Present" ? "now" : role.end}
+                  {role.dates.replace("Present", "now")}
                 </span>
                 <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
                   {role.location}
@@ -134,7 +134,7 @@ export default function ExperiencePage() {
                     / {l.role}
                   </p>
                   <span className="mono ml-auto text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
-                    {l.start} → {l.end === "Present" ? "now" : l.end}
+                    {l.dates.replace("Present", "now")}
                   </span>
                 </div>
                 <p

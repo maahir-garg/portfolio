@@ -80,8 +80,7 @@ export default function ContactPage() {
               </span>
             </a>
             <p className="mt-4 text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>
-              Usual reply window: within a day or two, faster if it&apos;s
-              urgent and you say so.
+              Add whatever context will make the conversation useful.
             </p>
           </div>
         </section>

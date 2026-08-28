@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { SingaporeClock } from "@/components/home/SingaporeClock";
 import { SITE } from "@/lib/site";
+import { NOW } from "@/lib/data";
 
 const HERO_PHOTO = "/me.jpg";
 
@@ -83,17 +84,17 @@ export function Hero() {
                 className="mt-8 max-w-[55ch] text-[color:var(--color-ink-dim)]"
                 style={{ fontSize: "var(--step-1)", lineHeight: 1.6 }}
               >
-                I recently worked as an AI engineer at{" "}
+                I currently work as an AI Engineer with{" "}
                 <a
-                  href="https://www.gic.com.sg"
+                  href="https://aicet.comp.nus.edu.sg/projects/"
                   target="_blank"
                   rel="noreferrer noopener"
                   className="link-underline text-[color:var(--color-ink)]"
                 >
-                  GIC
-                </a>{" "}
-                in Singapore, building agentic tooling for classified-data
-                environments. I study Computer Science &amp; Quantitative Finance at{" "}
+                  AICET&apos;s Team Koditsu
+                </a>, researching model-based cheating-risk signals for coding assessments.
+                Earlier this year, I built internal agentic tooling at GIC. I also
+                teach Algorithms and Foundations of AI at{" "}
                 <a
                   href="https://nus.edu.sg"
                   target="_blank"
@@ -113,7 +114,7 @@ export function Hero() {
                 <span>
                   Currently:{" "}
                   <span className="text-[color:var(--color-ink-dim)]">
-                    building Trader&apos;s Edge, my final-year project
+                    {NOW.heroStatus}
                   </span>
                 </span>
                 <span className="text-[color:var(--color-rule)] hidden sm:inline">·</span>

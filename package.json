@@ -7,7 +7,10 @@
     "prebuild": "node scripts/generate-photos.js",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:content": "node scripts/check-content.mjs",
+    "test": "npm run check:content",
+    "verify:site": "node scripts/verify-site.mjs"
   },
   "dependencies": {
     "@gsap/react": "^2.1.2",

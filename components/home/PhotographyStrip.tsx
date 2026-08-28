@@ -169,7 +169,7 @@ export function PhotographyStrip() {
               <div className="relative aspect-[4/5] overflow-hidden bg-[color:var(--color-paper)]">
                 <Image
                   src={p.src}
-                  alt={`${p.category.charAt(0).toUpperCase() + p.category.slice(1)} photograph${p.location ? ` in ${p.location}` : ""} by Maahir Garg`}
+                  alt={`${p.category === "portraits" ? "Portrait" : p.category.charAt(0).toUpperCase() + p.category.slice(1)} photograph${p.location ? ` in ${p.location}` : ""} by Maahir Garg`}
                   fill
                   sizes="(min-width: 1024px) 22vw, 45vw"
                   className="object-cover transition-[filter,transform] duration-700 ease-out group-hover:scale-[1.02] group-hover:saturate-100 saturate-[0.9]"
