@@ -18,7 +18,7 @@ function classify(p: (typeof DATA.projects)[number]): string[] {
   const tech = p.technologies.join(" ").toLowerCase();
   const desc = p.description.toLowerCase();
   const tags: string[] = [];
-  if (/(llm|bert|peft|fine|lora|llama|ai|ml|pytorch|nlp|few-shot|quantization|pruning|rag|vector|algorithm|leetcode|problem solving)/.test(tech + desc)) tags.push("ml");
+  if (/(llm|bert|peft|fine|lora|llama|ai|ml|pytorch|nlp|few-shot|quantisation|quantization|pruning|rag|vector|algorithm|leetcode|problem solving)/.test(tech + desc)) tags.push("ml");
   if (/(swift|vision|realitykit|visionpro|iphone|multimodal.*track|stroke)/.test(tech + desc)) tags.push("spatial");
   if (/(scraping|pipeline|etl|data engineering|sqlite|kafka|spark|snowflake|airflow)/.test(tech + desc)) tags.push("data");
   if (p.links.some((l) => Boolean(l.href))) tags.push("open");

@@ -1,6 +1,6 @@
 # Portfolio
 
-Modern, high-performance portfolio built with Next.js, TypeScript, and GSAP. Features smooth animations, custom cursor interactions, and a clean, minimalist design aesthetic.
+Editorial portfolio built with Next.js and TypeScript. It uses a field-notebook visual system, accessible navigation, responsive layouts, and independently tuned light and dark themes.
 🌐 **Live Site**: [https://maahir-garg.vercel.app/](https://maahir-garg.vercel.app/)
 ## Features
 
@@ -10,7 +10,7 @@ Modern, high-performance portfolio built with Next.js, TypeScript, and GSAP. Fea
 - **Photography Gallery**: Dedicated section with scattered and grid view layouts
 - **Project Showcase**: Clean project cards with hover interactions
 - **Responsive Design**: Mobile-first approach with adaptive layouts
-- **Performance Optimized**: Static generation with ISR for optimal load times
+- **Static Delivery**: Static generation and ISR where the site benefits from them
 - **SEO Ready**: Comprehensive meta tags, JSON-LD structured data, sitemap, and robots.txt
 
 ## Quick Start
@@ -110,6 +110,6 @@ Interactive skill categories with smooth expand/collapse animations.
 ### Custom Cursor
 Desktop-only custom cursor with hover state transformations.
 
-## License
+## Rights
 
-This project is open source and available under the [MIT License](LICENSE).
+Copyright © 2026 Maahir Garg. No code licence is granted by this repository, and the photography remains all rights reserved.

@@ -1,59 +1,38 @@
 # Maahir Garg
 
-> Maahir Garg is an AI engineer and Computer Science & Quantitative Finance
-> student at the National University of Singapore (NUS), based in Singapore.
-> He recently worked at GIC, where he built agentic LLM tooling for
-> classified-data environments, and co-invented a multimodal hand-tracking
-> framework on Apple Vision Pro for stroke rehabilitation (patent application
-> in progress).
+> Maahir Garg is an AI Engineer with AICET's Team Koditsu and a Computer Science and Quantitative Finance student at the National University of Singapore, based in Singapore.
 
-Key facts:
+Current facts:
 
-- Experience: AI Engineer at GIC (Jan–Jul 2026), where he built an internal
-  agentic CLI agent and LLM pipelines that automate audit workflows.
-- Education: Bachelor of Computing (Honours) in Computer Science with a
-  Second Major in Quantitative Finance, National University of Singapore
-  (2023–2027).
-- Research: multimodal iPhone + Apple Vision Pro hand-tracking framework for
-  stroke rehabilitation at Interactive 3D Lab, 89% cross-device accuracy
-  (patent application in progress); BERT quantization/pruning (~69% smaller,
-  <0.5% F1 loss); PEFT/BitFit experiments on LLM reasoning.
-- Teaching: Algorithms, Data Structures, and Discrete Structures at NUS
-  across three semesters (4.8/5.0 student rating).
-- Interests: photography, badminton, Formula 1, chess.
-- Contact: maahirrgarg@gmail.com
+- AICET, Team Koditsu: AI Engineer since Aug 2026, researching model-based cheating-risk signals for coding assessments from character-level editor interaction streams. This work is in research and model development; no trained model, performance result, deployment, or measured impact is claimed.
+- GIC: AI Engineer from Jan to Jul 2026. Built an internal agentic CLI and sandboxed Chainlit assistant for an 11-person team with eight custom tools, multi-agent orchestration, skill routing, 50+ automated audit tests, separate custom evaluations, step-level guardrails, and Arize tracing. A Snowflake and SharePoint pipeline automated two manual data sources and reduced evidence retrieval from hours to near-instant.
+- NUS teaching: currently teaches CS3230 Design and Analysis of Algorithms and CS3263 Foundations of Artificial Intelligence, leading a 21-student CS3230 tutorial. Across four teaching semesters and five appointments, earned a 4.8/5.0 teaching rating against a 4.2 faculty average and a place on the NUS Honour List of Student Tutors.
+- Education: Bachelor of Computing (Honours) in Computer Science, Second Major in Quantitative Finance, Minor in Data Engineering, and specialisations in Artificial Intelligence with Distinction, Database Systems, and Computer Networks. GPA 4.71/5.00; expected graduation May 2027.
+- Interactive 3D Lab: co-developed an iPhone and Apple Vision Pro tracking framework in collaboration with Apple for stroke-rehabilitation assessment, reaching 89% cross-device accuracy, 30 fps, and sub-millisecond latency. Co-author on a paper in preparation and co-inventor on a patent application in progress.
+- Interests: photography, badminton, chess blitz, poker, swimming, and Formula 1.
 
-FAQ:
+Selected projects:
 
-- Who is Maahir Garg? An AI engineer and Computer Science & Quantitative
-  Finance student at the National University of Singapore (NUS), based in
-  Singapore, who previously worked at GIC.
-- What did Maahir Garg work on at GIC? Agentic LLM tooling for
-  classified-data environments, including an internal agentic CLI agent for
-  an 11-person team and pipelines that automate audit workflows end-to-end.
-- Where is Maahir Garg based? Singapore, where he studies at NUS.
-- What has Maahir Garg built? A multimodal hand-tracking framework on
-  Apple Vision Pro for stroke rehabilitation (patent application in
-  progress); an internal CLI agent at GIC; quantization and pruning work on
-  BERT (~69% size reduction with <0.5% F1 loss); and PEFT/BitFit
-  experiments on LLM reasoning.
-- How do you contact Maahir Garg? Email maahirrgarg@gmail.com, or via
-  https://maahir-garg.vercel.app/contact.
+- PGPals: sole-built Next.js, TypeScript, and Supabase event platform prepared for 200+ pre-launch sign-ups and exactly 100 challenges. The event is scheduled for 31 Aug to 13 Sep 2026, with a finale on 17 Sep. The sign-up unit is not yet confirmed.
+- Trader's Edge: team final-year project advised by Anand Bhojan, with a working MVP for plain-English strategy specification and historical-data backtesting. The demo requires Google sign-in. Public source is the NUS-FinTechAI team repository.
+- Prediction-market engine: read-only FastAPI research engine over public Polymarket and Kalshi feeds, with human-confirmed pairings, fee and liquidity modelling, hedge-equal depth fills, and 36+ tests. It never places orders, holds funds, or reports realised P&L.
+- BERT QA compression: 69% size reduction from 440 MB to 128 MB with no more than 0.5% F1 loss; custom mask-enforced pruning reached 54.7% sparsity.
+- Domain-specific PEFT: BitFit updated no more than 0.1% of parameters, limited to bias terms, and improved reasoning accuracy from 47% to 73% on clause-extracted health-insurance scenarios.
 
-## Pages
+Pages:
 
-- [Home](https://maahir-garg.vercel.app/): who Maahir is and what he's building now
-- [About](https://maahir-garg.vercel.app/about): background and skills
-- [Experience](https://maahir-garg.vercel.app/experience): roles at GIC, Interactive 3D Lab, NUS, and earlier
-- [Projects](https://maahir-garg.vercel.app/projects): archive of ML/LLM, spatial computing, and data projects
-- [Now](https://maahir-garg.vercel.app/now): what he's building, reading, and playing this month
-- [Photography](https://maahir-garg.vercel.app/photography): photo work
-- [Contact](https://maahir-garg.vercel.app/contact): how to reach him
-- [Résumé (PDF)](https://maahir-garg.vercel.app/maahir-garg-resume.pdf)
+- Home: https://maahir-garg.vercel.app/
+- About: https://maahir-garg.vercel.app/about
+- Experience: https://maahir-garg.vercel.app/experience
+- Projects: https://maahir-garg.vercel.app/projects
+- Now: https://maahir-garg.vercel.app/now
+- Photography: https://maahir-garg.vercel.app/photography
+- Contact: https://maahir-garg.vercel.app/contact
+- Résumé: https://maahir-garg.vercel.app/maahir-garg-resume.pdf
 
-## Profiles
+Profiles:
 
-- [GitHub](https://github.com/maahir-garg)
-- [LinkedIn](https://www.linkedin.com/in/maahir-garg)
-- [LeetCode](https://leetcode.com/u/maahir_garg/)
-- [Email](mailto:maahirrgarg@gmail.com)
+- GitHub: https://github.com/maahir-garg
+- LinkedIn: https://www.linkedin.com/in/maahir-garg
+- LeetCode: https://leetcode.com/u/maahir_garg/
+- Email: mailto:maahirrgarg@gmail.com

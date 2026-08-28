@@ -82,7 +82,7 @@ function yearFromIso(iso: string | null): string | null {
 
 /**
  * Descriptive, per-photo alt text. Most photos have no caption, so without
- * location/year every frame in a category would share the identical alt —
+ * location/year every frame in a category would share the identical alt,
  * useless to Google Images and to screen readers flipping through the grid.
  */
 function altFor(photo: Photo): string {
@@ -90,10 +90,12 @@ function altFor(photo: Photo): string {
     photo.meta?.year != null
       ? String(photo.meta.year)
       : yearFromIso(photo.exif?.takenAt ?? null);
-  const category =
-    photo.category.charAt(0).toUpperCase() + photo.category.slice(1);
+  const category = photo.category === "portraits"
+    ? "Portrait"
+    : photo.category.charAt(0).toUpperCase() + photo.category.slice(1);
+  const cleanCaption = photo.meta?.caption?.replace(/[.]+$/, "");
   return [
-    photo.meta?.caption ? `${photo.meta.caption}.` : null,
+    cleanCaption ? `${cleanCaption}.` : null,
     `${category} photograph`,
     photo.meta?.location ? `in ${photo.meta.location}` : null,
     year ? `(${year})` : null,
@@ -347,7 +349,7 @@ export function PhotoGallery() {
           >
             <div className="flex items-center justify-center" style={{ maxHeight: "78vh", minHeight: "40vh" }}>
               {/* next/image with the manifest's intrinsic dimensions, so the
-                  lightbox serves an optimized rendition instead of the raw
+                  lightbox serves an optimised rendition instead of the raw
                   multi-megabyte original. */}
               <Image
                 src={current.src}

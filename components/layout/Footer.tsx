@@ -94,9 +94,9 @@ export function Footer() {
             </Link>
             <a
               href={`mailto:${DATA.contact.email}`}
-              className="group inline-flex items-baseline gap-2"
+              className="group inline-flex max-w-full min-w-0 flex-wrap items-baseline gap-2"
             >
-              <span className="text-2xl link-underline">
+              <span className="min-w-0 break-all text-[clamp(0.85rem,1.4vw,1.35rem)] leading-tight link-underline">
                 {DATA.contact.email}
               </span>
               <span className="text-[color:var(--color-mark)]">→</span>
@@ -109,7 +109,7 @@ export function Footer() {
       <div className="border-t border-[color:var(--color-rule)]">
         <div className="container-page flex flex-col items-start justify-between gap-3 py-5 text-[color:var(--color-ink-faint)] md:flex-row md:items-center">
           <p className="mono text-[11px] uppercase tracking-[0.12em]">
-            © {year} Maahir Garg · v2 · no rights reserved, take what helps
+            © {year} Maahir Garg · No rights reserved, take what helps
           </p>
           <p className="mono text-[11px] uppercase tracking-[0.12em]">
             <a

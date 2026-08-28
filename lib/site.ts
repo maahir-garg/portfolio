@@ -25,9 +25,9 @@ export const SITE = {
   // ISO date used as default lastModified across the site. Bumped manually
   // when content meaningfully changes so Google sees a real freshness signal
   // instead of a build-time `new Date()` that thrashes every deploy.
-  lastModified: "2026-07-27",
+  lastModified: "2026-08-28",
   // Site launch date (first commit / first deploy). Used as ProfilePage
-  // dateCreated — one of Google's two recommended date properties there.
+  // dateCreated is one of Google's two recommended date properties there.
   dateCreated: "2026-01-19",
 } as const;
 
@@ -41,7 +41,7 @@ export function absoluteUrl(path: string = "/"): string {
  * Shared OG image for page-level `openGraph`/`twitter` overrides. A page
  * that defines `openGraph` replaces the inherited object entirely, and the
  * root file-convention opengraph-image.tsx does not attach to segments
- * that do so — without restating `images`, interior pages unfurl with no
+ * that do so. Without restating `images`, interior pages unfurl with no
  * card image on WhatsApp/LinkedIn/Slack/X.
  */
 export const OG_IMAGE = [
@@ -49,7 +49,7 @@ export const OG_IMAGE = [
     url: `${SITE.baseUrl}/opengraph-image`,
     width: 1200,
     height: 630,
-    alt: "Maahir Garg · AI Engineer. CS + Quantitative Finance at NUS.",
+    alt: "Maahir Garg, AI Engineer at AICET and CS plus Quantitative Finance student at NUS.",
   },
 ];
 
@@ -57,7 +57,7 @@ export const OG_IMAGE = [
  * Expand a YYYY-MM-DD date into a full ISO 8601 DateTime at midnight SGT.
  * Google's Search Console types ProfilePage dateCreated/dateModified (and
  * article:*_time OG tags) as DateTime and reports bare dates as
- * "Invalid datetime value" — every date that reaches JSON-LD or OG meta
+ * "Invalid datetime value". Every date that reaches JSON-LD or OG meta
  * must pass through here.
  */
 export function toIsoDateTime(isoDate: string): string {

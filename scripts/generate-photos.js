@@ -74,7 +74,10 @@ function formatIso(iso) {
 
 async function extractExif(absPath) {
     try {
-        const data = await exifr.parse(absPath, {
+        // Parse an in-memory buffer. Newer Node releases reject the legacy
+        // file-handle path used by exifr for string paths.
+        const source = await fs.promises.readFile(absPath);
+        const data = await exifr.parse(source, {
             tiff: true,
             exif: true,
             ifd0: true,

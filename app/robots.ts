@@ -7,7 +7,7 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: "*",
         allow: ["/", "/_next/image"],
-        // /_next/image is next/image's optimization endpoint — every photo
+        // /_next/image is next/image's optimisation endpoint. Every photo
         // and the hero portrait resolve through it, so disallowing all of
         // /_next/ blocked Google Images from every image on the site.
         disallow: ["/api/", "/_next/"],

@@ -84,6 +84,7 @@ export function Header() {
             type="button"
             onClick={() => setOpen((v) => !v)}
             aria-expanded={open}
+            aria-controls="mobile-navigation"
             aria-label="Toggle menu"
             className="mono inline-flex h-8 items-center gap-1.5 rounded-full border border-[color:var(--color-rule)] px-3 text-[11px] uppercase tracking-wider text-[color:var(--color-ink)]"
           >
@@ -103,12 +104,9 @@ export function Header() {
       </div>
 
       {/* Mobile menu */}
-      <div
-        className={`md:hidden overflow-hidden border-t border-[color:var(--color-rule)] transition-[max-height,opacity] duration-300 ${
-          open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-        }`}
-      >
-        <nav className="container-page flex flex-col py-4" aria-label="Mobile">
+      {open && (
+      <div className="md:hidden overflow-hidden border-t border-[color:var(--color-rule)]">
+        <nav id="mobile-navigation" className="container-page flex flex-col py-4" aria-label="Mobile">
           {nav.map((item, i) => (
             <Link
               key={item.href}
@@ -124,6 +122,7 @@ export function Header() {
           ))}
         </nav>
       </div>
+      )}
     </header>
   );
 }

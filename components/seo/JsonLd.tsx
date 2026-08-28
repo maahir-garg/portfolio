@@ -43,9 +43,9 @@ export function JsonLd() {
       "@type": "Occupation",
       name: "AI Engineer",
       occupationLocation: { "@type": "City", name: "Singapore" },
-      skills: "Agentic LLMs, model optimization, spatial computing, data engineering, quantitative finance",
+      skills: "Agentic LLMs, model optimisation, sequence modelling, evaluations, tracing, data engineering, quantitative finance",
     },
-    // Current student (2023–2027), so memberOf rather than alumniOf —
+    // Current student (2023–2027), so memberOf rather than alumniOf.
     // alumniOf asserts a *completed* affiliation and would contradict the
     // visible copy ("I study ... at NUS"). Flip to alumniOf after graduation.
     memberOf: {
@@ -62,7 +62,6 @@ export function JsonLd() {
       "@type": "Place",
       name: "Singapore",
     },
-    nationality: { "@type": "Country", name: "India" },
     workLocation: {
       "@type": "Place",
       name: "Singapore",
@@ -71,6 +70,8 @@ export function JsonLd() {
       "Large Language Models",
       "Agentic AI",
       "Machine Learning",
+      "Sequence Modelling",
+      "AI Evaluation",
       "Spatial Computing",
       "Apple Vision Pro",
       "Data Engineering",
@@ -81,7 +82,7 @@ export function JsonLd() {
     description: DATA.summary,
     seeks: {
       "@type": "Demand",
-      name: "Research and engineering collaborations on agentic LLM systems and spatial computing",
+      name: "AI engineering and quantitative software roles",
     },
   };
 
@@ -93,7 +94,7 @@ export function JsonLd() {
     name: `${DATA.name} · Portfolio`,
     alternateName: `${DATA.name} · Field Notebook`,
     description: DATA.description,
-    inLanguage: "en-US",
+    inLanguage: "en-SG",
     author: { "@id": PERSON_ID },
     publisher: { "@id": PERSON_ID },
     copyrightHolder: { "@id": PERSON_ID },
@@ -106,6 +107,7 @@ export function JsonLd() {
     "@id": PROFILE_ID,
     url: SITE.baseUrl,
     name: `${DATA.name} · AI Engineer`,
+    inLanguage: "en-SG",
     about: { "@id": PERSON_ID },
     mainEntity: { "@id": PERSON_ID },
     isPartOf: { "@id": WEBSITE_ID },
@@ -176,7 +178,7 @@ export function ProjectJsonLd({ slug }: { slug: string }) {
   const project = DATA.projects.find((p) => p.slug === slug);
   if (!project) return null;
 
-  const sourceLink = project.links.find((l) => l.type === "Source" && l.href)?.href;
+  const sourceLink = project.links.find((l) => l.type.startsWith("Source") && l.href)?.href;
   const baseType = sourceLink ? "SoftwareSourceCode" : "CreativeWork";
   const url = absoluteUrl(`/projects/${slug}`);
 
@@ -188,7 +190,7 @@ export function ProjectJsonLd({ slug }: { slug: string }) {
     headline: project.title,
     description: project.description,
     url,
-    inLanguage: "en-US",
+    inLanguage: "en-SG",
     author: { "@id": PERSON_ID },
     creator: { "@id": PERSON_ID },
     keywords: project.technologies.join(", "),
