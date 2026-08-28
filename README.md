@@ -112,4 +112,4 @@ Desktop-only custom cursor with hover state transformations.
 
 ## Rights
 
-Copyright © 2026 Maahir Garg. No code licence is granted by this repository, and the photography remains all rights reserved.
+Copyright © 2026 Maahir Garg. No rights reserved; take what helps.
