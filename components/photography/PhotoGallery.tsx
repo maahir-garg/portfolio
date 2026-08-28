@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState, useEffect, useCallback, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import Image from "next/image";
 import manifest from "@/lib/photos-manifest.json";
 
@@ -303,93 +304,96 @@ export function PhotoGallery() {
       )}
 
       {/* Lightbox */}
-      {current && (
-        <div
-          role="dialog"
-          aria-modal="true"
-          aria-label={`Photo ${lightbox! + 1} of ${filtered.length}`}
-          className="fixed inset-0 z-50 flex items-center justify-center bg-[color:var(--color-canvas)]/95 backdrop-blur-md p-4 md:p-10"
-          onClick={close}
-        >
-          <button
-            type="button"
-            onClick={close}
-            aria-label="Close"
-            className="absolute top-4 right-4 z-10 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
-          >
-            Close ✕
-          </button>
-
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              prev();
-            }}
-            aria-label="Previous photo"
-            className="absolute left-4 top-1/2 z-10 -translate-y-1/2 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
-          >
-            ← Prev
-          </button>
-          <button
-            type="button"
-            onClick={(e) => {
-              e.stopPropagation();
-              next();
-            }}
-            aria-label="Next photo"
-            className="absolute right-4 top-1/2 z-10 -translate-y-1/2 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
-          >
-            Next →
-          </button>
-
+      {mounted &&
+        current &&
+        createPortal(
           <div
-            className="relative max-h-[82vh] w-full max-w-5xl"
-            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-label={`Photo ${lightbox! + 1} of ${filtered.length}`}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-[color:var(--color-canvas)]/95 backdrop-blur-md p-4 md:p-10"
+            onClick={close}
           >
-            <div className="flex items-center justify-center" style={{ maxHeight: "78vh", minHeight: "40vh" }}>
-              {/* next/image with the manifest's intrinsic dimensions, so the
-                  lightbox serves an optimised rendition instead of the raw
-                  multi-megabyte original. */}
-              <Image
-                src={current.src}
-                alt={altFor(current)}
-                width={current.exif?.width ?? 1600}
-                height={current.exif?.height ?? 1200}
-                sizes="(min-width: 1024px) 80vw, 100vw"
-                style={{ maxHeight: "78vh", width: "auto", maxWidth: "100%", objectFit: "contain", display: "block" }}
-              />
+            <button
+              type="button"
+              onClick={close}
+              aria-label="Close"
+              className="absolute top-4 right-4 z-10 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
+            >
+              Close ✕
+            </button>
+
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                prev();
+              }}
+              aria-label="Previous photo"
+              className="absolute left-4 top-1/2 z-10 -translate-y-1/2 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
+            >
+              ← Prev
+            </button>
+            <button
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                next();
+              }}
+              aria-label="Next photo"
+              className="absolute right-4 top-1/2 z-10 -translate-y-1/2 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
+            >
+              Next →
+            </button>
+
+            <div
+              className="relative max-h-[82vh] w-full max-w-5xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="flex items-center justify-center" style={{ maxHeight: "78vh", minHeight: "40vh" }}>
+                {/* next/image with the manifest's intrinsic dimensions, so the
+                    lightbox serves an optimised rendition instead of the raw
+                    multi-megabyte original. */}
+                <Image
+                  src={current.src}
+                  alt={altFor(current)}
+                  width={current.exif?.width ?? 1600}
+                  height={current.exif?.height ?? 1200}
+                  sizes="(min-width: 1024px) 80vw, 100vw"
+                  style={{ maxHeight: "78vh", width: "auto", maxWidth: "100%", objectFit: "contain", display: "block" }}
+                />
+              </div>
+              <div className="mt-4 flex flex-col items-center gap-1.5 text-center">
+                <p className="mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--color-ink-dim)]">
+                  {currentLocation ?? current.category}
+                  {currentYear ? ` · ${currentYear}` : ""}
+                  {" · "}
+                  {String(lightbox! + 1).padStart(2, "0")} /{" "}
+                  {String(filtered.length).padStart(2, "0")}
+                </p>
+                {currentNote && (
+                  <p
+                    className="italic-serif text-[color:var(--color-ink)]"
+                    style={{ fontSize: "var(--step-1)", lineHeight: 1.4 }}
+                  >
+                    {currentNote}
+                  </p>
+                )}
+                {currentExifLine && (
+                  <p className="mono text-[10px] tracking-[0.18em] text-[color:var(--color-ink-faint)]">
+                    {currentExifLine}
+                  </p>
+                )}
+                {currentGear && (
+                  <p className="mono text-[10px] tracking-[0.18em] text-[color:var(--color-ink-faint)]">
+                    {currentGear}
+                  </p>
+                )}
+              </div>
             </div>
-            <div className="mt-4 flex flex-col items-center gap-1.5 text-center">
-              <p className="mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--color-ink-dim)]">
-                {currentLocation ?? current.category}
-                {currentYear ? ` · ${currentYear}` : ""}
-                {" · "}
-                {String(lightbox! + 1).padStart(2, "0")} /{" "}
-                {String(filtered.length).padStart(2, "0")}
-              </p>
-              {currentNote && (
-                <p
-                  className="italic-serif text-[color:var(--color-ink)]"
-                  style={{ fontSize: "var(--step-1)", lineHeight: 1.4 }}
-                >
-                  {currentNote}
-                </p>
-              )}
-              {currentExifLine && (
-                <p className="mono text-[10px] tracking-[0.18em] text-[color:var(--color-ink-faint)]">
-                  {currentExifLine}
-                </p>
-              )}
-              {currentGear && (
-                <p className="mono text-[10px] tracking-[0.18em] text-[color:var(--color-ink-faint)]">
-                  {currentGear}
-                </p>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
+          </div>,
+          document.body,
+        )}
     </div>
   );
 }

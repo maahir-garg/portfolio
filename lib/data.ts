@@ -186,7 +186,7 @@ export const DATA: {
     },
     {
       company: "NUS",
-      href: "https://www.comp.nus.edu.sg/programmes/ug/orbital/",
+      href: "https://www.comp.nus.edu.sg/orbital/",
       location: "Singapore",
       title: "Orbital Programme Advisor",
       dates: "May–Aug 2025; May–Aug 2026",
