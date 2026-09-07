@@ -25,7 +25,7 @@ export const SITE = {
   // ISO date used as default lastModified across the site. Bumped manually
   // when content meaningfully changes so Google sees a real freshness signal
   // instead of a build-time `new Date()` that thrashes every deploy.
-  lastModified: "2026-08-28",
+  lastModified: "2026-09-07",
   // Site launch date (first commit / first deploy). Used as ProfilePage
   // dateCreated is one of Google's two recommended date properties there.
   dateCreated: "2026-01-19",

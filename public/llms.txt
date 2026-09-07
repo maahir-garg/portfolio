@@ -4,7 +4,7 @@
 
 Current facts:
 
-- AICET, Team Koditsu: AI Engineer since Aug 2026, researching model-based cheating-risk signals for coding assessments from character-level editor interaction streams. This work is in research and model development; no trained model, performance result, deployment, or measured impact is claimed.
+- AICET, Team Koditsu: AI Engineer since Aug 2026, researching model-based cheating-risk signals for coding assessments from character-level editor interaction streams and periodic code-state snapshots, with sequence-model and LLM approaches designed to support human review.
 - GIC: AI Engineer from Jan to Jul 2026. Built an internal agentic CLI and sandboxed Chainlit assistant for an 11-person team with eight custom tools, multi-agent orchestration, skill routing, 50+ automated audit tests, separate custom evaluations, step-level guardrails, and Arize tracing. A Snowflake and SharePoint pipeline automated two manual data sources and reduced evidence retrieval from hours to near-instant.
 - NUS teaching: currently teaches CS3230 Design and Analysis of Algorithms and CS3263 Foundations of Artificial Intelligence, leading a 21-student CS3230 tutorial. Across four teaching semesters and five appointments, earned a 4.8/5.0 teaching rating against a 4.2 faculty average and a place on the NUS Honour List of Student Tutors.
 - Education: Bachelor of Computing (Honours) in Computer Science, Second Major in Quantitative Finance, Minor in Data Engineering, and specialisations in Artificial Intelligence with Distinction, Database Systems, and Computer Networks. GPA 4.71/5.00; expected graduation May 2027.
@@ -13,7 +13,7 @@ Current facts:
 
 Selected projects:
 
-- PGPals: sole-built Next.js, TypeScript, and Supabase event platform prepared for 200+ pre-launch sign-ups and exactly 100 challenges. The event is scheduled for 31 Aug to 13 Sep 2026, with a finale on 17 Sep. The sign-up unit is not yet confirmed.
+- PGPals: sole-built Next.js, TypeScript, and Supabase platform for The Emerald Challenge, PGPR's two-week buddy programme running from 31 Aug to 13 Sep 2026, with a finale on 17 Sep. The platform manages exactly 100 challenges, roster access, media submissions, RA review, PGP Coin scoring, announcements, and leaderboard controls.
 - Trader's Edge: team final-year project advised by Anand Bhojan, with a working MVP for plain-English strategy specification and historical-data backtesting. The demo requires Google sign-in. Public source is the NUS-FinTechAI team repository.
 - Prediction-market engine: read-only FastAPI research engine over public Polymarket and Kalshi feeds, with human-confirmed pairings, fee and liquidity modelling, hedge-equal depth fills, and 36+ tests. It never places orders, holds funds, or reports realised P&L.
 - BERT QA compression: 69% size reduction from 440 MB to 128 MB with no more than 0.5% F1 loss; custom mask-enforced pruning reached 54.7% sparsity.

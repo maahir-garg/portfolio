@@ -112,12 +112,6 @@ export const metadata: Metadata = {
     },
   },
   category: "technology",
-  // Existing GSC verification is via the /google2504911a6657dea8.html file in
-  // /public, which Google will fetch directly. Adding the meta-tag form below
-  // belt-and-braces if/when the user pastes the verification token.
-  verification: {
-    // google: "REPLACE_WITH_GOOGLE_SEARCH_CONSOLE_TOKEN",
-  },
   formatDetection: {
     email: false,
     address: false,

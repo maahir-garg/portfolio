@@ -35,9 +35,9 @@ export type Project = {
 };
 
 export const NOW = {
-  updated: "28 Aug 2026",
+  updated: "7 Sep 2026",
   heroStatus:
-    "researching cheating-risk signals at AICET, teaching at NUS, and building PGPals and Trader's Edge",
+    "researching cheating-risk signals at AICET, teaching at NUS, and iterating on PGPals and Trader's Edge",
   sections: [
     {
       label: "Building",
@@ -45,12 +45,12 @@ export const NOW = {
         {
           primary: "PGPals",
           secondary:
-            "preparing 100 challenges and the review workflow for 200+ pre-launch sign-ups",
+            "The Emerald Challenge platform, built around 100 challenges",
         },
         {
           primary: "Trader's Edge",
           secondary:
-            "building the FYP MVP for AI-generated and backtested trading strategies",
+            "iterating on a working FYP MVP for strategy specification and backtesting",
         },
       ],
     },
@@ -58,11 +58,8 @@ export const NOW = {
       label: "Watching",
       items: [
         { primary: "Formula 1",
-          secondary: "Ferarri fans anyone?"
+          secondary: "following the 2026 season"
         },
-        { primary: "Ted Lasso",
-          secondary: "re-watching the first three seasons before the fourth",
-         },
       ],
     },
     {
@@ -70,19 +67,17 @@ export const NOW = {
       items: [
         {
           primary: "Badminton",
-          secondary: "I'm not very good",
         },
         {
           primary: "Chess",
-          secondary: "playing blitz cause I don't have time for anything else",
+          secondary: "playing blitz",
         },
         {
-          primary: "Board games",
-          secondary: "Dnup and No Thanks, among others",
+          primary: "Drums",
         },
         {
           primary: "Photography",
-          secondary: "carrying a camera and shooting film",
+          secondary: "landscape, street, and urban photography",
         },
       ],
     },
@@ -171,7 +166,7 @@ export const DATA: {
       current: true,
       featured: true,
       description:
-        "Researching model-based cheating-risk signals for Koditsu's coding-assessment platform from character-level editor interactions and periodic code-state snapshots. Investigating sequence-model and LLM approaches that produce probabilistic signals for human review; the work remains in research and model development.",
+        "Researching model-based cheating-risk signals for Koditsu's coding-assessment platform from character-level editor interactions and periodic code-state snapshots. Current work investigates sequence-model and LLM approaches that produce probabilistic signals for human review.",
     },
     {
       company: "NUS, School of Computing",
@@ -191,7 +186,7 @@ export const DATA: {
       title: "Orbital Programme Advisor",
       dates: "May–Aug 2025; May–Aug 2026",
       description:
-        "Advised student software-project teams across two separate summer appointments, covering architecture, implementation, code review, and release management. In the 2025 cohort, advised 12 teams and all 12 passed at or above their target grade; 2026 outcomes are not yet claimed.",
+        "Advised student software-project teams across two separate summer appointments, covering architecture, implementation, code review, and release management. In the 2025 cohort, all 12 teams passed at or above their target grade.",
     },
     {
       company: "GIC",
@@ -319,14 +314,14 @@ export const DATA: {
       dates: "Jul 2026 – Present",
       active: true,
       description:
-        "Sole-built PGPals, a Next.js, TypeScript, and Supabase event platform prepared for 200+ pre-launch sign-ups and exactly 100 challenges, combining roster-based access, media submissions, RA review, PGP Coin scoring, announcements, and leaderboard controls.",
+        "I built PGPals end to end for The Emerald Challenge: a Next.js, TypeScript, and Supabase platform for 100 scheduled challenges, roster-based access, media submissions, RA review, PGP Coin scoring, announcements, and leaderboard controls.",
       notes:
-        "PGPals supports The Emerald Challenge, scheduled for 31 Aug to 13 Sep 2026, with a finale on 17 Sep. As of 28 Aug, the event has not started, and the unit behind the 200+ sign-ups remains unconfirmed. The platform is ready for launch, but no participant, submission, reviewer-activity, or completion outcome is claimed yet.",
+        "PGPals was built for The Emerald Challenge, PGPR's two-week buddy programme running from 31 Aug to 13 Sep 2026, with a finale on 17 Sep. The platform brings the event's challenges, roster access, submissions, RA review, scoring, announcements, and leaderboard into one workflow.",
       evidence: [
         { label: "Ownership", body: "Sole-built by Maahir for the PGPals event workflow." },
         { label: "Architecture", body: "Next.js App Router and TypeScript over Supabase PostgreSQL, Auth, Storage, row-level security, and RPC, deployed in Vercel's Singapore region." },
         { label: "Operations", body: "Roster import and regrouping, roster-based access, photo and group-task submissions, approval, rejection and reversion, PGP Coin scoring, bonus awards, scheduled challenges, announcements, and leaderboard controls." },
-        { label: "Pre-launch scale", body: "Prepared for 200+ pre-launch sign-ups, exactly 100 challenges split 50 per week, and 10 configured RA accounts. Configured accounts are not described as active reviewers." },
+        { label: "Event setup", body: "Configured for exactly 100 challenges split 50 per week and 10 RA review accounts." },
       ],
       technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
       links: [{ type: "Live site", href: "https://pgpals.vercel.app", icon: "external" }],
@@ -338,12 +333,13 @@ export const DATA: {
       dates: "May 2026 – Present",
       active: true,
       description:
-        "A team final-year project advised by Anand Bhojan, building a working MVP for students to specify and backtest trading strategies in an interactive learning environment.",
+        "A team final-year project advised by Anand Bhojan, with a working MVP that helps students specify and backtest trading strategies in an interactive learning environment.",
       notes:
-        "The current MVP pairs plain-English strategy specification with historical-data backtesting. Survivorship bias, look-ahead leakage, regime dependence, and overfitting are learning topics; implementation of specific safeguards is not claimed until the team's scope is confirmed. Maahir's exact personal implementation boundary is also still being documented.",
+        "Trader's Edge turns plain-English strategy ideas into historical-data backtests and places the results in a learning environment for students. The project is a team FYP, and its public source is the NUS-FinTechAI organisation repository.",
       evidence: [
-        { label: "Intended user", body: "Students learning how trading strategies behave against historical data." },
-        { label: "Current status", body: "Working MVP with a public demo that requires Google sign-in." },
+        { label: "Product", body: "Working MVP for students to specify strategies in plain English and test them against historical data." },
+        { label: "Collaboration", body: "Team final-year project advised by Anand Bhojan, with source published through the NUS-FinTechAI organisation." },
+        { label: "Access", body: "The public demo requires Google sign-in." },
       ],
       technologies: ["AI", "LLMs", "Backtesting", "Quantitative Finance", "Python"],
       links: [
@@ -360,16 +356,16 @@ export const DATA: {
       description:
         "A student-led, read-only FastAPI research engine over live Polymarket and Kalshi feeds, surfacing human-confirmed cross-venue mispricings after fees, liquidity, and hedge-equal depth fills.",
       notes:
-        "The engine separates pure, unit-testable quantitative functions from read-only venue adapters and in-memory orchestration. It never places orders, holds funds, uses trading authentication, or reports realised P&L. Thin overlap between venues can legitimately produce few matched opportunities, so a quiet screen is not automatically a matching failure.",
+        "The engine separates pure, unit-testable quantitative functions from read-only venue adapters and in-memory orchestration. It uses public market data for research without trading authentication, order placement, or custody of funds.",
       evidence: [
         { label: "Architecture", body: "Pure compute functions, read-only venue adapters, in-memory orchestration, FastAPI and Pydantic, plus a dependency-free inspection dashboard." },
         { label: "Matching", body: "Requires a human-confirmed pairing before an opportunity is actionable, adds predicate-conflict checks, and excludes expired or implausible-gross rows." },
         { label: "Economics", body: "Models taker fees, available liquidity, and equal-contract depth fills to preserve hedged economics." },
         { label: "Validation", body: "36+ tests and live-endpoint plausibility checks cover matching, calibration, fees, malformed settings, duplicates, and API failure modes." },
-        { label: "Boundary", body: "Research-only and read-only, with no order placement, funds, or realised P&L. The demo may take about 20 seconds to wake." },
+        { label: "Operating model", body: "Research-only and read-only, with no order placement, custody of funds, or realised P&L." },
       ],
       technologies: ["Python", "FastAPI", "Pydantic", "pytest", "REST APIs"],
-      links: [{ type: "Demo, cold start may take about 20 seconds", href: "https://pm-intelligence-7vob.onrender.com", icon: "external" }],
+      links: [{ type: "Demo", href: "https://pm-intelligence-7vob.onrender.com", icon: "external" }],
     },
     {
       title: "Optimising BERT for Question Answering",
@@ -380,7 +376,7 @@ export const DATA: {
       description:
         "Reduced a BERT question-answering model by 69%, from 440 MB to 128 MB, with no more than 0.5% F1 loss, and reached 54.7% sparsity through custom mask-enforced pruning.",
       notes:
-        "Post-training quantisation and mask-enforced pruning were evaluated as separate interventions. The useful result is the measured efficiency-versus-generalisation trade-off, not an unsupported claim about a particular F1-curve shape or long-tail behaviour.",
+        "I evaluated post-training quantisation and mask-enforced pruning as separate interventions, then profiled compression settings against F1 to map the efficiency-versus-generalisation trade-off.",
       evidence: [
         { label: "Quantisation", body: "Post-training quantisation reduced model size from 440 MB to 128 MB, a 69% reduction, with no more than 0.5% F1 loss." },
         { label: "Pruning", body: "A custom mask-enforced pruning path reached 54.7% sparsity." },
@@ -398,11 +394,11 @@ export const DATA: {
       description:
         "Used BitFit to update no more than 0.1% of model parameters, limited to bias terms, and improved reasoning accuracy from 47% to 73% on clause-extracted health-insurance scenarios.",
       notes:
-        "This was a bounded domain evaluation, not a deployment or a claim about general-domain performance. The result shows what a small parameter update achieved on the stated clause-extracted scenarios.",
+        "BitFit limited training to bias terms, testing how far a very small parameter update could move reasoning accuracy on clause-extracted health-insurance scenarios.",
       evidence: [
         { label: "Method", body: "BitFit updated bias terms only, keeping the trained share at no more than 0.1% of parameters." },
         { label: "Evaluation", body: "Reasoning accuracy increased from 47% to 73% on clause-extracted health-insurance scenarios." },
-        { label: "Boundary", body: "No deployment or general-domain performance claim." },
+        { label: "Scope", body: "Evaluation used clause-extracted health-insurance scenarios." },
       ],
       technologies: ["LLM", "PEFT", "BitFit", "PyTorch", "AI"],
       links: [{ type: "Private source", href: "", icon: "lock" }],
@@ -416,14 +412,14 @@ export const DATA: {
       description:
         "A multimodal iPhone and Apple Vision Pro tracking framework for stroke-rehabilitation assessment, co-developed at Interactive 3D Lab in collaboration with Apple.",
       notes:
-        "The work unified iPhone and Apple Vision Pro into one tracking surface. It is associated with a paper in preparation and a patent application in progress. The implementation repository is withheld pending patent, lab, and co-inventor disclosure clearance.",
+        "The work unified iPhone and Apple Vision Pro into one tracking surface and is associated with a paper in preparation and a patent application in progress. The implementation link remains private while the research disclosure process continues.",
       evidence: [
         { label: "Contribution", body: "Built the visionOS spatial UI, real-time hand and gaze tracking, and an iPhone companion app." },
         { label: "Validation", body: "Reached 89% cross-device accuracy, 30 fps, and sub-millisecond latency; evaluated across three sessions with three patients per session." },
         { label: "Research status", body: "Co-author on a paper in preparation and co-inventor on a patent application in progress." },
       ],
       technologies: ["Swift", "RealityKit", "visionOS", "ARKit", "iOS"],
-      links: [{ type: "Source withheld pending disclosure clearance", href: "", icon: "lock" }],
+      links: [{ type: "Research source private", href: "", icon: "lock" }],
     },
     {
       title: "LeetCoding",
@@ -435,7 +431,7 @@ export const DATA: {
       description:
         "An ongoing personal practice page for algorithms and data structures, backed by live LeetCode statistics.",
       notes:
-        "This is a practice surface rather than a resume project. It stays focused on category coverage and live statistics; Streak Wars ownership is not claimed here until the contribution boundary is confirmed.",
+        "This page turns ongoing algorithms and data-structures practice into a live view of progress, with statistics fetched from my public LeetCode profile.",
       evidence: [
         { label: "Purpose", body: "Tracks ongoing practice across algorithms and data-structure patterns." },
         { label: "Status", body: "Live statistics are fetched from the public LeetCode profile." },
@@ -452,9 +448,9 @@ export const DATA: {
       description:
         "A public data pipeline that downloads StackExchange archives, parses posts, users, votes, comments, and badges, and exports structured datasets for research analysis.",
       notes:
-        "Research infrastructure, not a product. The lab wanted to know whether feedback signals - votes, accepted answers, edit cycles - shape content quality over time. Most of the interesting decisions ended up being about backoff strategy and resumable extraction rather than the analysis on top; the Stack Exchange API is generous if you respect it and brutal if you don't. Taught me that for any long-running scrape, the first thing worth designing is the resume path, not the happy path.",
+        "Built for an empirical study of content-quality feedback mechanisms, the pipeline turns StackExchange archives into structured tables for analysing how votes and answer acceptance relate to content quality.",
       evidence: [
-        { label: "Architecture", body: "Python and pandas pipeline over XML archives extracted from .7z files." },
+        { label: "Architecture", body: "Python and pandas pipeline over XML archives extracted from .7z files, with malformed-line recovery and file-existence checks." },
         { label: "Output", body: "Aggregates posts, users, votes, comments, and badges into structured CSV files." },
       ],
       technologies: ["Python", "pandas", "XML", "py7zr", "Data Engineering"],
@@ -469,13 +465,13 @@ export const DATA: {
       description:
         "Python automation for collecting Google Scholar citation data for an NUS economics research workflow, replacing manual collection and saving about 520 hours.",
       notes:
-        "Built to free 520 hours the lab was burning on manual citation entry. Scholar doesn't expose an official API, so the tool routes through Postman with careful pacing to avoid getting flagged. Boring code that solved a real problem - most of the value was in the resumability and the dedup on the backend, not the scrape itself. A small reminder that the unglamorous infrastructure projects often return the most time.",
+        "The workflow searches by paper and author metadata, extracts profiles and publication records, calculates citation windows, and exports research-ready spreadsheets.",
       evidence: [
         { label: "Use", body: "Collected author, publication, and citation data and exported research-ready spreadsheets." },
         { label: "Impact", body: "Replaced manual collection and saved about 520 hours against a tight publication deadline." },
       ],
       technologies: ["Python", "BeautifulSoup", "pandas", "Automation"],
-      links: [{ type: "Private (for now)", href: "", icon: "lock" }],
+      links: [{ type: "Source withheld", href: "", icon: "lock" }],
     },
     {
       title: "CAAQMS Air-Quality Scraper",
@@ -486,13 +482,13 @@ export const DATA: {
       description:
         "Python automation for collecting CAAQMS air-quality data, eliminating more than 10,000 hours of manual entry and supporting downstream analysis.",
       notes:
-        "The visible public implementation writes to Excel and contains captured cookies, so it is not linked. SQLite and JWT architecture is omitted here until the public and private implementation histories are reconciled.",
+        "The collection workflow builds encoded CAAQMS requests, retrieves 24 pollutant and environmental fields for configured stations, tracks station-level completion, and exports the results to Excel.",
       evidence: [
         { label: "Collection", body: "Retrieved configured station data across 24 pollutant and environmental fields." },
         { label: "Impact", body: "Eliminated more than 10,000 hours of manual entry for the research workflow." },
       ],
       technologies: ["Python", "pandas", "HTTP APIs", "Data Engineering"],
-      links: [{ type: "Private (for now)", href: "", icon: "lock" }],
+      links: [{ type: "Source withheld", href: "", icon: "lock" }],
     },
     {
       title: "Llama-2 Fine-Tuning",
@@ -501,13 +497,13 @@ export const DATA: {
       dates: "Feb–Mar 2024",
       active: false,
       description:
-        "Fine-tuned Llama-2-7b-chat on the Platypus dataset with LoRA and PEFT, improving target-task accuracy from 73% to 87% in a separately confirmed evaluation.",
+        "Fine-tuned Llama-2-7b-chat on the Platypus dataset with LoRA and PEFT, improving target-task accuracy from 73% to 87%.",
       notes:
-        "The public notebook covers supervised fine-tuning and evaluation mechanics. The 73% to 87% result is separately confirmed but is not presented as currently reproducible from the repository alone because the repository does not document that result.",
+        "The public notebook packages the supervised fine-tuning and evaluation workflow, from parameter-efficient training through target-task assessment.",
       evidence: [
         { label: "Method", body: "LoRA and PEFT supervised fine-tuning on the Platypus dataset." },
-        { label: "Result", body: "Target-task accuracy improved from 73% to 87% in the confirmed evaluation." },
-        { label: "Reproducibility boundary", body: "The linked repository demonstrates the workflow but does not currently substantiate the reported metric." },
+        { label: "Result", body: "Target-task accuracy improved from 73% to 87%." },
+        { label: "Notebook", body: "Public supervised fine-tuning and evaluation workflow." },
       ],
       technologies: ["Python", "Llama-2", "LoRA", "PEFT", "Jupyter"],
       links: [{ type: "Source", href: "https://github.com/maahir-garg/llama2-finetuning", icon: "github" }],
