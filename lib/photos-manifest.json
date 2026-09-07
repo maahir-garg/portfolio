@@ -71,9 +71,7 @@
             "iso": "ISO 20"
           }
         },
-        "meta": {
-          "location": "Somewhere near the water..."
-        }
+        "meta": null
       },
       {
         "src": "/photography/landscape/IMG_1239.jpeg",
@@ -144,10 +142,7 @@
             "iso": null
           }
         },
-        "meta": {
-          "location": "The Moon",
-          "caption": "Moonlight and stardust dreams."
-        }
+        "meta": null
       },
       {
         "src": "/photography/landscape/IMG_2115.jpeg",
@@ -385,9 +380,7 @@
             "iso": "ISO 160"
           }
         },
-        "meta": {
-          "location": "Bamboo Forest"
-        }
+        "meta": null
       },
       {
         "src": "/photography/landscape/IMG_6654.jpeg",
@@ -463,9 +456,7 @@
             "iso": null
           }
         },
-        "meta": {
-          "caption": "Whispering secrets in green."
-        }
+        "meta": null
       },
       {
         "src": "/photography/portraits/IMG_2344.jpeg",
@@ -488,9 +479,7 @@
             "iso": "ISO 640"
           }
         },
-        "meta": {
-          "location": "King Tut"
-        }
+        "meta": null
       },
       {
         "src": "/photography/portraits/IMG_3194.JPG",
@@ -561,9 +550,7 @@
             "iso": null
           }
         },
-        "meta": {
-          "caption": "Sunset captured in petals."
-        }
+        "meta": null
       },
       {
         "src": "/photography/portraits/Photo_2.jpg",
@@ -586,9 +573,7 @@
             "iso": null
           }
         },
-        "meta": {
-          "caption": "Ginger fur full of attitude."
-        }
+        "meta": null
       },
       {
         "src": "/photography/portraits/Photo_3.jpg",
@@ -611,9 +596,7 @@
             "iso": null
           }
         },
-        "meta": {
-          "caption": "A quiet moment up high."
-        }
+        "meta": null
       },
       {
         "src": "/photography/portraits/post.jpg",
@@ -636,9 +619,7 @@
             "iso": null
           }
         },
-        "meta": {
-          "caption": "A gentle giant resting."
-        }
+        "meta": null
       }
     ]
   },
@@ -786,7 +767,7 @@
           }
         },
         "meta": {
-          "location": "In some tomb in Egypt"
+          "location": "Egypt"
         }
       },
       {
@@ -810,9 +791,7 @@
             "iso": null
           }
         },
-        "meta": {
-          "caption": "A rainy ride back home."
-        }
+        "meta": null
       },
       {
         "src": "/photography/street/IMG_2510.jpeg",
@@ -929,9 +908,7 @@
             "iso": "ISO 64"
           }
         },
-        "meta": {
-          "location": "Torii Gates"
-        }
+        "meta": null
       },
       {
         "src": "/photography/street/IMG_6151.jpeg",
@@ -1046,9 +1023,7 @@
             "iso": null
           }
         },
-        "meta": {
-          "caption": "Simple ideas burning brightly."
-        }
+        "meta": null
       },
       {
         "src": "/photography/street/Photo_4.jpg",
@@ -1071,9 +1046,7 @@
             "iso": null
           }
         },
-        "meta": {
-          "caption": "Lost in the city glow."
-        }
+        "meta": null
       }
     ]
   },
@@ -1124,9 +1097,7 @@
             "iso": null
           }
         },
-        "meta": {
-          "caption": "Sparks over the city"
-        }
+        "meta": null
       },
       {
         "src": "/photography/urban/IMG_1011.jpeg",

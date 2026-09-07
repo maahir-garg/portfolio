@@ -6,7 +6,7 @@ import { absoluteUrl, OG_IMAGE } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 const description =
-  "What Maahir Garg is building, teaching, learning, and doing off-screen in August 2026.";
+  "What Maahir Garg is building, teaching, learning, and doing off-screen in September 2026.";
 
 export const metadata: Metadata = {
   title: "Now",
