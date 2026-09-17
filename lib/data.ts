@@ -310,21 +310,21 @@ export const DATA: {
     {
       title: "PGPals",
       slug: "pgpals",
-      href: "https://pgpals.vercel.app",
-      dates: "Jul 2026 – Present",
-      active: true,
+      href: "https://github.com/maahir-garg/pgpals",
+      dates: "Jul 2026 – Sep 2026",
+      active: false,
       description:
-        "I built PGPals end to end for The Emerald Challenge: a Next.js, TypeScript, and Supabase platform for 100 scheduled challenges, roster-based access, media submissions, RA review, PGP Coin scoring, announcements, and leaderboard controls.",
+        "Built and operated PGPals, a full-stack event platform supporting 164 authenticated users across 96 teams during a two-week residential challenge; processed 2,297 submissions and 3,763 photo/video attachments across 103 challenges.",
       notes:
-        "PGPals was built for The Emerald Challenge, PGPR's two-week buddy programme running from 31 Aug to 13 Sep 2026, with a finale on 17 Sep. The platform brings the event's challenges, roster access, submissions, RA review, scoring, announcements, and leaderboard into one workflow.",
+        "Developed collaboration, moderation, and scoring workflows that enabled 78 multi-team pairings, 2,196 approved submissions, 2,289 credited team–challenge completions, and 46,540 PGP Coins awarded.",
       evidence: [
-        { label: "Ownership", body: "Sole-built by Maahir for the PGPals event workflow." },
+        { label: "Scale", body: "Supported 164 authenticated users across 96 teams, processing 2,297 submissions and 3,763 photo/video attachments across 103 challenges." },
+        { label: "Collaboration", body: "Enabled 78 multi-team pairings, 2,196 approved submissions, 2,289 credited team–challenge completions, and 46,540 PGP Coins awarded." },
+        { label: "Moderation", body: "Enabled 10 administrators to review the complete submission workload with a 3.2-hour median turnaround and zero submissions left pending at event close." },
         { label: "Architecture", body: "Next.js App Router and TypeScript over Supabase PostgreSQL, Auth, Storage, row-level security, and RPC, deployed in Vercel's Singapore region." },
-        { label: "Operations", body: "Roster import and regrouping, roster-based access, photo and group-task submissions, approval, rejection and reversion, PGP Coin scoring, bonus awards, scheduled challenges, announcements, and leaderboard controls." },
-        { label: "Event setup", body: "Configured for exactly 100 challenges split 50 per week and 10 RA review accounts." },
       ],
       technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
-      links: [{ type: "Live site", href: "https://pgpals.vercel.app", icon: "external" }],
+      links: [{ type: "Source code", href: "https://github.com/maahir-garg/pgpals", icon: "github" }],
     },
     {
       title: "Trader's Edge",
