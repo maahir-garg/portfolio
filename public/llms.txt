@@ -13,7 +13,7 @@ Current facts:
 
 Selected projects:
 
-- PGPals: sole-built Next.js, TypeScript, and Supabase platform for The Emerald Challenge, PGPR's two-week buddy programme running from 31 Aug to 13 Sep 2026, with a finale on 17 Sep. The platform manages exactly 100 challenges, roster access, media submissions, RA review, PGP Coin scoring, announcements, and leaderboard controls.
+- PGPals: full-stack Next.js, TypeScript, and Supabase event platform supporting 164 authenticated users across 96 teams during a two-week residential challenge. It processed 2,297 submissions and 3,763 photo/video attachments across 103 challenges; enabled 78 multi-team pairings, 2,196 approved submissions, 2,289 credited team–challenge completions, and 46,540 PGP Coins awarded; and gave 10 administrators a 3.2-hour median review turnaround with zero submissions pending at event close. Public source: https://github.com/maahir-garg/pgpals
 - Trader's Edge: team final-year project advised by Anand Bhojan, with a working MVP for plain-English strategy specification and historical-data backtesting. The demo requires Google sign-in. Public source is the NUS-FinTechAI team repository.
 - Prediction-market engine: read-only FastAPI research engine over public Polymarket and Kalshi feeds, with human-confirmed pairings, fee and liquidity modelling, hedge-equal depth fills, and 36+ tests. It never places orders, holds funds, or reports realised P&L.
 - BERT QA compression: 69% size reduction from 440 MB to 128 MB with no more than 0.5% F1 loss; custom mask-enforced pruning reached 54.7% sparsity.
