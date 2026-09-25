@@ -40,17 +40,19 @@ type Item = {
   kind: "page" | "project" | "action";
   label: string;
   sublabel?: string;
+  /** Extra words people might type that aren't in the label. */
+  keywords?: string;
   run: () => void;
 };
 
-const PAGES: { label: string; href: string }[] = [
-  { label: "Home", href: "/" },
-  { label: "Now", href: "/now" },
-  { label: "Work", href: "/experience" },
-  { label: "Photography", href: "/photography" },
-  { label: "Projects", href: "/projects" },
-  { label: "About", href: "/about" },
-  { label: "Contact", href: "/contact" },
+const PAGES: { label: string; href: string; keywords: string }[] = [
+  { label: "Home", href: "/", keywords: "start index" },
+  { label: "Now", href: "/now", keywords: "currently up to" },
+  { label: "Work", href: "/experience", keywords: "experience jobs roles cv teaching" },
+  { label: "Photography", href: "/photography", keywords: "photos pictures camera prints" },
+  { label: "Projects", href: "/projects", keywords: "things built code" },
+  { label: "About", href: "/about", keywords: "bio me flights map travel" },
+  { label: "Contact", href: "/contact", keywords: "email hello reach" },
 ];
 
 const SEEN_KEY = "mg-jumpbar-seen";
@@ -154,6 +156,7 @@ export function JumpBar() {
       id: `page-${p.href}`,
       kind: "page",
       label: p.label,
+      keywords: p.keywords,
       run: () => router.push(p.href),
     }));
 
@@ -162,6 +165,7 @@ export function JumpBar() {
       kind: "project",
       label: p.title,
       sublabel: p.dates,
+      keywords: `${p.slug.replace(/-/g, " ")} ${p.technologies.join(" ")}`,
       run: () => router.push(`/projects/${p.slug}`),
     }));
 
@@ -170,6 +174,7 @@ export function JumpBar() {
         id: "action-lights",
         kind: "action",
         label: "Toggle lights",
+        keywords: "dark light mode theme night day lamp",
         run: () => toggle(),
       },
       {
@@ -214,7 +219,14 @@ export function JumpBar() {
   const results = useMemo(() => {
     if (!query) return items;
     return items
-      .map((item) => ({ item, score: fuzzyScore(query, `${item.label} ${item.sublabel ?? ""}`) }))
+      .map((item) => {
+        const label = fuzzyScore(query, `${item.label} ${item.sublabel ?? ""}`);
+        // Keywords only count as a plain substring hit, ranked below label matches.
+        const keyword =
+          item.keywords?.toLowerCase().includes(query.toLowerCase()) ? query.length * 0.5 : null;
+        const score = label === null ? keyword : Math.max(label, keyword ?? -Infinity);
+        return { item, score };
+      })
       .filter((r): r is { item: Item; score: number } => r.score !== null)
       .sort((a, b) => b.score - a.score)
       .map((r) => r.item);
@@ -287,9 +299,6 @@ export function JumpBar() {
               transition={reducedMotion ? { duration: 0 } : SPRINGS.snap}
             >
               <div className="jumpbar-inputrow">
-                <span className="jumpbar-caret" aria-hidden>
-                  &gt;
-                </span>
                 <input
                   ref={inputRef}
                   role="combobox"

@@ -3,7 +3,6 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Suspense } from "react";
 import { DATA } from "@/lib/data";
-import { Reveal } from "@/components/ui/Reveal";
 import { LeetCodeStats } from "@/components/feature/LeetCodeStats";
 import { LeetCodeStatsSkeleton } from "@/components/feature/LeetCodeStatsSkeleton";
 import { absoluteUrl, OG_IMAGE, SITE, toIsoDate, toIsoDateTime } from "@/lib/site";
@@ -90,16 +89,16 @@ export default async function ProjectPage({
         ]}
       />
       <ProjectJsonLd slug={project.slug} />
-      <Reveal>
+      <>
         <Link
           href="/projects"
           className="inline-flex items-baseline gap-1.5 text-[13px] text-[color:var(--color-ink-faint)] hover:text-[color:var(--color-mark)] transition-colors"
         >
           ← Back to the archive
         </Link>
-      </Reveal>
+      </>
 
-      <Reveal delay={80}>
+      <>
         {project.slug === "3d-iphone" ? (
           <PinchCursor className="block">
             <header className="mt-8 grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
@@ -137,31 +136,24 @@ export default async function ProjectPage({
             </div>
           </header>
         )}
-      </Reveal>
+      </>
 
       {/* meta grid */}
-      <Reveal delay={140}>
+      <>
         <section className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><h2 className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>Stack</h2></div>
-          <div className="md:col-span-10 flex flex-wrap gap-x-5 gap-y-2">
-            {project.technologies.map((t) => (
-              <span
-                key={t}
-                className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)] border-b border-[color:var(--color-rule)] pb-0.5"
-              >
-                {t}
-              </span>
-            ))}
-          </div>
+          <p className="md:col-span-10 text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>
+            {project.technologies.join(", ")}
+          </p>
         </section>
-      </Reveal>
+      </>
 
-      <Reveal delay={200}>
+      <>
         <section className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-2"><h2 className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>Links</h2></div>
           <div className="md:col-span-10 flex flex-wrap gap-x-6 gap-y-2">
             {project.links.map((link, i) => {
-              const label = link.href ? `${link.type} ↗` : link.type;
+              const label = link.type;
               return link.href ? (
                 <a
                   key={i}
@@ -173,17 +165,17 @@ export default async function ProjectPage({
                   {label}
                 </a>
               ) : (
-                <span key={i} className="text-xl text-[color:var(--color-ink-faint)]">
-                  🔒 {label}
+                <span key={i} className="italic-serif text-xl text-[color:var(--color-ink-faint)]">
+                  {label}
                 </span>
               );
             })}
           </div>
         </section>
-      </Reveal>
+      </>
 
       {notes && (
-        <Reveal delay={220}>
+        <>
           <section className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
             <div className="md:col-span-2">
               <h2 className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>Notes</h2>
@@ -200,27 +192,27 @@ export default async function ProjectPage({
               ))}
             </div>
           </section>
-        </Reveal>
+        </>
       )}
 
       {project.evidence.length > 0 && (
-        <Reveal delay={230}>
+        <>
           <section className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
-            <div className="md:col-span-2"><h2 className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>Evidence</h2></div>
+            <div className="md:col-span-2"><h2 className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>The numbers</h2></div>
             <dl className="md:col-span-10 max-w-4xl divide-y divide-[color:var(--color-rule)] border-y border-[color:var(--color-rule)]">
               {project.evidence.map((item) => (
                 <div key={item.label} className="grid grid-cols-1 gap-2 py-5 sm:grid-cols-4 sm:gap-6">
-                  <dt className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">{item.label}</dt>
+                  <dt className="italic-serif text-[color:var(--color-ink-faint)]" style={{ fontSize: "var(--step-0)" }}>{item.label}</dt>
                   <dd className="text-[color:var(--color-ink-dim)] sm:col-span-3" style={{ fontSize: "var(--step-0)", lineHeight: 1.65 }}>{item.body}</dd>
                 </div>
               ))}
             </dl>
           </section>
-        </Reveal>
+        </>
       )}
 
       {hasLiveStats && (
-        <Reveal delay={240}>
+        <>
           <section className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
             <div className="md:col-span-2"><h2 className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>Live ticker</h2></div>
             <div className="md:col-span-10">
@@ -229,11 +221,11 @@ export default async function ProjectPage({
               </Suspense>
             </div>
           </section>
-        </Reveal>
+        </>
       )}
 
       {/* prev / next navigation */}
-      <Reveal delay={280}>
+      <>
         <nav
           aria-label="Project navigation"
           className="mt-20 grid grid-cols-2 gap-4 border-t border-[color:var(--color-rule)] pt-10"
@@ -275,7 +267,7 @@ export default async function ProjectPage({
             )}
           </div>
         </nav>
-      </Reveal>
+      </>
     </article>
   );
 }

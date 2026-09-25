@@ -58,7 +58,7 @@ export function LeetCodeStatsAnimated({ stats }: { stats: LeetCodeStatsValues })
   const easyMV = useTransform(progress, (t) => Math.round(t * stats.easySolved));
   const mediumMV = useTransform(progress, (t) => Math.round(t * stats.mediumSolved));
   const hardMV = useTransform(progress, (t) => Math.round(t * stats.hardSolved));
-  const rankMV = useTransform(progress, (t) => `#${Math.round(t * stats.ranking).toLocaleString()}`);
+  const rankMV = useTransform(progress, (t) => `#${Math.round(t * stats.ranking).toLocaleString("en-SG")}`);
   const easyW = useTransform(progress, (t) => `${t * easyPct}%`);
   const mediumW = useTransform(progress, (t) => `${t * mediumPct}%`);
   const hardW = useTransform(progress, (t) => `${t * hardPct}%`);

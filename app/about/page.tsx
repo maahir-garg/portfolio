@@ -132,8 +132,8 @@ export default function AboutPage() {
 
       <section className="mt-20 border-t border-[color:var(--color-rule)] pt-10">
         <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-2)", lineHeight: 1.35 }}>
-          If this reads like someone you&apos;d want thinking about your
-          problem, <Link href="/contact" className="link-underline text-[color:var(--color-ink)]">let&apos;s talk</Link>.
+          Ask me about any of it, or send a photo of somewhere I should
+          fly next. <Link href="/contact" className="link-underline text-[color:var(--color-ink)]">Here&apos;s how</Link>.
         </p>
       </section>
     </div>

@@ -63,29 +63,31 @@ export function ThemeToggle() {
       className="theme-toggle group"
     >
       <span className="sr-only">Toggle lights</span>
-      <svg
-        aria-hidden
-        width="15"
-        height="15"
-        viewBox="0 0 15 15"
-        className="theme-toggle__bulb"
-      >
-        <circle
-          cx="7.5"
-          cy="7.5"
-          r="6"
-          fill={isDark ? "var(--color-mark-soft)" : "none"}
-          stroke={isDark ? "var(--color-mark)" : "var(--color-ink-faint)"}
-          strokeWidth="1"
-        />
+      {/* A pendant lamp: lit (warm shade, glowing bulb) when the lights are on. */}
+      <svg aria-hidden width="20" height="20" viewBox="0 0 20 20" className="theme-toggle__bulb">
+        <path d="M10 1 V5" fill="none" stroke="currentColor" strokeWidth="1" />
         <path
-          d="M5.6 9.6 L7.5 4.6 L9.4 9.6"
-          fill="none"
-          stroke={isDark ? "var(--color-mark)" : "var(--color-ink-faint)"}
+          d="M4.5 11 L7 5 H13 L15.5 11 Z"
+          fill={isDark ? "none" : "var(--color-mark-soft)"}
+          stroke="currentColor"
           strokeWidth="1"
-          strokeLinecap="round"
           strokeLinejoin="round"
         />
+        <path
+          d="M8 11 a2 2 0 0 0 4 0"
+          fill={isDark ? "none" : "var(--color-mark)"}
+          stroke={isDark ? "currentColor" : "var(--color-mark)"}
+          strokeWidth="1"
+        />
+        {!isDark && (
+          <path
+            d="M5.5 14.5 L4.5 16.5 M10 15 V17.5 M14.5 14.5 L15.5 16.5"
+            fill="none"
+            stroke="var(--color-mark)"
+            strokeWidth="1"
+            strokeLinecap="round"
+          />
+        )}
       </svg>
       <motion.span
         aria-hidden

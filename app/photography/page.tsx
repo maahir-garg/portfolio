@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { PhotoGallery } from "@/components/photography/PhotoGallery";
-import { Reveal } from "@/components/ui/Reveal";
 import { absoluteUrl, OG_IMAGE } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
@@ -35,7 +34,7 @@ export default function PhotographyPage() {
           { name: "Photography", path: "/photography" },
         ]}
       />
-      <Reveal>
+      <>
         <header className="grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-10 md:col-start-3">
             <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
@@ -52,7 +51,7 @@ export default function PhotographyPage() {
             </p>
           </div>
         </header>
-      </Reveal>
+      </>
 
       <PhotoGallery />
     </div>

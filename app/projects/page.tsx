@@ -1,7 +1,6 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
 import { ProjectsCollectionJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { TransitionLink } from "@/components/motion/TransitionLink";
@@ -42,26 +41,26 @@ export default function ProjectsPage() {
         ]}
       />
       <ProjectsCollectionJsonLd />
-      <Reveal>
+      <>
         <header className="grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-10 md:col-start-3">
             <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
               <span className="sr-only">Projects by Maahir Garg. </span>
-              Things I&apos;ve <em className="italic-serif">made, broken,</em> re-made.
+              Things I&apos;ve <em className="italic-serif">built</em>.
             </h1>
             <p
               className="mt-6 max-w-2xl text-[color:var(--color-ink-dim)]"
               style={{ fontSize: "var(--step-1)", lineHeight: 1.6 }}
             >
-              A running archive. Some shipped, some sat in a drawer, some
-              became the curriculum. Click in for the notes.
+              Some shipped, some stayed in a notebook. Click through for the
+              notes, and the numbers if you want them.
             </p>
           </div>
         </header>
-      </Reveal>
+      </>
 
       {/* filter row. Editorial tabs. */}
-      <Reveal delay={100}>
+      <>
         <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2">
           <span className="italic-serif text-[color:var(--color-ink-faint)]" style={{ fontSize: "var(--step-0)" }}>
             Filter
@@ -99,12 +98,11 @@ export default function ProjectsPage() {
             );
           })}
         </div>
-      </Reveal>
+      </>
 
       <ol className="mt-6">
-        {projects.map((p, i) => (
-          <Reveal key={p.slug} delay={i * 30}>
-            <li className="group border-b border-[color:var(--color-rule)]">
+        {projects.map((p) => (
+            <li key={p.slug} className="group border-b border-[color:var(--color-rule)]">
               <TransitionLink
                 href={`/projects/${p.slug}`}
                 className="grid grid-cols-1 gap-4 py-8 md:grid-cols-12 md:gap-8 md:py-10"
@@ -130,19 +128,11 @@ export default function ProjectsPage() {
                   </p>
                 </div>
 
-                <div className="md:col-span-3 flex flex-wrap gap-x-3 gap-y-1 md:justify-end">
-                  {p.technologies.slice(0, 4).map((t) => (
-                    <span
-                      key={t}
-                      className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
+                <p className="md:col-span-3 text-[0.85rem] leading-relaxed text-[color:var(--color-ink-faint)] md:text-right">
+                  {p.technologies.slice(0, 4).join(", ")}
+                </p>
               </TransitionLink>
             </li>
-          </Reveal>
         ))}
 
         {projects.length === 0 && (

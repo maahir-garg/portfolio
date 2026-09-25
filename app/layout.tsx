@@ -149,8 +149,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             {children}
           </main>
           <Footer />
+          {/* Inside the provider: the jump bar's "Toggle lights" uses useTheme. */}
+          <JumpBarLoader />
         </ThemeProvider>
-        <JumpBarLoader />
         <JsonLd />
         <SpeedInsights />
         <Analytics />

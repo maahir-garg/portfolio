@@ -40,6 +40,9 @@ export function FlightsMapEnhancer({
   const containerRef = useRef<HTMLDivElement>(null);
   const [inView, setInView] = useState(false);
   const [activeCode, setActiveCode] = useState<string | null>(null);
+  // Where the active city's dot sits inside the container, in px. Measured
+  // from the DOM because the SVG doesn't fill the container edge to edge.
+  const [anchor, setAnchor] = useState<{ x: number; y: number } | null>(null);
 
   useEffect(() => {
     const node = containerRef.current;
@@ -66,6 +69,12 @@ export function FlightsMapEnhancer({
     function codeFromTarget(target: EventTarget | null): string | null {
       if (!(target instanceof Element)) return null;
       const el = target.closest<HTMLElement>("[data-code]");
+      if (el && node) {
+        const dot = el.querySelector("circle") ?? el;
+        const r = dot.getBoundingClientRect();
+        const c = node.getBoundingClientRect();
+        setAnchor({ x: r.left - c.left + r.width / 2, y: r.top - c.top });
+      }
       return el?.dataset.code ?? null;
     }
 
@@ -118,10 +127,10 @@ export function FlightsMapEnhancer({
   return (
     <div ref={containerRef} className={`flights-map ${inView ? "is-in-view" : ""}`}>
       {children}
-      {active?.photo && (
+      {active?.photo && anchor && (
         <div
           className="flights-map__preview"
-          style={{ left: `${(active.x / 420) * 100}%`, top: `${(active.y / 220) * 100}%` }}
+          style={{ left: anchor.x, top: anchor.y }}
         >
           <Print
             src={active.photo.src}
