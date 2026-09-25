@@ -12,7 +12,7 @@ export function Hero() {
         {/* Portrait: a print on a desk. data-print-slot lets the tossable
             <Print> component (framer-motion, owned by the motion pass)
             take over this spot later without touching the layout. */}
-        <div className="md:col-span-5 md:order-2" data-print-slot="hero">
+        <div className="order-2 mx-auto w-[82%] max-w-sm md:mx-0 md:w-full md:max-w-none md:col-span-5" data-print-slot="hero">
           <div className="w-full" style={{ transform: "rotate(2deg)" }}>
             <div className="relative aspect-[4/5] w-full overflow-hidden border border-[color:var(--color-rule)]">
               <Image
@@ -39,7 +39,7 @@ export function Hero() {
         </div>
 
         {/* Statement */}
-        <div className="md:col-span-7 md:order-1">
+        <div className="order-1 md:col-span-7">
           <h1
             className="text-[color:var(--color-ink)] pb-[1.25em]"
             style={{ fontSize: "var(--step-5)", lineHeight: 1.05, letterSpacing: "-0.015em" }}
