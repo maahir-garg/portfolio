@@ -14,9 +14,9 @@ export function Skills({ skills = DATA.skills }: { skills?: SkillsByCategory }) 
   return (
     <div className="divide-y divide-[color:var(--color-rule)] border-y border-[color:var(--color-rule)]">
       {entries.map(([category, items]) => (
-        <div key={String(category)} className="grid grid-cols-1 gap-2 py-5 md:grid-cols-12 md:gap-8">
+        <div key={String(category)} className="grid grid-cols-1 gap-1.5 py-3 md:grid-cols-12 md:gap-8">
           <div className="md:col-span-3">
-            <h3 className="text-[color:var(--color-ink)]" style={{ fontSize: "var(--step-0)" }}>
+            <h3 className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step--1)" }}>
               {String(category)}
             </h3>
           </div>
@@ -25,7 +25,7 @@ export function Skills({ skills = DATA.skills }: { skills?: SkillsByCategory }) 
               <li
                 key={s}
                 className="break-words text-[color:var(--color-ink-dim)] after:ml-2 after:content-['·'] last:after:content-none"
-                style={{ fontSize: "var(--step-0)" }}
+                style={{ fontSize: "var(--step--1)" }}
               >
                 {s}
               </li>
