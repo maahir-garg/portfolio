@@ -1,115 +1,47 @@
 # Portfolio
 
-Editorial portfolio built with Next.js and TypeScript. It uses a field-notebook visual system, accessible navigation, responsive layouts, and independently tuned light and dark themes.
-🌐 **Live Site**: [https://maahir-garg.vercel.app/](https://maahir-garg.vercel.app/)
-## Features
+My personal site: [maahir-garg.vercel.app](https://maahir-garg.vercel.app/).
 
-- **Smooth Animations**: GSAP-powered transitions and scroll-triggered animations
-- **Custom Cursor**: Interactive cursor with magnetic hover effects
-- **Interactive Timeline**: Animated progress bar and dynamic experience timeline
-- **Photography Gallery**: Dedicated section with scattered and grid view layouts
-- **Project Showcase**: Clean project cards with hover interactions
-- **Responsive Design**: Mobile-first approach with adaptive layouts
-- **Static Delivery**: Static generation and ISR where the site benefits from them
-- **SEO Ready**: Comprehensive meta tags, JSON-LD structured data, sitemap, and robots.txt
+Paper, ink, and one red pen. Headlines get marked up the way I mark algorithm proofs as a TA, photos behave like prints you can pick up and toss, and the flights I've taken draw themselves on a map. Press ⌘K (or `/`) anywhere to jump around.
 
-## Quick Start
+## Running it
 
 ```bash
-# Install dependencies
 npm install
-
-# Run development server
-npm run dev
-
-# Build for production
-npm run build
-
-# Start production server
-npm start
+npm run dev          # http://localhost:3000
+npm run build        # also regenerates the photo manifest (prebuild)
+npm test             # content checks (no em dashes, etc.)
+SITE_URL=http://localhost:3000 npm run verify:site   # SEO/meta checks against a running server
 ```
 
-Open [http://localhost:3000](http://localhost:3000) to view the site.
-
-## Project Structure
+## Where things live
 
 ```
-portfolio/
-├── app/                    # Next.js app router pages
-│   ├── about/             # About page
-│   ├── contact/           # Contact page
-│   ├── experience/        # Experience timeline page
-│   ├── photography/       # Photography gallery
-│   ├── projects/          # Projects listing & detail pages
-│   └── page.tsx           # Home page
-├── components/
-│   ├── feature/           # Feature components (ProjectCard, SplitText)
-│   ├── home/              # Home page components (Hero, ExperienceTimeline)
-│   ├── layout/            # Layout components (Header, Footer, CustomCursor)
-│   ├── photography/       # Photography components
-│   ├── seo/               # SEO components (JSON-LD)
-│   └── ui/                # Reusable UI components
-├── lib/
-│   ├── data.ts            # Site content and configuration
-│   ├── photos.json        # Photography metadata
-│   └── utils.ts           # Utility functions
-├── public/                # Static assets
-│   └── photography/       # Photography images
-└── scripts/
-    └── generate-photos.js # Photo metadata generator
+app/                      routes (App Router); app/motion.css holds interaction styles
+components/
+  home/                   Hero, WorkAndProjects, PhotographyStrip (the photo desk)
+  motion/                 Print, JumpBar, TransitionLink, PinchCursor, motion tokens
+  ui/RedPen.tsx           hand-drawn circle / underline / strike / margin note marks
+  feature/                FlightsMap (+ client enhancer), LeetCode stats
+  photography/            gallery + lightbox
+  seo/JsonLd.tsx          structured data
+lib/
+  data.ts                 all the words: roles, projects, about, now
+  site.ts                 URL, SEO defaults, SITE.lastModified
+  flights.csv             airports for the routes map
+  photos-meta.json        hand-written photo locations (manifest is generated)
 ```
 
-## Tech Stack
+## Notes to future me
 
-- **Framework**: [Next.js 16](https://nextjs.org/) with App Router
-- **Language**: [TypeScript](https://www.typescriptlang.org/)
-- **Styling**: [Tailwind CSS v4](https://tailwindcss.com/)
-- **Animation**: [GSAP](https://greensock.com/gsap/) + [Framer Motion](https://www.framer.com/motion/)
-- **3D Graphics**: [Three.js](https://threejs.org/) + [React Three Fiber](https://docs.pmnd.rs/react-three-fiber/)
-- **Smooth Scroll**: [Lenis](https://lenis.studiofreight.com/)
-- **Icons**: [Lucide React](https://lucide.dev/)
-- **Deployment**: [Vercel](https://vercel.com/)
+- Copy lives in `lib/data.ts`. Numbers belong in a project's `evidence`, not its description.
+- Bump `SITE.lastModified` in `lib/site.ts` when content changes; the sitemap and JSON-LD read it.
+- Every page declares its own canonical, and interior pages pass `OG_IMAGE` in any `openGraph`/`twitter` override.
+- Keep `public/llms.txt` in sync with what the pages say.
+- next/font variables sit on `<html>`, not `<body>`, so `--font-serif` resolves at `:root`.
+- Motion: one easing curve and three springs in `components/motion/tokens.ts`. Everything has a reduced-motion path, and dragging only happens on fine pointers.
+- New photos: drop them in `public/photography/<category>/`, add a location to `lib/photos-meta.json`, then build.
 
-## Content Management
+## Stack
 
-All site content is centralized in `lib/data.ts`:
-
-```typescript
-export const DATA = {
-  name: "Your Name",
-  contact: { email, social },
-  summary: "Your bio",
-  work: [...],
-  projects: [...],
-  skills: {...}
-}
-```
-
-Update this file to customize your portfolio content.
-
-### Adding Photos
-
-1. Add images to `public/photography/[category]/`
-2. Run the photo generator:
-   ```bash
-   node scripts/generate-photos.js
-   ```
-3. This automatically updates `lib/photos.json` and `lib/photos-manifest.json`
-
-## Key Components
-
-### Hero Section
-Animated hero with split-text reveal, status indicator, and smooth entrance transitions.
-
-### Experience Timeline
-Scroll-triggered timeline with animated progress bar and interactive cards.
-
-### Skills Component
-Interactive skill categories with smooth expand/collapse animations.
-
-### Custom Cursor
-Desktop-only custom cursor with hover state transformations.
-
-## Rights
-
-Copyright © 2026 Maahir Garg. No rights reserved; take what helps.
+Next.js 16, React 19, TypeScript, Tailwind CSS 4, framer-motion. Deployed on Vercel.
