@@ -1,8 +1,15 @@
-import Link from "next/link";
+"use client";
+
+import { TransitionLink } from "@/components/motion/TransitionLink";
 import { DATA } from "@/lib/data";
 
 export function Footer() {
   const year = new Date().getFullYear();
+
+  function openJumpBar() {
+    window.dispatchEvent(new CustomEvent("mg:open-jumpbar"));
+  }
+
   return (
     <footer className="mt-32 border-t border-[color:var(--color-rule)]">
       <div className="container-page grid grid-cols-1 gap-10 py-14 md:grid-cols-12 md:gap-8">
@@ -11,18 +18,26 @@ export function Footer() {
             Maahir Garg, <em className="italic-serif">in Singapore</em>
           </p>
           <p className="mt-4 max-w-sm text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>
-            Lost? Press <kbd className="mono text-[0.85em]">⌘K</kbd> and type where you want to go.
+            Lost? Press <kbd className="mono text-[0.85em]">⌘K</kbd> on a keyboard, or{" "}
+            <button
+              type="button"
+              onClick={openJumpBar}
+              className="link-underline inline-flex min-h-11 items-center py-2 text-[color:var(--color-ink)]"
+            >
+              jump to&hellip;
+            </button>{" "}
+            on a phone.
           </p>
         </div>
 
         <div className="md:col-span-3">
           <p className="text-[color:var(--color-ink-dim)] mb-3" style={{ fontSize: "var(--step-0)" }}>Read</p>
           <ul className="space-y-2 text-[0.95rem]">
-            <li><Link href="/about" className="link-underline">About</Link></li>
-            <li><Link href="/experience" className="link-underline">Work</Link></li>
-            <li><Link href="/projects" className="link-underline">Projects</Link></li>
-            <li><Link href="/photography" className="link-underline">Photography</Link></li>
-            <li><Link href="/now" className="link-underline">Now</Link></li>
+            <li><TransitionLink href="/about" className="link-underline">About</TransitionLink></li>
+            <li><TransitionLink href="/experience" className="link-underline">Work</TransitionLink></li>
+            <li><TransitionLink href="/projects" className="link-underline">Projects</TransitionLink></li>
+            <li><TransitionLink href="/photography" className="link-underline">Photography</TransitionLink></li>
+            <li><TransitionLink href="/now" className="link-underline">Now</TransitionLink></li>
           </ul>
         </div>
 
