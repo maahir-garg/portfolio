@@ -6,7 +6,7 @@ import { DATA } from "@/lib/data";
 import { Reveal } from "@/components/ui/Reveal";
 import { LeetCodeStats } from "@/components/feature/LeetCodeStats";
 import { LeetCodeStatsSkeleton } from "@/components/feature/LeetCodeStatsSkeleton";
-import { absoluteUrl, SITE, toIsoDate, toIsoDateTime } from "@/lib/site";
+import { absoluteUrl, OG_IMAGE, SITE, toIsoDate, toIsoDateTime } from "@/lib/site";
 import { BreadcrumbJsonLd, ProjectJsonLd } from "@/components/seo/JsonLd";
 
 export async function generateMetadata({
@@ -50,14 +50,14 @@ export async function generateMetadata({
       siteName: SITE.fullName,
       ...(publishedIso ? { publishedTime: toIsoDateTime(publishedIso) } : {}),
       modifiedTime: toIsoDateTime(SITE.lastModified),
-      images: [],
+      images: OG_IMAGE,
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} · Maahir Garg`,
       description,
       creator: SITE.twitter,
-      images: [],
+      images: OG_IMAGE,
     },
   };
 }
