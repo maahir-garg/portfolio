@@ -1,12 +1,28 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import Image from "next/image";
 import manifest from "@/lib/photos-manifest.json";
 import { Print, type PrintHandle } from "@/components/motion/Print";
 import { useMounted } from "@/components/motion/useMounted";
+import {
+  motion,
+  useReducedMotion,
+  useScroll,
+  useVelocity,
+  useSpring,
+  useTransform,
+} from "framer-motion";
+import { SPRINGS } from "@/components/motion/tokens";
 
 /**
  * The home page's photography strip, reimagined as a desk. On a fine
@@ -19,6 +35,15 @@ import { useMounted } from "@/components/motion/useMounted";
  * identical between server and first client render (no hydration
  * mismatch), then a fresh random arrangement is drawn after mount and
  * whenever the jump bar's "Shuffle the desk" action fires.
+ *
+ * Deal-in: the desktop desk deals its prints onto the shelf one at a
+ * time (dropped from slightly above, tilted, settling on the toss
+ * spring) the moment it scrolls into view - or immediately on a
+ * shuffle, since the desk remounts under a fresh key each time. The
+ * entrance is a client-only affair (gated on `mounted`, then forced
+ * onto a fresh `motion.div` instance): the server and first paint
+ * always render the finished, resting layout, so crawlers and no-JS
+ * visitors see every photo immediately.
  */
 
 type ExifDisplay = {
@@ -116,12 +141,144 @@ function altForPick(p: Pick): string {
   return `${category} photograph${p.location ? ` in ${p.location}` : ""} by Maahir Garg`;
 }
 
+export type DeskHandle = { tidyUp: () => void };
+
+/**
+ * The desktop desk: scattered, draggable, deal-in prints. Split out so its
+ * `dealt` state and IntersectionObserver reset cleanly every time the
+ * parent remounts it under a fresh key (a shuffle).
+ */
+const Desk = forwardRef<DeskHandle, { picks: Pick[]; mounted: boolean; onOpen: (filename: string) => void }>(
+  function Desk({ picks, mounted, onOpen }, ref) {
+    const deskRef = useRef<HTMLDivElement>(null);
+    const printRefs = useRef<PrintHandle[]>([]);
+    // Resolved synchronously wherever possible (reduced motion, no
+    // IntersectionObserver) so the effect below only ever calls setState
+    // from inside the observer's own callback, never as a bare
+    // synchronous act of the effect body.
+    const [dealt, setDealt] = useState(() => {
+      if (typeof window === "undefined") return false;
+      if (window.matchMedia?.("(prefers-reduced-motion: reduce)").matches) return true;
+      if (!("IntersectionObserver" in window)) return true;
+      return false;
+    });
+
+    useImperativeHandle(ref, () => ({
+      tidyUp() {
+        printRefs.current.forEach((handle) => handle?.reset());
+      },
+    }));
+
+    useEffect(() => {
+      if (dealt) return;
+      const node = deskRef.current;
+      if (!node) return;
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              setDealt(true);
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 },
+      );
+      io.observe(node);
+      return () => io.disconnect();
+    }, [dealt]);
+
+    return (
+      <div ref={deskRef} className="relative mt-10 hidden md:block" style={{ height: "460px" }}>
+        {picks.map((p, i) => {
+          // A transient extra tilt for the fall only - the print's own
+          // `rotate` is its true resting angle throughout, so the two
+          // never compound into a double rotation.
+          const fallTilt = i % 2 === 0 ? -17 : 15;
+          return (
+            <motion.div
+              key={`${p.src}-${i}`}
+              className="absolute w-[190px]"
+              style={{ left: `${p.left}%`, top: `${p.top}%` }}
+              initial={mounted ? { y: -64, opacity: 0, rotate: fallTilt } : false}
+              animate={dealt ? { y: 0, opacity: 1, rotate: 0 } : undefined}
+              transition={{ ...SPRINGS.toss, delay: dealt ? Math.min(i, 8) * 0.06 : 0 }}
+            >
+              <Print
+                ref={(handle) => {
+                  if (handle) printRefs.current[i] = handle;
+                }}
+                src={p.src}
+                alt={altForPick(p)}
+                fill
+                className="aspect-[4/5]"
+                sizes="190px"
+                priority={i < 2}
+                loading={i < 2 ? "eager" : "lazy"}
+                rotate={p.rotate}
+                parallax
+                constraintsRef={deskRef}
+                onOpen={() => onOpen(p.filename)}
+              />
+            </motion.div>
+          );
+        })}
+      </div>
+    );
+  },
+);
+
+/** Mobile: a horizontal, scroll-snapping contact strip with a subtle
+ * scroll-velocity tilt (the faster the fling, the more the prints lean
+ * into it) that settles back to flat once the strip stops moving. */
+function MobileStrip({ picks }: { picks: Pick[] }) {
+  const stripRef = useRef<HTMLDivElement>(null);
+  const reducedMotion = useReducedMotion();
+  const { scrollX } = useScroll({ container: stripRef });
+  const velocity = useVelocity(scrollX);
+  const smoothVelocity = useSpring(velocity, { stiffness: 300, damping: 40, mass: 0.5 });
+  const tilt = useTransform(smoothVelocity, [-2200, 0, 2200], [-5, 0, 5]);
+
+  return (
+    <div
+      ref={stripRef}
+      className="mt-10 flex gap-4 overflow-x-auto pb-2 [scrollbar-width:none] snap-x snap-mandatory md:hidden"
+    >
+      {picks.map((p, i) => (
+        <Link
+          key={`${p.src}-mobile-${i}`}
+          href={`/photography?photo=${encodeURIComponent(p.filename)}`}
+          className="w-[62vw] flex-none snap-start"
+          aria-label={altForPick(p)}
+        >
+          <motion.span
+            className="print block"
+            style={reducedMotion ? undefined : { rotate: tilt }}
+          >
+            <span className="print__frame">
+              <span className="relative block aspect-[4/5] w-full overflow-hidden">
+                <Image
+                  src={p.src}
+                  alt={altForPick(p)}
+                  fill
+                  sizes="62vw"
+                  loading={i < 2 ? "eager" : "lazy"}
+                  className="print__img absolute inset-0 h-full w-full object-cover"
+                />
+              </span>
+            </span>
+          </motion.span>
+        </Link>
+      ))}
+    </div>
+  );
+}
+
 export function PhotographyStrip() {
   const mounted = useMounted();
   const router = useRouter();
   const [shuffleTick, setShuffleTick] = useState(0);
-  const deskRef = useRef<HTMLDivElement>(null);
-  const printRefs = useRef<PrintHandle[]>([]);
+  const deskHandle = useRef<DeskHandle>(null);
 
   const picks = useMemo(() => {
     if (!mounted) return SSR_PICKS;
@@ -138,10 +295,6 @@ export function PhotographyStrip() {
     return () => window.removeEventListener("mg:shuffle-desk", onShuffle);
   }, []);
 
-  function tidyUp() {
-    printRefs.current.forEach((handle) => handle?.reset());
-  }
-
   if (picks.length === 0) return null;
 
   return (
@@ -156,7 +309,7 @@ export function PhotographyStrip() {
         <div className="flex items-center gap-5">
           <button
             type="button"
-            onClick={tidyUp}
+            onClick={() => deskHandle.current?.tidyUp()}
             className="hidden italic-serif text-[color:var(--color-ink-dim)] link-underline md:inline-flex"
             style={{ fontSize: "var(--step-0)" }}
           >
@@ -168,62 +321,15 @@ export function PhotographyStrip() {
         </div>
       </header>
 
-      {/* Desktop desk: scattered, draggable prints. */}
-      <div
-        ref={deskRef}
+      <Desk
         key={`desk-${shuffleTick}`}
-        className="relative mt-10 hidden md:block"
-        style={{ height: "460px" }}
-      >
-        {picks.map((p, i) => (
-          <div
-            key={`${p.src}-${i}`}
-            className="absolute w-[190px]"
-            style={{ left: `${p.left}%`, top: `${p.top}%` }}
-          >
-            <Print
-              ref={(handle) => {
-                if (handle) printRefs.current[i] = handle;
-              }}
-              src={p.src}
-              alt={altForPick(p)}
-              fill
-              className="aspect-[4/5]"
-              sizes="190px"
-              priority={i < 2}
-              loading={i < 2 ? "eager" : "lazy"}
-              rotate={p.rotate}
-              constraintsRef={deskRef}
-              onOpen={() => router.push(`/photography?photo=${encodeURIComponent(p.filename)}`)}
-            />
-          </div>
-        ))}
-      </div>
+        ref={deskHandle}
+        picks={picks}
+        mounted={mounted}
+        onOpen={(filename) => router.push(`/photography?photo=${encodeURIComponent(filename)}`)}
+      />
 
-      {/* Mobile: a horizontal, scroll-snapping contact strip. No drag. */}
-      <div className="mt-10 flex gap-4 overflow-x-auto pb-2 [scrollbar-width:none] snap-x snap-mandatory md:hidden">
-        {picks.map((p, i) => (
-          <Link
-            key={`${p.src}-mobile-${i}`}
-            href={`/photography?photo=${encodeURIComponent(p.filename)}`}
-            className="print w-[62vw] flex-none snap-start"
-            aria-label={altForPick(p)}
-          >
-            <span className="print__frame">
-              <span className="relative block aspect-[4/5] w-full overflow-hidden">
-                <Image
-                  src={p.src}
-                  alt={altForPick(p)}
-                  fill
-                  sizes="62vw"
-                  loading={i < 2 ? "eager" : "lazy"}
-                  className="print__img absolute inset-0 h-full w-full object-cover"
-                />
-              </span>
-            </span>
-          </Link>
-        ))}
-      </div>
+      <MobileStrip picks={picks} />
     </section>
   );
 }
