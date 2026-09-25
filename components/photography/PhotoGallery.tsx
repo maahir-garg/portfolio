@@ -1,9 +1,11 @@
 "use client";
 
-import { useMemo, useState, useEffect, useCallback, useSyncExternalStore } from "react";
+import { useMemo, useState, useEffect, useCallback, useRef } from "react";
 import { createPortal } from "react-dom";
 import Image from "next/image";
 import manifest from "@/lib/photos-manifest.json";
+import { Print } from "@/components/motion/Print";
+import { useMounted } from "@/components/motion/useMounted";
 
 type ExifDisplay = {
   aperture: string | null;
@@ -43,6 +45,7 @@ type ManifestCategory = {
 type Photo = {
   id: string;
   src: string;
+  filename: string;
   category: string;
   index: number;
   total: number;
@@ -56,6 +59,7 @@ const BUILT: Photo[] = CATEGORIES.flatMap((cat) =>
   cat.images.map((img, i, arr) => ({
     id: `${cat.category}-${i}`,
     src: img.src,
+    filename: img.filename,
     category: cat.category,
     index: i + 1,
     total: arr.length,
@@ -131,14 +135,14 @@ function shuffleInPlace<T>(arr: T[], rng: () => number) {
   }
 }
 
+const SWIPE_THRESHOLD = 48;
+
 export function PhotoGallery() {
   const [active, setActive] = useState<string>("all");
   const [lightbox, setLightbox] = useState<number | null>(null);
-  const mounted = useSyncExternalStore(
-    () => () => {},
-    () => true,
-    () => false,
-  );
+  const mounted = useMounted();
+  const touchStart = useRef<{ x: number; y: number } | null>(null);
+  const consumedPhotoParam = useRef(false);
 
   const categories = useMemo(() => {
     const ids = CATEGORIES.map((c) => c.category).filter(
@@ -168,6 +172,25 @@ export function PhotoGallery() {
     [filtered.length],
   );
 
+  // A jump-bar "Random photo" action lands here as /photography?photo=<filename>.
+  // Read straight from window.location rather than useSearchParams so this
+  // page keeps statically rendering - a plain post-mount effect has no
+  // effect on the server render at all.
+  useEffect(() => {
+    if (!mounted || consumedPhotoParam.current) return;
+    const photoParam = new URLSearchParams(window.location.search).get("photo");
+    if (!photoParam) return;
+    const idx = filtered.findIndex((p) => p.filename === photoParam);
+    if (idx < 0) return;
+    consumedPhotoParam.current = true;
+    // Deferred a tick so the state update happens in a callback rather
+    // than synchronously in the effect body.
+    queueMicrotask(() => {
+      setLightbox(idx);
+      window.history.replaceState(null, "", "/photography");
+    });
+  }, [mounted, filtered]);
+
   useEffect(() => {
     if (lightbox === null) return;
     const onKey = (e: KeyboardEvent) => {
@@ -184,6 +207,24 @@ export function PhotoGallery() {
     };
   }, [lightbox, close, next, prev]);
 
+  function onTouchStart(e: React.TouchEvent) {
+    const t = e.touches[0];
+    touchStart.current = { x: t.clientX, y: t.clientY };
+  }
+
+  function onTouchEnd(e: React.TouchEvent) {
+    const start = touchStart.current;
+    touchStart.current = null;
+    if (!start) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - start.x;
+    const dy = t.clientY - start.y;
+    if (Math.abs(dx) > SWIPE_THRESHOLD && Math.abs(dx) > Math.abs(dy)) {
+      if (dx < 0) next();
+      else prev();
+    }
+  }
+
   const current = lightbox !== null ? filtered[lightbox] : null;
   const currentExifLine = captionFromExif(current?.exif ?? null);
   const currentYear =
@@ -198,8 +239,8 @@ export function PhotoGallery() {
     <div className="mt-10">
       {/* Filter row */}
       <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-[color:var(--color-rule)] pb-6">
-        <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
-          Filter:
+        <span className="italic-serif text-[color:var(--color-ink-faint)]" style={{ fontSize: "var(--step-0)" }}>
+          Filter
         </span>
         {categories.map((c) => {
           const isActive = active === c;
@@ -229,7 +270,7 @@ export function PhotoGallery() {
                 {c}
               </span>
               <span className="mono text-[10px] text-[color:var(--color-ink-faint)]">
-                {String(count).padStart(2, "0")}
+                {count}
               </span>
             </button>
           );
@@ -246,49 +287,42 @@ export function PhotoGallery() {
           const location = photo.meta?.location ?? null;
           return (
             <li key={photo.id} className="group">
-              <button
-                type="button"
-                onClick={() => setLightbox(i)}
-                aria-label={`Open photo ${photo.index} of ${photo.category}`}
-                className="block w-full text-left"
+              <Print
+                src={photo.src}
+                alt={altFor(photo)}
+                fill
+                sizes="(min-width: 1024px) 22vw, 45vw"
+                loading="lazy"
+                draggable={false}
+                className="aspect-[4/5]"
+                onOpen={() => setLightbox(i)}
               >
-                <div className="relative aspect-[4/5] overflow-hidden bg-[color:var(--color-paper)]">
-                  <Image
-                    src={photo.src}
-                    alt={altFor(photo)}
-                    fill
-                    sizes="(min-width: 1024px) 22vw, 45vw"
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02] saturate-[0.92]"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                  <div
-                    aria-hidden
-                    className="pointer-events-none absolute left-0 top-0 h-full w-[6px]"
-                    style={{
-                      backgroundImage:
-                        "repeating-linear-gradient(to bottom, rgba(0,0,0,0.4) 0 6px, transparent 6px 14px)",
-                      mixBlendMode: "multiply",
-                    }}
-                  />
-                </div>
-                <div className="mt-2">
-                  <span className="mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--color-ink-faint)]">
-                    {location ?? photo.category}
-                  </span>
-                </div>
-                {caption && (
-                  <p
-                    className={
-                      photo.meta?.caption
-                        ? "mt-1 italic-serif text-[12px] text-[color:var(--color-ink-dim)] line-clamp-1"
-                        : "mt-1 mono text-[10px] tracking-[0.14em] text-[color:var(--color-ink-dim)] line-clamp-1"
-                    }
-                  >
-                    {caption}
-                  </p>
-                )}
-              </button>
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute left-0 top-0 h-full w-[6px]"
+                  style={{
+                    backgroundImage:
+                      "repeating-linear-gradient(to bottom, rgba(0,0,0,0.4) 0 6px, transparent 6px 14px)",
+                    mixBlendMode: "multiply",
+                  }}
+                />
+              </Print>
+              <div className="mt-2">
+                <span className="text-[11px] text-[color:var(--color-ink-faint)]">
+                  {location ?? photo.category}
+                </span>
+              </div>
+              {caption && (
+                <p
+                  className={
+                    photo.meta?.caption
+                      ? "mt-1 italic-serif text-[12px] text-[color:var(--color-ink-dim)] line-clamp-1"
+                      : "mt-1 mono text-[10px] tracking-[0.14em] text-[color:var(--color-ink-dim)] line-clamp-1"
+                  }
+                >
+                  {caption}
+                </p>
+              )}
             </li>
           );
         })}
@@ -313,14 +347,16 @@ export function PhotoGallery() {
             aria-label={`Photo ${lightbox! + 1} of ${filtered.length}`}
             className="fixed inset-0 z-50 flex items-center justify-center bg-[color:var(--color-canvas)]/95 backdrop-blur-md p-4 md:p-10"
             onClick={close}
+            onTouchStart={onTouchStart}
+            onTouchEnd={onTouchEnd}
           >
             <button
               type="button"
               onClick={close}
               aria-label="Close"
-              className="absolute top-4 right-4 z-10 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
+              className="absolute top-4 right-4 z-10 text-[13px] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
             >
-              Close ✕
+              Close
             </button>
 
             <button
@@ -330,9 +366,9 @@ export function PhotoGallery() {
                 prev();
               }}
               aria-label="Previous photo"
-              className="absolute left-4 top-1/2 z-10 -translate-y-1/2 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
+              className="absolute left-4 top-1/2 z-10 -translate-y-1/2 text-[13px] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
             >
-              ← Prev
+              ←
             </button>
             <button
               type="button"
@@ -341,16 +377,20 @@ export function PhotoGallery() {
                 next();
               }}
               aria-label="Next photo"
-              className="absolute right-4 top-1/2 z-10 -translate-y-1/2 mono text-[11px] uppercase tracking-[0.15em] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
+              className="absolute right-4 top-1/2 z-10 -translate-y-1/2 text-[13px] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
             >
-              Next →
+              →
             </button>
 
             <div
               className="relative max-h-[82vh] w-full max-w-5xl"
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="flex items-center justify-center" style={{ maxHeight: "78vh", minHeight: "40vh" }}>
+              <div
+                key={current.id}
+                className="develop flex items-center justify-center"
+                style={{ maxHeight: "78vh", minHeight: "40vh" }}
+              >
                 {/* next/image with the manifest's intrinsic dimensions, so the
                     lightbox serves an optimised rendition instead of the raw
                     multi-megabyte original. */}
@@ -364,12 +404,11 @@ export function PhotoGallery() {
                 />
               </div>
               <div className="mt-4 flex flex-col items-center gap-1.5 text-center">
-                <p className="mono text-[11px] uppercase tracking-[0.18em] text-[color:var(--color-ink-dim)]">
+                <p className="mono text-[11px] tracking-[0.1em] text-[color:var(--color-ink-dim)]">
                   {currentLocation ?? current.category}
                   {currentYear ? ` · ${currentYear}` : ""}
                   {" · "}
-                  {String(lightbox! + 1).padStart(2, "0")} /{" "}
-                  {String(filtered.length).padStart(2, "0")}
+                  {lightbox! + 1} of {filtered.length}
                 </p>
                 {currentNote && (
                   <p
