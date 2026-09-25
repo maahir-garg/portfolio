@@ -1,10 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Link from "next/link";
 import { Reveal } from "@/components/ui/Reveal";
 import { DATA } from "@/lib/data";
 import { ProjectsCollectionJsonLd, BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { TransitionLink } from "@/components/motion/TransitionLink";
 
 const categories = [
   { id: "all", label: "All" },
@@ -44,8 +44,7 @@ export default function ProjectsPage() {
       <ProjectsCollectionJsonLd />
       <Reveal>
         <header className="grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-2"><p className="meta">§ Projects</p></div>
-          <div className="md:col-span-10">
+          <div className="md:col-span-10 md:col-start-3">
             <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
               <span className="sr-only">Projects by Maahir Garg. </span>
               Things I&apos;ve <em className="italic-serif">made, broken,</em> re-made.
@@ -64,8 +63,8 @@ export default function ProjectsPage() {
       {/* filter row. Editorial tabs. */}
       <Reveal delay={100}>
         <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-2">
-          <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
-            Filter:
+          <span className="italic-serif text-[color:var(--color-ink-faint)]" style={{ fontSize: "var(--step-0)" }}>
+            Filter
           </span>
           {categories.map((c) => {
             const isActive = active === c.id;
@@ -93,8 +92,8 @@ export default function ProjectsPage() {
                 </span>
                 <span className="mono text-[10px] text-[color:var(--color-ink-faint)]">
                   {c.id === "all"
-                    ? String(DATA.projects.length).padStart(2, "0")
-                    : String(DATA.projects.filter((p) => classify(p).includes(c.id)).length).padStart(2, "0")}
+                    ? DATA.projects.length
+                    : DATA.projects.filter((p) => classify(p).includes(c.id)).length}
                 </span>
               </button>
             );
@@ -106,15 +105,12 @@ export default function ProjectsPage() {
         {projects.map((p, i) => (
           <Reveal key={p.slug} delay={i * 30}>
             <li className="group border-b border-[color:var(--color-rule)]">
-              <Link
+              <TransitionLink
                 href={`/projects/${p.slug}`}
                 className="grid grid-cols-1 gap-4 py-8 md:grid-cols-12 md:gap-8 md:py-10"
               >
                 <div className="md:col-span-2 flex flex-col gap-1">
-                  <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
-                    {String(i + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
-                  </span>
-                  <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
+                  <span className="text-[13px] text-[color:var(--color-ink-dim)]">
                     {p.dates}
                   </span>
                 </div>
@@ -122,7 +118,7 @@ export default function ProjectsPage() {
                 <div className="md:col-span-7">
                   <h2
                     className="text-[color:var(--color-ink)] transition-colors group-hover:text-[color:var(--color-mark)]"
-                    style={{ fontSize: "var(--step-3)" }}
+                    style={{ fontSize: "var(--step-3)", viewTransitionName: `project-title-${p.slug}` }}
                   >
                     {p.title}
                   </h2>
@@ -144,7 +140,7 @@ export default function ProjectsPage() {
                     </span>
                   ))}
                 </div>
-              </Link>
+              </TransitionLink>
             </li>
           </Reveal>
         ))}

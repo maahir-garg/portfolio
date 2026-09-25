@@ -8,6 +8,8 @@ import { LeetCodeStats } from "@/components/feature/LeetCodeStats";
 import { LeetCodeStatsSkeleton } from "@/components/feature/LeetCodeStatsSkeleton";
 import { absoluteUrl, OG_IMAGE, SITE, toIsoDate, toIsoDateTime } from "@/lib/site";
 import { BreadcrumbJsonLd, ProjectJsonLd } from "@/components/seo/JsonLd";
+import { TransitionLink } from "@/components/motion/TransitionLink";
+import { PinchCursor } from "@/components/motion/PinchCursor";
 
 export async function generateMetadata({
   params,
@@ -91,40 +93,56 @@ export default async function ProjectPage({
       <Reveal>
         <Link
           href="/projects"
-          className="mono inline-flex items-baseline gap-1.5 text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)] hover:text-[color:var(--color-mark)] transition-colors"
+          className="inline-flex items-baseline gap-1.5 text-[13px] text-[color:var(--color-ink-faint)] hover:text-[color:var(--color-mark)] transition-colors"
         >
           ← Back to the archive
         </Link>
       </Reveal>
 
       <Reveal delay={80}>
-        <header className="mt-8 grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-2">
-            <p className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
-              Entry {String(idx + 1).padStart(2, "0")} / {String(DATA.projects.length).padStart(2, "0")}
-            </p>
-            <p className="mono mt-2 text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-dim)]">
-              {project.dates}
-            </p>
-          </div>
-          <div className="md:col-span-10">
-            <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
-              {project.title}
-            </h1>
-            <p
-              className="mt-6 max-w-3xl text-[color:var(--color-ink-dim)]"
-              style={{ fontSize: "var(--step-2)", lineHeight: 1.5 }}
-            >
-              {project.description}
-            </p>
-          </div>
-        </header>
+        {project.slug === "3d-iphone" ? (
+          <PinchCursor className="block">
+            <header className="mt-8 grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
+              <div className="md:col-span-2">
+                <p className="text-[13px] text-[color:var(--color-ink-dim)]">{project.dates}</p>
+              </div>
+              <div className="md:col-span-10">
+                <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03, viewTransitionName: `project-title-${project.slug}` }}>
+                  {project.title}
+                </h1>
+                <p
+                  className="mt-6 max-w-3xl text-[color:var(--color-ink-dim)]"
+                  style={{ fontSize: "var(--step-2)", lineHeight: 1.5 }}
+                >
+                  {project.description}
+                </p>
+              </div>
+            </header>
+          </PinchCursor>
+        ) : (
+          <header className="mt-8 grid grid-cols-1 gap-4 border-b border-[color:var(--color-rule)] pb-10 md:grid-cols-12 md:gap-8">
+            <div className="md:col-span-2">
+              <p className="text-[13px] text-[color:var(--color-ink-dim)]">{project.dates}</p>
+            </div>
+            <div className="md:col-span-10">
+              <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03, viewTransitionName: `project-title-${project.slug}` }}>
+                {project.title}
+              </h1>
+              <p
+                className="mt-6 max-w-3xl text-[color:var(--color-ink-dim)]"
+                style={{ fontSize: "var(--step-2)", lineHeight: 1.5 }}
+              >
+                {project.description}
+              </p>
+            </div>
+          </header>
+        )}
       </Reveal>
 
       {/* meta grid */}
       <Reveal delay={140}>
         <section className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-2"><h2 className="meta">Stack</h2></div>
+          <div className="md:col-span-2"><h2 className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>Stack</h2></div>
           <div className="md:col-span-10 flex flex-wrap gap-x-5 gap-y-2">
             {project.technologies.map((t) => (
               <span
@@ -140,7 +158,7 @@ export default async function ProjectPage({
 
       <Reveal delay={200}>
         <section className="mt-10 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
-          <div className="md:col-span-2"><h2 className="meta">Links</h2></div>
+          <div className="md:col-span-2"><h2 className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>Links</h2></div>
           <div className="md:col-span-10 flex flex-wrap gap-x-6 gap-y-2">
             {project.links.map((link, i) => {
               const label = link.href ? `${link.type} ↗` : link.type;
@@ -168,7 +186,7 @@ export default async function ProjectPage({
         <Reveal delay={220}>
           <section className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
             <div className="md:col-span-2">
-              <h2 className="meta">Notes</h2>
+              <h2 className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>Notes</h2>
             </div>
             <div className="md:col-span-10 max-w-3xl">
               {notes.split(/\n\n+/).map((para, i) => (
@@ -188,7 +206,7 @@ export default async function ProjectPage({
       {project.evidence.length > 0 && (
         <Reveal delay={230}>
           <section className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
-            <div className="md:col-span-2"><h2 className="meta">Evidence</h2></div>
+            <div className="md:col-span-2"><h2 className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>Evidence</h2></div>
             <dl className="md:col-span-10 max-w-4xl divide-y divide-[color:var(--color-rule)] border-y border-[color:var(--color-rule)]">
               {project.evidence.map((item) => (
                 <div key={item.label} className="grid grid-cols-1 gap-2 py-5 sm:grid-cols-4 sm:gap-6">
@@ -204,7 +222,7 @@ export default async function ProjectPage({
       {hasLiveStats && (
         <Reveal delay={240}>
           <section className="mt-16 grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-8">
-            <div className="md:col-span-2"><h2 className="meta">Live ticker</h2></div>
+            <div className="md:col-span-2"><h2 className="italic-serif text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>Live ticker</h2></div>
             <div className="md:col-span-10">
               <Suspense fallback={<LeetCodeStatsSkeleton />}>
                 <LeetCodeStats username="maahir_garg" />
@@ -222,38 +240,38 @@ export default async function ProjectPage({
         >
           <div>
             {prevProject && (
-              <Link
+              <TransitionLink
                 href={`/projects/${prevProject.slug}`}
                 className="group flex flex-col gap-1"
               >
-                <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
-                  ← Prev
+                <span className="text-[13px] text-[color:var(--color-ink-faint)]">
+                  ← Previous
                 </span>
                 <span
                   className="text-[color:var(--color-ink-dim)] group-hover:text-[color:var(--color-mark)] transition-colors"
-                  style={{ fontSize: "var(--step-1)" }}
+                  style={{ fontSize: "var(--step-1)", viewTransitionName: `project-title-${prevProject.slug}` }}
                 >
                   {prevProject.title}
                 </span>
-              </Link>
+              </TransitionLink>
             )}
           </div>
           <div className="text-right">
             {nextProject && (
-              <Link
+              <TransitionLink
                 href={`/projects/${nextProject.slug}`}
                 className="group flex flex-col gap-1 items-end"
               >
-                <span className="mono text-[11px] uppercase tracking-[0.14em] text-[color:var(--color-ink-faint)]">
+                <span className="text-[13px] text-[color:var(--color-ink-faint)]">
                   Next →
                 </span>
                 <span
                   className="text-[color:var(--color-ink-dim)] group-hover:text-[color:var(--color-mark)] transition-colors"
-                  style={{ fontSize: "var(--step-1)" }}
+                  style={{ fontSize: "var(--step-1)", viewTransitionName: `project-title-${nextProject.slug}` }}
                 >
                   {nextProject.title}
                 </span>
-              </Link>
+              </TransitionLink>
             )}
           </div>
         </nav>
