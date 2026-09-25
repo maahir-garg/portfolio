@@ -86,10 +86,10 @@ export function Hero() {
               correction="tests that tell me when my models don't"
               trigger="load"
               play={playToken}
-              delay={0}
-              duration={380}
-              writeDelay={430}
-              writeDuration={550}
+              delay={120}
+              duration={350}
+              writeDelay={420}
+              writeDuration={500}
             >
               models that work.
             </PenStrike>

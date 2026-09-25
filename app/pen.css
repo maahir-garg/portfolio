@@ -61,6 +61,23 @@ html.js-active .pen-mark.pen-in .pen-mark-svg {
   clip-path: inset(0 0% 0 -4%);
   transition: clip-path var(--pen-duration) var(--pen-ease) var(--pen-delay);
 }
+/* Autoplay: trigger="load" marks (the hero headline) draw themselves via a
+   CSS keyframe the instant this stylesheet applies to the SSR markup,
+   independent of JS/hydration - see components/ui/RedPen.tsx, which never
+   sets `entered`/`pen-in` for these on first paint at all. Once something
+   calls replay() (hover, tap, the click-to-remark handler), `pen-in` gets
+   added, `:not(.pen-in)` here stops matching, and the ordinary `.pen-in`
+   transition rule above takes over - it lands on the identical fully-drawn
+   clip-path, so control swaps with no visible flash. animation-fill-mode:
+   both both freezes the finished draw AND, during --pen-delay, holds the
+   same undrawn "from" state the base `:not(.pen-in)` rule already sets. */
+html.js-active .pen-mark.pen-autoplay:not(.pen-in) .pen-mark-svg {
+  animation: pen-draw-in var(--pen-duration) var(--pen-ease) var(--pen-delay) both;
+}
+@keyframes pen-draw-in {
+  from { clip-path: inset(0 100% 0 -4%); }
+  to { clip-path: inset(0 0% 0 -4%); }
+}
 /* replay: suppress transitions for one frame while the reveal state is
    reset, so the mark redraws cleanly instead of visibly animating
    backwards. */
@@ -98,6 +115,49 @@ html.js-active .pen-mark.pen-resetting .pen-nib {
   text-decoration-color: var(--color-mark);
   text-decoration-thickness: 0.05em;
   text-underline-offset: 0.15em;
+}
+
+/* Autoplay wrap-race guard: `.pen-wrapped` above is only known once a
+   layout effect measures the marked phrase's line boxes client-side - on a
+   throttled phone that can land long after the `.pen-autoplay` keyframes
+   already started (that gap is the whole point of autoplay: it doesn't
+   wait for hydration). A flat SVG overlay animating across a heading
+   that's actually wrapped onto two lines would draw in the wrong place
+   for however long that gap lasts. Hero-scale headings are the only
+   autoplay marks in this design and reliably wrap under this width, so
+   default straight to the static wrap fallback there - no measurement,
+   no animation, correct from first paint. Wider viewports still rely on
+   the real `.pen-wrapped` measurement above. */
+/* Scoped to :not(.pen-in), same as the keyframe rules it overrides: once
+   a replay fires (hover/tap), hydration and the real wrap measurement
+   have necessarily already happened (JS handlers only exist post-hydra-
+   tion), so replay falls through to the ordinary `.pen-wrapped`-driven
+   behaviour untouched - this guard only governs the pre-hydration window. */
+@media (max-width: 767px) {
+  html.js-active .pen-mark.pen-autoplay:not(.pen-in) .pen-mark-svg {
+    display: none;
+  }
+  html.js-active .pen-strike.pen-autoplay:not(.pen-in) .pen-mark-content {
+    text-decoration-line: line-through;
+    text-decoration-color: var(--color-mark);
+    text-decoration-thickness: 0.07em;
+    text-decoration-skip-ink: none;
+  }
+  html.js-active .pen-underline.pen-autoplay:not(.pen-in) .pen-mark-content,
+  html.js-active .pen-circle.pen-autoplay:not(.pen-in) .pen-mark-content {
+    text-decoration-line: underline;
+    text-decoration-color: var(--color-mark);
+    text-decoration-thickness: 0.05em;
+    text-underline-offset: 0.15em;
+  }
+  html.js-active .pen-mark.pen-autoplay:not(.pen-in) .pen-correction {
+    /* higher-specificity :not(.pen-in) keyframe rule above needs beating */
+    animation: none !important;
+    clip-path: inset(0 0% 0 0) !important;
+  }
+  html.js-active .pen-mark.pen-autoplay:not(.pen-in) .pen-nib {
+    display: none;
+  }
 }
 
 /* circle: loose ellipse overshooting the word */
@@ -168,6 +228,15 @@ html.js-active .pen-mark.pen-in .pen-correction {
   clip-path: inset(0 0% 0 0);
   transition: clip-path var(--pen-write-duration) var(--pen-ease) var(--pen-write-delay);
 }
+/* autoplay: the correction writes itself in on the same CSS-keyframe path
+   as the strike above, no JS wait. Same swap-to-`.pen-in`-on-replay logic. */
+html.js-active .pen-mark.pen-autoplay:not(.pen-in) .pen-correction {
+  animation: pen-write-in var(--pen-write-duration) var(--pen-ease) var(--pen-write-delay) both;
+}
+@keyframes pen-write-in {
+  from { clip-path: inset(0 100% 0 0); }
+  to { clip-path: inset(0 0% 0 0); }
+}
 /* the travelling nib: a small dot that rides the leading edge of the
    correction as it writes itself in, then lifts off the page. */
 .pen-nib {
@@ -183,6 +252,9 @@ html.js-active .pen-mark.pen-in .pen-correction {
   opacity: 0;
 }
 html.js-active .pen-mark.pen-in .pen-nib {
+  animation: pen-nib-travel var(--pen-write-duration) var(--pen-ease) var(--pen-write-delay) both;
+}
+html.js-active .pen-mark.pen-autoplay:not(.pen-in) .pen-nib {
   animation: pen-nib-travel var(--pen-write-duration) var(--pen-ease) var(--pen-write-delay) both;
 }
 @keyframes pen-nib-travel {
@@ -257,6 +329,7 @@ html.js-active .pen-mark.pen-note.pen-in .pen-note-svg {
   html.js-active .pen-mark .pen-note-text {
     clip-path: inset(0 0% 0 0) !important;
     transition: none !important;
+    animation: none !important;
   }
   html.js-active .pen-mark .pen-nib {
     display: none;
