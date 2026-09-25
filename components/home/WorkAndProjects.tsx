@@ -14,6 +14,13 @@ const FEATURED_ROLES = [
   "NUS, School of Computing",
 ];
 
+// Display names for the home list; the full names live on /experience.
+const SHORT_NAMES: Record<string, string> = {
+  "AI Centre for Educational Technologies, Team Koditsu": "AICET, Team Koditsu",
+  "Interactive 3D Lab, in collaboration with Apple": "Interactive 3D Lab, with Apple",
+  "NUS, School of Computing": "NUS Computing",
+};
+
 const FEATURED_PROJECTS = [
   "pgpals",
   "traders-edge",
@@ -44,7 +51,7 @@ export function WorkAndProjects() {
       rows.push({
         kind: "role",
         key: `role-${role.company}`,
-        title: role.company,
+        title: SHORT_NAMES[role.company] ?? role.company,
         sub: role.title,
         dates: role.dates.replace("Present", "now"),
         href: "/experience",
@@ -57,7 +64,7 @@ export function WorkAndProjects() {
         kind: "project",
         key: `project-${project.slug}`,
         title: project.title,
-        sub: "Project",
+        sub: project.technologies.slice(0, 3).join(", "),
         dates: project.dates,
         href: `/projects/${project.slug}`,
         description: project.description,

@@ -174,11 +174,14 @@ export function PenStrike({
   children,
   correction,
   seed = 0,
+  placement = "above",
   className = "",
 }: {
   children: ReactNode;
   correction: string;
   seed?: number;
+  /** "below" suits big display type, where a correction above would collide with the previous line. */
+  placement?: "above" | "below";
   className?: string;
 }) {
   const { ref, entered } = useDrawIn<HTMLSpanElement>();
@@ -188,7 +191,7 @@ export function PenStrike({
   return (
     <span
       ref={ref}
-      className={`pen-mark pen-strike ${entered ? "pen-in" : ""} ${className}`.trim()}
+      className={`pen-mark pen-strike pen-strike-${placement} ${entered ? "pen-in" : ""} ${className}`.trim()}
     >
       <span className="pen-mark-content">{children}</span>
       <svg

@@ -289,6 +289,17 @@ html.js-active .pen-mark.pen-in .pen-path-head {
   opacity: 1;
   transition: opacity 400ms cubic-bezier(0.2, 0.8, 0.2, 1);
 }
+.pen-strike-below .pen-correction {
+  bottom: auto;
+  top: 100%;
+  margin-bottom: 0;
+  margin-top: 0.05em;
+  white-space: normal;
+  width: max-content;
+  max-width: min(15em, 88vw);
+  font-size: 0.44em;
+  transform-origin: left top;
+}
 html.js-active .pen-mark.pen-strike:not(.pen-in) .pen-correction {
   opacity: 0;
 }

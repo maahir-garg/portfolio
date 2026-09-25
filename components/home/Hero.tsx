@@ -41,11 +41,11 @@ export function Hero() {
         {/* Statement */}
         <div className="md:col-span-7 md:order-1">
           <h1
-            className="text-[color:var(--color-ink)]"
+            className="text-[color:var(--color-ink)] pb-[1.25em]"
             style={{ fontSize: "var(--step-5)", lineHeight: 1.05, letterSpacing: "-0.015em" }}
           >
             I build{" "}
-            <PenStrike seed={0} correction="tests that tell me when my models don't">
+            <PenStrike seed={0} placement="below" correction="tests that tell me when my models don't">
               models that work
             </PenStrike>
             .

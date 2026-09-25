@@ -51,11 +51,11 @@ export default function AboutPage() {
       <header className="border-b border-[color:var(--color-rule)] pb-10">
         <h1 style={{ fontSize: "var(--step-5)", lineHeight: 1.03 }}>
           <span className="sr-only">About Maahir Garg. </span>
-          Work, study, and the{" "}
+          The{" "}
           <PenCircle seed={1}>
-            <em className="italic-serif">questions</em>
+            <em className="italic-serif">longer</em>
           </PenCircle>{" "}
-          between them.
+          version.
         </h1>
       </header>
 
