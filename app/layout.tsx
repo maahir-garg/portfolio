@@ -121,7 +121,14 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en-SG" suppressHydrationWarning>
+    <html
+      lang="en-SG"
+      suppressHydrationWarning
+      // Font variables live on <html> so the :root-level theme tokens
+      // (--font-serif etc.) can resolve them; on <body> they were undefined
+      // at :root and every heading silently fell back to the sans stack.
+      className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable}`}
+    >
       <head>
         {/* Fonts are self-hosted at build time via next/font, so no
             connection hints to Google Fonts are needed. The hero photo's
@@ -131,7 +138,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${newsreader.variable} relative flex min-h-screen flex-col`}
+        className="relative flex min-h-screen flex-col"
       >
         <a href="#main" className="skip-link">Skip to content</a>
         <ThemeProvider>
