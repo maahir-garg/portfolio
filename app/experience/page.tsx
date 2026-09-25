@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { PenCircle } from "@/components/ui/RedPen";
 import { DATA } from "@/lib/data";
 import { absoluteUrl, OG_IMAGE } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+import { ExperienceRail } from "@/app/experience/ExperienceRail";
 
 export const metadata: Metadata = {
   title: "Experience",
@@ -50,50 +50,7 @@ export default function ExperiencePage() {
         </p>
       </header>
 
-      <ol className="timeline-rail mt-4">
-        {items.map((role, i) => (
-          <li key={`${role.company}-${i}`} className="group border-b border-[color:var(--color-rule)] py-10 first:pt-8 md:py-12">
-            <div className="flex flex-col gap-1 text-[color:var(--color-ink-dim)] md:flex-row md:items-baseline md:gap-4">
-              <span className="mono text-[0.8rem]">{role.dates.replace("Present", "now")}</span>
-              <span className="text-[0.8rem]">{role.location}</span>
-            </div>
-
-            <div className="mt-2 flex flex-wrap items-baseline gap-x-4 gap-y-1">
-              <h2
-                className="italic-serif text-[color:var(--color-ink)] transition-colors group-hover:text-[color:var(--color-mark)]"
-                style={{ fontSize: "var(--step-3)" }}
-              >
-                {role.company}
-              </h2>
-              <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-1)" }}>
-                {role.title}
-              </p>
-              {role.current && (
-                <PenCircle seed={i}>
-                  <span className="italic-serif text-[color:var(--color-mark)]" style={{ fontSize: "var(--step-0)" }}>
-                    now
-                  </span>
-                </PenCircle>
-              )}
-            </div>
-
-            <p className="mt-4 max-w-3xl text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)", lineHeight: 1.7 }}>
-              {role.description}
-            </p>
-
-            {role.href && (
-              <a
-                href={role.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="link-underline mt-5 inline-flex text-[0.85rem] text-[color:var(--color-ink-faint)] hover:text-[color:var(--color-mark)]"
-              >
-                {new URL(role.href).hostname.replace(/^www\./, "")}
-              </a>
-            )}
-          </li>
-        ))}
-      </ol>
+      <ExperienceRail items={items} />
 
       {/* Leadership & service */}
       <section className="mt-20">

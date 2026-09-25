@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
 import { PenStrike } from "@/components/ui/RedPen";
 import { Print } from "@/components/motion/Print";
@@ -11,6 +11,9 @@ const UNDER_PHOTO = "/photography/landscape/IMG_6654.jpeg";
 
 export function Hero() {
   const deskRef = useRef<HTMLDivElement>(null);
+  // Bumped on click/tap to replay the headline's whole mark sequence
+  // (strike, then the correction writing itself in, then the tick).
+  const [playToken, setPlayToken] = useState(0);
   return (
     <section ref={deskRef} className="container-page pt-10 md:pt-16">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-center">
@@ -44,6 +47,7 @@ export function Hero() {
               sizes="(min-width: 768px) 42vw, 100vw"
               priority
               rotate={2}
+              parallax
               constraintsRef={deskRef}
               className="aspect-[4/5]"
             >
@@ -64,14 +68,25 @@ export function Hero() {
         {/* Statement */}
         <div className="order-1 md:col-span-7">
           <h1
-            className="text-[color:var(--color-ink)] pb-[1.25em]"
+            className="cursor-pointer text-[color:var(--color-ink)] pb-[1.5em] select-none md:pb-[1.35em]"
             style={{ fontSize: "var(--step-5)", lineHeight: 1.05, letterSpacing: "-0.015em" }}
+            onClick={() => setPlayToken((t) => t + 1)}
+            title="Tap to re-mark"
           >
             I build{" "}
-            <PenStrike seed={0} placement="below" correction="tests that tell me when my models don't">
-              models that work
+            <PenStrike
+              seed={0}
+              placement="below"
+              correction="tests that tell me when my models don't"
+              trigger="load"
+              play={playToken}
+              delay={0}
+              duration={380}
+              writeDelay={430}
+              writeDuration={550}
+            >
+              models that work.
             </PenStrike>
-            .
           </h1>
 
           <p
