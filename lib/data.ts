@@ -182,7 +182,7 @@ export const DATA: {
       current: true,
       featured: true,
       description:
-        "Teaching CS3230, the algorithms course I took myself as a student, and CS3263, foundations of AI. The rating I'm proudest of isn't the grade I got in either course, it's the 4.8/5.0 my own students gave the teaching.",
+        "Teaching CS3230, the algorithms course I took myself as a student, and CS3263, foundations of AI. Four semesters in, students rate the teaching 4.8 out of 5, and it got me onto the NUS Honour List of Student Tutors.",
     },
     {
       company: "NUS",
@@ -417,7 +417,7 @@ export const DATA: {
       description:
         "iPhone and Apple Vision Pro working as one tracking surface to assess hand and eye movement after a stroke, built in collaboration with Apple at Interactive 3D Lab.",
       notes:
-        "I built the visionOS app, the spatial interface and the real-time tracking, plus the iPhone companion. It was tested with real clinicians and real patients, which is the part I'm most careful about describing properly. The implementation link stays private while the research disclosure process continues.",
+        "I built the visionOS app, the spatial interface and the real-time tracking, plus the iPhone companion. It was tested with real clinicians and real patients. The implementation link stays private while the research disclosure process continues.",
       evidence: [
         { label: "Contribution", body: "Built the visionOS spatial UI, real-time hand and gaze tracking, and an iPhone companion app." },
         { label: "Validation", body: "Reached 89% cross-device accuracy, 30 fps, and sub-millisecond latency; evaluated across three sessions with three patients per session." },
