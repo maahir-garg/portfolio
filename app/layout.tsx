@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono, Newsreader } from "next/font/google";
 import "./globals.css";
+import "./motion.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { JsonLd } from "@/components/seo/JsonLd";
@@ -8,6 +9,7 @@ import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider, themeInitScript } from "@/components/ThemeProvider";
 import { SITE, absoluteUrl } from "@/lib/site";
+import { JumpBarLoader } from "@/components/motion/JumpBarLoader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -148,6 +150,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           </main>
           <Footer />
         </ThemeProvider>
+        <JumpBarLoader />
         <JsonLd />
         <SpeedInsights />
         <Analytics />
