@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   // Kept under ~160 chars so Google shows it whole instead of truncating
   // or rewriting; the long-form bio lives in the Person JSON-LD.
   description:
-    "Maahir Garg is an AI Engineer at AICET's Team Koditsu and former GIC AI Engineer, studying Computer Science and Quantitative Finance at NUS.",
+    "Maahir Garg is an AI Engineer at AICET's Team Koditsu, a former GIC AI Engineer, and a Computer Science and Quantitative Finance student at NUS.",
   applicationName: "Maahir Garg · Field Notebook",
   authors: [{ name: SITE.fullName, url: SITE.baseUrl }],
   creator: SITE.fullName,

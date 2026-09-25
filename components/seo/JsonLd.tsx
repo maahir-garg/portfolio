@@ -43,7 +43,7 @@ export function JsonLd() {
       "@type": "Occupation",
       name: "AI Engineer",
       occupationLocation: { "@type": "City", name: "Singapore" },
-      skills: "Agentic LLMs, model optimisation, sequence modelling, evaluations, tracing, data engineering, quantitative finance",
+      skills: "Agentic LLMs, model optimisation, statistical validation, LLM evaluation, tracing, data engineering, quantitative finance",
     },
     // Current student (2023–2027), so memberOf rather than alumniOf.
     // alumniOf asserts a *completed* affiliation and would contradict the
@@ -70,7 +70,7 @@ export function JsonLd() {
       "Large Language Models",
       "Agentic AI",
       "Machine Learning",
-      "Sequence Modelling",
+      "Statistical Validation",
       "AI Evaluation",
       "Spatial Computing",
       "Apple Vision Pro",
