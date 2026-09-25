@@ -2,10 +2,13 @@
 
 import Link from "next/link";
 import { DATA } from "@/lib/data";
+import { GradeMark, type GradeKind } from "@/components/ui/RedPen";
+
+type Grade = { kind: GradeKind; word?: string };
 
 type Row =
-  | { kind: "role"; key: string; title: string; sub: string; dates: string; href: string; description: string }
-  | { kind: "project"; key: string; title: string; sub: string; dates: string; href: string; description: string };
+  | { kind: "role"; key: string; title: string; sub: string; dates: string; href: string; description: string; grade: Grade }
+  | { kind: "project"; key: string; title: string; sub: string; dates: string; href: string; description: string; grade: Grade };
 
 const FEATURED_ROLES = [
   "AI Centre for Educational Technologies, Team Koditsu",
@@ -43,11 +46,18 @@ export function WorkAndProjects() {
     .map((slug) => DATA.projects.find((p) => p.slug === slug))
     .filter((p): p is (typeof DATA.projects)[number] => Boolean(p));
 
+  // Non-current roles alternate between a tick and a circled date, so the
+  // list doesn't read as five margin notes in a row; current roles and
+  // every project get a true, dry status word instead.
+  let untickedCount = 0;
   const rows: Row[] = [];
   const max = Math.max(roles.length, projects.length);
   for (let i = 0; i < max; i++) {
     const role = roles[i];
     if (role) {
+      const grade: Grade = role.current
+        ? { kind: "note", word: "still going" }
+        : { kind: untickedCount++ % 2 === 0 ? "tick" : "circle" };
       rows.push({
         kind: "role",
         key: `role-${role.company}`,
@@ -56,10 +66,13 @@ export function WorkAndProjects() {
         dates: role.dates.replace("Present", "now"),
         href: "/experience",
         description: role.description,
+        grade,
       });
     }
     const project = projects[i];
     if (project) {
+      const word =
+        project.slug === "pgpals" ? "offline now" : project.active ? "in progress" : "shipped";
       rows.push({
         kind: "project",
         key: `project-${project.slug}`,
@@ -68,6 +81,7 @@ export function WorkAndProjects() {
         dates: project.dates,
         href: `/projects/${project.slug}`,
         description: project.description,
+        grade: { kind: "note", word },
       });
     }
   }
@@ -81,7 +95,7 @@ export function WorkAndProjects() {
       </header>
 
       <ol>
-        {rows.map((row) => (
+        {rows.map((row, i) => (
           <li key={row.key} className="border-b border-[color:var(--color-rule)]">
             <Link
               href={row.href}
@@ -91,9 +105,17 @@ export function WorkAndProjects() {
                 <span className="italic-serif text-[color:var(--color-ink-faint)]" style={{ fontSize: "var(--step-0)" }}>
                   {row.kind === "role" ? "Role" : "Project"}
                 </span>
-                <span className="mono text-[0.8rem] text-[color:var(--color-ink-dim)]">
-                  {row.dates}
-                </span>
+                {row.grade.kind === "circle" ? (
+                  <GradeMark kind="circle" seed={i}>
+                    <span className="mono text-[0.8rem] text-[color:var(--color-ink-dim)]">
+                      {row.dates}
+                    </span>
+                  </GradeMark>
+                ) : (
+                  <span className="mono text-[0.8rem] text-[color:var(--color-ink-dim)]">
+                    {row.dates}
+                  </span>
+                )}
               </div>
 
               <div className="md:col-span-10">
@@ -103,10 +125,14 @@ export function WorkAndProjects() {
                     style={{ fontSize: "var(--step-3)" }}
                   >
                     {row.title}
+                    {row.grade.kind === "tick" && <GradeMark kind="tick" seed={i} />}
                   </h3>
                   <p className="text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>
                     {row.sub}
                   </p>
+                  {row.grade.kind === "note" && (
+                    <GradeMark kind="note" seed={i} word={row.grade.word} className="ml-1" />
+                  )}
                 </div>
                 <p
                   className="mt-3 max-w-2xl text-[color:var(--color-ink-dim)]"
