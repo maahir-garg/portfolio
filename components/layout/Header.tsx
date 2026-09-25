@@ -112,6 +112,7 @@ export function Header() {
     href === "/" ? pathname === "/" : pathname?.startsWith(href);
 
   return (
+    <>
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-[background-color,border-color,backdrop-filter] duration-300 ${
         scrolled || open
@@ -120,7 +121,11 @@ export function Header() {
       }`}
     >
       <div className="container-page flex h-14 items-center justify-between gap-6">
-        <TransitionLink href="/" className="text-[color:var(--color-ink)] text-[1.05rem] leading-none" aria-label="Home">
+        <TransitionLink
+          href="/"
+          className="flex min-h-11 items-center text-[color:var(--color-ink)] text-[1.05rem] leading-none"
+          aria-label="Home"
+        >
           Maahir Garg
         </TransitionLink>
 
@@ -167,8 +172,14 @@ export function Header() {
           </button>
         </div>
       </div>
+    </header>
 
-      {/* Mobile menu: a full-height paper sheet, not a dropdown. */}
+      {/* Mobile menu: a full-height paper sheet, not a dropdown. Rendered
+          as a sibling of <header>, not inside it - once `open` is true
+          the header picks up `backdrop-blur-md`, and `backdrop-filter`
+          makes an element a new containing block for its `fixed`
+          descendants, which would collapse this sheet's `inset-0` down
+          to the header's own ~56px bar instead of the viewport. */}
       <AnimatePresence>
         {open && (
           <motion.div
@@ -210,6 +221,6 @@ export function Header() {
           </motion.div>
         )}
       </AnimatePresence>
-    </header>
+    </>
   );
 }

@@ -196,6 +196,19 @@ export async function FlightsMap() {
                     style={{ "--i": i } as CSSProperties}
                   />
                   <circle cx={p.x} cy={p.y} r={2} style={{ fill: "var(--color-mark)" }} />
+                  {/* Invisible, generously-sized hit target. The visible
+                      dot is 2px (has to stay that small at this scale),
+                      which is unhittable on a phone; this makes the tap
+                      target ~20px in the map's own viewBox units without
+                      changing how the dot looks. */}
+                  <circle
+                    cx={p.x}
+                    cy={p.y}
+                    r={10}
+                    fill="transparent"
+                    pointerEvents="all"
+                    aria-hidden="true"
+                  />
                   {!SKIP_LABEL.has(dest.code) && (
                     <text
                       x={p.x + o.dx}

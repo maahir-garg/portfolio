@@ -106,6 +106,26 @@
 }
 
 /* ---------------------------------------------------------------- */
+/* Photo desk                                                       */
+/* ---------------------------------------------------------------- */
+
+/* Desktop-only "Tidy up" control. Tailwind's `hidden md:inline-flex`
+   sets `display` too, and globals.css's unlayered `.link-underline`
+   (which also sets `display: inline`) always wins the cascade over any
+   `@layer utilities` rule regardless of source order - so a plain
+   `hidden` class silently loses here. `!important` sidesteps the layer
+   fight outright. */
+.desk-tidy-btn {
+  display: none !important;
+}
+
+@media (min-width: 768px) {
+  .desk-tidy-btn {
+    display: inline-flex !important;
+  }
+}
+
+/* ---------------------------------------------------------------- */
 /* JumpBar                                                          */
 /* ---------------------------------------------------------------- */
 

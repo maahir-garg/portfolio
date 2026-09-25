@@ -310,13 +310,17 @@ export function PhotographyStrip() {
           <button
             type="button"
             onClick={() => deskHandle.current?.tidyUp()}
-            className="hidden italic-serif text-[color:var(--color-ink-dim)] link-underline md:inline-flex"
+            className="desk-tidy-btn italic-serif text-[color:var(--color-ink-dim)] link-underline"
             style={{ fontSize: "var(--step-0)" }}
           >
             Tidy up
           </button>
-          <Link href="/photography" className="italic-serif text-[color:var(--color-ink-dim)] link-underline" style={{ fontSize: "var(--step-0)" }}>
-            Full archive
+          <Link
+            href="/photography"
+            className="flex min-h-11 items-center italic-serif text-[color:var(--color-ink-dim)]"
+            style={{ fontSize: "var(--step-0)" }}
+          >
+            <span className="link-underline">Full archive</span>
           </Link>
         </div>
       </header>

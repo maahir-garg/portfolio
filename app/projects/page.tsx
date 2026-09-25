@@ -73,7 +73,7 @@ export default function ProjectsPage() {
                 type="button"
                 onClick={() => setActive(c.id)}
                 aria-pressed={isActive}
-                className="group relative inline-flex items-baseline gap-1.5 py-1 text-[0.95rem] transition-colors"
+                className="group relative inline-flex min-h-11 items-baseline gap-1.5 py-2 text-[0.95rem] transition-colors"
                 style={{ color: isActive ? "var(--color-ink)" : "var(--color-ink-dim)" }}
               >
                 <span
