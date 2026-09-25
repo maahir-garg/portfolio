@@ -11,6 +11,7 @@ import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider, themeInitScript } from "@/components/ThemeProvider";
 import { SITE, absoluteUrl } from "@/lib/site";
 import { JumpBarLoader } from "@/components/motion/JumpBarLoader";
+import { TransitionResolver } from "@/components/motion/TransitionResolver";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -145,6 +146,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       >
         <a href="#main" className="skip-link">Skip to content</a>
         <ThemeProvider>
+          {/* Resolves in-flight view transitions once a route actually
+              commits - see components/motion/TransitionResolver.tsx. */}
+          <TransitionResolver />
           <Header />
           <main id="main" className="relative z-[2] flex-1 pt-24">
             {children}

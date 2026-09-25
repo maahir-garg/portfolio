@@ -36,7 +36,13 @@ export function Hero() {
                 src={UNDER_PHOTO}
                 alt=""
                 fill
-                sizes="(min-width: 768px) 38vw, 80vw"
+                // Entirely covered by the portrait print above until
+                // someone drags it aside, so it's never part of first
+                // paint: lazy, low fetch priority, and a smaller target
+                // width than the fully-revealed size would need.
+                sizes="(min-width: 768px) 30vw, 60vw"
+                loading="lazy"
+                fetchPriority="low"
                 className="object-cover"
               />
             </div>
