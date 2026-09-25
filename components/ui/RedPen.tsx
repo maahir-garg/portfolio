@@ -25,7 +25,7 @@ const useIsoLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : use
  * Ink: every mark draws two overlapping passes of the same path (a slightly
  * offset, softer "ghost" pass under a solid one) so it reads as ink laid
  * down by hand rather than a single vector stroke. Straight-ish marks
- * (underline, strike, tick) taper at both ends through an SVG mask, the way
+ * (underline, strike, tick) could taper at both ends through an SVG mask, the way
  * a pen lifts off the page. Stroke width is set in em in app/pen.css, so it
  * scales with whatever text it is marking.
  *
@@ -132,7 +132,9 @@ function useInkMark<T extends HTMLElement>({
         }
       },
       centerCross
-        ? { threshold: 0, rootMargin: "-50% 0px -50% 0px" }
+        ? // The top half of the viewport, not a hairline at its middle, so a
+          // fast fling or jump that skips past the midpoint still marks the row.
+          { threshold: 0, rootMargin: "0px 0px -50% 0px" }
         : { threshold: 0.5, rootMargin: "0px 0px -10% 0px" },
     );
     io.observe(node);
@@ -376,7 +378,7 @@ export const PenUnderline = forwardRef<PenMarkHandle, PenBaseProps & { children:
           preserveAspectRatio="none"
           className="pen-mark-svg pen-mark-svg-under"
         >
-          <InkPass d={d} taper />
+          <InkPass d={d} />
         </svg>
       </span>
     );
@@ -449,7 +451,7 @@ export const PenStrike = forwardRef<
         preserveAspectRatio="none"
         className="pen-mark-svg pen-mark-svg-strike"
       >
-        <InkPass d={d} taper />
+        <InkPass d={d} />
       </svg>
       <span className="pen-correction-wrap" style={style}>
         <span className="pen-correction italic-serif">
@@ -485,7 +487,7 @@ export const PenTick = forwardRef<PenMarkHandle, PenBaseProps>(function PenTick(
       {...bind}
     >
       <svg viewBox="0 0 22 20" className="pen-mark-svg pen-tick-svg">
-        <InkPass d={d} taper />
+        <InkPass d={d} />
       </svg>
     </span>
   );

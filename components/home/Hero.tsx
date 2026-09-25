@@ -2,7 +2,7 @@
 
 import { useRef, useState } from "react";
 import Image from "next/image";
-import { PenStrike, PenTick } from "@/components/ui/RedPen";
+import { PenStrike } from "@/components/ui/RedPen";
 import { Print } from "@/components/motion/Print";
 
 const HERO_PHOTO = "/me.jpg";
@@ -47,6 +47,7 @@ export function Hero() {
               sizes="(min-width: 768px) 42vw, 100vw"
               priority
               rotate={2}
+              parallax
               constraintsRef={deskRef}
               className="aspect-[4/5]"
             >
@@ -84,17 +85,8 @@ export function Hero() {
               writeDelay={430}
               writeDuration={550}
             >
-              models that work
+              models that work.
             </PenStrike>
-            .
-            <PenTick
-              seed={1}
-              trigger="load"
-              play={playToken}
-              delay={850}
-              duration={220}
-              className="align-super"
-            />
           </h1>
 
           <p

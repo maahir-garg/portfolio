@@ -214,6 +214,9 @@ html.js-active .pen-mark.pen-in .pen-nib {
   vertical-align: top;
 }
 .pen-note-svg {
+  /* in flow, not absolute like other mark SVGs, so the arrow sits
+     beside the note instead of on top of its first letters */
+  position: relative;
   width: 1.6em;
   height: 1.15em;
   flex-shrink: 0;
