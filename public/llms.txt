@@ -4,30 +4,31 @@
 
 Current facts:
 
-- AICET, Team Koditsu: AI Engineer since Aug 2026, researching model-based cheating-risk signals for coding assessments from character-level editor interaction streams and periodic code-state snapshots, with sequence-model and LLM approaches designed to support human review.
-- GIC: AI Engineer from Jan to Jul 2026. Built an internal agentic CLI and sandboxed Chainlit assistant for an 11-person team with eight custom tools, multi-agent orchestration, skill routing, 50+ automated audit tests, separate custom evaluations, step-level guardrails, and Arize tracing. A Snowflake and SharePoint pipeline automated two manual data sources and reduced evidence retrieval from hours to near-instant.
-- NUS teaching: currently teaches CS3230 Design and Analysis of Algorithms and CS3263 Foundations of Artificial Intelligence, leading a 21-student CS3230 tutorial. Across four teaching semesters and five appointments, earned a 4.8/5.0 teaching rating against a 4.2 faculty average and a place on the NUS Honour List of Student Tutors.
+- AICET, Team Koditsu: AI Engineer since Aug 2026. Researching whether behavioural signals from coding-assessment sessions can flag likely cheating. The core result so far is a negative one: a promising 0.778 AUROC model turned out to be statistically indistinguishable from chance, and a lookup of which question a student got scored higher, exposing a confound rather than a detector. He built the detector harness and confound auditor that surfaced this.
+- GIC: AI Engineer from Jan to Jul 2026 (former role). Built an internal agentic CLI and sandboxed Chainlit assistant for an 11-person team in a classified-data environment, with custom tools, multi-agent orchestration, step-level guardrails, custom evaluations, and Arize tracing. A Snowflake and SharePoint pipeline automated two manual data sources and reduced evidence retrieval from hours to near-instant.
+- NUS teaching: currently teaches CS3230 Design and Analysis of Algorithms and CS3263 Foundations of Artificial Intelligence. Across four teaching semesters, earned a 4.8/5.0 teaching rating against a 4.2 faculty average and a place on the NUS Honour List of Student Tutors.
 - Education: Bachelor of Computing (Honours) in Computer Science, Second Major in Quantitative Finance, Minor in Data Engineering, and specialisations in Artificial Intelligence with Distinction, Database Systems, and Computer Networks. GPA 4.71/5.00; expected graduation May 2027.
-- Interactive 3D Lab: co-developed an iPhone and Apple Vision Pro tracking framework in collaboration with Apple for stroke-rehabilitation assessment, reaching 89% cross-device accuracy, 30 fps, and sub-millisecond latency. Co-author on a paper in preparation and co-inventor on a patent application in progress.
-- Interests: photography, badminton, chess blitz, poker, swimming, and Formula 1.
+- Interactive 3D Lab: co-developed an iPhone and Apple Vision Pro tracking framework in collaboration with Apple for stroke-rehabilitation assessment, reaching 89% cross-device accuracy, 30 fps, and sub-millisecond latency. Co-author on a paper in preparation and co-inventor on a patent application in progress (not yet filed).
+- PGP Residential Assistant: Residential Assistant at Prince George's Park since May 2025. In September 2026 he sole-built and sole-operated PGPals, the platform for the residence's two-week Emerald Challenge; the event has since closed and the live site is offline.
+- Interests: drums, badminton, blitz chess, poker, swimming, Formula 1, and photography.
 
 Selected projects:
 
-- PGPals: full-stack Next.js, TypeScript, and Supabase event platform supporting 164 authenticated users across 96 teams during a two-week residential challenge. It processed 2,297 submissions and 3,763 photo/video attachments across 103 challenges; enabled 78 multi-team pairings, 2,196 approved submissions, 2,289 credited team–challenge completions, and 46,540 PGP Coins awarded; and gave 10 administrators a 3.2-hour median review turnaround with zero submissions pending at event close. Public source: https://github.com/maahir-garg/pgpals
+- PGPals: full-stack Next.js, TypeScript, and Supabase event platform built and operated alone for a two-week residential challenge. Supported 164 authenticated users across 96 teams, processed 2,297 submissions and 3,763 photo/video attachments across 103 challenges, and closed with zero submissions left pending. The event is over and the site is offline; public source: https://github.com/maahir-garg/pgpals
 - Trader's Edge: team final-year project advised by Anand Bhojan, with a working MVP for plain-English strategy specification and historical-data backtesting. The demo requires Google sign-in. Public source is the NUS-FinTechAI team repository.
-- Prediction-market engine: read-only FastAPI research engine over public Polymarket and Kalshi feeds, with human-confirmed pairings, fee and liquidity modelling, hedge-equal depth fills, and 36+ tests. It never places orders, holds funds, or reports realised P&L.
-- BERT QA compression: 69% size reduction from 440 MB to 128 MB with no more than 0.5% F1 loss; custom mask-enforced pruning reached 54.7% sparsity.
+- Prediction-market engine: read-only research engine over public Polymarket and Kalshi feeds, matching the same real-world question priced differently across venues. It never places a trade, since prediction markets are restricted in Singapore.
+- BERT QA compression: reduced a BERT question-answering model 69% in size (440 MB to 128 MB) with no more than 0.5% F1 loss; custom mask-enforced pruning separately reached 54.7% sparsity.
 - Domain-specific PEFT: BitFit updated no more than 0.1% of parameters, limited to bias terms, and improved reasoning accuracy from 47% to 73% on clause-extracted health-insurance scenarios.
 
 Pages:
 
-- Home: https://maahir-garg.vercel.app/
-- About: https://maahir-garg.vercel.app/about
-- Experience: https://maahir-garg.vercel.app/experience
-- Projects: https://maahir-garg.vercel.app/projects
-- Now: https://maahir-garg.vercel.app/now
-- Photography: https://maahir-garg.vercel.app/photography
-- Contact: https://maahir-garg.vercel.app/contact
+- Home: an overview of recent work, selected projects, and photography. https://maahir-garg.vercel.app/
+- About: biography, education, honours, skills, and teaching and leadership roles. https://maahir-garg.vercel.app/about
+- Experience: full work history, newest first. https://maahir-garg.vercel.app/experience
+- Projects: a running, filterable archive of projects, each with its own page and receipts. https://maahir-garg.vercel.app/projects
+- Now: a short, occasionally updated note on what he's building, teaching, and doing off-screen. https://maahir-garg.vercel.app/now
+- Photography: an interactive set of photos, presented like physical prints rather than a static grid. https://maahir-garg.vercel.app/photography
+- Contact: email and social links. https://maahir-garg.vercel.app/contact
 - Résumé: https://maahir-garg.vercel.app/maahir-garg-resume.pdf
 
 Profiles:
