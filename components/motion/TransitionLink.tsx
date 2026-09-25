@@ -25,6 +25,35 @@ type TransitionLinkProps = LinkProps &
     children: ReactNode;
   };
 
+/**
+ * The same feature-detected, reduced-motion-aware `startViewTransition`
+ * wrap that `TransitionLink` uses, exposed as a plain function for
+ * programmatic navigation (the jump bar's router.push calls) rather than
+ * a rendered `<a>`. Falls back to a bare `router.push` whenever the API
+ * is missing or motion is reduced.
+ */
+export function navigateWithTransition(
+  router: ReturnType<typeof useRouter>,
+  url: string,
+  reducedMotion: boolean | null = false,
+) {
+  const supportsViewTransitions =
+    typeof document !== "undefined" &&
+    typeof (document as Document & { startViewTransition?: unknown }).startViewTransition === "function";
+  if (!supportsViewTransitions || reducedMotion) {
+    router.push(url);
+    return;
+  }
+
+  (document as Document & { startViewTransition: (cb: () => Promise<void> | void) => void }).startViewTransition(
+    () =>
+      new Promise<void>((resolve) => {
+        router.push(url);
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+      }),
+  );
+}
+
 export function TransitionLink({ href, onClick, children, ...rest }: TransitionLinkProps) {
   const router = useRouter();
   const reducedMotion = useReducedMotion();
@@ -41,17 +70,7 @@ export function TransitionLink({ href, onClick, children, ...rest }: TransitionL
 
     e.preventDefault();
     const url = typeof href === "string" ? href : href.pathname ?? String(href);
-
-    (document as Document & { startViewTransition: (cb: () => Promise<void> | void) => void }).startViewTransition(
-      () =>
-        new Promise<void>((resolve) => {
-          router.push(url);
-          // Next's router update lands over a couple of renders; two
-          // animation frames is the pragmatic way to wait for the new
-          // page's DOM before the transition captures its "after" state.
-          requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
-        }),
-    );
+    navigateWithTransition(router, url, reducedMotion);
   }
 
   return (

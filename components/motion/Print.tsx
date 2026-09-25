@@ -28,6 +28,15 @@
  * Pass a ref to reach `{ reset(): void }`, which springs the print back
  * to its starting position - used by "tidy up" controls that want to
  * restack a scattered pile without remounting anything.
+ *
+ * `parallax` (opt-in): on a fine pointer, with motion allowed, the print
+ * tilts a few degrees toward the cursor (rotateX/rotateY around its own
+ * center, via `transformPerspective`) with a matching slight shadow
+ * shift, both eased by a soft spring so it settles rather than snapping.
+ * It's a no-op on coarse pointers, under `prefers-reduced-motion`, and
+ * while the print is being lifted/dragged (so the two tilts never
+ * fight). Example: `<Print parallax src={...} .../>` for a portrait that
+ * should feel like it's sitting under a lamp as the cursor moves.
  */
 
 import {
@@ -36,6 +45,7 @@ import {
   useRef,
   useState,
   type CSSProperties,
+  type PointerEvent as ReactPointerEvent,
   type ReactNode,
   type RefObject,
 } from "react";
@@ -43,6 +53,9 @@ import Image from "next/image";
 import {
   motion,
   useMotionValue,
+  useMotionTemplate,
+  useSpring,
+  useTransform,
   animate,
   useReducedMotion,
   type PanInfo,
@@ -77,6 +90,8 @@ export interface PrintProps {
   draggable?: boolean;
   /** Element drag is constrained to. Omit for an unconstrained toss. */
   constraintsRef?: RefObject<HTMLElement | null>;
+  /** Opt-in fine-pointer tilt-toward-cursor with a slight shadow shift. See file header. */
+  parallax?: boolean;
   children?: ReactNode;
 }
 
@@ -97,6 +112,7 @@ export const Print = forwardRef<PrintHandle, PrintProps>(function Print(
     style,
     draggable = true,
     constraintsRef,
+    parallax = false,
     children,
   },
   ref,
@@ -104,6 +120,7 @@ export const Print = forwardRef<PrintHandle, PrintProps>(function Print(
   const fine = usePrefersFinePointer();
   const reducedMotion = useReducedMotion();
   const canDrag = draggable && fine;
+  const canParallax = parallax && fine && !reducedMotion;
 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
@@ -112,6 +129,31 @@ export const Print = forwardRef<PrintHandle, PrintProps>(function Print(
   const [lifted, setLifted] = useState(false);
   const [z, setZ] = useState(1);
   const movedRef = useRef(0);
+
+  // Parallax tilt: raw pointer position drives the target, a soft spring
+  // drives the actual rotation so it settles instead of snapping.
+  const tiltXTarget = useMotionValue(0);
+  const tiltYTarget = useMotionValue(0);
+  const tiltX = useSpring(tiltXTarget, SPRINGS.gentle);
+  const tiltY = useSpring(tiltYTarget, SPRINGS.gentle);
+  const shadowDx = useTransform(tiltY, (v) => v * 0.8);
+  const shadowDy = useTransform(tiltX, (v) => v * -0.8);
+  const parallaxShadow = useMotionTemplate`drop-shadow(${shadowDx}px ${shadowDy}px 10px rgba(20, 18, 15, 0.22))`;
+
+  function handleParallaxMove(e: ReactPointerEvent<HTMLElement>) {
+    if (!canParallax || lifted) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+    const px = (e.clientX - rect.left) / rect.width - 0.5;
+    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    tiltYTarget.set(px * 8);
+    tiltXTarget.set(py * -8);
+  }
+
+  function handleParallaxLeave() {
+    tiltXTarget.set(0);
+    tiltYTarget.set(0);
+  }
 
   useImperativeHandle(
     ref,
@@ -139,6 +181,7 @@ export const Print = forwardRef<PrintHandle, PrintProps>(function Print(
     movedRef.current = 0;
     setLifted(true);
     claimTop();
+    if (canParallax) handleParallaxLeave();
     if (!reducedMotion) animate(scaleMV, 1.03, SPRINGS.snap);
   }
 
@@ -214,6 +257,9 @@ export const Print = forwardRef<PrintHandle, PrintProps>(function Print(
       y,
       rotate: rotateMV,
       scale: scaleMV,
+      ...(canParallax
+        ? { rotateX: tiltX, rotateY: tiltY, transformPerspective: 600, filter: parallaxShadow }
+        : null),
       zIndex: z,
       touchAction: canDrag ? ("none" as const) : undefined,
       ...style,
@@ -229,6 +275,8 @@ export const Print = forwardRef<PrintHandle, PrintProps>(function Print(
     onDrag: canDrag ? handleDrag : undefined,
     onDragEnd: canDrag ? handleDragEnd : undefined,
     onPointerDown: claimTop,
+    onPointerMove: canParallax ? handleParallaxMove : undefined,
+    onPointerLeave: canParallax ? handleParallaxLeave : undefined,
     onClick: handleClick,
     "data-lifted": lifted || undefined,
   };
