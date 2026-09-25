@@ -1,4 +1,7 @@
+import type { CSSProperties } from "react";
 import { loadFlights, project, type Airport } from "@/lib/flights";
+import { FlightsMapEnhancer, type FlightsMapDestination } from "./FlightsMapEnhancer";
+import manifest from "@/lib/photos-manifest.json";
 
 // Continent polygons calibrated to the same equirectangular projection as
 // project(). Each point was derived from geographic lat/lon via the formula
@@ -50,6 +53,46 @@ function routePath(home: Airport, dest: Airport): string {
   return `M${a.x},${a.y} Q${cx.toFixed(1)},${cy.toFixed(1)} ${b.x},${b.y}`;
 }
 
+type ManifestImage = {
+  src: string;
+  exif: { width?: number | null; height?: number | null } | null;
+  meta?: { location?: string } | null;
+};
+type ManifestCategory = { category: string; images: ManifestImage[] };
+const CATEGORIES: ManifestCategory[] = manifest as ManifestCategory[];
+
+/**
+ * Loose match: a photo counts as "from" a destination if its tagged
+ * location contains (or is contained by) the city name, or contains the
+ * country name. Good enough for a hover nicety, not a claim of precision.
+ */
+function findPhotoForDestination(
+  city: string,
+  country: string,
+): { src: string; alt: string; width: number; height: number } | null {
+  const cityL = city.toLowerCase();
+  const countryL = country.toLowerCase();
+  for (const cat of CATEGORIES) {
+    for (const img of cat.images) {
+      const loc = img.meta?.location;
+      if (!loc) continue;
+      const locL = loc.toLowerCase();
+      const matches =
+        (cityL.length > 0 && (locL.includes(cityL) || cityL.includes(locL))) ||
+        (countryL.length > 0 && locL.includes(countryL));
+      if (matches) {
+        return {
+          src: img.src,
+          alt: `A photograph from ${loc}, by Maahir Garg`,
+          width: img.exif?.width ?? 1200,
+          height: img.exif?.height ?? 1500,
+        };
+      }
+    }
+  }
+  return null;
+}
+
 export async function FlightsMap() {
   const airports = await loadFlights();
   if (airports.length === 0) return null;
@@ -89,98 +132,97 @@ export async function FlightsMap() {
     CAI: { dx: -12, dy: -4 },
     ASW: { dx: -12, dy: 4 },
   };
-  const offsetFor = (code: string) =>
-    labelOffsets[code] ?? { dx: 4, dy: -4 };
+  const offsetFor = (code: string) => labelOffsets[code] ?? { dx: 4, dy: -4 };
+
+  const destinations: FlightsMapDestination[] = others.map((a) => {
+    const p = project(a.lat, a.lon);
+    return {
+      code: a.code,
+      city: a.city,
+      country: a.country,
+      x: p.x,
+      y: p.y,
+      photo: findPhotoForDestination(a.city, a.country),
+    };
+  });
 
   return (
     <figure className="not-prose">
-      <svg
-        viewBox="0 0 420 220"
-        xmlns="http://www.w3.org/2000/svg"
-        role="img"
-        aria-label={`Flight map: ${home.code} home, with ${others.length} destinations`}
-        style={{ width: "100%", maxWidth: 640, display: "block" }}
-      >
-        {/* Landmasses use --color-rule so they shift in dark mode. */}
-        <g>
-          {CONTINENTS.map((d, i) => (
-            <path
-              key={i}
-              d={d}
-              style={{ fill: "var(--color-rule)" }}
-            />
-          ))}
-        </g>
-
-        {/* Routes */}
-        <g>
-          {others.map((dest) => (
-            <path
-              key={`route-${dest.code}`}
-              d={routePath(home, dest)}
-              fill="none"
-              stroke="var(--color-mark)"
-              strokeWidth={0.8}
-              strokeDasharray="3 3"
-              opacity={0.55}
-            />
-          ))}
-        </g>
-
-        {/* Home dot */}
-        <circle
-          cx={project(home.lat, home.lon).x}
-          cy={project(home.lat, home.lon).y}
-          r={3.2}
-          style={{ fill: "var(--color-ink)" }}
-        />
-
-        {/* Destination dots */}
-        <g>
-          {others.map((a) => {
-            const p = project(a.lat, a.lon);
-            return (
-              <circle
-                key={`dot-${a.code}`}
-                cx={p.x}
-                cy={p.y}
-                r={2}
-                style={{ fill: "var(--color-mark)" }}
-              />
-            );
-          })}
-        </g>
-
-        {/* Labels */}
-        <g
-          style={{
-            fontFamily: "ui-monospace, monospace",
-            fontSize: 5.5,
-            fill: "var(--color-ink-faint)",
-            letterSpacing: "0.08em",
-          }}
+      <FlightsMapEnhancer destinations={destinations}>
+        <svg
+          viewBox="0 0 420 220"
+          xmlns="http://www.w3.org/2000/svg"
+          role="img"
+          aria-label={`Flight map: ${home.code} home, with ${others.length} destinations`}
+          style={{ width: "100%", maxWidth: 640, display: "block" }}
         >
-          {airports
-            .filter((a) => !SKIP_LABEL.has(a.code))
-            .map((a) => {
-              const p = project(a.lat, a.lon);
-              const o = offsetFor(a.code);
+          {/* Landmasses use --color-rule so they shift in dark mode. */}
+          <g>
+            {CONTINENTS.map((d, i) => (
+              <path key={i} d={d} style={{ fill: "var(--color-rule)" }} />
+            ))}
+          </g>
+
+          {/* Home dot */}
+          <circle
+            cx={project(home.lat, home.lon).x}
+            cy={project(home.lat, home.lon).y}
+            r={3.2}
+            style={{ fill: "var(--color-ink)" }}
+          />
+
+          {/* One group per destination: route + dot + label together, so
+              hover/focus/tap can target and highlight all three at once. */}
+          <g>
+            {others.map((dest, i) => {
+              const p = project(dest.lat, dest.lon);
+              const o = offsetFor(dest.code);
+              const hasPhoto = destinations[i]?.photo != null;
               return (
-                <text key={`lbl-${a.code}`} x={p.x + o.dx} y={p.y + o.dy}>
-                  {a.code}
-                </text>
+                <g
+                  key={dest.code}
+                  data-code={dest.code}
+                  className="city"
+                  tabIndex={0}
+                  role="button"
+                  aria-label={`${dest.city}, ${dest.country}${hasPhoto ? " - a photo from here" : ""}`}
+                >
+                  <path
+                    d={routePath(home, dest)}
+                    className="route-path"
+                    pathLength={1}
+                    fill="none"
+                    stroke="var(--color-mark)"
+                    style={{ "--i": i } as CSSProperties}
+                  />
+                  <circle cx={p.x} cy={p.y} r={2} style={{ fill: "var(--color-mark)" }} />
+                  {!SKIP_LABEL.has(dest.code) && (
+                    <text
+                      x={p.x + o.dx}
+                      y={p.y + o.dy}
+                      style={{
+                        fontFamily: "ui-monospace, monospace",
+                        fontSize: 5.5,
+                        fill: "var(--color-ink-faint)",
+                        letterSpacing: "0.08em",
+                      }}
+                    >
+                      {dest.code}
+                    </text>
+                  )}
+                </g>
               );
             })}
-        </g>
-      </svg>
+          </g>
+        </svg>
+      </FlightsMapEnhancer>
 
-      <figcaption className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1 mono text-[10px] uppercase tracking-[0.16em] text-[color:var(--color-ink-faint)]">
+      <figcaption className="mt-4 flex flex-wrap items-baseline gap-x-4 gap-y-1 text-[12px] text-[color:var(--color-ink-faint)]">
         <span>
-          Home · {home.code} {home.city}
+          Home base: <span className="mono">{home.code}</span> {home.city}
         </span>
         <span>
-          Visited · {others.length}{" "}
-          {others.length === 1 ? "airport" : "airports"}
+          {others.length} {others.length === 1 ? "airport" : "airports"} visited
         </span>
       </figcaption>
     </figure>

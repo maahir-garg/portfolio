@@ -1,31 +1,54 @@
 "use client";
 
+import { useRef } from "react";
 import Image from "next/image";
 import { PenStrike } from "@/components/ui/RedPen";
+import { Print } from "@/components/motion/Print";
 
 const HERO_PHOTO = "/me.jpg";
+// Hidden under the portrait until someone moves it.
+const UNDER_PHOTO = "/photography/landscape/IMG_6654.jpeg";
 
 export function Hero() {
+  const deskRef = useRef<HTMLDivElement>(null);
   return (
-    <section className="container-page pt-10 md:pt-16">
+    <section ref={deskRef} className="container-page pt-10 md:pt-16">
       <div className="grid grid-cols-1 gap-10 md:grid-cols-12 md:items-center">
-        {/* Portrait: a print on a desk. data-print-slot lets the tossable
-            <Print> component (framer-motion, owned by the motion pass)
-            take over this spot later without touching the layout. */}
-        <div className="order-2 mx-auto w-[82%] max-w-sm md:mx-0 md:w-full md:max-w-none md:col-span-5" data-print-slot="hero">
-          <div className="w-full" style={{ transform: "rotate(2deg)" }}>
-            <div className="relative aspect-[4/5] w-full overflow-hidden border border-[color:var(--color-rule)]">
+        {/* Portrait: a print on a desk. On a mouse or trackpad it can be
+            picked up and moved, which uncovers another print underneath. */}
+        <div
+          className="order-2 mx-auto w-[82%] max-w-sm md:mx-0 md:w-full md:max-w-none md:col-span-5"
+        >
+          <div className="relative">
+            <div
+              aria-hidden
+              className="absolute inset-0 overflow-hidden"
+              style={{
+                transform: "rotate(-4deg) translate(-3%, 2%)",
+                background: "var(--color-paper)",
+                boxShadow: "0 1px 2px rgba(20, 18, 15, 0.16), 0 8px 18px -10px rgba(20, 18, 15, 0.22)",
+              }}
+            >
               <Image
-                src={HERO_PHOTO}
-                alt="Portrait of Maahir Garg"
+                src={UNDER_PHOTO}
+                alt=""
                 fill
-                sizes="(min-width: 768px) 42vw, 100vw"
-                className="object-cover saturate-[0.92]"
-                priority
-                fetchPriority="high"
+                sizes="(min-width: 768px) 38vw, 80vw"
+                className="object-cover"
               />
-              {/* sprocket edge, a single instance, not restyled elsewhere */}
-              <div
+            </div>
+            <Print
+              src={HERO_PHOTO}
+              alt="Portrait of Maahir Garg"
+              fill
+              sizes="(min-width: 768px) 42vw, 100vw"
+              priority
+              rotate={2}
+              constraintsRef={deskRef}
+              className="aspect-[4/5]"
+            >
+              {/* sprocket edge */}
+              <span
                 aria-hidden
                 className="pointer-events-none absolute left-0 top-0 h-full w-[5px]"
                 style={{
@@ -34,7 +57,7 @@ export function Hero() {
                   mixBlendMode: "multiply",
                 }}
               />
-            </div>
+            </Print>
           </div>
         </div>
 
