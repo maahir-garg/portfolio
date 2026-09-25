@@ -129,6 +129,48 @@
   box-shadow: 0 24px 60px -20px rgba(20, 18, 15, 0.35);
 }
 
+/* Below the breakpoint where Cmd/Ctrl+K exists, the jump bar is a bottom
+   sheet, not a centered card: a large input near the top so it (and the
+   first results) stay above the virtual keyboard, which eats the bottom
+   of a small viewport. `dvh` shrinks with the keyboard in browsers that
+   support it; the max-height cap keeps the rest scrollable either way. */
+@media (max-width: 640px) {
+  .jumpbar-overlay {
+    align-items: flex-end;
+    justify-content: stretch;
+    padding: 0;
+  }
+
+  .jumpbar-card {
+    max-width: none;
+    max-height: min(80dvh, 32rem);
+    display: flex;
+    flex-direction: column;
+    border-left: none;
+    border-right: none;
+    border-bottom: none;
+  }
+
+  .jumpbar-inputrow {
+    padding: 1.1rem 1rem;
+  }
+
+  .jumpbar-input {
+    font-size: var(--step-2);
+  }
+
+  .jumpbar-list {
+    max-height: none;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .jumpbar-option {
+    min-height: 44px;
+    align-items: center;
+  }
+}
+
 .jumpbar-inputrow {
   display: flex;
   align-items: center;
@@ -251,9 +293,12 @@
 
 .theme-toggle {
   display: inline-flex;
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   gap: 3px;
-  padding: 0.35rem 0.25rem;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0.35rem 0.5rem;
   background: none;
   border: none;
   cursor: pointer;
@@ -386,13 +431,48 @@ html.js-active .flights-map.is-in-view .route-path {
 }
 
 /* ---------------------------------------------------------------- */
-/* View transitions (project list -> detail)                        */
+/* View transitions (site-wide nav + project list -> detail)        */
 /* ---------------------------------------------------------------- */
 
 ::view-transition-old(*),
 ::view-transition-new(*) {
-  animation-duration: 400ms;
+  animation-duration: var(--motion-base, 400ms);
   animation-timing-function: var(--motion-ease);
+}
+
+/* A quick paper-slide/cross-fade for ordinary page navigation (Header,
+   Footer, jump bar). Only the unnamed "root" group gets it - a project
+   page's <h1> keeps its own `view-transition-name` (project-title-*), so
+   the browser's default cross-fade/morph between list and detail title
+   still runs undisturbed. */
+::view-transition-old(root) {
+  animation: mg-page-out var(--motion-base, 400ms) var(--motion-ease) both;
+}
+
+::view-transition-new(root) {
+  animation: mg-page-in var(--motion-base, 400ms) var(--motion-ease) both;
+}
+
+@keyframes mg-page-out {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes mg-page-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
