@@ -1,0 +1,400 @@
+/* =============================================================
+   Red pen marks (components/ui/RedPen.tsx)
+   Hand-drawn SVG marks that draw themselves in via a left-to-right
+   clip-path reveal on the mark's whole SVG, as two overlapping ink
+   passes with tapered ends where the mark has ends (underline, strike,
+   tick).
+
+   SSR contract, same as .reveal in globals.css: drawn (fully revealed)
+   by default, for crawlers, no-JS and reduced motion. Only
+   `html.js-active` (set by the inline theme script, before hydration)
+   hides an unentered mark; `.pen-in` draws it back in, either on
+   first scroll entry, shortly after load, or on replay (hover on a
+   fine pointer, tap, or a programmatic `play`/ref trigger).
+   ============================================================= */
+:root {
+  /* Quick attack, slow finish - the only two easing curves a hand
+     drawing a line actually has. */
+  --pen-ease: cubic-bezier(0.16, 1, 0.3, 1);
+  --pen-ease-settle: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --pen-duration: 650ms;
+  --pen-delay: 0ms;
+  --pen-write-duration: 550ms;
+  --pen-write-delay: 380ms;
+}
+
+.pen-mark {
+  position: relative;
+  display: inline-block;
+  color: inherit;
+}
+.pen-mark-content {
+  position: relative;
+  z-index: 1;
+}
+.pen-mark-svg {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
+  stroke: var(--color-mark);
+  stroke-width: 0.062em;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  z-index: 2;
+  /* drawn (fully revealed) by default: SSR, no-JS and reduced-motion
+     all just get the solid mark, no clip. A few extra % on the leading
+     edge covers the ghost pass's offset so its own sliver isn't clipped
+     off at a "fully drawn" 0%. */
+  clip-path: inset(0 0% 0 -4%);
+}
+/* the ghost pass: a softer, slightly offset duplicate underneath the
+   main stroke, so the mark reads as two ink passes rather than one
+   clean vector line. */
+.pen-path-ghost {
+  opacity: 0.5;
+  transform: translate(0.6px, 0.4px);
+}
+html.js-active .pen-mark:not(.pen-in) .pen-mark-svg {
+  clip-path: inset(0 100% 0 -4%);
+}
+html.js-active .pen-mark.pen-in .pen-mark-svg {
+  clip-path: inset(0 0% 0 -4%);
+  transition: clip-path var(--pen-duration) var(--pen-ease) var(--pen-delay);
+}
+/* replay: suppress transitions for one frame while the reveal state is
+   reset, so the mark redraws cleanly instead of visibly animating
+   backwards. */
+html.js-active .pen-mark.pen-resetting .pen-mark-svg,
+html.js-active .pen-mark.pen-resetting .pen-correction,
+html.js-active .pen-mark.pen-resetting .pen-note-text,
+html.js-active .pen-mark.pen-resetting .pen-nib {
+  transition: none !important;
+  animation: none !important;
+}
+/* tappable/hoverable: a faint hint that the mark responds. */
+@media (hover: hover) and (pointer: fine) {
+  .pen-mark {
+    cursor: default;
+  }
+}
+
+/* Wrap fallback: a mark's SVG is one flat overlay positioned against its
+   .pen-mark's bounding box. If the marked phrase line-wraps at a narrow
+   viewport that box goes multi-line, and the overlay can only ever trace
+   whichever single line its fixed position happens to land on. Swap to a
+   plain CSS text-decoration instead - it wraps per-line natively. */
+.pen-mark.pen-wrapped .pen-mark-svg {
+  display: none;
+}
+.pen-strike.pen-wrapped .pen-mark-content {
+  text-decoration-line: line-through;
+  text-decoration-color: var(--color-mark);
+  text-decoration-thickness: 0.07em;
+  text-decoration-skip-ink: none;
+}
+.pen-underline.pen-wrapped .pen-mark-content,
+.pen-circle.pen-wrapped .pen-mark-content {
+  text-decoration-line: underline;
+  text-decoration-color: var(--color-mark);
+  text-decoration-thickness: 0.05em;
+  text-underline-offset: 0.15em;
+}
+
+/* circle: loose ellipse overshooting the word */
+.pen-circle .pen-mark-svg {
+  left: -0.45em;
+  right: -0.45em;
+  top: -0.5em;
+  bottom: -0.4em;
+  width: calc(100% + 0.9em);
+  height: calc(100% + 0.9em);
+  stroke-width: 0.07em;
+}
+
+/* underline: sits just under the text, a touch heavier than the hairline it replaced */
+.pen-underline .pen-mark-svg-under {
+  left: -0.05em;
+  right: -0.05em;
+  bottom: -0.34em;
+  height: 0.55em;
+  width: calc(100% + 0.1em);
+  stroke-width: 0.06em;
+}
+
+/* strike: through the middle, heavier still, the correction sits beside it */
+.pen-strike .pen-mark-svg-strike {
+  left: -0.05em;
+  right: -0.05em;
+  top: 45%;
+  height: 0.45em;
+  width: calc(100% + 0.1em);
+  transform: translateY(-50%);
+  stroke-width: 0.075em;
+}
+/* space is reserved for the correction up front (via padding on the
+   heading in Hero.tsx / min-height here) so it never shifts layout
+   while it writes itself in. */
+.pen-correction-wrap {
+  position: absolute;
+  left: 0;
+  bottom: 100%;
+  margin-bottom: 0.3em;
+  display: block;
+}
+.pen-correction {
+  display: inline-block;
+  white-space: nowrap;
+  font-size: 0.62em;
+  line-height: 1.2;
+  color: var(--color-mark);
+  transform-origin: left bottom;
+  clip-path: inset(0 100% 0 0);
+}
+.pen-strike-below .pen-correction-wrap {
+  bottom: auto;
+  top: 100%;
+  margin-bottom: 0;
+  margin-top: 0.1em;
+  white-space: normal;
+  width: max-content;
+  max-width: min(15em, 88vw);
+}
+.pen-strike-below .pen-correction {
+  white-space: normal;
+  font-size: 0.44em;
+  transform-origin: left top;
+}
+html.js-active .pen-mark.pen-in .pen-correction {
+  clip-path: inset(0 0% 0 0);
+  transition: clip-path var(--pen-write-duration) var(--pen-ease) var(--pen-write-delay);
+}
+/* the travelling nib: a small dot that rides the leading edge of the
+   correction as it writes itself in, then lifts off the page. */
+.pen-nib {
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 0.14em;
+  height: 0.14em;
+  min-width: 3px;
+  min-height: 3px;
+  border-radius: 50%;
+  background: var(--color-mark);
+  opacity: 0;
+}
+html.js-active .pen-mark.pen-in .pen-nib {
+  animation: pen-nib-travel var(--pen-write-duration) var(--pen-ease) var(--pen-write-delay) both;
+}
+@keyframes pen-nib-travel {
+  0% { left: 0; opacity: 0; }
+  6% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { left: 100%; opacity: 0; }
+}
+
+/* tick: small standalone checkmark */
+.pen-tick {
+  width: 0.95em;
+  height: 0.85em;
+  vertical-align: -0.05em;
+  margin-left: 0.35em;
+}
+.pen-tick-svg {
+  position: static;
+  width: 100%;
+  height: 100%;
+  stroke-width: 0.16em;
+}
+
+/* margin note: small arrow plus a hand note beside it */
+.pen-note {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.15em;
+  vertical-align: top;
+}
+.pen-note-svg {
+  width: 1.6em;
+  height: 1.15em;
+  flex-shrink: 0;
+  margin-top: 0.15em;
+}
+.pen-note-text {
+  color: var(--color-mark);
+  font-size: 0.92em;
+  line-height: 1.3;
+  opacity: 1;
+  clip-path: inset(0 100% 0 0);
+}
+html.js-active .pen-mark.pen-in .pen-note-text {
+  clip-path: inset(0 0% 0 0);
+  transition: clip-path 420ms var(--pen-ease) calc(var(--pen-delay) + 260ms);
+}
+
+/* settle: once a mark finishes drawing, a barely-there overshoot pulse
+   on the whole mark, like a hand easing off the page. Skipped for
+   marks that wrap running text width (circle/underline) would jitter
+   the text; scoped to the standalone tick and note arrow only. */
+html.js-active .pen-mark.pen-tick.pen-in .pen-mark-svg,
+html.js-active .pen-mark.pen-note.pen-in .pen-note-svg {
+  animation: pen-settle 320ms var(--pen-ease-settle) calc(var(--pen-delay) + 120ms) both;
+}
+@keyframes pen-settle {
+  0% { transform: scale(1); }
+  55% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-active .pen-mark .pen-mark-svg {
+    clip-path: inset(0 0% 0 -4%) !important;
+    transition: none !important;
+  }
+  html.js-active .pen-mark .pen-correction,
+  html.js-active .pen-mark .pen-note-text {
+    clip-path: inset(0 0% 0 0) !important;
+    transition: none !important;
+  }
+  html.js-active .pen-mark .pen-nib {
+    display: none;
+  }
+  html.js-active .pen-mark .pen-mark-svg {
+    animation: none !important;
+  }
+}
+
+/* =============================================================
+   Experience timeline rail (app/experience/page.tsx)
+   A thicker red pencil line in the margin with a pen-nib riding its
+   tip. Default is a static full-height line (also the fallback for
+   browsers without scroll-driven animation support, and for reduced
+   motion, and while JS hasn't taken over yet). Where supported it
+   draws downward as the timeline scrolls through view, either via
+   native scroll-driven animation or a rAF + IntersectionObserver
+   fallback (Safari, Firefox) that sets the same custom property.
+   ============================================================= */
+.timeline-rail {
+  position: relative;
+  padding-left: 2rem;
+}
+.timeline-rail::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 3px;
+  background: var(--color-rule);
+}
+.timeline-rail::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.4rem;
+  bottom: 0.4rem;
+  width: 3px;
+  background: var(--color-mark);
+  transform: scaleY(var(--rail-progress, 1));
+  transform-origin: top;
+}
+/* the nib: a small dot riding the tip of the drawn portion of the rail.
+   `top` (not a transform) so the percentage in the calc resolves against
+   the rail's own height, not the nib's 9px box. */
+.timeline-rail-nib {
+  position: absolute;
+  left: 0;
+  top: calc(0.4rem + (100% - 0.8rem) * var(--rail-progress, 1));
+  width: 9px;
+  height: 9px;
+  margin-left: -3px;
+  margin-top: -4px;
+  border-radius: 50%;
+  background: var(--color-mark);
+  box-shadow: 0 0 0 3px var(--color-canvas);
+  opacity: 0;
+  pointer-events: none;
+}
+html.js-active .timeline-rail-nib {
+  opacity: 1;
+}
+/* stamped as a child of each role <li> (which is position:relative), so
+   it sits at that role's own vertical position without extra JS math.
+   Left offset walks back out through the <ol>'s padding-left to the rail
+   line, then centres on its 3px width. */
+.timeline-rail-tick {
+  position: absolute;
+  left: calc(-2rem - 2px);
+  top: 0.55rem;
+  width: 8px;
+  height: 3px;
+  background: var(--color-mark);
+  opacity: 1;
+  transform-origin: left center;
+  transform: scaleX(1);
+}
+html.js-active .timeline-rail-tick:not(.is-stamped) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+html.js-active .timeline-rail-tick.is-stamped {
+  opacity: 1;
+  transform: scaleX(1);
+  transition: opacity 160ms var(--pen-ease), transform 220ms var(--pen-ease-settle);
+}
+/* native-supporting browsers stamp each tick directly off its own
+   scroll-entry, no JS needed; the .is-stamped class above is the
+   rAF + IntersectionObserver fallback for Safari and Firefox. */
+@supports (animation-timeline: view()) {
+  html.js-active .timeline-rail-tick {
+    animation: tick-stamp-native linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 100%;
+  }
+}
+@keyframes tick-stamp-native {
+  from { opacity: 0; transform: scaleX(0); }
+  to { opacity: 1; transform: scaleX(1); }
+}
+@media (max-width: 640px) {
+  .timeline-rail-tick {
+    left: calc(-1.5rem - 2px);
+  }
+}
+/* Native scroll-driven path: a registered custom property so the SAME
+   `--rail-progress` value drives the fill, the nib and (via JS, for
+   Safari/Firefox which don't support animation-timeline) the tick
+   stamping - one source of truth either way. */
+@property --rail-progress {
+  syntax: "<number>";
+  inherits: true;
+  initial-value: 1;
+}
+@supports (animation-timeline: view()) {
+  html.js-active .timeline-rail {
+    animation: rail-progress-native linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 85%;
+  }
+}
+@keyframes rail-progress-native {
+  from { --rail-progress: 0; }
+  to { --rail-progress: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .timeline-rail::after {
+    transform: scaleY(1) !important;
+    animation: none !important;
+  }
+  .timeline-rail-nib {
+    display: none !important;
+  }
+  .timeline-rail-tick {
+    opacity: 1 !important;
+    transform: scaleX(1) !important;
+  }
+}
+@media (max-width: 640px) {
+  .timeline-rail {
+    padding-left: 1.5rem;
+  }
+}
