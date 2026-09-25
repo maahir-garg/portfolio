@@ -182,7 +182,11 @@ const Desk = forwardRef<DeskHandle, { picks: Pick[]; mounted: boolean; onOpen: (
             }
           });
         },
-        { threshold: 0.3 },
+        // Starts the deal a quarter-viewport-height before the desk is
+        // actually visible, so the prints are already settling (or done)
+        // by the time it scrolls fully into view - nothing should look
+        // like it's still loading in.
+        { threshold: 0, rootMargin: "0px 0px 25% 0px" },
       );
       io.observe(node);
       return () => io.disconnect();
@@ -202,7 +206,7 @@ const Desk = forwardRef<DeskHandle, { picks: Pick[]; mounted: boolean; onOpen: (
               style={{ left: `${p.left}%`, top: `${p.top}%` }}
               initial={mounted ? { y: -64, opacity: 0, rotate: fallTilt } : false}
               animate={dealt ? { y: 0, opacity: 1, rotate: 0 } : undefined}
-              transition={{ ...SPRINGS.toss, delay: dealt ? Math.min(i, 8) * 0.06 : 0 }}
+              transition={{ ...SPRINGS.deal, delay: dealt ? Math.min(i, 8) * 0.035 : 0 }}
             >
               <Print
                 ref={(handle) => {
@@ -213,8 +217,13 @@ const Desk = forwardRef<DeskHandle, { picks: Pick[]; mounted: boolean; onOpen: (
                 fill
                 className="aspect-[4/5]"
                 sizes="190px"
-                priority={i < 2}
-                loading={i < 2 ? "eager" : "lazy"}
+                // Only the very first print is worth a preload - a whole
+                // row of them would fetch regardless of viewport (the
+                // preload link ignores this element's `hidden md:block`),
+                // so this stays a single small (190px) request rather
+                // than several.
+                priority={i === 0}
+                loading={i === 0 ? undefined : "lazy"}
                 rotate={p.rotate}
                 parallax
                 constraintsRef={deskRef}
@@ -262,7 +271,17 @@ function MobileStrip({ picks }: { picks: Pick[] }) {
                   alt={altForPick(p)}
                   fill
                   sizes="62vw"
-                  loading={i < 2 ? "eager" : "lazy"}
+                  // Always lazy, never `priority`: this strip is
+                  // `md:hidden`, but a `priority`/eager image still fetches
+                  // via its <link rel=preload> regardless of CSS display,
+                  // and `sizes="62vw"` evaluated against a desktop
+                  // viewport (not the phone this strip is meant for) was
+                  // pulling down a ~650KB, 1920px-wide image for a print
+                  // that's never shown there. Plain `loading="lazy"` +
+                  // `display: none` means it never fetches at all when
+                  // this variant is hidden, and still loads promptly on
+                  // an actual phone where it's in the initial viewport.
+                  loading="lazy"
                   className="print__img absolute inset-0 h-full w-full object-cover"
                 />
               </span>

@@ -13,6 +13,15 @@
   --motion-base: 400ms;
   --motion-slow: 700ms;
   --motion-develop: 900ms;
+  /* Page-to-page cross-slide (the unnamed "root" view-transition group) -
+     deliberately quicker than --motion-base: it's a full-screen swap that
+     runs on every navigation, so it needs to feel instant, not like a
+     deliberate animation. */
+  --motion-nav: 200ms;
+  /* The project title's named-group morph (list -> detail) - a bit slower
+     than the nav cross-slide since the browser is actually tweening a
+     shared element between two layouts, not just crossfading. */
+  --motion-title-morph: 300ms;
 }
 
 /* ---------------------------------------------------------------- */
@@ -456,21 +465,22 @@ html.js-active .flights-map.is-in-view .route-path {
 
 ::view-transition-old(*),
 ::view-transition-new(*) {
-  animation-duration: var(--motion-base, 400ms);
+  animation-duration: var(--motion-title-morph, 300ms);
   animation-timing-function: var(--motion-ease);
 }
 
-/* A quick paper-slide/cross-fade for ordinary page navigation (Header,
-   Footer, jump bar). Only the unnamed "root" group gets it - a project
-   page's <h1> keeps its own `view-transition-name` (project-title-*), so
-   the browser's default cross-fade/morph between list and detail title
-   still runs undisturbed. */
+/* A quick, light paper-slide/cross-fade for ordinary page navigation
+   (Header, Footer, jump bar) - short and subtle since it runs on every
+   click. Only the unnamed "root" group gets it - a project page's <h1>
+   keeps its own `view-transition-name` (project-title-*), so the
+   browser's default cross-fade/morph between list and detail title still
+   runs undisturbed at the slightly slower --motion-title-morph above. */
 ::view-transition-old(root) {
-  animation: mg-page-out var(--motion-base, 400ms) var(--motion-ease) both;
+  animation: mg-page-out var(--motion-nav, 200ms) var(--motion-ease) both;
 }
 
 ::view-transition-new(root) {
-  animation: mg-page-in var(--motion-base, 400ms) var(--motion-ease) both;
+  animation: mg-page-in var(--motion-nav, 200ms) var(--motion-ease) both;
 }
 
 @keyframes mg-page-out {
@@ -480,14 +490,14 @@ html.js-active .flights-map.is-in-view .route-path {
   }
   to {
     opacity: 0;
-    transform: translateY(-10px);
+    transform: translateY(-6px);
   }
 }
 
 @keyframes mg-page-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
   to {
     opacity: 1;
