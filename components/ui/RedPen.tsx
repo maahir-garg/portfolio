@@ -91,7 +91,6 @@ interface UseInkMarkOptions {
   /** Grading marks draw as their row crosses the viewport's vertical
    *  middle, rather than the usual "50% into view" threshold. */
   centerCross?: boolean;
-  loadDelay?: number;
   play?: number;
 }
 
@@ -100,11 +99,19 @@ interface UseInkMarkOptions {
  * cleanly redraws on replay (reset dash state with transitions off for one
  * frame, then switch transitions back on and draw again, rather than
  * visibly animating backwards).
+ *
+ * trigger="load" marks never pass through `entered`/`pen-in` on first
+ * paint - the `.pen-autoplay` class (set unconditionally below, see
+ * app/pen.css) draws them via a CSS keyframe the instant the stylesheet
+ * applies, independent of JS/hydration. `entered` only turns true here
+ * once something calls `replay()` (hover on a fine pointer, tap, or a
+ * `play` bump), at which point the ordinary `.pen-in` transition path
+ * takes over from the CSS keyframe - both land on the same fully-drawn
+ * end state, so there's no visible jump.
  */
 function useInkMark<T extends HTMLElement>({
   trigger = "view",
   centerCross = false,
-  loadDelay = 150,
   play,
 }: UseInkMarkOptions = {}) {
   const ref = useRef<T>(null);
@@ -117,6 +124,23 @@ function useInkMark<T extends HTMLElement>({
     return !("IntersectionObserver" in window);
   });
   const [resetting, setResetting] = useState(false);
+
+  // View/grading marks that are already on screen at hydration draw right
+  // away rather than waiting on the async IntersectionObserver callback
+  // below: a layout effect runs before the browser paints the hydrated
+  // commit, so there's no extra visible delay for content already in view.
+  // Off-screen marks are untouched - they still wait for the observer.
+  useIsoLayoutEffect(() => {
+    if (trigger !== "view" && trigger !== "scroll-scrub") return;
+    const node = ref.current;
+    if (!node || typeof window === "undefined" || !("IntersectionObserver" in window)) return;
+    const rect = node.getBoundingClientRect();
+    const vh = window.innerHeight || document.documentElement.clientHeight;
+    const vw = window.innerWidth || document.documentElement.clientWidth;
+    if (rect.top < vh && rect.bottom > 0 && rect.left < vw && rect.right > 0) {
+      setEntered(true);
+    }
+  }, [trigger]);
 
   useEffect(() => {
     if (trigger !== "view" && trigger !== "scroll-scrub") return;
@@ -140,12 +164,6 @@ function useInkMark<T extends HTMLElement>({
     io.observe(node);
     return () => io.disconnect();
   }, [trigger, centerCross]);
-
-  useEffect(() => {
-    if (trigger !== "load") return;
-    const t = window.setTimeout(() => setEntered(true), reducedMotion ? 0 : loadDelay);
-    return () => window.clearTimeout(t);
-  }, [trigger, loadDelay, reducedMotion]);
 
   const replay = useCallback(() => {
     if (reducedMotion) return;
@@ -337,7 +355,7 @@ export const PenCircle = forwardRef<PenMarkHandle, PenBaseProps & { children: Re
     return (
       <span
         ref={ref}
-        className={`pen-mark pen-circle ${entered ? "pen-in" : ""} ${resetting ? "pen-resetting" : ""} ${wrapped ? "pen-wrapped" : ""} ${className}`.trim()}
+        className={`pen-mark pen-circle ${trigger === "load" ? "pen-autoplay" : ""} ${entered ? "pen-in" : ""} ${resetting ? "pen-resetting" : ""} ${wrapped ? "pen-wrapped" : ""} ${className}`.trim()}
         style={timingStyle(delay, duration)}
         {...bind}
       >
@@ -367,7 +385,7 @@ export const PenUnderline = forwardRef<PenMarkHandle, PenBaseProps & { children:
     return (
       <span
         ref={ref}
-        className={`pen-mark pen-underline ${entered ? "pen-in" : ""} ${resetting ? "pen-resetting" : ""} ${wrapped ? "pen-wrapped" : ""} ${className}`.trim()}
+        className={`pen-mark pen-underline ${trigger === "load" ? "pen-autoplay" : ""} ${entered ? "pen-in" : ""} ${resetting ? "pen-resetting" : ""} ${wrapped ? "pen-wrapped" : ""} ${className}`.trim()}
         style={timingStyle(delay, duration)}
         {...bind}
       >
@@ -440,7 +458,7 @@ export const PenStrike = forwardRef<
   return (
     <span
       ref={ref}
-      className={`pen-mark pen-strike pen-strike-${placement} ${entered ? "pen-in" : ""} ${resetting ? "pen-resetting" : ""} ${wrapped ? "pen-wrapped" : ""} ${className}`.trim()}
+      className={`pen-mark pen-strike pen-strike-${placement} ${trigger === "load" ? "pen-autoplay" : ""} ${entered ? "pen-in" : ""} ${resetting ? "pen-resetting" : ""} ${wrapped ? "pen-wrapped" : ""} ${className}`.trim()}
       style={style2}
       {...bind}
     >
@@ -482,7 +500,7 @@ export const PenTick = forwardRef<PenMarkHandle, PenBaseProps>(function PenTick(
     <span
       ref={ref}
       aria-hidden="true"
-      className={`pen-mark pen-tick ${entered ? "pen-in" : ""} ${resetting ? "pen-resetting" : ""} ${className}`.trim()}
+      className={`pen-mark pen-tick ${trigger === "load" ? "pen-autoplay" : ""} ${entered ? "pen-in" : ""} ${resetting ? "pen-resetting" : ""} ${className}`.trim()}
       style={timingStyle(delay, duration)}
       {...bind}
     >
@@ -515,7 +533,7 @@ export const PenNote = forwardRef<PenMarkHandle, PenBaseProps & { children: Reac
     return (
       <span
         ref={ref}
-        className={`pen-mark pen-note ${entered ? "pen-in" : ""} ${resetting ? "pen-resetting" : ""} ${className}`.trim()}
+        className={`pen-mark pen-note ${trigger === "load" ? "pen-autoplay" : ""} ${entered ? "pen-in" : ""} ${resetting ? "pen-resetting" : ""} ${className}`.trim()}
         style={timingStyle(delay, duration)}
         {...bind}
       >
