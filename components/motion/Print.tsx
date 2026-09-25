@@ -117,6 +117,12 @@ export const Print = forwardRef<PrintHandle, PrintProps>(function Print(
   },
   ref,
 ) {
+  // Callers should always pass an accurate `sizes` (a print is rarely
+  // full-bleed), but next/image silently falls back to treating `fill`
+  // images as 100vw when `sizes` is omitted - quietly requesting the
+  // largest device-width rendition for whatever's actually a small print.
+  // A modest default here just caps the damage if a future caller forgets.
+  const resolvedSizes = sizes ?? (fill ? "50vw" : undefined);
   const fine = usePrefersFinePointer();
   const reducedMotion = useReducedMotion();
   const canDrag = draggable && fine;
@@ -225,7 +231,7 @@ export const Print = forwardRef<PrintHandle, PrintProps>(function Print(
             src={src}
             alt={alt}
             fill
-            sizes={sizes}
+            sizes={resolvedSizes}
             priority={priority}
             loading={priority ? undefined : loading}
             draggable={false}
@@ -237,7 +243,7 @@ export const Print = forwardRef<PrintHandle, PrintProps>(function Print(
             alt={alt}
             width={width}
             height={height}
-            sizes={sizes}
+            sizes={resolvedSizes}
             priority={priority}
             loading={priority ? undefined : loading}
             draggable={false}

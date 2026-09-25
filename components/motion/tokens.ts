@@ -39,6 +39,9 @@ export const SPRINGS = {
   toss: { type: "spring", stiffness: 260, damping: 20, mass: 1 } as const,
   /** Soft, unhurried - hover lifts, restacking. */
   gentle: { type: "spring", stiffness: 170, damping: 26 } as const,
+  /** The home desk's deal-in: snappier than `toss` so a whole stack of
+   * prints finishes settling quickly instead of trailing off. */
+  deal: { type: "spring", stiffness: 340, damping: 26, mass: 0.7 } as const,
 };
 
 /**
