@@ -252,7 +252,7 @@ export function PhotoGallery() {
               type="button"
               onClick={() => setActive(c)}
               aria-pressed={isActive}
-              className="inline-flex items-baseline gap-1.5 text-[0.95rem] transition-colors"
+              className="inline-flex min-h-11 items-baseline gap-1.5 py-2 text-[0.95rem] transition-colors"
               style={{ color: isActive ? "var(--color-ink)" : "var(--color-ink-dim)" }}
             >
               <span
@@ -354,7 +354,7 @@ export function PhotoGallery() {
               type="button"
               onClick={close}
               aria-label="Close"
-              className="absolute top-4 right-4 z-10 text-[13px] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
+              className="absolute top-2 right-2 z-10 flex min-h-11 min-w-11 items-center justify-center text-[13px] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
             >
               Close
             </button>
@@ -366,7 +366,7 @@ export function PhotoGallery() {
                 prev();
               }}
               aria-label="Previous photo"
-              className="absolute left-4 top-1/2 z-10 -translate-y-1/2 text-[13px] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
+              className="absolute left-0 top-1/2 z-10 flex min-h-11 min-w-11 -translate-y-1/2 items-center justify-center text-[13px] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
             >
               ←
             </button>
@@ -377,7 +377,7 @@ export function PhotoGallery() {
                 next();
               }}
               aria-label="Next photo"
-              className="absolute right-4 top-1/2 z-10 -translate-y-1/2 text-[13px] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
+              className="absolute right-0 top-1/2 z-10 flex min-h-11 min-w-11 -translate-y-1/2 items-center justify-center text-[13px] text-[color:var(--color-ink-dim)] hover:text-[color:var(--color-mark)]"
             >
               →
             </button>

@@ -29,6 +29,7 @@ import { DATA } from "@/lib/data";
 import { SITE } from "@/lib/site";
 import { useTheme } from "@/components/ThemeProvider";
 import { SPRINGS } from "./tokens";
+import { navigateWithTransition } from "./TransitionLink";
 import manifest from "@/lib/photos-manifest.json";
 
 type ManifestImage = { src: string; filename: string };
@@ -147,6 +148,17 @@ export function JumpBar() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open, openBar]);
 
+  // Phones have no Cmd/Ctrl+K. The mobile menu's "Jump to..." item and the
+  // footer's matching link both dispatch this instead of rendering their
+  // own copy of the bar.
+  useEffect(() => {
+    function onOpenRequest() {
+      if (!open) openBar();
+    }
+    window.addEventListener("mg:open-jumpbar", onOpenRequest);
+    return () => window.removeEventListener("mg:open-jumpbar", onOpenRequest);
+  }, [open, openBar]);
+
   useEffect(() => {
     if (open) requestAnimationFrame(() => inputRef.current?.focus());
   }, [open]);
@@ -157,7 +169,7 @@ export function JumpBar() {
       kind: "page",
       label: p.label,
       keywords: p.keywords,
-      run: () => router.push(p.href),
+      run: () => navigateWithTransition(router, p.href, reducedMotion),
     }));
 
     const projectItems: Item[] = DATA.projects.map((p) => ({
@@ -166,7 +178,7 @@ export function JumpBar() {
       label: p.title,
       sublabel: p.dates,
       keywords: `${p.slug.replace(/-/g, " ")} ${p.technologies.join(" ")}`,
-      run: () => router.push(`/projects/${p.slug}`),
+      run: () => navigateWithTransition(router, `/projects/${p.slug}`, reducedMotion),
     }));
 
     const actionItems: Item[] = [
@@ -199,7 +211,11 @@ export function JumpBar() {
         run: () => {
           if (ALL_PHOTOS.length === 0) return;
           const pick = ALL_PHOTOS[Math.floor(Math.random() * ALL_PHOTOS.length)];
-          router.push(`/photography?photo=${encodeURIComponent(pick.filename)}`);
+          navigateWithTransition(
+            router,
+            `/photography?photo=${encodeURIComponent(pick.filename)}`,
+            reducedMotion,
+          );
         },
       },
     ];
@@ -214,7 +230,7 @@ export function JumpBar() {
     }
 
     return [...pageItems, ...projectItems, ...actionItems];
-  }, [router, toggle, pathname]);
+  }, [router, toggle, pathname, reducedMotion]);
 
   const results = useMemo(() => {
     if (!query) return items;

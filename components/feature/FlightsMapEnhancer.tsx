@@ -73,7 +73,13 @@ export function FlightsMapEnhancer({
         const dot = el.querySelector("circle") ?? el;
         const r = dot.getBoundingClientRect();
         const c = node.getBoundingClientRect();
-        setAnchor({ x: r.left - c.left + r.width / 2, y: r.top - c.top });
+        // Clamp so the preview print never sticks out past the map's own
+        // box on a narrow screen - it's 120px wide and centered on the
+        // dot, so it can easily overhang a phone-width container.
+        const half = 66;
+        const rawX = r.left - c.left + r.width / 2;
+        const x = Math.min(Math.max(rawX, half), Math.max(c.width - half, half));
+        setAnchor({ x, y: r.top - c.top });
       }
       return el?.dataset.code ?? null;
     }
