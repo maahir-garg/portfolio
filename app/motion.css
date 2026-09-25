@@ -1,0 +1,427 @@
+/**
+ * Styles for the interactive layer: prints, the jump bar, the theme
+ * toggle's cord, the flights map's route draw-in, the develop effect,
+ * view transitions, and the Vision Pro pinch cursor. Everything here
+ * reads the base tokens from app/globals.css (--color-*, --font-*); this
+ * file only adds the motion-specific rules layered on top.
+ */
+
+:root {
+  --motion-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --motion-micro: 120ms;
+  --motion-fast: 220ms;
+  --motion-base: 400ms;
+  --motion-slow: 700ms;
+  --motion-develop: 900ms;
+}
+
+/* ---------------------------------------------------------------- */
+/* Print                                                            */
+/* ---------------------------------------------------------------- */
+
+.print {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.print--fill {
+  position: relative;
+}
+
+.print--draggable {
+  cursor: grab;
+}
+
+.print--draggable[data-lifted] {
+  cursor: grabbing;
+}
+
+.print__frame {
+  position: relative;
+  display: block;
+  background: var(--color-paper);
+  box-shadow:
+    0 1px 2px rgba(20, 18, 15, 0.16),
+    0 8px 18px -10px rgba(20, 18, 15, 0.22);
+  transition:
+    box-shadow var(--motion-fast, 220ms) var(--motion-ease),
+    transform var(--motion-fast, 220ms) var(--motion-ease);
+}
+
+.print:not(.print--fill) .print__frame {
+  padding: 7px 7px 14px;
+}
+
+.print--fill .print__frame {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.print__img {
+  display: block;
+  object-fit: cover;
+}
+
+.print__img--natural {
+  width: 100%;
+  height: auto;
+}
+
+.print__caption {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: var(--step--1);
+  color: var(--color-ink-dim);
+}
+
+.print[data-lifted] .print__frame {
+  box-shadow:
+    0 4px 10px rgba(20, 18, 15, 0.22),
+    0 22px 40px -16px rgba(20, 18, 15, 0.34);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .print--draggable:hover .print__frame,
+  button.print:hover .print__frame {
+    box-shadow:
+      0 3px 8px rgba(20, 18, 15, 0.2),
+      0 16px 28px -12px rgba(20, 18, 15, 0.3);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .print__frame {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* JumpBar                                                          */
+/* ---------------------------------------------------------------- */
+
+.jumpbar-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 70;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 14vh 1.25rem 2rem;
+  background: color-mix(in srgb, var(--color-canvas) 88%, transparent);
+  backdrop-filter: blur(6px);
+}
+
+.jumpbar-card {
+  width: 100%;
+  max-width: 32rem;
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  box-shadow: 0 24px 60px -20px rgba(20, 18, 15, 0.35);
+}
+
+.jumpbar-inputrow {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.9rem 1rem;
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.jumpbar-caret {
+  color: var(--color-mark);
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+}
+
+.jumpbar-input {
+  flex: 1;
+  min-width: 0;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: var(--step-1);
+  color: var(--color-ink);
+  caret-color: var(--color-mark);
+}
+
+.jumpbar-input::placeholder {
+  color: var(--color-ink-faint);
+  font-style: italic;
+}
+
+.jumpbar-esc {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+  border: 1px solid var(--color-rule);
+  padding: 0.15rem 0.4rem;
+}
+
+.jumpbar-list {
+  max-height: 60vh;
+  overflow-y: auto;
+  padding: 0.5rem 0;
+}
+
+.jumpbar-group {
+  padding: 0.35rem 0;
+}
+
+.jumpbar-group-label {
+  padding: 0.25rem 1rem;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-ink-faint);
+}
+
+.jumpbar-option {
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  text-align: left;
+  color: var(--color-ink-dim);
+  font-size: var(--step-0);
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.jumpbar-option.is-active {
+  background: var(--color-mark-soft);
+  color: var(--color-ink);
+}
+
+.jumpbar-sublabel {
+  font-size: 10px;
+  color: var(--color-ink-faint);
+  white-space: nowrap;
+}
+
+.jumpbar-empty {
+  padding: 1.5rem 1rem;
+  text-align: center;
+  color: var(--color-ink-dim);
+}
+
+.jumpbar-hint {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 60;
+  display: none;
+  padding: 0.35rem 0.55rem;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--color-ink-faint);
+  background: var(--color-paper);
+  border: 1px solid var(--color-rule);
+  opacity: 0.85;
+  transition: opacity var(--motion-slow, 700ms) var(--motion-ease);
+}
+
+.jumpbar-hint.is-faded {
+  opacity: 0;
+  pointer-events: none;
+}
+
+@media (min-width: 768px) {
+  .jumpbar-hint {
+    display: inline-flex;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .jumpbar-hint {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* ThemeToggle (pull-cord)                                          */
+/* ---------------------------------------------------------------- */
+
+.theme-toggle {
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 3px;
+  padding: 0.35rem 0.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-ink-faint);
+  transition: color var(--motion-fast, 220ms) var(--motion-ease);
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--color-ink);
+}
+
+.theme-toggle__bulb {
+  flex: none;
+  margin-top: 1px;
+}
+
+.theme-toggle__cord {
+  position: relative;
+  display: block;
+  width: 1px;
+  height: 13px;
+  background: var(--color-ink-faint);
+  cursor: grab;
+  touch-action: none;
+}
+
+.theme-toggle__knob {
+  position: absolute;
+  left: 50%;
+  bottom: -4px;
+  width: 6px;
+  height: 6px;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: var(--color-ink-faint);
+}
+
+.theme-toggle__knob[data-lit] {
+  background: var(--color-mark);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle,
+  .theme-toggle__cord {
+    transition: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* FlightsMap                                                       */
+/* ---------------------------------------------------------------- */
+
+.flights-map {
+  position: relative;
+}
+
+.flights-map .city {
+  cursor: pointer;
+  transition: opacity var(--motion-fast, 220ms) var(--motion-ease);
+}
+
+.flights-map .city.is-dimmed {
+  opacity: 0.3;
+}
+
+.flights-map .route-path {
+  stroke-width: 0.8px;
+  opacity: 0.6;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+
+.flights-map .city.is-active .route-path {
+  stroke-width: 1.5px;
+  opacity: 1;
+}
+
+/* Routes draw themselves in only once JS is active (SSR/no-JS always
+   shows the finished map) and the map has scrolled into view. */
+html.js-active .flights-map .route-path {
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset var(--motion-slow, 700ms) var(--motion-ease);
+  transition-delay: calc(var(--i, 0) * 60ms);
+}
+
+html.js-active .flights-map.is-in-view .route-path {
+  stroke-dashoffset: 0;
+}
+
+.flights-map__preview {
+  position: absolute;
+  z-index: 5;
+  transform: translate(-50%, -112%);
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .flights-map .city,
+  html.js-active .flights-map .route-path {
+    transition: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Lightbox "develop" effect                                        */
+/* ---------------------------------------------------------------- */
+
+@keyframes mg-develop {
+  0% {
+    filter: brightness(0.32) contrast(0.85) saturate(0.35) sepia(0.35);
+  }
+  60% {
+    filter: brightness(0.92) contrast(1.02) saturate(0.85) sepia(0.12);
+  }
+  100% {
+    filter: brightness(1) contrast(1) saturate(1) sepia(0);
+  }
+}
+
+.develop img {
+  animation: mg-develop 900ms var(--motion-ease) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .develop img {
+    animation: none;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* View transitions (project list -> detail)                        */
+/* ---------------------------------------------------------------- */
+
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation-duration: 400ms;
+  animation-timing-function: var(--motion-ease);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+}
+
+/* ---------------------------------------------------------------- */
+/* Pinch cursor (Vision Pro project page)                           */
+/* ---------------------------------------------------------------- */
+
+.pinch-dot {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: var(--color-mark);
+  pointer-events: none;
+  z-index: 30;
+}
