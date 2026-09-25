@@ -8,10 +8,10 @@ export function Footer() {
       <div className="container-page grid grid-cols-1 gap-10 py-14 md:grid-cols-12 md:gap-8">
         <div className="md:col-span-6">
           <p className="text-[color:var(--color-ink)] text-2xl leading-[1.15]">
-            Writing software. <em className="italic-serif">Reading light.</em>
+            Maahir Garg, <em className="italic-serif">in Singapore</em>
           </p>
           <p className="mt-4 max-w-sm text-[color:var(--color-ink-dim)]" style={{ fontSize: "var(--step-0)" }}>
-            Marked in red pen, mostly during TA office hours.
+            Lost? Press <kbd className="mono text-[0.85em]">⌘K</kbd> and type where you want to go.
           </p>
         </div>
 
