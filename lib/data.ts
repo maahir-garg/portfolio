@@ -52,7 +52,7 @@ export const NOW = {
         },
         {
           primary: "AICET",
-          secondary: "the Keytrace research spike, ongoing",
+          secondary: "the Keytrace study, ongoing",
         },
       ],
     },
@@ -94,7 +94,7 @@ export const NOW = {
 } as const;
 
 export const ABOUT_PARAGRAPHS = [
-  "I'm Maahir. I'm finishing a Computer Science and Quantitative Finance degree at NUS, and I spend most of my week at AICET trying to catch cheating in coding assessments without accusing someone who didn't cheat. The honest headline from that work isn't a nice accuracy number. A model that looked promising turned out to be statistically indistinguishable from chance once I ran the right test, and a plain lookup of which question it was beat it anyway. That's a confound, not a detector. I built the tooling that surfaced it, and I'd rather have found it than shipped it.",
+  "I'm Maahir. I'm finishing a Computer Science and Quantitative Finance degree at NUS, and I spend most of my week at AICET trying to catch cheating in coding assessments without accusing someone who didn't cheat. A wrong flag costs more than a miss, so a flag only ever goes to a person for review. I built the first codebase for comparing detectors, and now I'm testing whether a small decision tree over the signals the existing rule already sees can do better than the rule, scored on candidates it never trained on.",
   "Before that I was at GIC, building AI tooling for an eleven-person team in a classified-data environment, the kind of place where you can't just point Copilot at a problem. The part I cared about most was the guardrails: checks on every action an agent takes, so nobody downstream has to trust it blindly. A separate pipeline turned hunting for audit evidence across Snowflake and SharePoint into something close to instant.",
   "In the second half of 2025 I worked at Interactive 3D Lab, in collaboration with Apple, on hand and eye tracking for stroke rehabilitation. I built the visionOS side, the spatial interface and real-time tracking, plus the iPhone companion app. It was tested with real clinicians and real patients, which is the part I'm most careful about describing properly. A paper is in preparation and a patent application is in progress.",
   "I also teach. This semester I'm a TA for CS3230, the algorithms course I took as a student, and CS3263, Foundations of AI. Marking algorithm proofs with a red pen is where this site's red pen comes from. I'm also a Residential Assistant at Prince George's Park, and this September I built and ran PGPals, the platform for our residence's Emerald Challenge. Ninety-six teams played, and when it closed there was nothing left waiting in the review queue.",
@@ -175,7 +175,7 @@ export const DATA: {
       current: true,
       featured: true,
       description:
-        "Trying to catch cheating in coding assessments without accusing anyone innocent, which turns out to be a statistics problem more than an engineering one. The most useful thing I built was the test that showed a promising 0.778 AUROC was indistinguishable from chance, and a plain lookup of which question a student got beat it anyway.",
+        "Trying to catch cheating in coding assessments without accusing anyone innocent, which turns out to be a statistics problem more than an engineering one. I built the first codebase for comparing detectors. Now I'm training a small decision tree on the signals the production rule already uses and scoring both on candidates held out from training.",
     },
     {
       company: "NUS, School of Computing",
