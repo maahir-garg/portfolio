@@ -12,6 +12,8 @@ npm run dev          # http://localhost:3000
 npm run build        # also regenerates the photo manifest (prebuild)
 npm test             # content checks (no em dashes, etc.)
 SITE_URL=http://localhost:3000 npm run verify:site   # SEO/meta checks against a running server
+node scripts/make-og.mjs     # re-render the share cards into public/og/ (needs Chrome)
+node scripts/make-icons.mjs  # re-render the favicon and app icons (needs Chrome)
 ```
 
 ## Where things live
@@ -27,16 +29,19 @@ components/
   seo/JsonLd.tsx          structured data
 lib/
   data.ts                 all the words: roles, projects, about, now
-  site.ts                 URL, SEO defaults, SITE.lastModified
+  site.ts                 URL, SEO defaults, SITE.lastModified, ogImage(), OG_VERSION
   flights.csv             airports for the routes map
   photos-meta.json        hand-written photo locations (manifest is generated)
+public/og/                one 1200x630 share card per page (generated)
+scripts/og/               the HTML templates the cards and the icon are drawn from
 ```
 
 ## Notes to future me
 
 - Copy lives in `lib/data.ts`. Numbers belong in a project's `evidence`, not its description.
 - Bump `SITE.lastModified` in `lib/site.ts` when content changes; the sitemap and JSON-LD read it.
-- Every page declares its own canonical, and interior pages pass `OG_IMAGE` in any `openGraph`/`twitter` override.
+- Every page declares its own canonical and passes its own `ogImage(...)` in any `openGraph`/`twitter` override, or it unfurls with no image.
+- After changing the headline, a page heading or the project list, run `node scripts/make-og.mjs` and bump `OG_VERSION` in `lib/site.ts`. Chat apps cache a card by its URL.
 - Keep `public/llms.txt` in sync with what the pages say.
 - next/font variables sit on `<html>`, not `<body>`, so `--font-serif` resolves at `:root`.
 - Motion: one easing curve and three springs in `components/motion/tokens.ts`. Everything has a reduced-motion path, and dragging only happens on fine pointers.
