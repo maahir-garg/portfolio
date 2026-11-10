@@ -35,16 +35,20 @@ export type Project = {
 };
 
 export const NOW = {
-  updated: "25 Sep 2026",
+  updated: "10 Nov 2026",
   heroStatus:
-    "researching cheating-risk signals at AICET, teaching CS3230 and CS3263, and building Trader's Edge with my FYP team",
+    "researching cheating-risk signals at AICET, teaching CS3230 and CS3263, and building Trader's Edge with my FYP partner",
   sections: [
     {
       label: "Building",
       items: [
         {
           primary: "Trader's Edge",
-          secondary: "the FYP MVP for strategy specification and backtesting, still moving",
+          secondary: "the FYP, a game that teaches trading; deployed, not yet tried on real students",
+        },
+        {
+          primary: "Linguini",
+          secondary: "the CS3216 final project, on the STePS floor on 11 Nov",
         },
         {
           primary: "AICET",
@@ -334,22 +338,46 @@ export const DATA: {
     {
       title: "Trader's Edge",
       slug: "traders-edge",
-      href: "https://traders-edge-eta.vercel.app",
+      href: "https://traders-edge-v2.vercel.app",
       dates: "May 2026 – Present",
       active: true,
       description:
-        "A team final-year project, advised by Anand Bhojan, that turns a plain-English trading idea into a backtest for students who haven't yet learned a strategy can cheat by knowing the future.",
+        "A two-person final-year project, advised by Anand Bhojan. It's a game that teaches beginners to trade by making them trade, against rivals, in a market the server never lets them see ahead of.",
       notes:
-        "We're building this for students who haven't yet learned that a strategy can quietly cheat by knowing the future. It takes a plain-English idea, turns it into a backtest against historical data, and surfaces the usual traps: survivorship bias, look-ahead leakage, regime dependence, overfitting. The MVP works; it's still moving.",
+        "Each level is a short lesson, then a mission in a made-up market of fictional companies with rule-based rivals trading against you. I wrote the engine underneath: the price model, the order engine, the rivals. The part I care about most is that the server owns every match. Ask it for the state and it regenerates prices from the seed and replays your stored orders up to the current tick, so the browser never holds a future bar to peek at. Whether it teaches anyone anything is still open. We haven't put it in front of real students yet.",
       evidence: [
-        { label: "Product", body: "A working MVP for specifying a strategy in plain English and backtesting it against historical data." },
-        { label: "Collaboration", body: "Team final-year project advised by Anand Bhojan, with source published through the NUS-FinTechAI organisation." },
-        { label: "Access", body: "The public demo requires Google sign-in." },
+        { label: "Product", body: "Eight chapters of five levels each. Every level pairs lesson cards with a trading mission in a seeded synthetic market." },
+        { label: "Engine", body: "A one-factor seeded price model; market, limit and stop-loss orders with a fee and spread; 24 rivals drawn from 8 strategy types. Each read replays the match from its seed and stored orders." },
+        { label: "Testing", body: "432 backend and 403 client tests run in CI across four workflows, including a 50-seed balance check on the boss levels." },
+        { label: "Status", body: "Deployed. No study with real students has been run, so learning effectiveness is unmeasured." },
+        { label: "Collaboration", body: "Two-person final-year project advised by Anand Bhojan, with source published through the NUS-FinTechAI organisation." },
       ],
-      technologies: ["AI", "LLMs", "Backtesting", "Quantitative Finance", "Python"],
+      technologies: ["Python", "FastAPI", "React", "TypeScript", "PostgreSQL"],
       links: [
-        { type: "Demo, Google sign-in required", href: "https://traders-edge-eta.vercel.app", icon: "external" },
-        { type: "Source, team repository", href: "https://github.com/NUS-FinTechAI/traders_edge", icon: "github" },
+        { type: "Demo", href: "https://traders-edge-v2.vercel.app", icon: "external" },
+        { type: "Source, team repository", href: "https://github.com/NUS-FinTechAI/traders_edge_v2", icon: "github" },
+      ],
+    },
+    {
+      title: "Linguini",
+      slug: "linguini",
+      href: "https://www.learnwithlinguini.com",
+      dates: "Oct 2026 – Present",
+      active: true,
+      description:
+        "A CS3216 final project built by four of us. You upload a photo of whatever is in front of you and it becomes a language lesson about the things in it.",
+      notes:
+        "The models and their evals are my teammates' work. Mine is mostly the part where other people show up: saved friends who can send each other photo challenges, and I-Spy chats that persist instead of vanishing when the game ends. I also did the unglamorous upload work, stripping location and camera metadata from photos before we keep them and making sure a retried upload doesn't store the photo twice. It's a live beta, and you can try a lesson without signing up.",
+      evidence: [
+        { label: "Product", body: "Objects detected in a learner's photo become vocabulary, grammar and I-Spy exercises in Spanish, French, German or Korean." },
+        { label: "My part", body: "Saved friends, asynchronous photo challenges, persistent private I-Spy chats (API and UI), missions and daily standings, the no-sign-up guest demo, EXIF stripping, and upload-retry deduplication." },
+        { label: "Team", body: "Four-person CS3216 final project, Group 3, on the floor at the 29th NUS SoC STePS on 11 Nov 2026. The model registry, evals and payments are teammates' work." },
+        { label: "Architecture", body: "React and TypeScript on Vite, FastAPI with async SQLAlchemy, and Supabase for auth, Postgres and private storage." },
+      ],
+      technologies: ["React", "TypeScript", "FastAPI", "Supabase", "PostgreSQL"],
+      links: [
+        { type: "Live beta", href: "https://www.learnwithlinguini.com", icon: "external" },
+        { type: "Source, team repository", href: "https://github.com/Learn-with-Linguini/linguini", icon: "github" },
       ],
     },
     {
@@ -366,7 +394,7 @@ export const DATA: {
         { label: "Architecture", body: "Pure compute functions, read-only venue adapters, in-memory orchestration, FastAPI and Pydantic, plus a dependency-free inspection dashboard." },
         { label: "Matching", body: "Requires a human-confirmed pairing before an opportunity is actionable, adds predicate-conflict checks, and excludes expired or implausible-gross rows." },
         { label: "Economics", body: "Models taker fees, available liquidity, and equal-contract depth fills to preserve hedged economics." },
-        { label: "Validation", body: "36+ tests and live-endpoint plausibility checks cover matching, calibration, fees, malformed settings, duplicates, and API failure modes." },
+        { label: "Validation", body: "102 tests and live-endpoint plausibility checks cover matching, calibration, fees, malformed settings, duplicates, and API failure modes." },
         { label: "Operating model", body: "Research-only and read-only, with no order placement, custody of funds, or realised P&L." },
       ],
       technologies: ["Python", "FastAPI", "Pydantic", "pytest", "REST APIs"],

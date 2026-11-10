@@ -25,8 +25,9 @@ const SHORT_NAMES: Record<string, string> = {
 };
 
 const FEATURED_PROJECTS = [
-  "pgpals",
   "traders-edge",
+  "linguini",
+  "pgpals",
   "prediction-market-arbitrage",
   "bert-qa-quant-prune",
 ];
