@@ -19,7 +19,6 @@ export const SITE = {
   locality: "Singapore",
   country: "SG",
   baseUrl: "https://maahir-garg.vercel.app",
-  ogImagePath: "/opengraph-image",
   email: "maahirrgarg@gmail.com",
   twitter: "@maahirgarg",
   // ISO date used as default lastModified across the site. Bumped manually
@@ -38,20 +37,56 @@ export function absoluteUrl(path: string = "/"): string {
 }
 
 /**
- * Shared OG image for page-level `openGraph`/`twitter` overrides. A page
- * that defines `openGraph` replaces the inherited object entirely, and the
- * root file-convention opengraph-image.tsx does not attach to segments
- * that do so. Without restating `images`, interior pages unfurl with no
- * card image on WhatsApp/LinkedIn/Slack/X.
+ * Bump whenever the share cards in public/og/ are re-rendered
+ * (node scripts/make-og.mjs). WhatsApp, Telegram, LinkedIn and Slack cache a
+ * preview image by its URL, so without a new query string they keep showing
+ * the old card for weeks.
  */
-export const OG_IMAGE = [
-  {
-    url: `${SITE.baseUrl}/opengraph-image`,
-    width: 1200,
-    height: 630,
-    alt: "Maahir Garg, AI Engineer at AICET and CS plus Quantitative Finance student at NUS.",
-  },
-];
+export const OG_VERSION = "2026-11-10";
+
+/**
+ * Share-card image for a page: `ogImage("about", ...)` points at
+ * public/og/about.jpg, `ogImage("projects/pgpals", ...)` at
+ * public/og/projects/pgpals.jpg. Every page that sets `openGraph` or
+ * `twitter` must pass its own `images`: a page-level override replaces the
+ * inherited object entirely, so a page that forgets unfurls with no image.
+ */
+export function ogImage(name: string, alt: string) {
+  return [
+    {
+      url: `${SITE.baseUrl}/og/${name}.jpg?v=${OG_VERSION}`,
+      width: 1200,
+      height: 630,
+      type: "image/jpeg",
+      alt,
+    },
+  ];
+}
+
+/** The home-page card, also the fallback for the root layout. */
+export const OG_IMAGE = ogImage(
+  "home",
+  'The words "I play blitz chess well", with "well" struck out in red pen and corrected to "fast", beside a photo of Maahir Garg.',
+);
+
+/**
+ * Meta descriptions over about 160 characters get cut off mid-word in search
+ * results and link previews. Keep whole sentences while they fit, and fall
+ * back to a word boundary.
+ */
+export function clampDescription(text: string, max = 155): string {
+  if (text.length <= max) return text;
+  const sentences = text.split(/(?<=[.!?])\s+/);
+  let out = "";
+  for (const sentence of sentences) {
+    const next = out ? `${out} ${sentence}` : sentence;
+    if (next.length > max) break;
+    out = next;
+  }
+  if (out.length >= 60) return out;
+  const cut = text.slice(0, max - 1);
+  return `${cut.slice(0, cut.lastIndexOf(" ")).replace(/[,;:]$/, "")}…`;
+}
 
 /**
  * Expand a YYYY-MM-DD date into a full ISO 8601 DateTime at midnight SGT.

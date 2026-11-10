@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Share card template</title>
+<!-- Rendered by scripts/make-og.mjs in headless Chrome at 1200x630.
+     Colours and type mirror app/globals.css (light theme). -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;1,6..72,400&display=block" rel="stylesheet">
+<style>
+  :root {
+    --canvas: #f6f3ec; --paper: #fbf9f3; --ink: #14120f; --dim: #595247;
+    --rule: #e1dbcb; --mark: #c04b2c;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    width: 1200px; height: 630px; overflow: hidden;
+    background: var(--canvas); color: var(--ink);
+    font-family: "Newsreader", Georgia, serif;
+    -webkit-font-smoothing: antialiased;
+  }
+  .card { position: relative; width: 1200px; height: 630px; padding: 64px 80px 56px; display: flex; flex-direction: column; }
+  .foot {
+    margin-top: auto; display: flex; justify-content: space-between; align-items: baseline;
+    border-top: 1px solid var(--rule); padding-top: 22px;
+    font-size: 28px; color: var(--dim);
+  }
+  .foot b { font-weight: 500; color: var(--ink); }
+
+  /* home */
+  .home-body { display: flex; align-items: center; gap: 56px; flex: 1; }
+  .home h1 { font-weight: 400; font-size: 112px; line-height: 1.04; letter-spacing: -0.015em; flex: 1; padding-bottom: 60px; }
+  .strike { position: relative; display: inline-block; white-space: nowrap; }
+  .strike svg { position: absolute; left: -0.06em; top: 50%; width: calc(100% + 0.12em); height: 0.45em; transform: translateY(-50%); overflow: visible; }
+  .strike path { fill: none; stroke: var(--mark); stroke-width: 9; stroke-linecap: round; }
+  .fix { position: absolute; left: 0.04em; top: 100%; margin-top: 0.02em; font-size: 0.5em; line-height: 1.2; color: var(--mark); transform: rotate(-3deg); transform-origin: left top; }
+  .desk { position: relative; width: 300px; height: 375px; flex: none; margin-right: 12px; }
+  .desk .under { position: absolute; inset: 0; background: var(--paper); transform: rotate(-5deg) translate(-4%, 2%); box-shadow: 0 1px 2px rgba(20,18,15,.16), 0 10px 22px -10px rgba(20,18,15,.25); }
+  .desk img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: rotate(2deg); box-shadow: 0 1px 2px rgba(20,18,15,.2), 0 14px 28px -12px rgba(20,18,15,.35); }
+
+  /* page */
+  .page-body { margin: auto 0; padding-bottom: 12px; }
+  .label { font-size: 30px; font-style: italic; color: var(--dim); margin-bottom: 18px; }
+  .page h1 { font-weight: 400; line-height: 1.05; letter-spacing: -0.015em; max-width: 1040px; }
+  .rule-mark { display: block; width: 260px; height: 22px; margin-top: 16px; overflow: visible; }
+  .rule-mark path { fill: none; stroke: var(--mark); stroke-width: 6; stroke-linecap: round; }
+  .sub { margin-top: 22px; font-size: 34px; line-height: 1.32; color: var(--dim); max-width: 1000px; }
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script>
+  const q = new URLSearchParams(location.search);
+  const esc = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const foot = '<div class="foot"><b>Maahir Garg</b><span>maahir-garg.vercel.app</span></div>';
+  const root = document.getElementById("root");
+  if (q.get("kind") === "home") {
+    root.innerHTML = `
+      <div class="card home">
+        <div class="home-body">
+          <h1>I play blitz chess
+            <span class="strike">well.
+              <svg viewBox="0 0 200 40" preserveAspectRatio="none" aria-hidden="true"><path d="M3 24 C 40 12, 82 30, 124 18 S 176 14, 197 20" vector-effect="non-scaling-stroke"/></svg>
+              <span class="fix">fast</span>
+            </span>
+          </h1>
+          <div class="desk"><div class="under"></div><img src="${esc(q.get("photo") || "")}" alt=""></div>
+        </div>
+        ${foot}
+      </div>`;
+  } else {
+    const title = q.get("title") || "";
+    const size = title.length <= 16 ? 124 : title.length <= 24 ? 104 : title.length <= 38 ? 86 : 72;
+    const sub = q.get("sub");
+    root.innerHTML = `
+      <div class="card page">
+        <div class="page-body">
+          <div class="label">${esc(q.get("label") || "")}</div>
+          <h1 style="font-size:${size}px">${esc(title)}</h1>
+          <svg class="rule-mark" viewBox="0 0 260 22" aria-hidden="true"><path d="M3 12 C 50 4, 96 18, 140 9 S 220 6, 257 12"/></svg>
+          ${sub ? `<p class="sub">${esc(sub)}</p>` : ""}
+        </div>
+        ${foot}
+      </div>`;
+  }
+</script>
+</body>
+</html>

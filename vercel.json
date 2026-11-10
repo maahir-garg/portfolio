@@ -54,6 +54,16 @@
       "permanent": true
     },
     {
+      "source": "/opengraph-image",
+      "destination": "/og/home.jpg",
+      "permanent": false
+    },
+    {
+      "source": "/twitter-image",
+      "destination": "/og/home.jpg",
+      "permanent": false
+    },
+    {
       "source": "/cv",
       "destination": "/maahir-garg-resume.pdf",
       "permanent": false

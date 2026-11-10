@@ -4,11 +4,13 @@ import { Skills } from "@/components/Skills";
 import { PenCircle } from "@/components/ui/RedPen";
 import { FlightsMap } from "@/components/feature/FlightsMap";
 import { ABOUT_PARAGRAPHS, DATA } from "@/lib/data";
-import { absoluteUrl, OG_IMAGE } from "@/lib/site";
+import { absoluteUrl, ogImage } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 const description =
   "About Maahir Garg, AI Engineer at AICET's Team Koditsu, former GIC AI Engineer, and Computer Science and Quantitative Finance student at NUS.";
+
+const images = ogImage("about", "The longer version. About Maahir Garg.");
 
 export const metadata: Metadata = {
   title: "About",
@@ -23,13 +25,14 @@ export const metadata: Metadata = {
     lastName: "Garg",
     username: "maahirgarg",
     siteName: "Maahir Garg",
-    images: OG_IMAGE,
+    locale: "en_SG",
+    images,
   },
   twitter: {
     card: "summary_large_image",
     title: "About · Maahir Garg",
     description,
-    images: OG_IMAGE,
+    images,
   },
 };
 

@@ -6,6 +6,7 @@ import { WorkAndProjects } from "@/components/home/WorkAndProjects";
 import { PhotographyStrip } from "@/components/home/PhotographyStrip";
 import { Reveal } from "@/components/ui/Reveal";
 import { PenNote } from "@/components/ui/RedPen";
+import { ProfilePageJsonLd } from "@/components/seo/JsonLd";
 
 export const metadata: Metadata = {
   alternates: { canonical: absoluteUrl() },
@@ -14,6 +15,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
+      <ProfilePageJsonLd />
       <Hero />
       <WorkAndProjects />
       <PhotographyStrip />

@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { PhotoGallery } from "@/components/photography/PhotoGallery";
-import { absoluteUrl, OG_IMAGE } from "@/lib/site";
+import { absoluteUrl, ogImage } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+
+const images = ogImage("photography", "A contact sheet, kept open. Photography by Maahir Garg.");
 
 export const metadata: Metadata = {
   title: "Photography",
@@ -15,13 +17,14 @@ export const metadata: Metadata = {
     url: absoluteUrl("/photography"),
     type: "website",
     siteName: "Maahir Garg",
-    images: OG_IMAGE,
+    locale: "en_SG",
+    images,
   },
   twitter: {
     card: "summary_large_image",
     title: "Photography · Maahir Garg",
     description: "A contact sheet of landscapes, streets, and portraits.",
-    images: OG_IMAGE,
+    images,
   },
 };
 
