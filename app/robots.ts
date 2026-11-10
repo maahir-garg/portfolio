@@ -6,11 +6,13 @@ export default function robots(): MetadataRoute.Robots {
     rules: [
       {
         userAgent: "*",
-        allow: ["/", "/_next/image"],
-        // /_next/image is next/image's optimisation endpoint. Every photo
-        // and the hero portrait resolve through it, so disallowing all of
-        // /_next/ blocked Google Images from every image on the site.
-        disallow: ["/api/", "/_next/"],
+        // Nothing is disallowed, on purpose. /_next/ holds the JavaScript,
+        // CSS, fonts and optimised images every page is built from. Blocking
+        // it (as this file did until Nov 2026) meant Googlebot could not
+        // load a single script or stylesheet, so Search Console rendered
+        // each page unstyled and reported the resources as "blocked by
+        // robots.txt". There are no API routes or private paths to hide.
+        allow: "/",
       },
       // Be explicit and friendly to AI / answer-engine crawlers so this
       // site can show up as a citation source for "who is Maahir Garg"
@@ -25,6 +27,5 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "Applebot",        allow: "/" },
     ],
     sitemap: absoluteUrl("/sitemap.xml"),
-    host: absoluteUrl(),
   };
 }
