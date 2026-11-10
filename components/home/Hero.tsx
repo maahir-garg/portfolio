@@ -74,16 +74,16 @@ export function Hero() {
         {/* Statement */}
         <div className="order-1 md:col-span-7">
           <h1
-            className="cursor-pointer text-[color:var(--color-ink)] pb-[1.5em] select-none md:pb-[1.35em]"
+            className="cursor-pointer text-[color:var(--color-ink)] pb-[1.05em] select-none md:pb-[1em]"
             style={{ fontSize: "var(--step-5)", lineHeight: 1.05, letterSpacing: "-0.015em" }}
             onClick={() => setPlayToken((t) => t + 1)}
             title="Tap to re-mark"
           >
-            I build{" "}
+            I play blitz chess{" "}
             <PenStrike
               seed={0}
               placement="below"
-              correction="tests that tell me when my models don't"
+              correction="fast"
               trigger="load"
               play={playToken}
               delay={120}
@@ -91,7 +91,7 @@ export function Hero() {
               writeDelay={420}
               writeDuration={500}
             >
-              models that work.
+              well.
             </PenStrike>
           </h1>
 
@@ -99,7 +99,7 @@ export function Hero() {
             className="mt-8 max-w-[55ch] text-[color:var(--color-ink-dim)]"
             style={{ fontSize: "var(--step-1)", lineHeight: 1.6 }}
           >
-            Most recently that means a cheating-detection study at{" "}
+            I&apos;m Maahir. The day job is a cheating-detection study at{" "}
             <a
               href="https://aicet.comp.nus.edu.sg/projects/"
               target="_blank"
@@ -108,9 +108,8 @@ export function Hero() {
             >
               AICET&apos;s Team Koditsu
             </a>
-            , where every model is scored on candidates it has never seen.
-            Before that, agentic tooling at GIC;
-            these days I also teach algorithms at{" "}
+            , and before that I built agentic tooling at GIC. I also teach
+            algorithms at{" "}
             <a
               href="https://nus.edu.sg"
               target="_blank"
@@ -119,7 +118,7 @@ export function Hero() {
             >
               NUS
             </a>
-            .
+            , which is where the red pen comes from.
           </p>
         </div>
       </div>
