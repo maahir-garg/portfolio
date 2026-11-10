@@ -101,8 +101,6 @@ export const metadata: Metadata = {
     title: "Maahir Garg · AI Engineer · NUS Computer Science",
     description:
       "AI Engineer at AICET's Team Koditsu, former GIC AI Engineer, and CS plus Quantitative Finance student at NUS.",
-    creator: SITE.twitter,
-    site: SITE.twitter,
     images: OG_IMAGE,
   },
   robots: {

@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Site icon template</title>
+<!-- Rendered by scripts/make-icons.mjs in headless Chrome at 512x512.
+     A serif M on paper with a red-pen underline. ?round=0 gives the
+     full-bleed square that iOS and Android mask themselves. -->
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,600&display=block" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 512px; height: 512px; background: transparent; overflow: hidden; }
+  .tile {
+    position: relative; width: 512px; height: 512px; background: #f6f3ec; color: #14120f;
+    font-family: "Newsreader", Georgia, serif;
+  }
+  .round { border-radius: 112px; }
+  .m {
+    position: absolute; left: 0; right: 0; top: 58px; text-align: center;
+    font-size: 392px; font-weight: 600; line-height: 1; font-variation-settings: "opsz" 72;
+  }
+  svg { position: absolute; inset: 0; width: 512px; height: 512px; overflow: visible; }
+  path { fill: none; stroke: #c04b2c; stroke-width: 38; stroke-linecap: round; }
+</style>
+</head>
+<body>
+<div id="tile" class="tile">
+  <div class="m">M</div>
+  <svg viewBox="0 0 512 512" aria-hidden="true"><path d="M100 430 C 184 402, 262 448, 336 420 S 400 408, 414 418"/></svg>
+</div>
+<script>
+  if (new URLSearchParams(location.search).get("round") !== "0") {
+    document.getElementById("tile").classList.add("round");
+  }
+</script>
+</body>
+</html>

@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     type: "profile",
     firstName: "Maahir",
     lastName: "Garg",
-    username: "maahirgarg",
+    username: "maahir-garg",
     siteName: "Maahir Garg",
     locale: "en_SG",
     images,

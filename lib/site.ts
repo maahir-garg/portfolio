@@ -20,7 +20,6 @@ export const SITE = {
   country: "SG",
   baseUrl: "https://maahir-garg.vercel.app",
   email: "maahirrgarg@gmail.com",
-  twitter: "@maahirgarg",
   // ISO date used as default lastModified across the site. Bumped manually
   // when content meaningfully changes so Google sees a real freshness signal
   // instead of a build-time `new Date()` that thrashes every deploy.
