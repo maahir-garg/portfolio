@@ -99,7 +99,7 @@ export function Hero() {
             className="mt-8 max-w-[55ch] text-[color:var(--color-ink-dim)]"
             style={{ fontSize: "var(--step-1)", lineHeight: 1.6 }}
           >
-            Most recently that meant proving a promising cheating detector at{" "}
+            Most recently that means a cheating-detection study at{" "}
             <a
               href="https://aicet.comp.nus.edu.sg/projects/"
               target="_blank"
@@ -107,9 +107,9 @@ export function Hero() {
               className="link-underline text-[color:var(--color-ink)]"
             >
               AICET&apos;s Team Koditsu
-            </a>{" "}
-            was statistically indistinguishable from chance, and building the
-            harness that caught it. Before that, agentic tooling at GIC;
+            </a>
+            , where every model is scored on candidates it has never seen.
+            Before that, agentic tooling at GIC;
             these days I also teach algorithms at{" "}
             <a
               href="https://nus.edu.sg"
