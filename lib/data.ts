@@ -319,7 +319,7 @@ export const DATA: {
     {
       title: "PGPals",
       slug: "pgpals",
-      href: "https://github.com/maahir-garg/pgpals",
+      href: "",
       dates: "Jul 2026 – Sep 2026",
       active: false,
       description:
@@ -333,7 +333,7 @@ export const DATA: {
         { label: "Architecture", body: "Next.js App Router and TypeScript over Supabase PostgreSQL, Auth, Storage, row-level security, and RPC, deployed in Vercel's Singapore region." },
       ],
       technologies: ["Next.js", "TypeScript", "Supabase", "PostgreSQL", "Tailwind CSS"],
-      links: [{ type: "Source code", href: "https://github.com/maahir-garg/pgpals", icon: "github" }],
+      links: [{ type: "Source withheld", href: "", icon: "lock" }],
     },
     {
       title: "Trader's Edge",

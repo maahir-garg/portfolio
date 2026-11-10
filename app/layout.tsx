@@ -9,7 +9,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider, themeInitScript } from "@/components/ThemeProvider";
-import { SITE, absoluteUrl } from "@/lib/site";
+import { SITE, OG_IMAGE, absoluteUrl } from "@/lib/site";
 import { JumpBarLoader } from "@/components/motion/JumpBarLoader";
 import { TransitionResolver } from "@/components/motion/TransitionResolver";
 
@@ -56,7 +56,7 @@ export const metadata: Metadata = {
   // or rewriting; the long-form bio lives in the Person JSON-LD.
   description:
     "Maahir Garg is an AI Engineer at AICET's Team Koditsu, a former GIC AI Engineer, and a Computer Science and Quantitative Finance student at NUS.",
-  applicationName: "Maahir Garg · Field Notebook",
+  applicationName: "Maahir Garg",
   authors: [{ name: SITE.fullName, url: SITE.baseUrl }],
   creator: SITE.fullName,
   publisher: SITE.fullName,
@@ -94,6 +94,7 @@ export const metadata: Metadata = {
     url: absoluteUrl(),
     siteName: SITE.fullName,
     locale: "en_SG",
+    images: OG_IMAGE,
   },
   twitter: {
     card: "summary_large_image",
@@ -102,6 +103,7 @@ export const metadata: Metadata = {
       "AI Engineer at AICET's Team Koditsu, former GIC AI Engineer, and CS plus Quantitative Finance student at NUS.",
     creator: SITE.twitter,
     site: SITE.twitter,
+    images: OG_IMAGE,
   },
   robots: {
     index: true,

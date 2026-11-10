@@ -5,7 +5,7 @@ import { Suspense } from "react";
 import { DATA } from "@/lib/data";
 import { LeetCodeStats } from "@/components/feature/LeetCodeStats";
 import { LeetCodeStatsSkeleton } from "@/components/feature/LeetCodeStatsSkeleton";
-import { absoluteUrl, OG_IMAGE, SITE, toIsoDate, toIsoDateTime } from "@/lib/site";
+import { absoluteUrl, clampDescription, ogImage, SITE, toIsoDate, toIsoDateTime } from "@/lib/site";
 import { BreadcrumbJsonLd, ProjectJsonLd } from "@/components/seo/JsonLd";
 import { TransitionLink } from "@/components/motion/TransitionLink";
 import { PinchCursor } from "@/components/motion/PinchCursor";
@@ -27,9 +27,10 @@ export async function generateMetadata({
   const url = absoluteUrl(`/projects/${slug}`);
   const title = project.title;
   // Description must be unique per page so Google doesn't fold near-duplicates.
-  // The data already differentiates each project; we just trim/extend safely.
-  const baseDesc = project.description;
-  const description = baseDesc.length > 240 ? `${baseDesc.slice(0, 237)}…` : baseDesc;
+  // The data already differentiates each project; trim to what a search
+  // result or link preview will show whole.
+  const description = clampDescription(project.description);
+  const images = ogImage(`projects/${slug}`, `${title}, a project by Maahir Garg.`);
   const publishedIso = toIsoDate(project.dates);
 
   return {
@@ -49,16 +50,17 @@ export async function generateMetadata({
       // The OG spec defines article:author as a profile URL, not a name.
       authors: [absoluteUrl("/about")],
       siteName: SITE.fullName,
+      locale: "en_SG",
       ...(publishedIso ? { publishedTime: toIsoDateTime(publishedIso) } : {}),
       modifiedTime: toIsoDateTime(SITE.lastModified),
-      images: OG_IMAGE,
+      images,
     },
     twitter: {
       card: "summary_large_image",
       title: `${title} · Maahir Garg`,
       description,
       creator: SITE.twitter,
-      images: OG_IMAGE,
+      images,
     },
   };
 }

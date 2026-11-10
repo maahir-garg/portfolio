@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
 import { DATA } from "@/lib/data";
-import { absoluteUrl, OG_IMAGE } from "@/lib/site";
+import { absoluteUrl, ogImage } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
+
+const images = ogImage("contact", "The shortest way in. Contact Maahir Garg.");
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -14,13 +16,14 @@ export const metadata: Metadata = {
     url: absoluteUrl("/contact"),
     type: "website",
     siteName: "Maahir Garg",
-    images: OG_IMAGE,
+    locale: "en_SG",
+    images,
   },
   twitter: {
     card: "summary_large_image",
     title: "Contact · Maahir Garg",
     description: "Email, GitHub, and LinkedIn for Maahir Garg.",
-    images: OG_IMAGE,
+    images,
   },
 };
 

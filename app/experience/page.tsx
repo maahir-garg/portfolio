@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { DATA } from "@/lib/data";
-import { absoluteUrl, OG_IMAGE } from "@/lib/site";
+import { absoluteUrl, ogImage } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 import { ExperienceRail } from "@/app/experience/ExperienceRail";
+
+const images = ogImage("experience", "What I've worked on, roughly in order. Maahir Garg's work experience.");
 
 export const metadata: Metadata = {
   title: "Experience",
@@ -19,13 +21,14 @@ export const metadata: Metadata = {
     lastName: "Garg",
     username: "maahirgarg",
     siteName: "Maahir Garg",
-    images: OG_IMAGE,
+    locale: "en_SG",
+    images,
   },
   twitter: {
     card: "summary_large_image",
     title: "Experience · Maahir Garg",
     description: "AI engineering at AICET and GIC, Apple Vision Pro research, and teaching at NUS.",
-    images: OG_IMAGE,
+    images,
   },
 };
 

@@ -2,11 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { PenUnderline } from "@/components/ui/RedPen";
 import { NOW } from "@/lib/data";
-import { absoluteUrl, OG_IMAGE } from "@/lib/site";
+import { absoluteUrl, ogImage } from "@/lib/site";
 import { BreadcrumbJsonLd } from "@/components/seo/JsonLd";
 
 const description =
-  "What Maahir Garg is building, teaching, learning, and doing off-screen in September 2026.";
+  "What Maahir Garg is building, teaching, learning, and doing off-screen right now.";
+
+const images = ogImage("now", "What I'm on, for now. What Maahir Garg is doing at the moment.");
 
 export const metadata: Metadata = {
   title: "Now",
@@ -18,13 +20,14 @@ export const metadata: Metadata = {
     url: absoluteUrl("/now"),
     type: "website",
     siteName: "Maahir Garg",
-    images: OG_IMAGE,
+    locale: "en_SG",
+    images,
   },
   twitter: {
     card: "summary_large_image",
     title: "Now · Maahir Garg",
     description,
-    images: OG_IMAGE,
+    images,
   },
 };
 

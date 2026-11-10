@@ -17,9 +17,9 @@ function serializeJsonLd(data: unknown): string {
 
 /**
  * Site-wide JSON-LD bundle. Mounted in the root layout so every page emits
- * a Person, WebSite, and ProfilePage entity. Per-page schemas (Breadcrumb,
- * FAQPage, CreativeWork, etc.) are exported as separate components and
- * mounted from the relevant route.
+ * a Person and a WebSite entity. Per-page schemas (ProfilePage on the home
+ * page, Breadcrumb, CreativeWork, etc.) are exported as separate components
+ * and mounted from the relevant route.
  */
 export function JsonLd() {
   const person = {
@@ -39,6 +39,11 @@ export function JsonLd() {
       "https://leetcode.com/u/maahir_garg/",
     ],
     jobTitle: "AI Engineer",
+    worksFor: {
+      "@type": "Organization",
+      name: "AI Centre for Educational Technologies (AICET), National University of Singapore",
+      url: "https://aicet.comp.nus.edu.sg",
+    },
     hasOccupation: {
       "@type": "Occupation",
       name: "AI Engineer",
@@ -91,32 +96,14 @@ export function JsonLd() {
     "@type": "WebSite",
     "@id": WEBSITE_ID,
     url: SITE.baseUrl,
-    name: `${DATA.name} · Portfolio`,
-    alternateName: `${DATA.name} · Field Notebook`,
+    name: DATA.name,
+    alternateName: `${DATA.name} · Portfolio`,
     description: DATA.description,
     inLanguage: "en-SG",
     author: { "@id": PERSON_ID },
     publisher: { "@id": PERSON_ID },
     copyrightHolder: { "@id": PERSON_ID },
     copyrightYear: 2026,
-  };
-
-  const profilePage = {
-    "@context": "https://schema.org",
-    "@type": "ProfilePage",
-    "@id": PROFILE_ID,
-    url: SITE.baseUrl,
-    name: `${DATA.name} · AI Engineer`,
-    inLanguage: "en-SG",
-    about: { "@id": PERSON_ID },
-    mainEntity: { "@id": PERSON_ID },
-    isPartOf: { "@id": WEBSITE_ID },
-    dateCreated: toIsoDateTime(SITE.dateCreated),
-    dateModified: toIsoDateTime(SITE.lastModified),
-    speakable: {
-      "@type": "SpeakableSpecification",
-      cssSelector: ["h1", "main p:first-of-type"],
-    },
   };
 
   return (
@@ -129,11 +116,38 @@ export function JsonLd() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: serializeJsonLd(website) }}
       />
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: serializeJsonLd(profilePage) }}
-      />
     </>
+  );
+}
+
+/**
+ * ProfilePage for the home page only. Its `url` is the home URL, so emitting
+ * it from the layout told Google that /about, /now and every project page
+ * were also the profile page.
+ */
+export function ProfilePageJsonLd() {
+  const profilePage = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": PROFILE_ID,
+    url: SITE.baseUrl,
+    name: DATA.name,
+    inLanguage: "en-SG",
+    about: { "@id": PERSON_ID },
+    mainEntity: { "@id": PERSON_ID },
+    isPartOf: { "@id": WEBSITE_ID },
+    dateCreated: toIsoDateTime(SITE.dateCreated),
+    dateModified: toIsoDateTime(SITE.lastModified),
+    speakable: {
+      "@type": "SpeakableSpecification",
+      cssSelector: ["h1", "main p:first-of-type"],
+    },
+  };
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: serializeJsonLd(profilePage) }}
+    />
   );
 }
 
